@@ -1,0 +1,39 @@
+/**
+ * Created by rpal on 2020-06-20
+ */
+
+.gs-rte-cells {
+  &__wrapper {
+    position: relative;
+    padding: 1px 28px 0 0;
+    margin: -1px 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-all;
+  }
+  &__content {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__actions {
+    position: absolute;
+    top: 0px;
+    right: 0;
+  }
+  &__actions-btn {
+    width: 2.5rem;
+    height: 4.5rem;
+    line-height: 2.5rem;
+    border: none;
+    background: url("../../../../../../../../assets/images/cell-action.svg") no-repeat center;
+    &:hover{
+      background-image: url("../../../../../../../../assets/images/cell-action-select.svg");
+    }
+  }
+  &__content-tmpl {
+    max-width: 30rem;
+    max-height: 35rem;
+    overflow: auto;
+  }
+}

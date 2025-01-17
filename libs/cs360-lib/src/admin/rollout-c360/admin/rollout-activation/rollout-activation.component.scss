@@ -1,0 +1,66 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.gs-rollout-activation-cntr {
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-bottom: 1rem;
+  }
+}
+.gs-rollout-activation-modes-cntr {
+  display: flex;
+}
+.gs-rollout-activation-mode {
+  height: 16rem;
+  padding: 16px;
+  position: relative;
+  border: 1px solid #e3eaf1;
+  border-radius: 4px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  &.selected {
+    border-color: #0369e9;
+    .gs-rollout-activation-mode__checkbox {
+      color: #0369e9;
+      display: block;
+    }
+  }
+  &__checkbox {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: none;
+  }
+  &__icon {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background: url('../../../../../assets/images/tick-fill.svg') no-repeat center;
+  }
+  &:first-child {
+    margin-right: 1rem;
+  }
+  &:last-child {
+    margin-left: 1rem;
+  }
+  i {
+    font-size: 2.2rem;
+  }
+  > * {
+    cursor: pointer;
+  }
+}
+
+.gs-rollout-activation-warning-cntr {
+  padding: 1.5rem 1.5rem 0 0;
+  > i {
+    color: $honey-yellow-60;
+  }
+  > span {
+    margin-left: 0.5rem;
+    color: $tart-red-60 !important;
+  }
+}

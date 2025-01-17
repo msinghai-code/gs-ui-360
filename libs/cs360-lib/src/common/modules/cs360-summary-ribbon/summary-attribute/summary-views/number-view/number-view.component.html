@@ -1,0 +1,14 @@
+<div class="gs-number-view">
+    <span class="value" *ngIf="!hideNumbers"
+          nz-tooltip
+          nzShowTooltipOnEllipsis
+          nzTooltipPlacement="bottom"
+          [nzTooltipTitle]="(attributeConfig | attributeFinalValue)">{{attributeConfig | attributeFinalValue}}</span>
+    <span *ngIf="attributeConfig.trend?.name" class="trend-icons" [style.color]="attributeConfig.trend?.color">
+        <i nz-icon [nzType]="iconType"></i>
+    </span>
+<!--    <span class="count" *ngIf="attributeConfig.properties?.count">-->
+<!--        <i nz-icon></i>-->
+<!--        {{attributeConfig.properties?.count}}-->
+<!--    </span>-->
+</div>

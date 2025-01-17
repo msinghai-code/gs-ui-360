@@ -1,0 +1,71 @@
+{
+  "name": "@gs/relationship-admin",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "pcv": "tsc --build tsconfig.app.json && ng lint",
+    "docs": "compodoc -p tsconfig.app.json",
+    "ng": "ng",
+    "start": "NODE_OPTIONS=--max_old_space_size=6120 gs ngx:dev",
+    "build": "NODE_OPTIONS=--max_old_space_size=6120 gs ngx:build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "dependencies": {
+    "@angular/animations": "~8.2.14",
+    "@angular/common": "~8.2.14",
+    "@angular/compiler": "~8.2.14",
+    "@angular/core": "~8.2.14",
+    "@angular/forms": "~8.2.14",
+    "@angular/material": "~8.2.3",
+    "@angular/platform-browser": "~8.2.14",
+    "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/router": "~8.2.14",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1",
+    "@ngrx/effects": "~8.6.0",
+    "@ngrx/store": "~8.6.0",
+    "lodash": "~4.17.15",
+    "material-design-icons": "~3.0.1",
+    "moment": "~2.24.0",
+    "moment-timezone": "~0.5.28",
+    "ng2-validation": "~4.2.0",
+    "primeng": "~8.1.1",
+    "dompurify": "~2.0.8"
+  },
+  "devDependencies": {
+    "@ngrx/store-devtools": "~8.6.0",
+    "@angular-devkit/build-angular": "~0.803.22",
+    "@angular/cdk": "~8.2.3",
+    "@angular/cli": "~8.3.22",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
+    "@types/node": "~11.13.7",
+    "@types/jasmine": "~3.3.12",
+    "@types/jasminewd2": "~2.0.6",
+    "compodoc": "~0.0.41",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "~1.4.0",
+    "protractor": "~5.4.0",
+    "sonar-scanner": "~3.1.0",
+    "ts-node": "~8.5.4",
+    "tslint": "~5.20.1",
+    "tslint-config-prettier": "~1.18.0",
+    "typescript": "~3.5.3"
+  },
+  "browser": {
+    "crypto": false
+ },
+  "resolutions": {
+    "moment": "2.24.0"
+  }
+}

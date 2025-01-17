@@ -1,0 +1,17 @@
+<div class="gs-grid-visualizer"
+     [style.height.px]="gridHeight"
+     [style.width.px]="gridWidth">
+  <gs-grid
+    [heightConfig] = "gridRowHeightConfig"
+    [gridOptions]="config.options"
+    [cacheBlockSize]="config.options.cacheBlockSize"
+    [data]="data"
+    [mode]="config.mode"
+    [rowModelType]="config.rowModelType ? config.rowModelType : 'clientSide'"
+    [dataSource]="config.dataSource ? config.dataSource : null"
+    [columnDefs]="config.options.columnDefs"
+    [showCustomPagination]="true"
+    [gridAdditionalOptions]="config.additionalOptions"
+    (gridChanges)="onGridChanges($event)">
+  </gs-grid>
+</div>

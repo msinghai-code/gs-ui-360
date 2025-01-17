@@ -1,0 +1,55 @@
+<section class="gs-list-view-config">
+  <div class="gs-list-view-config__body gs-list-view-config-body" cdkDropListGroup>
+    <div class="gs-list-view-config-body__left">
+      <!--{360.admin.list_view_config.available_fields}=Available Fields-->
+      <h6  class="gs-keygen" nz-title nzType="medium">{{'360.admin.list_view_config.available_fields' | transloco }}</h6>
+      <!--{360.admin.list_view_config.drag_drop}=Drag and drop fields to the canvas-->
+      <div class="gs-list-view-config-body__left__hdr-help-text">
+        {{'360.admin.list_view_config.drag_drop' | transloco }}
+      </div>
+      <div class="gs-list-view-config-body__left--tree-area">
+<!--          this is the lhs tree area which comes under config tab> relationship section views-->
+        <gs-field-tree class="gs-list-view-field-tree" #treeview *ngIf="treeOptions.show else contentloader"
+          [root]="treeOptions.root" [host]="treeOptions.host" [dragOptions]="treeOptions.drag" [nestOnDemand]="false"
+          [skipFilter]="true" [enablePartialTree]="true" [pageSize]="treeOptions.pageSize"
+          [maxNestLevels]="treeOptions.maxNestLevels" [filterFunction]="treeOptions.filterFunction"
+          [showLookupInfo]="true" [resolveMultipleLookups]="false" [fieldSearchSetting]="fieldSearchSetting"
+          [baseObject]="treeOptions?.baseObject" [fnCheckForDisable]="fnCheckForDisable" [allowSelectEvent] = "false"
+          (action)="onAction($event)">
+        </gs-field-tree>
+      </div>
+    </div>
+    <div class="gs-list-view-config-body__right" cdkDropList id="gs-item-drop-list-cdk-drop-list-area"
+      [cdkDropListData]="items" (cdkDropListDropped)="onItemDrop($event)">
+      <div class="gs-list-view-config-body-right-cntr">
+        <div class="gs-list-view-config-body-right-cntr__header" *ngIf="items.length > 0">
+          <label nz-text nzType="medium" nzColor="secondary">
+            {{'360.admin.list_view_config.selected_list' | transloco }} ({{items.length}}/{{configStepLimits.LIST_VIEW_FIELD_LIMIT}})
+          </label>
+          <button nz-button nzType="default" nzShape="round" nzSize="small" (click)="onClear()">{{'360.admin.list_view_config.clear'| transloco}}</button>
+        </div>
+        <div class="gs-list-view-config-body-right-cntr__config-area">
+          <gs-item-drop-list [items]="items" [options]="options" [extras]="extras" [singleColumn]="true" [emptyAreas]="0" (action)="onAction($event)">{{'360.admin.list_view_config.clear' | transloco }}</gs-item-drop-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #contentloader>
+  <div class="gs-reports-configuration-cntr__contentloader">
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+  </div>
+</ng-template>
+<nz-drawer [nzClosable]="true"
+           [nzVisible]="customizeFieldConfigDrawer.open"
+           nzPlacement="right"
+           [nzBodyStyle]="{height: 'calc(100% - 4.4rem)', 'padding-bottom': '0', 'padding-top': '0'}"
+           [nzWidth]="588"
+           [nzTitle]="'360.admin.list_view_config.field_configuration' | transloco"
+           (nzOnClose)="closeFieldSettingsDrawer()" [nzMask]="true">
+  <gs-summary-ribbon-field-configuration *ngIf="customizeFieldConfigDrawer.open && customizeFieldConfigDrawer.field"
+                                         [fieldConfigOptions]="customizeFieldConfigDrawer.fieldConfigOptions"
+                                         [field]="customizeFieldConfigDrawer.field"
+                                         [rootNode]="customizeFieldConfigDrawer.rootNode"
+                                         (fieldConfigAction)="onFieldConfigured($event)"></gs-summary-ribbon-field-configuration>
+</nz-drawer>

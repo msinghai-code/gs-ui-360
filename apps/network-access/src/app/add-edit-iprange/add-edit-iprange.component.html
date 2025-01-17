@@ -1,0 +1,20 @@
+<form [formGroup]="ipRangeFormGroup" class="gs-ip-form">
+  <section class="one-input">
+    <mat-form-field>
+      <input matInput type="text" [placeholder]="'360.add_edit_iprange.placeholder'| transloco" [(ngModel)]="data.address" [formControl]="address"
+        required>
+      <mat-error *ngIf="address.hasError('required')">{{'360.add_edit_iprange.startAddress'| transloco}}
+      </mat-error>
+      <mat-error *ngIf="address.hasError('pattern')">{{'360.add_edit_iprange.CIDRAddress'| transloco}}
+      </mat-error>
+      <mat-error *ngIf="address.hasError('rangeExist')">{{'360.add_edit_iprange.addressExists'| transloco}}
+      </mat-error>
+    </mat-form-field>
+  </section>
+  <section class="one-input">
+    <mat-form-field>
+      <textarea rows="5" matInput [placeholder]="'360.add_edit_iprange.description'| transloco"
+        formControlName="description" maxlength="255" [(ngModel)]="data.description" [formControl]="description"></textarea>
+    </mat-form-field>
+  </section>
+</form>

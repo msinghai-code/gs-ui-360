@@ -1,0 +1,130 @@
+
+@import '~@angular/material/theming';
+
+/* core assets */
+@import '~@gs/core/assets/scss/horizon2.1/core/variables';
+
+.gs-attr__value-group-full-width {
+  width: 100% !important;
+  float: left;
+}
+.gs-attr {
+  padding: 0 1.6rem;
+  width: 100%;
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.ngp-timerpicker {
+  display: inline-block;
+  position: relative;
+}
+
+.ngp-timerpicker {
+  position: relative;
+  input {
+    background: none;
+    border-bottom: 1px solid rgba(211, 214, 217, 0.42);
+    padding-right: 30px;
+    width: 42.3rem;
+    border-radius: 0;
+    &:focus {
+      outline: 0 none;
+      box-shadow: none;
+    }
+  }
+  &.time-label {
+    position: absolute;
+    left: 0;
+    bottom: -0.8rem;
+    color: text-color(disabled);
+    height: 3rem;
+    width: 42rem;
+    transition: all 0.35s;
+  }
+  &.time-picker-icon {
+    position: absolute;
+    right: .8rem;
+    bottom: .4rem;
+  }
+  &.ngp-time-focused, &.ngp-time-invalid {
+    .time-label {
+      bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+  
+
+.ql-toolbar.ql-snow, .ql-container.ql-snow {
+  border-color: border-color(default);
+}
+
+.ql-toolbar.ql-snow {
+  border-radius: 3px 3px 0 0;
+}
+
+.ql-container.ql-snow {
+  border-radius: 0 0 3px 3px;
+}
+
+p-calendar {
+  .pi {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2.2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    vertical-align: middle;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    &.pi-chevron-up:before {
+      content: "\e316";
+    }
+    &.pi-chevron-down:before {
+      content: "\e313";
+    }
+  }
+}
+
+.gs-attr__label {
+  top: 0;
+  -webkit-transform: none;
+  transform: none;
+  font-size: 1.2rem;
+  color: #557391;
+  letter-spacing: 0.02rem;
+}
+
+.checkbox-editor {
+  position: relative;
+  text-align: left;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+}
+
+.date-field-picker {
+  display: flex;
+  align-items: center;
+  .ant-time-picker {
+    padding-left: 1.6rem;
+  }
+  .mat-form-field {
+    flex: 1;
+  }
+  .mat-icon {
+    line-height: 16px;
+  }
+}
+  
+:host {
+  width: 100%;
+}

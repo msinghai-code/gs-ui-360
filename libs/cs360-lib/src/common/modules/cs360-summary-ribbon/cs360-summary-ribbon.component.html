@@ -1,0 +1,10 @@
+<section class="gs-cs360-summary-ribbon">
+  <div class="gs-cs360-summary-ribbon__item"
+       [style.width.%]="(100 / this.options.maxLimit)"
+       *ngFor="let item of metrics">
+    <gs-summary-attribute
+            [attributeConfig]="item"
+            (changes)="attributeEventHandler($event)">
+    </gs-summary-attribute>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+<div *ngIf="!error else errorTemplate" fxLayout="column" fxFill class="company-hierarchy" [class.mini-padding]="ctx.appVariant === 'MINI_360'">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="company-hierarchy__header">
+    <h5 nz-title *ngIf="ctx.appVariant !== 'MINI_360'">{{section.label}}</h5>
+    <div class="company-hierarchy__header__right"
+         [class.miniVariant]="ctx.appVariant === 'MINI_360'">
+      <div class="company-hierarchy__header__actions"
+              [class.miniVariant]="ctx.appVariant === 'MINI_360'">
+        <div class="searchCompany">
+          <nz-input-group class="searchCompany__input"
+                          [class.miniVariant]="ctx.appVariant === 'MINI_360'"
+                          [nzSuffix]="suffixIconSearch">
+            <input type="text" [formControl]="searchInput" nz-input [placeholder]="'360.csm.company_hierarchy.placeholder'| transloco" />
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <i *ngIf="!searchInput.value" nz-icon nzType="search"></i>
+            <i nz-icon nz-tooltipclass="ant-input-clear-icon" nzType="close"*ngIf="searchInput.value" (click)="searchInput.reset()" class="clear-icon"></i>
+          </ng-template>
+        </div>
+        <button class="filter CH-refresh" [class.miniVariant]="ctx.appVariant === 'MINI_360'" nz-button nzType="link" nzShape="circle" (click)="onRefresh()">
+          <i nz-icon nzType="refresh" nzTheme="outline"></i>
+        </button>
+        <nz-badge class="filter CH-filter" [class.miniVariant]="ctx.appVariant === 'MINI_360'" nzDot [nzShowDot]="filter?.conditions?.length > 0">
+          <i nz-icon nzType="filter" (click)="openFilterPopup($event)"></i>
+        </nz-badge>
+      </div>
+      <nz-radio-group [(ngModel)]="selectedView" (ngModelChange)="onViewChange()" [nzButtonStyle]="'switch'" nzHasIcon="true">
+        <label nz-radio-button nzValue="list"><i nz-icon [nzType]="'list-view'" [nzTheme]="'outline'"></i>{{'360.csm.company_hierarchy.list'| transloco}}</label>
+        <label nz-radio-button nzValue="chart" class="CH-chart"><i nz-icon [nzType]="'hierarchy'" [nzTheme]="'outline'"></i>{{'360.csm.company_hierarchy.chart'| transloco}}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+  <div fxFill gsSpinner [nzSize]="'xl'" class="company-hierarchy__body"
+  [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams" 
+  [show]="loading">
+      <gs-grid appExternalLink class="company-hierarchy__grid" [ngClass]=" isMini360 ? 'mini_grid': '' " *ngIf="selectedView === views.LIST && gridConfig"
+        [gridOptions]="gridConfig?.options"
+        [cacheBlockSize]="gridConfig?.options?.cacheBlockSize"
+        [data]="gridConfig?.data"
+        [mode]="gridConfig?.mode"
+        [rowModelType]="'clientSide'"
+        [columnDefs]="gridConfig?.options?.columnDefs"
+        [showCustomPagination]="false"
+        [pagination]="false"
+        [gridAdditionalOptions]="gridConfig?.additionalOptions"
+        (gridChanges)="onColumnAction($event)"
+        [colResizeDefault]= "isMini360 ? 'shift': ''"
+      >
+      </gs-grid>
+      <div class="company-hierarchy__chart" *ngIf="selectedView === views.CHART">
+        <gs-company-hierarchy-chart appExternalLink *ngIf="map?.data?.length"  style="display: flex; align-items: center;" [config]="map.config"
+        [data]="map.data" [showHierarchyWarning]="map.showHierarchyWarning" [renderParams]="map.mapOptions">
+        </gs-company-hierarchy-chart>
+        <div *ngIf="map?.data && !map?.data?.length" fxFill class="empty" fxLayout="column" fxLayoutAlign="center center">
+          <div class="empty__search-icon"></div>
+          <h4 nz-title>{{'360.csm.company_hierarchy.noResults'| transloco}}</h4>
+        </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #errorTemplate>
+  <div fxFill class="empty" fxLayoutAlign="center center">
+    <nz-empty [nzNotFoundContent]="error" ></nz-empty>
+  </div>
+</ng-template>
+<nz-drawer
+[nzBodyStyle]="{'padding-top' : '1rem'}"
+[nzWidth]="'90rem'"
+[nzWrapClassName]="'company-hierarchy__filter'"
+[nzVisible]="showFilter"
+[nzPlacement] = "'right'"
+[nzMaskClosable]="true"
+[nzTitle]="'360.csm.company_hierarchy.addFilters'| transloco"
+[nzClosable]="true"
+(nzOnClose)="onFilterPopupCancel()"
+>        
+<div class="gs-tab-sidebar">
+  <div class="gs-csm-relationship__drawer" #drawerHost>
+  </div>
+  <div class="gs-tab-sidebar__content" [class.error]="showError">
+<!--    -->
+<!--    <gs-filter-query-builder *ngIf="globalFilterConstants && showFilter"  [tokenized]="false" [host]="globalFilterConstants.HOST"-->
+<!--    [source]="null" -->
+<!--    [baseObject]="globalFilterConstants.BASE_OBJECT" [config]="filterConfig" [filterInfo]="filter"-->
+<!--    [filterFunction]="fieldFilterFunction.bind(this)" [keepLastRule]="false"-->
+<!--    [nestLevels]="globalFilterConstants.NEST_LEVELS" [lookupMultiple]="true"-->
+<!--    [inputValueSettings]="{showMore: false, selectionLimit: 10, byPassValidation: false}"-->
+<!--    [fieldSearchSetting]="{includeUnmatchedParents: true, maintainDefaultOrder: false}" [allowConditionalLogic]="true"></gs-filter-query-builder>-->
+
+      <nz-alert *ngIf="showError" [nzMessage]="'360.csm.company_hierarchy.filter_message' | transloco" [nzType]="'error'" class="gs-tab-sidebar__banner" [nzCloseable]="false"></nz-alert>
+  </div>
+  <div class="gs-tab-sidebar__footer">
+    <button nz-button (click)="onFilterPopupCancel()" class="gs-tab-sidebar__footer-btn" nzType="default">{{'360.csm.company_hierarchy.cancelBtn'| transloco}}</button>
+    <button nz-button (click)="onFilterPopupApply()" class="gs-tab-sidebar__footer-btn" nzType="primary">{{'360.csm.company_hierarchy.saveBtn'| transloco}}</button>
+  </div>
+</div>
+</nz-drawer>
+

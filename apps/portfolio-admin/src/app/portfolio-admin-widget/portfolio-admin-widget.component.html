@@ -1,0 +1,46 @@
+<div (resized)="onGridResized()" class="gs-portfolio-widget" [class.inactive]="!properties?.context?.loadWidgetData">
+  <div class="gs-portfolio-widget__header">
+    <div [class.default-preview]="properties?.context?.type === 'DEFAULT'" [ngStyle]="properties?.context?.headerStyle" class="gs-portfolio-widget__header__actions">
+      <ng-container *ngIf="!isPreviewMode">
+        <button nz-button nzShape="round" nzType="default" (click)="openSettings($event)">
+         <i nz-icon nzType="settings" nzTheme="outline" [nzSize]="24"></i>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div gsSpinner [show]="loading" [nzSize]="'xl'" [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams"  class="gs-portfolio-widget__body">
+    <div class="gs-portfolio-widget__body__title">
+      <span [matTooltip]="savedConfig?.portfolioName">
+          <h3>{{savedConfig?.portfolioName}}</h3>
+      </span>
+    </div>
+    <div (resized)="onGridResized()" class="gs-portfolio-widget__body__grid">
+      <div *ngIf="savedConfig && !savedConfig.configuration" class="h-100 deleted-config">
+        <span>{{savedConfig?.error?.message || "Oops! Looks like something went wrong."}}</span>
+      </div>
+      <gs-portfolio-live-admin-grid [configuredObjectNames]="configuredObjectNames" [globalFilter]="globalFilter" (gridInitialized)="onGridInitialized()" (gridLoaded)="onWidgetLoaded()" #liveGrid *ngIf="properties?.context?.loadWidgetData && savedConfig?.configuration" [config]="savedConfig"></gs-portfolio-live-admin-grid>
+      <gs-portfolio-light-admin-grid *ngIf="properties && !properties?.context?.loadWidgetData && savedConfig?.configuration" [config]="savedConfig" [configuredObjectNames]="configuredObjectNames">
+      </gs-portfolio-light-admin-grid>
+    </div>
+  </div>
+</div>
+
+<nz-drawer
+[nzBodyStyle]="{'padding-top' : '1rem'}"
+[nzMaskClosable]="true"
+
+[nzWidth]="'70rem'"
+[nzWrapClassName]="'portfolio-widget-setting'"
+[nzVisible]="openPortfolioSetting"
+[nzPlacement] = "'right'"
+[nzMask]="true"
+[nzMaskClosable]="true"
+(nzOnClose)="openPortfolioSetting = false">
+  <gs-portfolio-admin-widget-setting
+  *ngIf="openPortfolioSetting"
+  [isDashboard]="isDashboard"
+  (onAction)="onAction($event)"
+  [fieldTreeMap]="modifiedFields"
+  [config]="savedConfig">
+  </gs-portfolio-admin-widget-setting>
+</nz-drawer>

@@ -1,0 +1,183 @@
+/*=== Vendor Files ===*/
+@import '~@angular/material/theming';
+
+/*=== Core Assets ===*/
+@import "~@gs/core/assets/scss/core/variables";
+@import "~@gs/core/assets/scss/components/material/formelements-h2";
+@import "~@gs/core/assets/scss/horizon2.1/core/variables";
+@import '@gs/cs360-lib/assets/scss/list-common';
+@import '../../../../../icon-button.scss';
+
+:host {
+  min-height: 10rem;
+}
+
+//.gs-responded {
+//  &__header {
+//    border-bottom: 1px solid $gs-border-color;
+//    margin-bottom: 1rem;
+//    padding-bottom: 1rem;
+//    text-align: center !important;
+//  }
+//}
+
+.ant-btn-icon-only, .anticon-more-vertical{
+  border: none;
+  color: #626364 !important;
+}
+
+.grid-container {
+  height: 100%;
+}
+
+.gs-nps-grid {
+  flex-shrink: 0;
+  margin: 1.6rem 0;
+
+  .reset-dd {
+    color: $gs-primary-color;
+    cursor: pointer;
+    font-size: 1.4rem;
+  }
+
+  &__ttl {
+    border-bottom: 1px solid $gs-border-color;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    padding: 1rem;
+  }
+
+  &__analysis {
+    padding: 1.6rem;
+  }
+}
+.gs-controls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background-color: background-color(white);
+}
+.gs-controls-right {
+  float: right;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+
+  .more-trigger-icon {
+    background: url("../../../assets/images/icons/merge-company-icons.svg") no-repeat 8px 5px;
+    cursor: pointer;
+    border: none;
+  }
+}
+
+.gs-controls-left {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+
+  .gs-selected-companies {
+    align-items: center;
+    color: #2F3943;
+    font-size: 1.5rem;
+    height: 4rem;
+    min-width: 16rem;
+    padding: 1rem 1rem 1rem 2.5rem;
+    font-weight: bold;
+  }
+  button {
+    margin: 0 1rem 0 0;
+  }
+}
+.header-icon{
+  color: #626364 !important;
+}
+.merge-icon, .delete-icon {
+  background: url("../../../assets/images/icons/merge-company-icons.svg") no-repeat 0 -127px;
+  display: inline-block;
+  height: 2.4rem;
+  vertical-align: middle;
+  width: 2.4rem;
+  margin: 0 0.4rem 0.3rem 0;
+}
+
+.delete-icon {
+  background: url("../../../assets/images/icons/merge-company-icons.svg") no-repeat 0 -160px;
+}
+
+.gs-filter {
+  background: $gs-sheet-color;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  width: 80rem;
+
+  &__icon {
+    border-radius: 20px;
+
+    &.active {
+      background: $gs-primary-color;
+      color: $gs-white-color;
+    }
+  }
+
+  &__header {
+    align-items: center;
+    border-bottom: 1px solid $gs-border-color;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    min-height: 3rem;
+    padding: 1.5rem 2rem;
+  }
+
+  &__body {
+    box-sizing: content-box;
+    overflow: auto;
+    padding: 2rem;
+  }
+
+  &__row {
+    display: flex;
+    margin-bottom: 1.6rem;
+
+    &.mat-form-field {
+      flex-direction: column;
+      width: 40rem;
+    }
+
+    .mat-form-field {
+      min-width: 0;
+    }
+
+    .mat-form-field + .mat-form-field {
+      margin-left: 1.6rem;
+    }
+  }
+
+  &__footer {
+    align-items: center;
+    border-top: 1px solid $gs-border-color;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0.8rem 1.6rem;
+    button {
+      margin-right: 1rem;
+    }
+  }
+
+  &__sctn-ttl {
+    background: $gs-sheet-content-bg;
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+  }
+}
+

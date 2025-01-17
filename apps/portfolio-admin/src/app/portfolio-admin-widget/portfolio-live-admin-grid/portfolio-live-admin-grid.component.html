@@ -1,0 +1,22 @@
+<nz-tabset *ngIf="configuredObjectNames.length > 1 else singleTemplate" (nzSelectChange)="onTabChange($event)"
+  class="h-100">
+  <nz-tab [nzTitle]="'360.admin.widget_setting.companyTab'| transloco">
+    <div class="h-100">
+      <gs-portfolio-widget-grid #portfolioGrid *ngIf="objectName === objectDetails.company" (action)="onGridAction($event)" [requestSource]="requestSource"
+        [objectName]="objectName" [gridInfo]="companyGridInfo"></gs-portfolio-widget-grid>
+    </div>
+  </nz-tab>
+  <nz-tab [nzTitle]="'360.admin.widget_setting.RelationshipTab'| transloco">
+    <div class="h-100">
+      <gs-portfolio-widget-grid #portfolioGrid *ngIf="objectName === objectDetails.relationship" [requestSource]="requestSource" (action)="onGridAction($event)"
+        [objectName]="objectName" [gridInfo]="relationshipGridInfo"></gs-portfolio-widget-grid>
+    </div>
+  </nz-tab>
+</nz-tabset>
+
+<ng-template #singleTemplate>
+  <div class="h-100 single-grid">
+    <gs-portfolio-widget-grid #portfolioGrid [requestSource]="requestSource" (action)="onGridAction($event)"
+      [objectName]="objectName" [gridInfo]="selectedGridInfo"></gs-portfolio-widget-grid>
+  </div>
+</ng-template>

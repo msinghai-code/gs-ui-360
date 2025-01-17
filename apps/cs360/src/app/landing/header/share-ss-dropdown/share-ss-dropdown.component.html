@@ -1,0 +1,80 @@
+<div class="gs-ss-share">
+  <div>
+    <button class="more-btn" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+      <i nz-icon nzType="more-horizontal" ></i>
+    </button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu class="gs-ss-share__share-list" nz-dropdown [nzClickHide]="!visible">
+        <!-- {360.csm.share_ss.share360}=Share 360-->
+        <li nz-menu-item *ngIf="showShare360" (click)="navigateToShare360()" [ngClass]="pxClasses.SHARE_360">
+          {{'360.csm.share_ss.share360' | transloco}}</li>
+          <!-- {360.csm.share_ss.shareSuccessSnap}=Share Success Snapshot-->
+        <li nz-submenu [nzTitle]="'360.csm.share_ss.shareSuccessSnap'| transloco" nzTrigger="click" *ngIf="successSnapshotEnabled"
+          [ngClass]="pxClasses.SS_EXPORTS">
+          <ul *ngIf="snapshots.length > 0" class="gs-ss-share__ss-list-main">
+            <!-- {360.csm.share_ss.exportSSError}=Select the required Success Snapshot to export.-->
+            <li nz-menu-group [nzTitle]="'360.csm.share_ss.exportSSError'| transloco" class="gs-ss-share__ss-list">
+              <span *ngIf="googleSlidesEnabled && userDetails" class="gs-ss-share__user-details">
+                <span class="header-account-image" (click)="openRevokeDialogue()">
+                  <div *ngIf="!photoLink" class="default-image"></div>
+                  <img *ngIf="photoLink" class="account-image" src="{{photoLink}}">
+                </span>
+              </span>
+            </li>
+
+            <ng-template ngFor let-item [ngForOf]="snapshots" let-i="index">
+              <li nz-menu-item nz-text nzEllipsis="true" (click)="onSnapshotSelect($event,item)"
+                class="gs-ss-share__ss">
+                <i nz-icon [nzType]="'images:ppt-icon'" [nzSize]="16" *ngIf="item && item.storageType === 'S3'"
+                 ></i>
+                <i nz-icon [nzType]="'images:google-drive-icon'" [nzSize]="16"
+                  *ngIf="item && item.storageType === 'GOOGLE_DRIVE'"></i>
+                <span>{{ item.name }}</span>
+              </li>
+            </ng-template>
+          </ul>
+          <!-- {360.csm.share_ss.no_ss}=You have no Success Snapshots to export.-->
+          <ul *ngIf="snapshots.length === 0" class="gs-ss-share__no-ss">{{'360.csm.share_ss.no_ss' |
+            transloco}}</ul>
+        </li>
+        <ng-container *ngIf="showHybridOptions">
+          <div class="gs-ss-share__rectangle"></div>
+          <!-- {360.csm.share_ss.viewAccount}=View Account-->
+          <li (click)="handleHybridNavigations('ACCOUNT')" nz-menu-item>{{'360.csm.share_ss.viewAccount' |
+            transloco}}
+          </li>
+          <!-- {360.csm.share_ss.viewOpp}=View Opportunities-->
+          <li (click)="handleHybridNavigations('OPPORTUNITY')" nz-menu-item>{{'360.csm.share_ss.viewOpp' |
+            transloco}}
+          </li>
+          <!-- {360.csm.share_ss.viewContacts}=View Contacts-->
+          <li (click)="handleHybridNavigations('CONTACTS')" nz-menu-item>{{'360.csm.share_ss.viewContacts' |
+            transloco}}
+          </li>
+          <!-- {360.csm.share_ss.viewRelContacts}=View Related Contacts-->
+          <li *ngIf="showViewRelatedContacts" (click)="handleHybridNavigations('ACCOUNT-CONTACT-RELATIONS')"
+            nz-menu-item>{{'360.csm.share_ss.viewRelContacts' | transloco}}</li>
+        </ng-container>
+        <nz-divider></nz-divider>
+        <li nz-menu-item>
+          <div class="gs-vert-scroll">
+            <!-- {360.csm.share_ss.scrolling}=Scrolling-->
+            <span class='gs-keygen'>{{'360.csm.share_ss.scrolling' | transloco}}</span>
+            <nz-switch nzSize="small" [ngModel]="verticalScrollOptions?.enabled"
+              (ngModelChange)="onScrollModeChange($event)"></nz-switch>
+          </div>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+<!--  {360.csm.share_ss.ssDrawerTitle}=Share Success Snapshot-->
+  <nz-drawer *ngIf="visible" [nzBodyStyle]="{'height' : '90%', 'padding-left': 'unset'}" [nzVisible]="visible"
+    [nzTitle]="'360.csm.share_ss.ssDrawerTitle'| transloco" [nzMaskClosable]="true" [nzPlacement]="'right'" [nzZIndex]="300" [nzClosable]="true"
+    [nzWidth]="'59rem'" (nzOnClose)="close()">
+    <gs-success-snapshot-export gsSpinner class="ss-export" [show]="isLoading" [isSsHaEnabled]="isSsHaEnabled" [showListing]="showListing"  [firstTime]="true"
+      [snapshot]="snapshot" [snapshots]="snapshots" [successPlans]="successPlans" [isAuthenticated]="isAuthenticated"
+      [showEntity]="showEntity" [selectedUser]="selectedUser" [recipients]="recipients" [sPAccessCheck]="sPAccessCheck"
+      [rShipAccessCheck]="rShipAccessCheck" (action)="onSSAction($event)">
+    </gs-success-snapshot-export>
+  </nz-drawer>
+</div>

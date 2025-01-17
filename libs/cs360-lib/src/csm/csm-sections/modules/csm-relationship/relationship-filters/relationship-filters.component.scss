@@ -1,0 +1,67 @@
+/**
+  created by rpal
+ */
+@import "~@gs/design-tokens/scss/border";
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-relationship-filters {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__header {
+    height: 6rem;
+    padding: 1.4rem;
+  }
+  &__body {
+    flex: 1;
+    overflow: auto;
+    border-bottom-left-radius: $border-radius-large;
+  }
+  ::ng-deep {
+    .ant-collapse-borderless.ant-collapse-icon-position-right>.ant-collapse-item .ant-collapse-header .ant-collapse-arrow {
+      right: 1rem;
+    }
+    .ant-collapse>.ant-collapse-item {
+      border: none;
+    }
+    .ant-list-item {
+      padding-top: 0.8rem !important;
+      padding-bottom: 0.8rem !important;
+    }
+  }
+}
+
+.gs-csm-relationship-filter-body {
+  &__group {
+    max-height: 30rem;
+    overflow: auto;
+    ::ng-deep {
+      nz-list-item, nz-list-item * {
+        cursor: pointer;
+      }
+    }
+    &.full-height {
+      max-height: 60rem;
+    }
+  }
+  &__group-item {
+    padding-left: 1.4rem;
+    border: none;
+    &.selected, &:hover {
+      background-color: rgba(117, 150, 183, 0.1);
+    }
+  }
+}
+
+.gs-csm-relationship-filters-body-collapse-panel {
+  ::ng-deep {
+    .ant-collapse-header {
+      padding-left: 1.4rem !important;
+      padding-right: 1.4rem !important;
+      background-color: #f4f8fc;
+    }
+  }
+}

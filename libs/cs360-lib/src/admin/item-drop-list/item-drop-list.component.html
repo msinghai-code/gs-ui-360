@@ -1,0 +1,79 @@
+<section class="gs-item-drop-list">
+  <div class="gs-item-drop-list__body" [class.highlight]="highlight"
+       cdkDropList
+       id="gs-item-drop-list-cdk-drop-list-area"
+       [cdkDropListData]="items"
+       (cdkDropListDropped)="onItemDrop($event)"
+       (cdkDropListEntered)="onItemEnter($event)"
+       (cdkDropListExited)="onItemExit($event)">
+    <ng-container *ngIf="items?.length || showEmptyDropList; else empty">
+      <gridster *ngIf="!singleColumn; else singleColumnTemplate" class="gs-item-drop-list__gridster" #droplistgridster
+                [options]="options"
+                style="background: rgba(246, 248, 250, 0.5); padding: 0px 0px;">
+        <div class="gs-item-drop-list__custom-placeholder-grid" *ngIf="allowCustomPlaceholderGrid">
+          <div class="gs-item-drop-list__custom-placeholder-grid--item"
+               [style.width.px]="gridsterCustomPlaceholderItemWidth"
+               *ngFor="let it of [0,1,2,3,4,5,6,7,8,9,10,11]; let i = index">
+            <span style="visibility: hidden;">{{i}}</span>
+          </div>
+        </div>
+        <gridster-item
+                class="z-depth-1 gs-item-drop-list-item"
+                *ngFor="let item of items; trackBy: trackBy"
+                [item]="item">
+          <gs-list-item [item]="item"
+                        [config]="{
+                            showActionButton: item.dragEnabled === undefined ? true: item.dragEnabled,
+                            showDragHandler: item.dragEnabled === undefined ? true: item.dragEnabled
+                        }"
+                        (action)="onItemAction($event)"></gs-list-item>
+        </gridster-item>
+      </gridster>
+
+      <ng-template #singleColumnTemplate>
+        
+        <ng-container *ngFor="let item of items; trackBy: trackBy">
+          <div class="z-depth-1 gs-item-drop-list-item" *ngIf="(item.dragEnabled === undefined ? true: item.dragEnabled); else listItemNoDrag" cdkDrag (cdkDragStarted)="checkForHighlight($event)">
+            <ng-container *ngTemplateOutlet="listItemTemplate"></ng-container>
+          </div>
+          <ng-template #listItemTemplate>
+            <gs-list-item
+              [item]="item"
+              [config]="{
+                showActionButton: item.dragEnabled === undefined ? true: item.dragEnabled,
+                showDragHandler: item.dragEnabled === undefined ? true: item.dragEnabled
+              }"
+              (action)="onItemAction($event)">
+            </gs-list-item>
+          </ng-template>
+
+          <ng-template #listItemNoDrag>
+            <div class="z-depth-1 gs-item-drop-list-item">
+              <ng-container *ngTemplateOutlet="listItemTemplate"></ng-container>
+            </div>
+          </ng-template>
+        </ng-container>
+
+        <div class="gs-item-drop-list-item empty" *ngFor="let item of emptyAreasArray">
+
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</section>
+<!--  empty -->
+<ng-template #empty>
+  <div class="gs-item-drop-list__empty">
+    <nz-empty [nzNotFoundImage]="imageTpl"
+              [nzNotFoundContent]="contentTpl">
+      <ng-template #imageTpl>
+        <i class="gs-item-drop-list__empty--img"></i>
+      </ng-template>
+      <ng-template #contentTpl>
+      <span class="gs-item-drop-list__empty--description">
+        {{messageConstants?.description}}
+      </span>
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>

@@ -1,0 +1,10 @@
+<gs-field-editor *ngIf="field"
+[showLabel]="false"
+[editable]="true"
+[fields]="[field]"
+[defaultOpenPopups]="true"
+(valueChanged)="onValueUpdated($event)"
+(formStatusUpdated)="onStatusUpdated($event)"
+(popupClosed)="onPoupupClosed($event)"
+>
+</gs-field-editor>

@@ -1,0 +1,23 @@
+{
+  "name": "@gs/portfolio-lib",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "dependencies": {
+    "@angular/compiler": "~8.2.14",
+    "@angular/core": "~8.2.14"
+  },
+  "scripts": {
+    "test": "ng test"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.803.22",
+    "@angular/cdk": "~8.2.3",
+    "@angular/cli": "~8.3.22",
+    "@angular/compiler-cli": "~8.2.14"
+  },
+  "resolutions": {
+    "@gs/ng-horizon": "4.8.0-fix-4.8.x.7",
+    "@gs/gdk": "4.4.0-dev.42",
+    "@gs/design-tokens": "4.0.5"
+  }
+}

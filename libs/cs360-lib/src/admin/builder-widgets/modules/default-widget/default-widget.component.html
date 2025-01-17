@@ -1,0 +1,27 @@
+<ng-container [ngSwitch]="widgetItem.subType">
+
+    <nz-skeleton *ngSwitchCase="widgetItemSubType.AVATAR_CONTENT" 
+                 [nzAvatar]="{size:'large'}" [nzActive]="false" fxLayout="row" 
+                 [nzParagraph]="{ rows: 1 }" [nzTitle]="true" flex="50%">
+    </nz-skeleton>
+
+    <nz-list *ngSwitchCase="widgetItemSubType.LIST" 
+            [nzDataSource]="skeletonArray" [nzRenderItem]="item" [nzItemLayout]="'vertical'">
+      <ng-template #item let-item>
+        <nz-list-item>
+          <nz-skeleton [nzAvatar]="false" [nzActive]="false" 
+                       [nzTitle]="false" fxLayout="row" [nzParagraph]="{ rows: 2 }">
+          </nz-skeleton>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+    <div *ngSwitchDefault fxLayout="column" fxLayoutAlign="center center" fxFill class="widget widget-{{widgetItem.subType}}">
+      <ng-container *ngFor="let item of skeletonArray">
+        <nz-skeleton [nzActive]="false" [nzParagraph]="false" fxLayout="row" [nzTitle]="true" flex="50%"
+          class="half-skeleton"></nz-skeleton>
+        <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+      </ng-container>
+    </div>
+
+</ng-container>

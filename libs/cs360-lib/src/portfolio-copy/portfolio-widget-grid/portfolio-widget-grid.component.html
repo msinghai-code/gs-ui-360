@@ -1,0 +1,19 @@
+<div class="gs-portfolio-grid-visualizer" [class.notLiveWidget]="isNotLiveWidget" [class.hide]="gridInfo?.data?.error" (resized)="resizeToParentDimensions()" gsSpinner [nzSize]="'xl'"
+[loaderType]="reportViewer.loaderOptions?.loaderType" [loaderParams]="reportViewer.loaderOptions?.loaderParams" 
+[show]="reportViewer.loading">
+  <gs-grid-visualizer *ngIf="showGrid"
+    #gridVisualizer
+    [data]="reportViewer?.data"
+    [config]="reportViewer?.config"
+    [bufferMargin]="{top: 0, bottom: 0}"
+    [gridType]="'AG-GRID'"
+    (sortAction)="onGridAction($event)"
+    (filterAction)="onGridAction($event)"
+    (pagerAction)="onGridAction($event)"
+    (columnMoved)="onGridAction($event)"
+    (gridReady)="onGridAction($event)">
+  </gs-grid-visualizer>
+</div>
+<div *ngIf="gridInfo?.data?.error" class="h-100 deleted-config">
+  <span>{{gridInfo?.data?.error?.message || '360.admin.widget_field.error'| transloco}}</span>
+</div>

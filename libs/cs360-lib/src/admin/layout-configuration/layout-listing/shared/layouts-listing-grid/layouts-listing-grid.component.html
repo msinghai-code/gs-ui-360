@@ -1,0 +1,172 @@
+<section class="gs-layouts-listing">
+  <div class="gs-layouts-listing__header">
+    <ng-container *ngIf="!config?.options?.actions?.dropdownHeader; else dropdownHeader">
+      <div class="gs-layouts-listing__header--left">
+        <span class="label">{{config?.options?.type + ' ('+ (!!data ? data.length: 0) +')'}}</span>
+        <div *ngIf="config?.options?.actions?.dropdownHelpText" class="help-text" nz-text nzType="small">{{ config?.options?.actions?.dropdownHelpText }}</div>
+      </div>
+    </ng-container>
+    <!--{360.admin.layout_listing.layoutSearchPlaceholder}=Search by Name-->
+    <div class="gs-layouts-listing__header--right">
+        <div *ngIf="ctx.endUserPreview && ctx.pageContext===PageContext.P360"
+             fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
+             style="margin-right: 24px;">
+            <label nz-text nzType="small" class="enduser_toggle_label">{{ '360.csm.p360.feature_toggle.header' | transloco }}</label>
+            <nz-switch
+                    [(ngModel)]="isFeatureFlagEnabled"
+                    (ngModelChange)="openEndUserPreviewPopup($event)"
+                    [nzSize]="'small'"
+                    [nzLoading]="isFeatureFlagLoading"
+                    [nzDisabled]="isFeatureFlagLoading">
+            </nz-switch>
+        </div> 
+        <div class="gs-layouts-listing__header-content" *ngIf="isMiniToggleEnabled && ctx.pageContext===PageContext.C360"  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+          <label nz-title>{{ '360.csm.mini_360.cr360_turn_on' | transloco}}</label>
+          <nz-switch
+          [(ngModel)]="mini360Enabled"
+          (ngModelChange)="openMini360EndUserPreviewPopup($event)"
+          [nzSize]="'small'"
+          [nzLoading]="isFeatureFlagLoading"
+          ></nz-switch>
+        </div>
+      <nz-input-group [nzSuffix]="suffixLayoutSearch" class="search_bar">
+        <input autofocus type="text" nz-input [placeholder]="'360.admin.layout_listing.layoutSearchPlaceholder'|transloco" [formControl]="layoutSearchControl" (keydown.enter)="onChange($event)"/>
+      </nz-input-group>
+      <div>
+        <!--{360.admin.layout_listing.manageAssignment}=Manage Assignments-->
+        <button *ngIf="ctx.manageAssignmentConfig.showManageAssignment && manageAssignmentsData" [nzLoading]="manageAssignmentsData?.loading" (click)="showManageAssignmentsModal = true" nz-button nzType="link" class="manage-assignment-btn">{{'360.admin.layout_listing.manageAssignment'|transloco}}</button>
+      </div>
+      <div>
+        <ng-container *ngIf="!config?.options?.actions?.dropdownButton; else dropdownButton">
+          <button class="gs-layouts-listing__header--right--btn1" (click)="onAdd()" nz-button nzType="primary">{{config?.options?.actions?.buttonText}}</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="gs-layouts-listing__body" gsSpinner [nzSize]="'xl'" [show]="loader || stateLoading || !columnStateApplied" *ngIf="showGrid">
+    <div class="gs-layouts-listing__body--grid-wrapper" *ngIf="!stateLoading">
+      <gs-grid-column-chooser #gridColumnChooser *ngIf="config?.options?.actions?.showColumnChooser"
+      (columnsUpdated)="onColumnsUpdated($event)" 
+      [columns]="config?.grid.options?.columnDefs"></gs-grid-column-chooser>
+      <gs-grid   [class.hide]="!columnStateApplied"
+                  [gridOptions]="config?.grid.options"
+                  [cacheBlockSize]="config?.grid.options?.cacheBlockSize"
+                  [data]="data"
+                  [mode]="config?.grid.mode"
+                  [rowModelType]="'clientSide'"
+                  [columnDefs]="config?.grid.options?.columnDefs"
+                  [showCustomPagination]="false"
+                  [pagination]="false"
+                  [gridAdditionalOptions]="config?.grid?.additionalOptions"
+                  (columnAction)="columnAction($event)"
+                  (gridChanges)="onGridReady($event)"
+                  ></gs-grid>
+    </div>
+  </div>
+</section>
+<!-- All templates are here -->
+<ng-template #suffixIconSearch let-ctrl="ctrl">
+  <i style="font-size: 12px;" *ngIf="!ctrl?.value" nz-icon nzType="search"></i>
+  <i
+  nz-icon
+  style="font-size: 12px;"
+  class="ant-input-clear-icon"
+  nzType="close"
+  *ngIf="ctrl?.value"
+  (click)="ctrl?.reset()"
+></i>  
+</ng-template>
+
+<ng-template #suffixDropdownSearch>
+  <ng-container *ngTemplateOutlet="suffixIconSearch; context: { ctrl: searchInput}"></ng-container>
+</ng-template>
+
+<ng-template #suffixLayoutSearch>
+  <ng-container *ngTemplateOutlet="suffixIconSearch; context: { ctrl: layoutSearchControl}"></ng-container>
+</ng-template>
+<!-- Action popover -->
+<nz-overlay [closeOnClick]="true" #contextMenuGrid>
+  <div class="pop-panel gs-popover-menu">
+    <nz-list class="gs-popover-menu__list">
+      <nz-list-item class="gs-popover-menu__item gs-{{action.label.toLowerCase()}}"
+        ngClass="gs-popover-menu__item--{{action.label.toLowerCase()}}"
+        *ngFor="let action of contextMenuInfo?.contextMenuItems"
+        [ngStyle]="{'cursor': action?.disabled ? 'not-allowed': 'pointer', 'color': action?.disabled ? '#AFC3D7': '#2b3d51'}"
+        (click)="!action?.disabled && onContextMenuAction($event, action.label)">
+        <i class="context-menu-action gs-popover-menu__item-icon">{{action.icon}}</i>&nbsp;{{action.label | transloco}}
+      </nz-list-item>
+    </nz-list>
+  </div>
+</nz-overlay>
+<ng-template #dropdownButton>
+  <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight" class="add-section-button" (nzVisibleChange)="onVisibilityChange($event)">
+    {{config?.options?.actions?.buttonText}}
+    <i nz-icon nzType="down" *ngIf="!showUpArrow"></i>
+    <i nz-icon nzType="up" *ngIf="showUpArrow"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu class="sections-dropdown-menu">
+      <li nz-menu-item *ngFor="let option of config?.options?.actions?.options" (click)="onClick(option, 'ON_DROPDOWNBUTTON_CLICK')">
+        <label nz-text nzType="medium">{{option?.label}}</label>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #dropdownHeader>
+  <div class="gs-layouts-listing__header--left-wrapper">
+    <a nz-dropdown [nzDropdownMenu]="menu" class="gs-layouts-listing__header--left">
+      <span nz-text nzType="sub-section">{{(selectedHeaderOption?.label || config?.options?.type )+ ' ('+ (!!data ? data.length: 0) +')'}}</span>
+      <i nz-icon nzType="down"></i>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <div class="header-dropdown-menu">
+        <div *ngIf="config?.options?.actions?.headerOptions?.length > 3" class="search-wrapper">
+          <nz-input-group class="search" [nzSuffix]="suffixDropdownSearch">
+            <input type="text" nzSize="small"  nz-input  [placeholder]="'360.admin.report_relationship_config.searchPlaceholder'  | transloco" [formControl]="searchInput" />
+          </nz-input-group>
+
+        </div>
+        <ul nz-menu class="layout-dropdown">
+          <li nz-menu-item (click)="onClick( { label: config.options.type, value: 'all' }, 'ON_DROPDOWNHEADER_CLICK')">
+            <label nz-text nzType="medium">{{config.options.type}}</label>
+          </li>
+          <li nz-menu-item *ngFor="let option of config?.options?.actions?.headerOptions | filterListBySearchTerm : 'label': searchInput.value" (click)="onClick(option, 'ON_DROPDOWNHEADER_CLICK')">
+            <label nz-text nzType="medium">{{option?.label}}</label>
+          </li>
+        </ul>
+      </div>
+    </nz-dropdown-menu>
+    <div *ngIf="config?.options?.actions?.dropdownHelpText" class="help-text" nz-text nzType="small">{{ config?.options?.actions?.dropdownHelpText }}</div>
+  </div>
+</ng-template>
+
+
+<nz-modal [nzWidth]="800" [nzWrapClassName]="!showFindLayoutTitle ? 'manage-assignment-tab' : 'manage-assignment-find-layout-tab' " [nzFooter]="manageAssignmentsFooter" [(nzVisible)]="showManageAssignmentsModal" [nzTitle]="manageAssignmentsTitle" (nzOnCancel)="onmanageAssignmentModalCancel()">
+  <gs-layout-listing-manage-assignment #manageAssignment *ngIf="ctx.manageAssignmentConfig.showManageAssignment && showManageAssignmentsModal" (titleChanged)="onManageAssignmentsTitleChange()" (change)="onRowChange($event)" [describeData]="manageAssignmentsData" [managerelation]="relationshipManagement"></gs-layout-listing-manage-assignment>
+</nz-modal>
+
+<ng-template #manageAssignmentsTitle>
+  <nz-tabset (nzSelectChange)="onManageAssignmentsTitleChange()">
+    <nz-tab *ngFor="let tab of manageAssignmentTabs" [nzTitle]="tab.label" nzTabClass="manage-assignement__{{tab.value}}">
+      <ng-container *ngIf="!showFindLayoutTitle">
+        <div class="manage-assignement__viewAssignedLayout">
+          <!--{360.admin.layout_listing.reorder_layouts}=Reorder the layouts to prioritize them when multiple layouts are assigned to the same User or -->
+          <span class="header__sub" nz-text>{{'360.admin.layout_listing.reorder_layouts'|transloco}}
+            {{objectLabel}}.</span>
+        </div>
+      </ng-container>
+    </nz-tab>
+  </nz-tabset>
+</ng-template>
+
+<ng-template #manageAssignmentsFooter>
+  <div *ngIf="!showFindLayoutTitle">
+    <!--{360.admin.layout_listing.management_cancel}=Cancel -->
+    <!--{360.admin.layout_listing.management_save}=Save-->
+    <button nz-button nzType="secondary"
+      (click)="showManageAssignmentsModal = false">{{'360.admin.layout_listing.management_cancel'|transloco}}</button>
+    <button nz-button nzType="primary" (click)="onManageAssignmentModalSave()" [nzLoading]="manageAssignemntSaving"
+      [disabled]="!changesMade">{{'360.admin.layout_listing.management_save'|transloco}}</button>
+  </div>
+</ng-template>

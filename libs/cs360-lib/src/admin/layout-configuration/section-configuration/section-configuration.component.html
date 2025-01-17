@@ -1,0 +1,105 @@
+<nz-modal [nzModalType]="'fullscreen'" [nzFooter]="null" [nzClosable]="true" [nzVisible]="visible" nzWidth="100%" [nzWrapClassName]="wrapperClassName"
+          class="gs-section-config-wrapper__cntr"
+  nzPlacement="left" [nzTitle]="headerWrapper" (nzOnCancel)="close()" [nzBodyStyle]="wrapperStyles">
+  <ng-template #headerWrapper>
+    <ng-container #headerRef></ng-container>
+  </ng-template>
+  <div gsSpinner [nzSize]="'xl'" [show]="loading" class="gs-section-config-wrapper">
+    <div fxFlex="5.2rem" class="detach-header" fxLayout="row" fxLayoutAlign="center center"
+      *ngIf="section?.isDetachSectionPreview">
+<!--      <i class="detach-icon"></i>-->
+        <i nz-icon [nzType]="'images:icon-detatch'"></i>
+      <span>{{'360.admin.section_config.unlink_extended_message'| transloco}}</span>
+      <button [nzSize]="'small'" nz-button (click)="onDetachClick()" nzType="secondary"
+        class="unlink-section">{{'360.admin.section_config.unlink'| transloco}}</button>
+    </div>
+    <div [class.detach-section]="section?.isDetachSectionPreview" class="gs-section-config-wrapper__content">
+      <gs-admin-section-renderer (changes)="sectionEventsHandler($event)" #sectionRenderer [section]="section">
+      </gs-admin-section-renderer>
+      <gs-summary-preview *ngIf="previewEnabled.status" [sectionName]="section.layoutName" [section]="previewedSection"
+        (actions)="onSummaryActions($event)"></gs-summary-preview>
+    </div>
+
+    <div class="gs-section-config-wrapper__footer ant-drawer-footer"
+      *ngIf="!section?.isDetachSectionPreview && showFooter">
+      <ng-container #footerRef></ng-container>
+    </div>
+  </div>
+</nz-modal>
+<ng-template #defaultFooterRef>
+  <a *ngIf="isPrebuiltAllowed" (click)="showprebuiltModal()"
+    class="pre-built-link">{{'360.admin.section_config.save_prebuilt'| transloco}}</a>
+  <button nz-button nzType="default" (click)="close()">{{'360.admin.section_config.cancel'| transloco}}</button>
+  <button nz-button nzType="primary" (click)="!isSaveIsInProgress?save():''" [nzLoading]="isSaveIsInProgress">
+    {{'360.admin.section_config.save'| transloco}}
+  </button>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isPrebuiltModalVisible" nzTitle="{{'360.admin.section_config.save_prebuilt_title'| transloco}}"
+  (nzOnCancel)="prebuiltCancel()" [nzOkText]="'360.admin.section_config.save_prebuilt_save'| transloco" (nzOnOk)="prebuiltSave()" [nzCancelText]="'360.admin.section_config.save_prebuilt_cancel'| transloco">
+  <form nz-form [formGroup]="addPrebuiltForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <div gsSpinner [nzSize]="'xl'" [show]="isSectionlabel" class="pre-built-sub">{{'360.admin.section_config.save_prebuilt_subtitle'|
+        transloco}}</div>
+      <nz-form-label nzRequired nzFor="name">{{'360.admin.section_config.save_prebuilt_name'| transloco}}
+      </nz-form-label>
+        <nz-form-control [nzErrorTip]="errorDescSec">
+            <input id="input-name" autocomplete="off" nz-input [(ngModel)]="prebuiltInput" formControlName="name">
+            <ng-template #errorDescSec let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    {{'360.admin.section_config.save_prebuilt_name_errortip'|
+                    transloco}}</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">
+                    {{'360.admin.section_config.save_prebuilt_description_errortip'|
+                    transloco}}{{control.errors.maxlength.requiredLength}}</ng-container>
+            </ng-template>
+        </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label class="gs-keygen">{{'360.admin.section_config.save_prebuilt_description'| transloco}}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="errorDesc">
+        <textarea nz-input formControlName="description" [(ngModel)]="prebuiltDescription" rows="2"
+          [nzAutosize]="{ minRows: 3, maxRows: 8 }"></textarea>
+        <ng-template #errorDesc let-control>
+          <ng-container *ngIf="control.hasError('maxlength')">
+            {{'360.admin.section_config.save_prebuilt_description_errortip'|
+            transloco}}{{control.errors.maxlength.requiredLength}}</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+<nz-modal [nzWrapClassName]="'vertical-center-modal'" [(nzVisible)]="showDetachModal" [nzTitle]="'360.admin.section_config.unlink_section' | transloco"
+  (nzOnCancel)="showDetachModal = false" (nzOnOk)="onDectachModalOkClick()" nzOkText="{{'360.admin.section_config.yes'|transloco}}">
+  <div> {{'360.admin.section_config.clicking'|transloco}}<b> {{'360.admin.section_config.yes'|transloco}}</b> {{'360.admin.section_config.prebuilt_to_local_message'|transloco}}</div>
+</nz-modal>
+
+<ng-template #defaultHeaderRef>
+  <div fxLayout="row" fxLayoutAlign="flex-start center" class="gs-section-config-drawer__header">
+    <i nz-icon nzType="arrow-left" (click)="close()"></i>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <span (click)="close()" class="gs-section-config-drawer__header__layout-name"
+          nz-text>{{section.layoutName}}</span>
+        <div fxLayout="row" fxLayoutAlign="start center" class="configuration-title">
+          {{section.label}} {{'360.admin.section_config.configuration' | transloco}}
+          <nz-tag *ngIf="section?.isDetachSectionPreview" nz-tooltip [nzTooltipTitle]="'360.admin.section_config.configTooltip'| transloco"
+            class="gs-section-config-drawer__header__tag" [nzColor]="'#fef3d1'">
+            <label nz-text nzType="extra-small">{{'360.admin.section_config.pre_built' | transloco}}</label>
+          </nz-tag>
+        </div>
+      </div>
+      <ng-container *ngIf="section.sectionType === 'SUMMARY' && !section?.isDetachSectionPreview">
+        <div fxFlex="50" fxLayout="row" fxLayoutAlign="end center" class="mr-50 preview-action">
+          <button nz-button nzType="link" nzShape="round" (click)="showPreview()" [nzLoading]="previewEnabled.loading"
+            [disabled]="!sectionRenderer?.sectionInstance?.configuredWidgets?.length">
+              {{'360.admin.section_config.preview' | transloco}}
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

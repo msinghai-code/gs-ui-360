@@ -1,0 +1,29 @@
+<nz-modal [nzVisible]="true" [nzTitle]="title"
+[nzFooter]="footer" (nzOnCancel)="closePreview()">
+  <section class="gs-cs360-layout-preview">
+    <div class="gs-cs360-layout-preview__body">
+      <div class="card-wrapper">
+        <div class="card">
+            <i nz-icon [nzType]="'360-preview'" nzTheme="images" class="illustration"></i>
+          <ng-container [ngTemplateOutlet]="companySelectorDropdown"></ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+</nz-modal>
+<ng-template #footer>
+  <div>
+    <button nz-button nzType="default" type="button" (click)="closePreview()" class="cancelBtn"><span>{{'360.admin.add_association.cancel'| transloco}}</span></button>
+    <button nz-button nzType="primary" type="button" [disabled]="!enablePreviewBtn" (click)="reloadToEndUserPreview()"><span>{{'360.admin.layout_preview.preview'| transloco}}</span></button>
+  </div>
+</ng-template>
+<ng-template #companySelectorDropdown>
+  <!--{360.admin.layout_preview.select_record}=Select Value-->
+  <nz-select nzShowSearch nzAllowClear class="select-company-dropdown" [(ngModel)]="recordDropdown.selectedRecord"
+    nzPlaceHolder="{{'360.admin.layout_preview.select_record' | transloco}}" nzServerSearch="true"
+    [nzLoading]="recordDropdown.loading" (nzOnSearch)="searchItemsForPreview($event)"
+    (nzOpenChange)="onItemDropdownOpen()" (ngModelChange)="onValueSelectedItemChange($event)">
+    <nz-option [nzValue]="item.Gsid" [nzLabel]="item.Name" *ngFor="let item of recordDropdown.options">
+    </nz-option>
+  </nz-select>
+</ng-template>

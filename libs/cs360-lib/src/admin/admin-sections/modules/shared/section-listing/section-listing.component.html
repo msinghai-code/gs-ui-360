@@ -1,0 +1,93 @@
+<section fxFlex="100%" fxLayout="column" class="section-listing-wrapper gs-widget-list">
+    <section class="section-listing-wrapper__head">
+        <div class="section-listing-wrapper__heading">
+            {{options?.title}}
+        </div>
+        <div *ngIf="options?.description" class="section-listing-wrapper__sub-heading" nz-text nzType="small" nzColor="secondary">
+            {{options?.description}}
+        </div>
+        <nz-input-group [nzSuffix]="inputClearTpl" class="section-listing-wrapper__search" [nzPrefix]="suffixIconSearch">
+            <input nz-input [formControl]="searchInput" type="text" maxlength="50" autofocus [placeholder]="'360.admin.section_listing.placeholder'| transloco">
+        </nz-input-group>
+        <ng-template #inputClearTpl>
+            <i
+                    nz-icon
+                    class="ant-input-clear-icon"
+                    nzType="close"
+                    *ngIf="searchInput.value"
+                    (click)="clearSearch()"
+            ></i>
+        </ng-template>
+    </section>
+    <section class="section-listing-wrapper__body">
+        <ng-container *ngIf="!isLoading else loading">
+            <nz-collapse fxFill fxLayout="column">
+                <ng-container *ngFor="let section of sectionCategoryList; let i = index;">
+
+                    <ng-template #collapsePanelHeader>
+                        {{section.label}} <span *ngIf="searchTerm">({{ (section?.children | filterItems: searchTerm : 'label').length }})</span>
+                    </ng-template>
+
+                    <nz-collapse-panel [nzHeader]="collapsePanelHeader" [(nzActive)]="section.active">
+                        <ng-container *ngIf="!section.isLoading else loading">
+                            <ng-container [ngSwitch]="section?.widgetCategory?.toUpperCase()">
+                                <ng-container *ngSwitchCase="'REPORT'">
+                                    <ng-container *ngIf="!listReportsByAssociation; then rList else rlistbyAsso "></ng-container>
+                                    <ng-template #rList>
+                                        <div class="no-results" *ngIf="(section?.children | filterItems: searchTerm : 'label').length === 0">{{'360.admin.section_listing.noResults'| transloco}} {{section.label}}</div>
+                                        <gs-base-tree class="{{section?.widgetCategory?.toLowerCase()}}-section" [searchString]="searchTerm" [value]="section?.children" [options]="section.treeOptions"
+                                                      [isMaxLimitExceed]="isMaxLimitExceed" (onNodeDragEnd)="onNodeDragEnd($event)">
+                                            <ng-template let-node gsTemplate="default">
+                                                <label class="ui-treenode-label" nz-tooltip
+                                                       [nzTooltipTitle]="isMaxLimitExceed? summaryTooltip: (node.disableDrag ? disabledTooltip+ node.label+ disabledTooltip : node.label) "
+                                                       [innerHTML]="(node | addInfoAndMarkDragStatus : section : configuredSections).label | gsHighlight: searchTerm : 'i' : 'node-highlight-frag'">
+                                                </label>
+                                            </ng-template>
+                                        </gs-base-tree>
+                                    </ng-template>
+                                    <ng-template #rlistbyAsso>
+                                        <gs-report-listing-by-object-association
+                                                [config]="{typeId: ctx.relationshipTypeId}"
+                                                [relationshipTypes]="relationshipTypes"
+                                                [cdkDropListConnectedTo]="null"
+                                                [sectionCategoryList]="sectionCategoryList"
+                                                [searchTerm]="searchTerm"
+                                                (action)="onAction($event)">
+                                        </gs-report-listing-by-object-association>
+                                    </ng-template>
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    <ng-container *ngIf="section?.children?.length else empty">
+                                        <div class="no-results" *ngIf="(section?.children | filterItems: searchTerm : 'label').length === 0">{{'360.admin.section_listing.noResults'| transloco}} {{section.label}}</div>
+                                        <gs-base-tree class="{{section?.widgetCategory?.toLowerCase()}}-section" [searchString]="searchTerm" [value]="section?.children" [options]="section.treeOptions"
+                                                      [isMaxLimitExceed]="isMaxLimitExceed" (onNodeDragEnd)="onNodeDragEnd($event)">
+                                            <ng-template let-node gsTemplate="default">
+                                                <div class="ui-treenode-label" nz-tooltip
+                                                     [nzTooltipTitle]="isMaxLimitExceed? summaryTooltip: (node.disableDrag ? disabledTooltipHead + (node | addInfoAndMarkDragStatus : section : configuredSections).orginalSectionName + disabledTooltip : node.label)">
+                                                    <span nz-text nzType="sub-section" [innerHTML]="(node | addInfoAndMarkDragStatus : section : configuredSections).label | gsHighlight: searchTerm : 'i' : 'node-highlight-frag'"></span>
+                                                    <span *ngIf="(node | addInfoAndMarkDragStatus : section : configuredSections).label !== (node | addInfoAndMarkDragStatus : section : configuredSections).orginalSectionName" class="section-name" nz-text nzType="small" nzColor="secondary">- {{(node | addInfoAndMarkDragStatus : section : configuredSections).orginalSectionName}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </gs-base-tree>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </nz-collapse-panel>
+                </ng-container>
+            </nz-collapse>
+        </ng-container>
+    </section>
+</section>
+
+<ng-template #empty>
+    <span fxLayout="column" class="p-20">{{'360.csm.relationship_card.noData'| transloco}}</span>
+</ng-template>
+
+<ng-template #loading>
+    <nz-skeleton [nzLoading]="true" [nzActive]="true"></nz-skeleton>
+</ng-template>
+
+<ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+</ng-template>

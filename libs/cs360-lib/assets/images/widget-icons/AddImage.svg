@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="36px" viewBox="0 0 50 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>Group 19</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="5.67462743e-14 0 48 0 48 48 5.67462743e-14 48"></polygon>
+        <path d="M38,6 L10,6 C7.8,6 6,7.8 6,10 L6,38 C6,40.2 7.8,42 10,42 L38,42 C40.2,42 42,40.2 42,38 L42,10 C42,7.8 40.2,6 38,6 Z M38,38 L10,38 L10,10 L38,10 L38,38 Z M27.92,24.58 L22.42,31.66 L18.5,26.94 L13,34 L35,34 L27.92,24.58 Z" id="path-3"></path>
+        <path d="M12,0 C5.372,0 0,5.372 0,12 C0,18.628 5.372,24 12,24 C18.628,24 24,18.628 24,12 C24,5.372 18.628,0 12,0" id="path-5"></path>
+        <filter x="-25.0%" y="-16.7%" width="150.0%" height="154.2%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.168627451   0 0 0 0 0.239215686   0 0 0 0 0.317647059  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.168627451   0 0 0 0 0.239215686   0 0 0 0 0.317647059  0 0 0 0.3 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="V2_v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03_ImageWidget_005" transform="translate(-819.000000, -250.000000)">
+            <g id="Group-20" transform="translate(797.000000, 244.000000)">
+                <g id="Group-19" transform="translate(16.000000, 0.000000)">
+                    <g id="Group-12">
+                        <g id="Group-21">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="Rectangle"></g>
+                            <mask id="mask-4" fill="white">
+                                <use xlink:href="#path-3"></use>
+                            </mask>
+                            <use id="Shape" fill="#B8C8D8" fill-rule="nonzero" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                    <g id="Group-3" transform="translate(29.000000, 8.000000)">
+                        <g id="Path">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                            <use fill="#0F87EC" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        </g>
+                        <g id="Group-33" transform="translate(4.000000, 4.000000)">
+                            <rect id="Rectangle-Copy-8" x="0" y="0" width="16" height="16"></rect>
+                            <path d="M8.16666667,3.33333333 C8.44280904,3.33333333 8.66666667,3.49405163 8.66666667,3.69230769 L8.66666667,3.69230769 L8.66633333,7.66633333 L12.3076923,7.66666667 C12.4839199,7.66666667 12.6304881,7.84354183 12.6608831,8.07679103 L12.6666667,8.16666667 C12.6666667,8.44280904 12.5059484,8.66666667 12.3076923,8.66666667 L12.3076923,8.66666667 L8.66633333,8.66633333 L8.66666667,12.3076923 C8.66666667,12.4839199 8.48979151,12.6304881 8.2565423,12.6608831 L8.16666667,12.6666667 C7.89052429,12.6666667 7.66666667,12.5059484 7.66666667,12.3076923 L7.66666667,12.3076923 L7.66633333,8.66633333 L3.69230769,8.66666667 C3.51608008,8.66666667 3.36951194,8.48979151 3.33911689,8.2565423 L3.33333333,8.16666667 C3.33333333,7.89052429 3.49405163,7.66666667 3.69230769,7.66666667 L3.69230769,7.66666667 L7.66633333,7.66633333 L7.66666667,3.69230769 C7.66666667,3.51608008 7.84354183,3.36951194 8.07679103,3.33911689 Z" id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

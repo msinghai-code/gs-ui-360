@@ -1,0 +1,12 @@
+@import "~@gs/design-tokens/scss/colors";
+
+.gs-notification-subscriber-button {
+    display: flex ;
+    justify-content: center ;
+    padding-right: 1.64rem !important;
+    &.following {
+        color: $fresh-green-70;
+    }
+}
+
+

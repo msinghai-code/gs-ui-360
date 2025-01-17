@@ -1,0 +1,22 @@
+<section class="csm-summary-widget-wrapper attribute-gridster-wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+  <div class="csm-summary-widget-wrapper__header"
+       [ngClass]="{'csm-summary-widget-wrapper__header--with-margin': isMini360}"
+  >
+    <h6 nz-title nzType="sub-section" nzColor="subtitle">{{widgetItem.label}}</h6>
+    <button  *ngIf="isMini360 && showExpandButton" nz-button nzType="link" nzSize="sm" (click)="resizeItem()">{{showingMore ? 'View Less' : 'View All'}}</button>
+  </div>
+  <div class="csm-summary-widget-wrapper__content attr-widget" fxLayout="column" fxFill [fxFlex]="isMini360 ? '100%' : 'calc(100% - 2rem)'">
+    <ng-container *ngIf="!isLoading else empty">
+      <gs-csm-attribute-group-mini *ngIf="isMini360" #csmAttributeGroup (updates)="onAction($event)" [fields]="fields" [data]="data" [widgetItem]="widgetItem" [context]="context" [ctx]="ctx"></gs-csm-attribute-group-mini>
+      <gs-csm-attribute-group *ngIf="!isMini360" (updates)="onAction($event)" [fields]="fields" [data]="data" [widgetItem]="widgetItem" [context]="context" [ctx]="ctx"></gs-csm-attribute-group>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #empty>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <nz-skeleton class="half-skeleton" [nzActive]="false" [nzParagraph]="false" fxLayout="row" [nzTitle]="true"
+      flex="50%"></nz-skeleton>
+    <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+  </div>
+</ng-template>

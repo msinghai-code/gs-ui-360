@@ -1,0 +1,25 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/app",
+		"types": [],
+		"paths": {
+			"@gs/core": [
+				"../../imports/gs_ng_core"
+			],
+			"@gs/portfolio-lib": [
+				"../../libs/portfolio-lib/index.ts"
+			]
+		},
+		"allowSyntheticDefaultImports": true
+	},
+	"files": [
+		"../../imports/gs_ng_core/typings/GSGlobals.d.ts",
+		"../../libs/portfolio-lib/index.ts",
+		"src/main.ts",
+		"src/polyfills.ts"
+    ],
+	"include": [
+		"src/**/*.d.ts"
+	]
+}

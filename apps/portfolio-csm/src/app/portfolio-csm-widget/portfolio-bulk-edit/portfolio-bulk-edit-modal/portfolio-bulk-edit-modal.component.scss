@@ -1,0 +1,23 @@
+.m-b-1 {
+    margin-bottom : 1rem;
+    ::ng-deep {
+        .gs-form__field {
+            line-height: 0px !important;
+        }
+    }  
+}
+.c-p {
+    cursor: pointer;
+    padding-left: 0.5rem
+}
+.bulk-edit-content {
+    max-height: 25rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &__header {
+        padding-bottom: 1rem;
+    }
+}
+.display-center {
+    padding: 0.6rem;
+}

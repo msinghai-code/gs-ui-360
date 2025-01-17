@@ -1,0 +1,30 @@
+<div *ngIf="case">
+    <div *ngIf="!isDefault else default" class="assignment" fxFlex="row">
+            <nz-tag>{{filter.expression}}</nz-tag>
+            <div class="assign-conditions" *ngFor="let cond of filter.conditions| slice:0:(rowData.showAllConditions ? filter.conditions.length : 2 ); let i = index;">
+                <nz-tag class="filter-chip__filter">
+                    <span class="filter-chip__filter__alias">{{cond.filterAlias}}:</span>
+                    <span class="filter-chip__filter__label" nz-tooltip [nzTooltipContent]="cond | globalFilterFieldLabelTooltipFormat">{{cond.leftOperand.label}}</span>
+                    <span class="filter-chip__filter__operator">
+                        <span class="filter-chip__filter__operator-icon gs-icons-operator gs-icons-operator-{{cond.comparisonOperator?.toLowerCase()}}"></span>
+                    </span>
+                    <span class="filter-chip__filter__value" nz-tooltip [nzTooltipContent]="cond.filterValue.value | filterValue: cond">
+                        <span>{{cond.filterValue.value | filterValue : cond}}</span>
+                    </span>
+                </nz-tag>
+            </div>
+            <div *ngIf="filter.conditions.length > 2" (click)="toggleShowMore()" class="show-more-toggle">
+                <nz-tag class="filter-chip__filter" *ngIf="!rowData.showAllConditions; else showLess">
+                        <span class="filter-chip__filter__label">+ {{filter.conditions.length - 2}}</span>
+                </nz-tag>
+                    <ng-template #showLess>
+                    <a nz-text nzType="small">{{'360.admin.assignment_cond.showLess'| transloco}}</a>
+                </ng-template>
+            </div>
+    </div>
+
+</div>
+<ng-template #default>
+     <span class="default-assignment">{{'360.admin.assignment_cond.defaultLayout'| transloco}}</span>
+</ng-template>
+

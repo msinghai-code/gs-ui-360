@@ -1,0 +1,36 @@
+<section class="csm-summary-widget-wrapper" *ngIf="!(widgetItem?.hidden || widgetItem?.config?.hidden)  else maskedWidget" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+  <h6 nz-title nzType="sub-section" class="csm-summary-widget-wrapper__label" nzColor="subtitle">{{widgetItem.label}}</h6>
+  <div class="csm-summary-widget-wrapper__content" fxLayout="column" fxFill fxFlex="100%">   
+    <ng-container *ngIf="!isLoading else empty">
+      <nz-card-meta  [nzTitle]="customerSinceTitle"  nzDescription="{{data?.msg || '---'}}"></nz-card-meta>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #empty>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <nz-skeleton class="half-skeleton" [nzActive]="false" [nzParagraph]="false" fxLayout="row" [nzTitle]="true"
+      flex="50%"></nz-skeleton>
+    <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+  </div>
+</ng-template>
+
+<ng-template  #customerSinceTitle>
+  <h4 class="ellipsisText" nz-title [nzEllipsisRows]="1" nzEllipsis gsShowIfEllipsis  (isEllipsisVisible)="tooltipVisible($event)" nz-tooltip [nzTooltipTitle]="isTooltipVisible ? (data?.fv || '---' ) :  ''" >{{data?.fv || '---'}} </h4>
+</ng-template>
+
+<ng-template #maskedWidget>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="masked_widget"
+       [nzTooltipContent]="'You don’t have the required permissions to view this information. Contact your Gainsight Administrator to request access.'"
+       [nzTooltipTitle]="'Permission Needed'"
+       [nzTooltipPlacement]="'bottomLeft'"
+       nz-tooltip>
+      <i class="lock-icon" nz-icon nzSize="24" nzTheme="outline" nzType="lock"></i>
+      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+          <div fxLayout="row" fxLayoutAlign="start baseline">
+              <label nz-text nzType="small" class="header_lock">{{'Permission Needed'}}</label>
+          </div>
+          <label nz-text nzType="small" class="subtitle_lock">{{'Contact Admin'}}</label>
+      </div>
+  </div>
+</ng-template>

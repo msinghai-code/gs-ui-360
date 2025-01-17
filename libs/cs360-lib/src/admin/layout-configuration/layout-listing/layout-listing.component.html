@@ -1,0 +1,18 @@
+<section class="gs-cs360-admin-wrapper-listing">
+  <gs-admin-rollout-c360 *ngIf="showRolloutActivationBanner"></gs-admin-rollout-c360>
+  <div class="gs-cs360-admin-wrapper-listing__content">
+    <nz-tabset class="gs-cs360-admin-wrapper__body-tabset"
+               [nzSize]="'medium'"
+               [nzAnimated]="false"
+               [nzSelectedIndex]="selectedIndex"
+               (nzSelectChange)="routeToTab($event)"
+               [nzTabBarGutter]="24"
+    >
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab?.label">
+    </nz-tab>
+  </nz-tabset>
+</div>
+<div class="gs-cs360-admin-wrapper__body-content">
+  <router-outlet></router-outlet>
+</div>
+</section>

@@ -1,0 +1,7 @@
+<gs-upsert style="height: 100%;" *ngIf="companyUpsertInfo" 
+    [submitLabel]="submitLabel"
+    (cancelClick)="onCancelClick()"
+    [upsertInfo]="companyUpsertInfo" 
+    [showLoading]="loading"
+    (updatedObject)="onObjectUpdate($event)">
+</gs-upsert>

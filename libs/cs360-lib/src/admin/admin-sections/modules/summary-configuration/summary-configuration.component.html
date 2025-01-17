@@ -1,0 +1,134 @@
+<section fxLayout="row" fxFill class="section-configuration-wrapper" cdkDropListGroup gsSpinner [nzSize]="'xl'" [show]="isSaveInProgress || configLoading">
+  <section fxFill [fxShow]="!section?.isDetachSectionPreview">
+    
+    <section fxFlex="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.xs="50" fxLayout="column"
+      class="section-configuration-wrapper__left">
+<!--        This is summary config LHS view-->
+      <gs-section-listing [sectionCategoryList]="(widgetCategories$ | async)" [configuredSections]="configuredWidgets" [options]="sectionListOptions"
+        [isLoading]="(widgetListLoading$ | async)" [isMaxLimitExceed]="configuredWidgets.length>=maxLimit">
+      </gs-section-listing>
+    </section>
+    
+    <section fxFlex="80" fxFlex.md="75" fxFlex.sm="70" fxFlex.xs="50" fxLayout="column"
+      class="section-configuration-wrapper__right">
+      <div fxFlex="60px" class="section-configuration-wrapper__right-header" fxLayout="row"
+        fxLayoutAlign="space-between center">
+        <div fxFlex="50" class="section-configuration-wrapper__right-header-left">
+             <!--{360.admin.summary_config.canvas}= Canvas-->
+          <div class="section-configuration-wrapper__heading">
+            {{'360.admin.summary_config.canvas'| transloco}}
+          </div>
+           <!--{360.admin.summary_config.configure_widgets}= Configure the widgets placed in the summary layout.-->
+          <div class="section-configuration-wrapper__sub-heading" nz-text nzType="small" nzColor="secondary">
+            {{'360.admin.summary_config.configure_widgets'| transloco}}
+          </div>
+        </div>
+      </div>
+
+      <section fxFlex="calc(100%-60px)" class="section-configuration-wrapper__right-content">
+        <div cdkDropList (cdkDropListDropped)="onSectionDrop($event)" (dragover)="$event.preventDefault()"
+          class="section-configuration-wrapper__right-content__gridster gridster-defaults">
+          <gridster #gridster [options]="options">
+            <ng-container *ngIf="configuredWidgets.length; else empty">
+              <gridster-item class="widget_container z-depth-1" data-id="{{item.id}}"
+                *ngFor="let item of configuredWidgets; trackBy: trackWidget" [item]="item" >
+                <div class="p-10 widget-header" [class.configurable]="item.configurable" fxLayout="row" fxLayoutAlign="start center">
+                  <div fxFlex fxLayoutGap=".3rem" fxLayoutAlign="left center" class="label-wrapper">
+                    <i nz-icon nzType="drag" nzSize="24" nzTheme="outline"></i>
+                    <div (click)="onLabelClick(item)" (mousedown)="$event.stopPropagation()" fxFlex fxLayout="row" class="label" nz-tooltip [nzTooltipTitle]="item | widgetSourceLabel">
+                      <div *ngIf="!item.showLabelInput else showLabelInput" class="widget-header-title configurable" [ngClass]="{'gs-non-editableTitle': !item.editableTitle}">
+                        {{ item.label || item.config.label}}
+                      </div>
+                      <ng-template #showLabelInput>
+                        <input autofocus class="attribute-group__header__input gridster-item-content" nz-input
+                          maxlength="{{sectionNameLimit}}" [(ngModel)]="item.tempLabel" (blur)="saveInput(item, $event)" (keyup.enter)="saveInput(item, $event)" (keydown.escape)="resetInput(item)">
+                      </ng-template>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="item.widgetCategory !== 'Report'">
+                    <div class="actions_section gridster-item-content" fxLayout="row" fxLayoutAlign="end center"
+                      fxLayoutGap="1rem">
+                      <i nz-icon nzType="settings" class="cursor-pointer" (click)="configureWidget(item)"
+                        *ngIf="item.configurable && !item.isLoading && item.config"></i>
+                      <i *ngIf="item.removable" (click)="onSectionDelete(item)" class="cursor-pointer" nz-icon nzType="delete"></i>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item.widgetCategory === 'Report'">
+                    <div class="actions_section gridster-item-content" fxLayout="row" fxLayoutAlign="end center"
+                      fxLayoutGap="1rem">
+                      <i nz-icon nzType="settings" class="cursor-pointer" (click)="configureWidget(item)"
+                        *ngIf="item?.config?.filterField"></i>
+                      <i (click)="onSectionDelete(item)" class="cursor-pointer" nz-icon nzType="delete"></i>
+                    </div>
+                  </ng-container>
+                </div>
+              </gridster-item>
+            </ng-container>
+          </gridster>
+        </div>
+      </section>
+    </section>
+  </section>
+
+
+  <!-- <ng-template #detachPreview> -->
+  <section *ngIf="section?.isDetachSectionPreview" fxFlex="100%"
+    class="section-configuration-wrapper__right-content">
+    <div class="section-configuration-wrapper__right-content__gridster detach-preview gridster-defaults">
+      <gridster #gridster [options]="detachViewOptions">
+        <ng-container *ngIf="configuredWidgets.length;">
+          <gridster-item class="widget_container z-depth-1" data-id="{{item.id}}"
+            *ngFor="let item of configuredWidgets; trackBy: trackWidget" [item]="item">
+            <div class="p-10 widget-header" fxLayout="row" fxLayoutAlign="start center">
+              <div fxFlex="80" fxLayoutGap=".5rem" fxLayoutAlign="left center">
+                <div fxFlex="calc(100% - 2rem)" fxLayout="row">
+                  <div class="widget-header-title">
+                    {{item.label || item.config.label}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </gridster-item>
+        </ng-container>
+      </gridster>
+    </div>
+  </section>
+  <!-- </ng-template> -->
+
+</section>
+
+<ng-template #empty>
+  <div class="section-configuration-wrapper__empty" *ngIf="!configLoading">
+    <nz-empty [nzNotFoundImage]="imageTpl" [nzNotFoundContent]="contentTpl">
+      <ng-template #imageTpl>
+        <i class="section-configuration-wrapper__empty--img"></i>
+      </ng-template>
+        <!--{360.admin.summary_config.drag_drop}= Drag-and-Drop widgets from the left side panel
+          to add them to  the Summary layout-->
+      <ng-template #contentTpl>
+        <span class="section-configuration-wrapper__empty--description">
+          {{'360.admin.summary_config.drag_drop'| transloco}}
+        </span>
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>
+
+
+
+<nz-drawer [nzMaskClosable]="false" [nzMask]="true" [nzClosable]="true" [nzVisible]="widgetSettings.open" [nzWidth]="widgetSettings.widthPercentage"
+  [nzPlacement]="'right'" [nzTitle]="widgetName" (nzOnClose)="closeSettings()" [nzZIndex]="1500"
+  [nzBodyStyle]="{padding:'0px', height: 'calc(100% - 7.2rem)'}" [nzWrapClassName]="'summary-config-drawer'">
+  <div fxLayout="column" fxFill fxLayoutAlign="space-between none">
+    <div class="gs-tab-sidebar__content" fxLayout="column" fxFlex="calc(100% - 6rem)" gsSpinner [nzSize]="'xl'"
+      [show]="widgetSettings.loading">
+      <ng-template gsGenericHost></ng-template>
+    </div>
+       <!--{360.admin.summary_config.cancel}= Cancel-->
+        <!--{360.admin.summary_config.save}= Save-->
+    <div class="ant-drawer-footer">
+      <button nz-button nzType="default" (click)="closeSettings()">{{'360.admin.summary_config.cancel'| transloco}}</button>
+      <button [disabled]="isSettingsSaveDisabled" nz-button nzType="primary" (click)="saveSettings()">{{'360.admin.summary_config.save'| transloco}}</button>
+    </div>
+  </div>
+</nz-drawer>

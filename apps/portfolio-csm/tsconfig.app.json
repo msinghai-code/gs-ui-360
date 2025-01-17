@@ -1,0 +1,27 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/app",
+		"types": [],
+		"paths": {
+			"@gs/portfolio-lib": [
+				"../../libs/portfolio-lib"
+			],
+			"@gs/portfolio-lib/*": [
+				"../../libs/portfolio-lib/*"
+			]
+		}
+	},
+	"files": [
+		"../../libs/portfolio-lib/index.ts",
+		"src/main.ts",
+		"src/polyfills.ts"
+	],
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"src/test.ts",
+		"src/**/*.spec.ts"
+	]
+}

@@ -1,0 +1,134 @@
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/font";
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-report-widget-component-loader {
+  width: 100%;
+  height: 100%;
+  position:absolute !important;
+}
+
+.gs-csm-report-widget-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  height: 100%;
+  &__header {
+    display: none;
+    &--active {
+      display: flex;
+      width: 100%;
+      padding: 0 0 $space-large $space-base;
+      color: $rich-gray-70;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $rich-gray-70;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+    }
+    .gs-icons-draggable-indicator {
+      font-size: 2rem;
+      color: #7596b7;
+    }
+  }
+  &__body {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    overflow: hidden;
+    * {
+      -webkit-user-select: none;
+    }
+  }
+}
+
+.gs-csm-report-widget-body {
+  &__left {
+    display: none;
+    padding: 1.6rem;
+    position: relative;
+    ::ng-deep {
+      .custom_resizer {
+        height: 100%;
+        width: 1px;
+        &::after {
+          content: "";
+          width: 2rem;
+          height: 5rem;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1;
+        }
+        &:hover {
+          &::after {
+
+          }
+        }
+        &.dragging {
+          &::after {
+
+          }
+        }
+      }
+    }
+    &--active {
+      display: block;
+      min-width: 15rem;
+      width: 26rem;
+      max-width: 30rem;
+      flex-shrink: 0;
+      border-right: 1px solid #dddddd;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: 100%;
+    }
+    &__item {
+      height: 3.2rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.selected {
+        font-weight: 500;
+        background-color: rgba(3, 105, 233, 0.08);
+        color: #0369e9
+      }
+      &:hover {
+        color: #0369e9
+      }
+      &:after {
+        content: '';
+        display: block;
+      }
+    }
+  }
+  &__right {
+    flex-grow: 1;
+    height: 100%;
+  }
+  &__gridster-item {
+    margin-top: 10px;
+  }
+}
+
+.gdm-object-form-container {
+  height: 100%;
+}

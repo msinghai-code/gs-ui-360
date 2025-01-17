@@ -1,0 +1,17 @@
+<div fxFill fxLayout="column" fxLayoutAlign="center center">
+  <div style = "width: 400px;">
+<!--{360.admin.migrate.subMessage}=Migrate will trigger migration of all existing 360 configuration to Horizon 360.
+      This includes all sections configured in c360 only.-->
+    <label class="gs-keygen" nz-text nzType="medium" >
+      {{'360.admin.migrate.subMessage' | transloco}}
+    </label>
+    <br />
+    <br />
+    <!--{360.admin.migrate.migrate_btn}=Migrate-->
+    <button *ngIf = "!migrationTriggered" nz-button nzType="primary" nzBlock (click) = "migrate()" class="gs-keygen"> {{'360.admin.migrate.migrate_btn' | transloco}}</button>
+    <div  class="gs-keygen" *ngIf = "migrationCompleted">
+      <!--{360.admin.migrate.migration_success}=Migration Successfully Triggered -->
+      <i nz-icon nzType="alert-success" nzTheme="outline"></i> {{'360.admin.migrate.migration_success' | transloco}}
+    </div>
+  </div>
+</div>

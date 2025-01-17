@@ -1,0 +1,21 @@
+<div class="not_available_Section" fxLayout="column" fxLayoutGap="4px">
+  <h5 nz-title>{{ 'Features Unavailable in Third Pane' }}</h5>
+  <p
+    class="subtitle"
+    nz-paragraph>{{ 'Certain features are not readily accessible due to interface limitations. Click on the provided hyperlinks to open them in a new tab.' }}
+  </p>
+  <div *ngFor="let section of sections" class="links_cntr" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <h5 (click)="redirectOnCLick(section.sectionId)"
+          [nzTooltipTitle]="section.label"
+          class="links_label"
+          nz-title
+          nz-tooltip>{{ section.label }}</h5>
+      <i (click)="redirectOnCLick(section.sectionId)"
+         nz-icon
+         nzSize="16"
+         nzTheme="outline"
+         nzType="new-tab"></i>
+    </div>
+  </div>
+</div>

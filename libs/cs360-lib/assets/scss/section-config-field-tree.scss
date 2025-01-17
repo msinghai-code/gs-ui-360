@@ -1,0 +1,123 @@
+// This file overrides p-tree styles from field and base tree that shows on left side
+// in Attribute configuration and widget config listing LHS
+
+.gs-tree-node__root {
+    display: none;
+  }
+
+.gs-field-tree {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .gs-tree-node__body {
+    height: calc(100% - 70px);
+    overflow: auto;
+    width: 35rem !important;
+  }
+
+  .ant-input-affix-wrapper {
+    padding: 1.4rem 1.6rem 1.6rem;
+  }
+
+  .ant-input-suffix {
+    right: 2rem !important;
+  }
+
+  .ui-treenode-content.ui-treenode-content-selected {
+    color: initial;
+  }
+}
+
+.label {
+  padding-left: 1.6rem;
+  margin-bottom: 0 !important;
+}
+
+.description {
+  padding-left: 1.6rem;
+  margin: 0;
+}
+
+.gs-dragabble {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  .anticon {
+    font-size: 2.4rem;
+    //margin-top: -0.5rem;
+    //color: #8399af;
+    margin-right: 0.5rem;
+
+    &-drag {
+      font-size: 2rem;
+    }
+  }
+}
+
+.gs-tree-node__search-wrapper {
+  padding: 1.4rem 1.6rem 1.6rem;
+
+  ::ng-deep {
+    .ant-input-suffix {
+      background-color: #e3eaf1;
+      border-radius: 50%;
+      top: 1.5rem;
+    }
+
+    .ant-input-clear-icon {
+      svg {
+        padding: 2px;
+        height: 20px;
+        width: 20px;
+        color: #3e5872;
+      }
+    }
+  }
+}
+
+.gs-tree-node__body {
+  border-top: 1px solid #e3e8ed;
+}
+
+.ui-treenode-label {
+  margin: 0 !important;
+  width: 100% !important;
+  //white-space: nowrap;
+  //overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-state-highlight {
+  background: none !important;
+  border: none !important;
+}
+
+.ui-treenode-children .ui-treenode .ui-treenode-content {
+  padding-left: 1.8rem !important;
+}
+
+.ui-treenode-children .ui-treenode-children .ui-treenode .ui-treenode-content {
+  //padding-left: 2rem !important;
+}
+
+.ui-tree .ui-treenode .ui-treenode-content {
+  border-bottom: 1px solid #e3eaf1;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(85, 115, 145, .06);
+  }
+}
+
+.ui-tree .ui-treenode .ui-treenode-children p-treenode .ui-treenode .ui-treenode-content {
+  border-bottom: none;
+}
+
+.ui-tree .ui-treenode .ui-treenode-children p-treenode .ui-treenode .ui-treenode-content {
+  border-bottom: none;
+}

@@ -1,0 +1,289 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.CH-chart {
+  &:before {
+    opacity: 0;
+  }
+}
+
+.company-hierarchy {
+    padding: 2rem;
+
+
+    &.mini-padding {
+      padding: 0 !important;
+    }
+
+    //background-color: $component-background;
+    .empty {
+        background-color: #f8f9fa;
+    }
+    &__header {
+        &__right {
+            display: flex;
+            align-items: center;
+
+          &.miniVariant{
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+          }
+        }
+        &__actions {
+            font-size: 2.4rem;
+            display: flex;
+
+            &.miniVariant{
+              display: inline-flex;
+              gap: 16px;
+            }
+            .searchCompany {
+                display: flex;
+                &__input {
+                    margin-right: 2.4rem;
+
+                  &.miniVariant{
+                    margin-right: 0;
+                  }
+                }
+            }
+            .filter {
+                margin-right: 2.4rem;
+                font-size: 2.4rem;
+                cursor: pointer;
+
+                &.miniVariant{
+                  font-size: medium !important;
+                  margin-right: 0;
+                }
+
+                color: $rich-gray-60;
+                .anticon svg {
+                    top: 0 !important;
+                }
+            }
+          ::ng-deep {
+            .clear-icon{
+                background-color: #e3eaf1;
+                border-radius: 50%;
+                svg{
+                  padding: 2px;
+                  height: 18px;
+                  width: 18px;
+                  color: #3e5872;
+                }
+            }
+
+          }
+        }
+    }
+    &__body {
+        display: flex;
+        ::ng-deep {
+          gs-grid {
+            .ag-center-cols-container {
+              min-width: 100% !important;
+            }
+          }
+          .mini_grid {
+            .ag-center-cols-viewport {
+              overflow-x: hidden;
+            }
+          }
+        }
+    }
+    &__grid {
+        width: 100%;
+        padding: 2rem 0 2.4rem 0 !important;
+    }
+    &__chart {
+        width: 100%;
+        margin: 2rem 0 2.4rem 0 !important;
+        border: 1px solid $rich-gray-40;
+        background-color: #f8f9fa;
+    }
+    
+    ::ng-deep {
+        .more-top-row {
+            .ag-icon-expanded, .ag-icon-contracted {
+                margin-top: 1.1rem;
+            }
+        }
+        .ag-header-cell {
+            span.topHeaderRow {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            span.secondHeaderRow {
+                font-size: 1.2rem;
+                opacity: 0.8;
+                display: inline-block;
+            }
+        }
+        .ag-cell-last-left-pinned {
+            border-right: 1px solid #e2e2e2 !important;
+        }
+        .dt-number, .dt-date {
+            text-align: left !important;
+          .ag-cell-wrapper {
+            text-align: left !important;
+          }
+        }
+        .hierarchy-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            row-gap: 1rem;
+            .hierarchy-name {
+                line-height: 1.4rem;
+            }
+            .limit-info {
+                font-size: 1.2rem;
+                line-height: 1.6rem;
+                color: $rich-gray-60;
+                padding: 0.2rem 1rem 0 1rem;
+            }
+        }
+        .hierarchy-name {
+            display: flex;
+            align-items: center;
+            .name {
+                padding: 0 1rem 0 1rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            // nz-badge {
+            //     position: relative;
+            //     top: -1px;
+            //     display: inline-block;
+            //     width: 0.6rem;
+            //     min-width: 0.6rem;
+            //     height: 0.6rem;
+            //     vertical-align: middle;
+            //     border-radius: 50%;
+            //     &.active {
+            //         background-color: $fresh-green-60;
+            //     }
+            //     &.inactive {
+            //         background-color: $rich-gray-60;
+            //     }
+            //     &.churn {
+            //         background-color: $tart-red-60;
+            //     }
+            // }
+            // nz-tag {
+            //     color: $rich-gray-90;
+            //     box-sizing: border-box;
+            //     padding: 0.2rem 0.6rem;
+            //     font-variant: tabular-nums;
+            //     list-style: none;
+            //     font-feature-settings: 'tnum';
+            //     display: inline-block;
+            //     height: auto;
+            //     font-size: 1.2rem;
+            //     line-height: 1.4rem;
+            //     white-space: nowrap;
+            //     background: $bell-blue-20;
+            //     border: 1px solid $bell-blue-20;
+            //     border-style: groove;
+            //     border-radius: 0.4rem;
+            //     cursor: default;
+            //     opacity: 1;
+            //     transition: all .3s cubic-bezier(.78,.14,.15,.86);
+            // }
+        }
+    }
+}
+
+.empty {
+    &__search-icon {
+        background: url('../../../../../assets/images/empty-search.svg') no-repeat center;
+        background-size: 7.2rem;
+        display: block;
+        min-height: 1rem;
+        height: 7.2rem;
+        width: 7.2rem;
+    }
+    span {
+        color: $rich-gray-70;
+    }
+}
+
+.gs-tab-sidebar .gs-tab-sidebar__content {
+    height: calc(100% - 4rem);
+  ::ng-deep {
+    .gs-filter-query__actions{
+      justify-content: center;
+    }
+  }
+    .filter-container .filter-rule-row {
+        .object-select {
+            width: 12rem;
+        }
+    }
+}
+.gs-tab-sidebar .gs-tab-sidebar__footer .gs-tab-sidebar__footer-btn {
+    margin-left: 0.5rem;
+}
+
+.gs-tab-sidebar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    &__title {
+      padding-top: 1.6rem;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 500;
+    }
+    &__header{
+      display: -webkit-box;
+      display: flex;
+      justify-content: space-between;
+      padding: 1.6rem 3.2rem;
+    }
+    &__content{
+      flex-grow: 1;
+      overflow: auto;
+      padding-top: 25px !important;
+
+      &.error {
+        padding-bottom: 3rem;
+      }
+    }
+    &__footer{
+      text-align: right;
+      padding: 1rem;
+      border-top: 1px solid $rich-gray-40;
+    }
+    &__footer-btn{
+      margin-left: 1rem;
+    }
+    &__banner {
+      position: absolute;
+      width: 97%;
+      bottom: 5.5rem;
+      z-index: 1;
+    }
+}
+  
+.gs-tab-sidebar-container {
+    &, &__tab-group{
+        height: 100%;
+    }
+    .mat-tab-body-wrapper{
+        height: 100%;
+    }
+    .mat-tab-body{
+        height: 100%;
+        padding: 2rem 2rem 0;
+    }
+}

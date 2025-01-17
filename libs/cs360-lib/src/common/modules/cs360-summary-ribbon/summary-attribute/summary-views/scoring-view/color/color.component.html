@@ -1,0 +1,6 @@
+<div class="gs-color-score" >
+  <div *ngFor="let i of data" [style.background]="i.color" [style.width]="i.width"
+       class='gs-color-score-square'  nz-tooltip nzTooltipTitle="{{i.tooltip || (i.label +': '+ i.value)}}">
+    <span class="gs-color-score-square-text"></span>
+  </div>
+</div>

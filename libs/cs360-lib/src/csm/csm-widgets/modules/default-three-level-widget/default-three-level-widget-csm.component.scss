@@ -1,0 +1,52 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+:host{
+}
+
+.csm-summary-widget-wrapper {
+
+    &__label{
+        //color: $rich-gray-70;
+    }
+
+    ::ng-deep {
+        .ant-card-meta-title {
+            margin-top: $space-xsmall;
+            font-size: 18px;
+        }
+
+        .ant-card-meta-description {
+            //margin-top: $space-xsmall;
+            font-size: 12px;
+            color: $rich-gray-70;
+        }
+    }
+}
+.ellipsisText{
+    width: 100%
+}
+
+.lock-icon{
+    padding: 8px;
+    color: $pumpkin-orange-90;
+    background: $pumpkin-orange-30;
+    border-radius: 50%;
+    height: auto;
+  }
+
+.subtitle_lock {
+    color: $rich-gray-50;
+    cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.header_lock {
+    cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.masked_widget {
+    cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}  

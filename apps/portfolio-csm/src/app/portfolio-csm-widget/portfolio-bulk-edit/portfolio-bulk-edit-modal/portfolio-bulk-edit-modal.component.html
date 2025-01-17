@@ -1,0 +1,43 @@
+<div nz-row>
+    <div nz-text nzType="secondary">
+        {{'360.csm.bulk_edit_modal.selectFields'| transloco}}
+        <br />
+        {{'360.csm.bulk_edit_modal.selectFieldsNote'| transloco}}
+    </div>
+</div>
+<div nz-row class="bulk-edit-content">
+    <div nz-row class="bulk-edit-content__header" nzGutter="8">
+        <div nz-col nzSpan="10">
+            <span nz-text>{{'360.csm.bulk_edit_modal.field'| transloco}}</span>
+        </div>
+        <div nz-col nzSpan="10">
+            <span nz-text>{{'360.csm.bulk_edit_modal.changeValue'| transloco}}</span>
+        </div>
+        <div nz-col nzSpan="4">
+        </div>
+    </div>
+    <div nz-row class="m-b-1 edit-fields-rows" nzType="flex" nzGutter="8" *ngFor="let row of dataRows; let i = index">
+        <div nz-col nzSpan="10">
+            <nz-select (ngModelChange)="onFieldSelected($event, row, i)" nzShowSearch nzPlaceHolder=""
+                style="width : 180px;" [(ngModel)]="row.fields[0]">
+                <nz-option *ngFor="let field of unSelectedFields" [nzLabel]="field.displayName" [nzValue]="field">
+                </nz-option>
+            </nz-select>
+        </div>
+        <div nz-col nzSpan="10">
+            <ng-template #simpleInput>
+                <input nz-input placeholder="" [(ngModel)]="row.value">
+            </ng-template>
+            <gs-field-editor *ngIf="row.fields.length else simpleInput"
+                (formStatusUpdated)="updateRowStatus($event, row)" (valueChanged)="updateFormData($event)"
+                [showErrors]="true" [showLabel]="false" [defaultOpenPopups]="false" [editable]="true"
+                [fields]="row.fields"></gs-field-editor>
+        </div>
+        <div nz-col nzSpan="4" class="display-center">
+            <div nz-row nzGutter="12">
+                <i nz-icon class="c-p" (click)="addRow(i+1)" nzType="add" nzTheme="outline" nzSize="24"></i>
+                <i nz-icon class="c-p" *ngIf="i!=0 || dataRows?.length > 1" (click)="minusRow(i)" nzType="delete" nzTheme="outline" nzSize="24"></i>
+            </div>
+        </div>
+    </div>
+</div>

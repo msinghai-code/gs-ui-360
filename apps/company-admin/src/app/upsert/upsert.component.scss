@@ -1,0 +1,66 @@
+@import '~@angular/material/theming';
+
+/* core assets */
+@import "~@gs/core/assets/scss/horizon2.1/core/variables";
+
+.recipe-steps {
+    height: 100%;
+    padding: 0 0 1rem;
+    flex: auto;     
+    .mat-horizontal-content-container {
+        height: unset;
+    }
+    /*Follwing fix is for mat stepper, these styles will be remove in the horinization task*/
+    .mat-stepper-horizontal {
+      ::ng-deep {
+        .mat-horizontal-stepper-header-container {
+          top: 0rem;
+          width: 100%;
+          position: absolute;
+        }
+      }
+    }
+    .mat-horizontal-stepper-content-ctnr{
+        height: unset;
+        flex: 1;
+        overflow: auto;
+    }
+} 
+
+.edit-recipe-sidebar-header {
+    position: relative;
+    height: 100%;
+  }
+    
+  .gs-stepper-footer{
+    box-shadow: inset 0 1px 0 0 #E2E9F0;
+    button {
+      margin: 0 1rem;
+    }
+    &__content{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  .gs-record-editor {
+    max-width: 80rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.4rem 0 0 0;
+    .editor {
+      width: 50%;
+      &__full-width {
+        width: 100%;
+      }
+      display: inline-flex; 
+      .gs-attr {
+        width: 100%;
+        .mat-form-field {
+          width: 100%;
+        }
+      }
+    }
+  }

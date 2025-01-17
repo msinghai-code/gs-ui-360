@@ -1,0 +1,5 @@
+<ng-container *ngIf="show">
+        <ax-lazy-element
+                *axLazyElementDynamic="elementTag,url:url" [options]="moduleConfig" (changes)="onChanges($event)">
+        </ax-lazy-element>
+</ng-container>

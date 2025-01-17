@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* ============ Vendor files ====== */
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+@import '~@angular/material/theming';
+@import "~@gs/gdk/core/style/index";
+@import "~@gs/gdk/grid/style/index.scss";
+
+/* core variables */
+$imagesAssetPath: "~@gs/core/assets/images";
+$fonts_dir : "~@gs/core/assets/fonts/";
+$font_icons_dir: "~@gs/core/assets/font-gs-icons/";
+
+/* core fonts */
+@import "~@gs/core/assets/fonts/Roboto/Roboto.scss";
+@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+
+/* core assets */
+@import '~@gs/core/assets/gsTheme-h2';
+@import '~@gs/core/assets/scss/horizon2.1/core/default-imports';
+@import "~@gs/core/assets/scss/components/gainsight/in-app-sally";
+
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+
+html {
+  font-size: 10px;
+}
+// need to remove this in horizon task
+* {
+  font-family: $font-family !important;
+}
+.material-icons {
+  font-family: 'Material Icons' !important;
+}
+
+body {
+  font-size: 1.4rem;
+  margin: 0;
+  background: $gs-material-bg-color;
+  font-family: $font-family !important;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: text-color(default);
+  &.gainsight-app {
+    height: 100vh;
+  }
+}
+
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import "~@gs/core/assets/scss/horizon2.1/sfdc-overrides/SFDC-normalize";
+.gainsight-app, .cdk-overlay-container {
+  @import "~@gs/core/assets/scss/horizon2.1/core/common";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/formelements";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/gs-wizard";
+  @import "~@gs/core/assets/scss/horizon2.1/core/gs-icon-hover";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/dialog";
+}
+@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
+.module-body {
+  overflow-y: auto;
+  height: 100%;
+  flex:1;
+}
+
+@import "~@gs/gdk/spinner/style/index";
+@import "~@gs/ng-horizon/modal/style/index.css";

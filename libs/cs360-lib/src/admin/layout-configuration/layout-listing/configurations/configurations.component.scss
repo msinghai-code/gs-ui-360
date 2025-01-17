@@ -1,0 +1,41 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  display: flex;
+  height: 100%;
+}
+
+.gs-cs360-configuration__body-tabset {
+  width: 25rem;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(25, 35, 47, 0.12), 0 0 1px 0 rgba(25, 35, 47, 0.24);
+  background-color: #ffffff;
+  border-right: 1px solid $rich-gray-40;
+  ::ng-deep {
+    .ant-tabs-content {
+      height: 100%;
+      padding: 0;
+      .ant-tabs-tabpane {
+        padding: 0 !important;
+      }
+    }
+    .ant-tabs-tab {
+      margin: 0;
+      padding: 1rem 2rem;
+      text-align: left;
+    }
+    .ant-tabs-tab-active {
+      background-color: rgba(3, 105, 233, 0.08);
+    }
+    .ant-tabs-bar.ant-tabs-left-bar {
+      min-width: 24rem;
+      margin-right: 0 !important;
+      border-right: 1px solid $rich-gray-40;
+    }
+    .gs-drag-label__text{
+      font-size: 1.4rem ;
+      color:$royal-blue-70 ;
+    }
+  }
+}

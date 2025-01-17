@@ -1,0 +1,297 @@
+// @import "~@gs/ng-horizon/style/scss/horizon_variables";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/index";
+
+$gs-form-field-height: 3.2rem;
+$gs-form-field-color: #253445;
+$gs-select-field-height: 2.4rem;
+
+
+.gs-attr__value-group-full-width {
+  padding-bottom: 1.34375em;
+  width: 100% !important;
+  float: left;
+}
+
+.gs-attr__value-group{
+  float: left;
+  width: 50%;
+  padding: 0 1.6rem;
+
+  &:nth-child(even) {
+    padding-right: 0;
+  }
+
+  &:nth-child(odd) {
+    padding-left: 0;
+  }
+}
+
+.gs-attr__label {
+  top: 0;
+  -webkit-transform: none;
+  transform: none;
+  font-size: 1.2rem;
+  color: #557391;
+  letter-spacing: 0.02rem;
+}
+
+.checkbox-editor {
+  position: relative;
+  text-align: left;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+}
+
+.date-field-picker {
+  display: flex;
+  align-items: center;
+  .ant-time-picker {
+    padding-left: 1.6rem;
+  }
+  .mat-form-field {
+    flex: 1;
+  }
+  .mat-icon {
+    line-height: 16px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera
+  This is for hiding UP & DOWN Arrows for Number type fields
+*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+/*This will be for Detail View form builders*/
+.gs-cta-detail-view {
+  .gs-form__field--view {
+    &:not(.gs-form__field--readonly) {
+      width: 80%;
+      margin: 0 -0.45rem;
+    }
+  }
+}
+
+.gs-form {
+  &__field {
+    text-align: left;
+    width: 100%;
+    outline: none;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+    &--view {
+      font-size: 1.4rem;
+      border: 1px solid transparent;
+      padding: 0 0.45rem;
+      border-radius: 4px;
+      outline: none;
+      height: 2.6rem;
+      vertical-align: middle;
+      line-height: 2.4rem;
+      &:not(.gs-form__field--readonly) {
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(184, 200, 216, 0.2);
+          .gs-form__select-icon {
+            display: flex;
+          }
+        }
+      }
+      > span {
+        height: 2.6rem;
+        vertical-align: middle;
+        line-height: 2.4rem;
+        display: inline-block;
+        &:not(.ant-typography-danger){
+          color: #253445; // Theme colors
+        }
+      }
+      .gs-form__select {
+        &-icon {
+          //padding-bottom: 0.5rem;
+          //font-size: 2rem;
+          display: none;
+        }
+      }
+      .gs-form__select-label {
+        display: inline-block;
+        height: $gs-select-field-height;
+        line-height: $gs-select-field-height;
+        padding: 0 2.4rem 0 .8rem;
+        max-width: 150px;
+        vertical-align: middle;
+        position: relative;
+        transition: .2s ease-in-out;
+        border: none;
+        font-size: 1.4rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        &--readonly {
+          padding: 0 .8rem;
+        }
+      }
+    }
+    &--edit, &--edit .ant-input {
+      height: $gs-form-field-height;
+    }
+    &--edit.gs-px-edit-string {
+      display: flex;
+    }
+    &--edit-dropdown {
+      width: 100%;
+    }
+    &--readonly {
+      outline: none;
+      padding: 0;
+    }
+    &--multiselect.gs-form__field--view {
+      .gs-form__select-label {
+        border: none;
+        // font-size: 1.4rem;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0;
+      }
+    }
+  }
+  &__field-label {
+    width: 100%;
+    &--url {
+      display: inline-block;
+    }
+  }
+  &__item {
+    width: 100%;
+    &.gs-form__select .gs-form__field--view:not(.gs-form__field--multiselect) {
+      margin: 0;
+      padding: 0;
+      height: auto;
+      &:hover:not(.gs-form__field--readonly) {
+        background-color: transparent;
+        .gs-form__select-label {
+          position: relative;
+          background-color: background-color(white) !important; //To override the inline styles
+        }
+      }
+    }
+  }
+  &__caption-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: text-color(default);
+    padding: 0 !important;//TODO: Remove once local partials take precedence over ant-d styles
+    > label {
+      font-size: 1.2rem;
+    }
+  }
+  &__lookup-img {
+    margin-right: .6rem;
+    width: 20px;
+    height: 20px;
+  }
+  &__lookup-title {
+    color: #557391; // Theme colors
+    width: calc(100% - 30px);
+  }
+  &__select-icon {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > svg {
+      fill: #4B6A87; // Theme colors
+      width: 9px;
+      height: 9px;
+    }
+  }
+  &__string-input {
+    width: 100%;
+  }
+  .ant-form-item-control {
+    outline: none;
+  }
+}
+
+.gs-assocPrsn{
+  width: 100%;
+  .gs-form{
+    &__field{
+      &--view {
+        width: 100% !important;
+      }
+      &--edit {
+        height: 100% !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
+.gs-create-form {
+  .ant-col-offset-1:first-child {
+    margin-left: 0;
+  }
+}
+.gs-create-form-layout {
+  padding: 2rem;
+  border: 1px solid border-color(primary);
+  border-radius: 4px;
+  box-shadow: 0 -1px 4px 0 rgba(15,135,236,0.5), 0 2px 4px 0 rgba(131,153,175,0.4);
+  .ant-form-vertical .ant-form-item {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+//All form-builder dropdowns not multiple, e.g(create-cta, cta-detail view, create task, task detail view)
+.gs-fb-select__dropdown:not(.ant-select-dropdown--multiple) {
+  .ant-select-dropdown-menu {
+    padding: .8rem 0;
+    // min-height: $gs-fb-select-drpdwn-height;
+    .ant-select-dropdown-menu-item {
+      padding: 1.35rem 0.5rem 1.35rem 2rem;
+    }
+  }
+}
+
+.gs-fb-select {
+  &__label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+  }
+}
+.gs-option {
+  display: flex;
+  align-items: center;
+  &__color-circle {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 1.2rem;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  &__text {
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 30px);
+  }
+}

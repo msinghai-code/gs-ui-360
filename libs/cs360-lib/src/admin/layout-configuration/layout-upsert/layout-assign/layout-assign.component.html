@@ -1,0 +1,49 @@
+<div gsSpinner [nzSize]="'xl'" [show]="loading"  class="layout-assign">
+  <div>
+    <div class="layout-assign__header">
+        <!--{360.admin.layout_assign.assignmentCriteria}= Layout Assignment Criteria-->
+      <h6 nz-title>{{'360.admin.layout_assign.assignmentCriteria'| transloco}}</h6>
+      <label nz-text nzType="small" nzColor="secondary">{{sub_title}}</label>
+    </div>
+    <gs-object-filter-query-builder
+      [className]="isPartner ? 'layout-assign-object-filter partner-obj-filter' : 'layout-assign-object-filter'"
+      [host]="globalFilterConstants.HOST"
+      [baseObject]="globalFilterConstants.BASE_OBJECT"
+      [baseObjects]="globalFilterConstants.OBJECT_LIST"
+      [filterInfo]="assignConditions"
+      [config]="filterConfig"
+      [currencyConfig]="currencyConfig"
+      [filterFunction]="filterConfig.filterFunction"
+      [nestLevels]="globalFilterConstants.NEST_LEVELS"
+      [keepLastRule]="false"
+      [allowConditionalLogic]="true"
+      [lookupMultiple]="true"
+      [inputValueSettings]="{showMore: true,
+            selectionLimit: 10,
+            byPassValidation: false}"
+      [fieldSearchSetting]="{maintainDefaultOrder: false}"
+      (status)="onStatusUpdate($event)"
+      [allowedDataTypes]="allowedDataTypes"
+      (conditionChanges)="onStatusUpdate($event)"
+    >
+    </gs-object-filter-query-builder>
+  </div>
+    <div class="assign-layout-info">
+        <div *ngIf="isPartner === false; else partnerAssignNote" class="assign-info"><div class="note-text">{{'360.admin.layout_assign.assignNote'| transloco}} <b>{{'360.admin.layout_assign.manage'| transloco}}</b> {{'360.admin.layout_assign.assignInfo'| transloco}}</div></div>
+        <ng-template #partnerAssignNote>
+          <div *ngIf="isC360 === true; else relationshipNote" class="assign-info"><div class="note-text">{{'360.admin.layout_assign.partnerAssignNote'| transloco}} <a (click)="navigateToUrl()"> {{'360.admin.layout_assign.partnerMgmt'| transloco}}</a></div></div>
+          <ng-template #relationshipNote>
+            <div class="assign-info"><div class="note-text">{{'360.admin.layout_assign.partnerAssignNoteForRelationship'| transloco}} <a (click)="navigateToUrl()"> {{'360.admin.layout_assign.partnerMgmt'| transloco}}</a></div></div>
+          </ng-template>
+        </ng-template>
+      </div>
+</div>
+<div class="layout-assign__footer" [class.create-mode]="isCreateMode">
+  <button  *ngIf="isCreateMode" (click)="onBackClick()" nz-button nzType="default">{{'360.admin.layout_assign.backBtn'| transloco}}</button>
+  <div>
+    <button *ngIf="isCreateMode" nz-button (click)="onSaveAsDraftClick()" nzType="link">{{'360.admin.layout_assign.saveAsDraft'| transloco}}</button>
+    <button nz-button (click)="onCancelClick()" nzType="default">{{'360.admin.layout_assign.cancelBtn'| transloco}}</button>
+    <button nz-button (click)="onSaveClick()" nzType="primary" >{{'360.admin.layout_assign.saveBtn'| transloco}}</button>
+  </div>
+</div>
+

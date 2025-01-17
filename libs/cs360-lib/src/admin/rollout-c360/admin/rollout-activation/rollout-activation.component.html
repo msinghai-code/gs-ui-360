@@ -1,0 +1,23 @@
+<section class="gs-rollout-activation-cntr">
+  <span nz-text nzType="small" nzColor="secondary">{{'360.admin.rollout_activation.onceActivated'| transloco}}</span>
+  <div class="gs-rollout-activation-modes-cntr">
+    <div class="gs-rollout-activation-mode"
+         [ngClass]="{'selected': mode?.selected }"
+         *ngFor="let mode of modes"
+         (click)="onClick(mode)">
+      <div class="gs-rollout-activation-mode__checkbox">
+        <i class="gs-rollout-activation-mode__icon"></i>
+      </div>
+      <span nz-text nzType="sub-section"><i nz-icon nzType="{{mode?.icon}}" nzTheme="outline"></i></span>
+      <span nz-text nzType="sub-section">{{mode?.title}}</span>
+      <label nz-text nzType="small" nzColor="secondary">{{mode?.subTitle}}</label>
+    </div>
+  </div>
+  <div class="gs-rollout-activation-warning-cntr">
+    <i nz-icon nzType="warning" nzTheme="fill"></i>
+    <span nz-text nzType="small">{{'360.admin.rollout_activation.activationNote'| transloco}}</span>
+    <br>
+    <i nz-icon nzType="warning" nzTheme="fill"></i>
+    <span nz-text nzType="small">{{'360.admin.rollout_activation.migrationNote'| transloco}}</span>
+  </div>
+</section>

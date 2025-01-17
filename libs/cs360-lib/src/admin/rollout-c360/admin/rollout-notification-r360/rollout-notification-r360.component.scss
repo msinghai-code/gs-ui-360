@@ -1,0 +1,62 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+:host {
+  display: block;
+}
+
+.gs-rollout-notification-cntr {
+  height: 10.5rem;
+  background-color: $rich-gray-0;
+  border-bottom: 1px solid $rich-gray-40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem 0 3.3rem;
+}
+
+.gs-rollout-notification {
+  &__left {
+    display: flex;
+    flex-direction: column;
+    .configure-text {
+      font-size: 1.6rem;
+      padding-bottom: .5rem;
+    }
+  }
+  &__right {
+    min-width: 42rem;
+    button {
+      margin-left: 1rem;
+    }
+    .what-new-text{
+      border-style: none ;
+    }
+    .enable-preview {
+      margin: 1rem 0 0 17rem;
+    }
+  }
+  &__steps {
+    margin: 0.8rem 0;
+    width: auto;
+    ::ng-deep{
+      .ant-steps{
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .modal-wrapper-class{
+    display: flex !important;
+    .ant-modal{
+      align-self: center !important;
+      top: 0px !important;
+      padding: 0px !important;
+    }
+  }
+  .gs-rollout-c360 {
+    border: none !important;
+  }
+}
+

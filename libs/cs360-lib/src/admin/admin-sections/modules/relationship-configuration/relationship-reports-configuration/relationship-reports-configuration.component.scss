@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-relationship-reports-configuration {
+  display: flex;
+  flex-direction: column;
+  height: 35rem;
+  &__header {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.4rem;
+  }
+  &__body {
+    flex-grow: 1;
+    border-radius: 3px;
+    border: solid 1px #e2e9f0;
+    padding: 1.6rem;
+
+    nz-input-group {
+      margin: 0.8rem 0 1.8rem 0;
+      max-width: 32rem;
+      display: block;
+    }
+
+    ::ng-deep {
+      nz-tree > ul {
+        margin-left: -0.5rem;
+        margin-top: 0.5rem;
+      }
+      .ant-tree li.ant-tree-treenode-checkbox-checked>.ant-tree-node-content-wrapper {
+        color: #19232f;
+      }
+    }
+  }
+}
+
+.gs-relationship-reports-configuration-header {
+  &__item {
+    flex: 0 0 50%;
+
+    label {
+      margin-bottom: 4px;
+      display: block;
+    }
+  }
+}
+
+.gs-relationship-reports-configuration-header-object {
+  padding-right: 3rem;
+  &__select {
+    ::ng-deep {
+      .gs-summary-report-widget-settings-field__dd button {
+        border-radius: 4px;
+        height: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: none;
+      }
+    }
+  }
+}
+
+::ng-deep .gs-relationship-reports-configuration-header-object__select--overlay {
+  .gs-dragabble {
+    height: 100%;
+  }
+  .ui-treenode-label {
+    margin: 0 !important;
+  }
+  gs-field-tree {
+    nz-input-group{
+      padding: 3px 10px 0 10px !important;
+    }
+  }
+}

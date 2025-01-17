@@ -1,0 +1,76 @@
+<section class="gs-summary-ribbon-config">
+  <div class="gs-summary-ribbon-config__body gs-summary-ribbon-config-body" cdkDropListGroup>
+    <div class="gs-summary-ribbon-config-body__left">
+      <gs-section-listing [configuredSections]="items"
+                          [sectionCategoryList]="sectionCategoryList"
+                          [options]="sectionListingOptions"
+                          [isLoading]="false">
+      </gs-section-listing>
+    </div>
+    <div class="gs-summary-ribbon-config-body__right">
+      <div class="gs-summary-ribbon-config-body__right--upper"
+           cdkDropList
+           id="gs-item-drop-list-cdk-drop-list-area"
+           [cdkDropListData]="items"
+           (cdkDropListDropped)="onItemDrop($event)">
+        <div class="gs-summary-ribbon-config-body-right-cntr">
+          <div class="gs-summary-ribbon-config-body-right-cntr__header" *ngIf="items.length > 0">
+            <!--{360.admin.summary_ribbon.data_points}=Add upto 6 data points to the summary -->
+            <label nz-text nzType="medium" nzColor="secondary">
+              {{'360.admin.summary_ribbon.data_points' | transloco}}  ({{items?.length}}/6)
+            </label>
+          </div>
+          <div class="gs-summary-ribbon-config-body-right-cntr__config-area">
+            <gs-item-drop-list [items]="items" [options]="options" [extras]="extras" [singleColumn]="true" [emptyAreas]="MAX_LIMIT - items.length" (action)="onAction($event)"></gs-item-drop-list>
+          </div>
+        </div>
+      </div>
+      <div class="gs-summary-ribbon-config-body-preview-area" *ngIf="items.length > 0">
+        <div class="gs-summary-ribbon-config-body-preview-area__header">
+            <!--{360.admin.summary_ribbon.preview}=Preview-->
+          <h6 nz-title>{{'360.admin.summary_ribbon.preview' | transloco}} </h6>
+          <label nz-text nzType="small" nzColor="secondary"></label>
+        </div>
+        <div class="gs-summary-ribbon-config-body-preview-area__body">
+          <div class="gs-summary-ribbon-config-body-preview-cntr">
+            <ng-container *ngIf="previewItems.length; else empty">
+              <gs-cs360-summary-ribbon [metrics]="previewItems"></gs-cs360-summary-ribbon>
+            </ng-container>
+          </div>
+             <!--{360.admin.summary_ribbon.note}= Note: The data displayed here is only for representation. It is not actual data.-->
+          <label class="gs-summary-ribbon-config-body-preview-cntr__helptext" nz-text nzType="small" nzColor="secondary">
+            {{'360.admin.summary_ribbon.note' | transloco}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #contentloader>
+  <div class="gs-reports-configuration-cntr__contentloader">
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+  </div>
+</ng-template>
+<ng-template #empty>
+  <div class="gs-summary-ribbon-config-body-preview-cntr__empty">
+    <nz-empty></nz-empty>
+  </div>
+</ng-template>
+<nz-drawer [nzClosable]="true"
+           [nzVisible]="customizeFieldConfigDrawer.open"
+           nzPlacement="right"
+           [nzBodyStyle]="{height: 'calc(100% - 7.2rem)', 'padding-bottom': '0', 'padding-top': '0'}"
+           [nzWidth]="588"
+           [nzTitle]="fieldConfigTitle"
+           (nzOnClose)="closeFieldSettingsDrawer()"
+           [nzWrapClassName]="'summary-ribbon-config-drawer'" [nzMask]="true">
+  <gs-summary-ribbon-field-configuration *ngIf="customizeFieldConfigDrawer.open && customizeFieldConfigDrawer.field"
+                          [fieldConfigOptions]="customizeFieldConfigDrawer.fieldConfigOptions"
+                          [field]="customizeFieldConfigDrawer.field"
+                          [rootNode]="customizeFieldConfigDrawer?.rootNode"
+                          (fieldConfigAction)="onFieldConfigured($event)"></gs-summary-ribbon-field-configuration>
+</nz-drawer>
+
+<ng-template #fieldConfigTitle>
+  <span [innerText]="customizeFieldConfigDrawer.field?.label"></span>
+</ng-template>

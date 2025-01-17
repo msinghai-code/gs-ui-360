@@ -1,0 +1,78 @@
+<div class="gs-widget-field-wrapper">
+  <div class="gs-widget-field-wrapper__header">
+    <span class="fields">{{'360.admin.widget_field.fields' | transloco}}({{configuredFields?.length}})</span>
+    <div style="display: flex;">
+      <!-- <mat-form-field class="gs-search-input-field">
+        <input matInput #initialInput [placeholder]="'360.admin.widget_field.searchFieldsPlaceholder'| transloco"
+          autocomplete="off" [(ngModel)]="searchText">
+      </mat-form-field> -->
+      <nz-input-group nzSuffixIcon='search' class="gs-search-input-field" nzSize="small">
+        <input type='text' #initialInput nz-input placeholder='Search' [placeholder]="'360.admin.widget_field.searchFieldsPlaceholder'| transloco" autocomplete="off" [(ngModel)]="searchText" />
+      </nz-input-group>
+      <button nz-button nzType="primary" nzShape="round"
+        (click)="this.showAddFields=true;">{{'360.admin.widget_field.addFields' | transloco}}</button>
+    </div>
+  </div>
+
+  <div class="gs-widget-field-wrapper__content">
+    <div class="gs-widget-field-wrapper__content__row">
+      <div class="gs-widget-field-wrapper__content__row-col-field"><span
+          class="header">{{'360.admin.widget_field.fieldName' | transloco}}</span></div>
+      <div class="gs-widget-field-wrapper__content__row-col-display-name"><span
+          class="header">{{'360.admin.widget_field.displayName' | transloco}}</span></div>
+      <div class="gs-widget-field-wrapper__content__row-col-editable"><span
+          class="header">{{'360.admin.widget_field.editable' | transloco}}</span></div>
+      <div class="gs-widget-field-wrapper__content__row-col-action">
+        <b></b>
+      </div>
+    </div>
+    <div *ngIf="fieldTreeInfo" class="tbody" cdkDropList (cdkDropListDropped)="dropField($event)">
+      <div class="gs-widget-field-wrapper__content__row"
+        *ngFor="let field of configuredFields | filterListBySearchTerm : 'label': searchText " cdkDrag
+        [cdkDragDisabled]="field.fieldName === 'Name' && !field.fieldPath" [ngClass]="{'flp_hidden': field.hidden}">
+        <div *cdkDragPlaceholder class="gs-field-placeholder"> </div>
+        <div [class.name-field]="field.fieldName === 'Name' && !field.fieldPath"
+          class="gs-widget-field-wrapper__content__row-col-field">
+          <i nz-icon *ngIf="!(field.fieldName === 'Name' && !field.fieldPath)" nzType="drag"></i>
+          <i nz-icon [nzType]="resolveIcon(getDatatypeIcon(getOriginalDataType(field).toLowerCase()))"></i>
+          &nbsp; {{field.label}}
+        </div>
+        <div class="gs-widget-field-wrapper__content__row-col-display-name">
+          <div>
+            <!-- <mat-form-field>
+              <input autocomplete="off" matInput (change)="setValid($event, field)" [(ngModel)]="field.displayName"
+                maxlength="50">
+            </mat-form-field> -->
+            <nz-input-group>
+              <input type='text' nz-input placeholder='Search' autocomplete="off" (change)="setValid($event, field)" [(ngModel)]="field.displayName" maxlength="50" />
+            </nz-input-group>
+            <span class="mat-error" *ngIf="!(field.displayName && field.displayName.length>0)">
+              {{'360.admin.widget_field.displayNameRequired' | transloco}}
+            </span>
+          </div>
+        </div>
+        <div class="gs-widget-field-wrapper__content__row-col-editable">
+          <!-- <mat-checkbox [checked]="field.editable" [disabled]="field.editDisabled" [(ngModel)]="field.editable"
+            color="primary">
+            {{'360.admin.widget_field.yes' | transloco}}</mat-checkbox> -->
+            <label nz-checkbox name="checkbox" [disabled]="field.editDisabled" [(ngModel)]="field.editable">{{'360.admin.widget_field.yes' | transloco}}</label>
+        </div>
+        <div class="gs-widget-field-wrapper__content__row-col-action">
+          <i nz-icon nzType="delete" nzTheme="outline" *ngIf="field.deletable" (click)="remove(field)"></i>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="!fieldTreeInfo?.selectedFields?.length" class="gs-widget-field-wrapper__content__message">
+      <ng-container> {{'360.admin.widget_field.noFieldsSelected' | transloco}} </ng-container>
+    </div>
+  </div>
+</div>
+
+<nz-drawer [nzVisible]="showAddFields" [nzTitle]="'360.admin.widget_field.drawerTitle' | transloco"
+  [nzMaskClosable]="true" [nzPlacement]="'right'" [nzZIndex]="1500" (nzOnClose)="showAddFields = false"
+  [dismissible]="true" [nzWidth]="'50rem'">
+  <gs-add-widget-field *ngIf="showAddFields" (action)="onAction($event)" [fieldTreeInfo]="fieldTreeInfo"
+    [config]="columnChooserConfig">
+  </gs-add-widget-field>
+</nz-drawer>

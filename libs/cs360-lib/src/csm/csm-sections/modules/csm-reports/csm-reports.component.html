@@ -1,0 +1,129 @@
+<div class="gs-csm-report-cntr gs-report-widget-viewer" *ngIf="groups?.length; else empty">
+  <div class="gs-report-widget-viewer-header">
+    <!-- <div class="gs-report-widget-viewer-header__left">
+      <span nz-text nzType="section">{{sectionLabel}}</span>
+    </div> -->
+    <div class="gs-report-widget-viewer-header__right">
+      <div class="gs-report-widget-viewer-header--search">
+        <button type="button" nz-button nzType="link" nzShape="circle"
+                (click)="rearrangeGroupModal.open($event)" nz-tooltip
+                nzTooltipTitle="{{'360.csm.widget_viewer.sort' | transloco}}">
+          <i nz-icon nzType="sort" nzTheme="outline"></i>
+        </button>
+          <button type="button" nz-button nzType="link" nzShape="circle" (click)="onReload()" nz-tooltip
+            nzTooltipTitle="{{'360.csm.widget_viewer.refresh' | transloco}}">
+            <i nz-icon nzType="refresh" nzTheme="outline"></i>
+          </button>
+        <nz-select *ngIf = "!isMini360Variant"
+                   nzShowSearch 
+                   nzAllowClear
+                   nzPlaceHolder="{{'360.csm.widget_viewer.common.search' | transloco}}"
+                   [nzShowArrow]="false"
+                   [(ngModel)]="search.inputValue"
+                   (ngModelChange)="search.onOptionChange($event)">
+          <nz-option *ngFor="let option of search.filteredOptions" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+  </div>
+  <div class="gs-csm-report-group-gridster" #gridstercsmwrapper *ngIf="showGrid">
+    <gridster #gridstercsm
+              [options]="options"
+              [style.width.px]="gridstercsmwrapper.offsetWidth - 10"
+              style="padding: 0px 0px;">
+      <gridster-item
+                class="gs-csm-report-group-{{group.id}}"
+                *ngFor="let group of groups"
+                [item]="group"
+                intersectionObserver
+                [intersectionDebounce]="500"
+                (visibilityChange)="onVisibilityChanged(group, $event)">
+        <ng-container *ngIf="group.reports.length || group.subGroups.length; then widget else widgetEmpty"></ng-container>
+        <ng-template #widget>
+          <ng-container [ngSwitch]="group.type">
+            <ng-container *ngSwitchCase="'KPI_GROUP'">
+              <gs-kpi-grouper-report-widget
+                      *ngIf="group.isLoaded"
+                      [group]="group"
+                      (action)="onAction($event)"
+              ></gs-kpi-grouper-report-widget>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <ng-container [ngSwitch]="ctx?.baseObject">
+                <ng-container *ngSwitchCase="'relationship'">
+                  <gs-r360-csm-report-widget
+                          *ngIf="group.isLoaded"
+                          [group]="group"
+                          (action)="onAction($event)"></gs-r360-csm-report-widget>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <gs-csm-report-widget
+                          *ngIf="group.isLoaded"
+                          [group]="group"
+                          (action)="onAction($event)"></gs-csm-report-widget>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+        </ng-template>
+        <!-- When no report(s) are associated to a group -->
+        <ng-template #widgetEmpty>
+          <div class="gs-csm-report-widget-cntr__empty">
+            <nz-empty [nzNotFoundImage]="imageTpl"
+                      [nzNotFoundContent]="contentTpl"
+                      [nzNotFoundFooter]="footerTpl">
+              <ng-template #imageTpl>
+                <div class="gs-csm-report-widget-cntr__empty--settings"></div>
+              </ng-template>
+              <ng-template #contentTpl>
+                <div class="gs-csm-report-widget-cntr-content">
+                  <div class="gs-csm-report-widget-cntr-content__title">
+                    {{'360.csm.widget_viewer.no_reports_associated' | transloco}}
+                  </div>
+                  <div class="gs-csm-report-widget-cntr-content__subtitle">
+                    {{'360.csm.widget_viewer.contact_admin_to_configure_reports' | transloco}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #footerTpl>
+                <button nz-button nzType="primary" (click)="navigateToReportConfiguration($event)">+ {{'360.csm.widget_viewer.configure' | transloco}}</button>
+              </ng-template>
+            </nz-empty>
+          </div>
+        </ng-template>
+      </gridster-item>
+    </gridster>
+  </div>
+</div>
+<ng-template #empty>
+  <div class="gs-csm-report-cntr__empty">
+    <nz-empty [nzNotFoundContent]="contentTpl">
+      <ng-template #contentTpl>
+        <span nz-text nzType="medium" nzColor="secondary">{{'360.csm.widget_viewer.no_group' | transloco}}</span>
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>
+<!-- Rearrange reports -->
+<ng-template #customFooter>
+  <div class="gs-csm-reports-configuration-modal__footer">
+    <button nz-button nzType="link" class="gs-csm-reports-configuration-modal__footer--reset" (click)="rearrangeGroupModal.handleReset()">{{'360.csm.widget_viewer.common.reset' | transloco}}</button>
+    <div class="gs-csm-reports-configuration-modal__footer--defaultoptions">
+      <button nz-button nzType="default" (click)="rearrangeGroupModal.handleCancel()">{{'360.csm.widget_viewer.common.cancel' | transloco}}</button>
+      <button nz-button nzType="primary" (click)="rearrangeGroupModal.handleOk()">{{'360.csm.widget_viewer.common.save' | transloco}}</button>
+    </div>
+  </div>
+</ng-template>
+<nz-modal [nzMaskClosable]="false"
+          [(nzVisible)]="rearrangeGroupModal.isVisible"
+          nzTitle="{{'360.csm.widget_viewer.common.rearrange_groups' | transloco}}"
+          [nzFooter]="customFooter"
+          class="gs-csm-reports-configuration-modal"
+          (nzOnCancel)="rearrangeGroupModal.handleCancel()"
+          [nzOkLoading]="rearrangeGroupModal.isOkLoading">
+  <div class="gs-csm-reports-configuration-modal__body">
+    <label class="gs-csm-reports-configuration-modal__label" nz-text nzType="small" nzColor="secondary">{{'360.csm.widget_viewer.drag_reports_to_rearrange_order' | transloco}}</label>
+    <gs-list-item-sort class="gs-csm-reports-configuration-modal__item" #listitemsort *ngIf="groups.length" [items]="sortedGroup"></gs-list-item-sort>
+  </div>
+</nz-modal>

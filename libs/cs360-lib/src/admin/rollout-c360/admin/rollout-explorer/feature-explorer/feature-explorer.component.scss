@@ -1,0 +1,59 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-rollout-explore {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  &__left {
+    width: 35rem;
+  }
+  &__right {
+    flex: 1;
+    margin-left: 2rem;
+  }
+}
+
+.gs-rollout-explore-feature {
+  &__item {
+    display: flex;
+    padding: 1rem 0.5rem 1.3rem 0.5rem;
+    color: $rich-gray-50;
+    * {
+      cursor: pointer;
+    }
+  }
+}
+
+.gs-rollout-explore-feature-item {
+  &__icon {
+    width: 4rem;
+    display: flex;
+    i {
+      font-size: 2.4rem;
+    }
+    &.selected {
+      color: $royal-blue-70 !important;
+    }
+  }
+  &__intro {
+    flex: 1;
+    overflow: hidden;
+    &--header {
+      color: $rich-gray-60;
+      margin-bottom: 4px;
+    }
+    &.selected {
+      h6 {
+        color: $rich-gray-90 !important;
+      }
+      label {
+        color: $rich-gray-70 !important;
+      }
+    }
+  }
+}

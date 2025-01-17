@@ -1,0 +1,16 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+
+.item {
+  margin-top: $border-radius-xsmall;
+
+  .value {
+    //color: $text-color;
+    // font-size: 18px;
+    margin-bottom: 0.5rem;
+  }
+  .label {
+    color: $rich-gray-70;
+    font-size: 12px;
+  }
+}

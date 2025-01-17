@@ -1,0 +1,81 @@
+{
+  "authTokenConfigs" : [
+    {
+      "envInfo":{
+        "host" : "https://avendev02-demo-matchrt.develgs.com:8445",
+        "username" : "npenugonda@gainsight.com",
+        "password" : "gainsight01*"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js",
+        "./apps/cs360-admin/src/assets/native.index.mock.js",
+        "./apps/network-access/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://demo-demo-piviot.develgs.com:9003",
+        "username" : "npenugonda@gainsight.com",
+        "password" : "gainsight01*"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js",
+        "./apps/cs360-admin/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://rtqa-demo-cxdev.develgs.com:9001",
+        "username" : "cxteam@gainsight.com",
+        "password" : "gainsight@123"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js",
+        "./apps/cs360-admin/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://qapi01-demo-migration.develgs.com:8456",
+        "username" : "asrivastav@gainsight.com",
+        "password" : "gainsight01*"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://qapi01-demo-revamp-2.develgs.com:8456",
+        "username" : "reporting@gainsight.com",
+        "password" : "gainsight01*"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://autoqa01-autoabjjagpkovj.develgs.com:8080",
+        "username" : "srathod@gainsight.com",
+        "password" : "gainsight01*"
+      },
+      "mockFilepaths":[
+        "./apps/company-admin/src/assets/native.index.mock.js",
+        "./apps/cs360/src/assets/native.index.mock.js"
+      ]
+    },
+    {
+      "envInfo":{
+        "host" : "https://autoqa01-autoabjjagpkovj.develgs.com:8080",
+        "username" : "srathod@gainsight.com",
+        "password" : "gainsight01*"
+      }
+    }
+  ]
+}

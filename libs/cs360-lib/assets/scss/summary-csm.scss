@@ -1,0 +1,103 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.gridster-defaults-csm {
+  height: 100%;
+  width: 100%;
+  gridster {
+    background: transparent;
+    gridster-preview {
+      background: none;
+    }
+  }
+  .scrollVertical {
+    overflow-x: inherit !important;
+    overflow-y: initial !important;
+  }
+  gridster-item {
+    padding: $space-xlarge;
+    border-radius: $border-radius-medium;
+    border: 1px solid $rich-gray-30;
+    background: $royal-blue-0;
+  }
+}
+
+gridster.mobile gridster-item
+{
+  height: auto !important;
+}
+.attribute-gridster-wrapper {
+  gridster-item {
+    border-radius: 0;
+    border: 0;
+  }
+}
+
+.widget-csm-element {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .csm-summary-widget-wrapper {
+    &__content {
+      height: 100%;
+      //padding-top: 16px;
+    }
+   
+    .action-image {
+      position: absolute;
+      right: 0;
+      margin-top: -1rem;
+      border-radius: 45%;
+    }
+
+    &:hover {
+      .action-image {
+        display: block;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .image-widget-default {
+    background: url("@gs/cs360-lib/assets/images/widget-icons/widget-image.png")
+      no-repeat center;
+    width: 100%;
+    align-self: stretch;
+  }
+}
+
+// Chart Skeletons
+$chart_types: 'area', 'bar', 'bubble', 'column', 'donut', 'heatmap', 'pie', 'scatter', 'line', 'grid', 'kpi';
+.chart-skeleton {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30% 50%;
+
+  @each $type in $chart_types {
+    // Highcharts
+    &-#{$type} {
+      background-image: url(#{'@gs/cs360-lib/assets/images/report-placeholder/' + $type +'.svg'});
+    }
+    
+    // D3 charts
+    &-d3#{$type} {
+      background-image: url(#{'@gs/cs360-lib/assets/images/report-placeholder/' + $type +'.svg'});
+    }
+  }
+
+  &-line, &-area {
+    background-size: 75% 50%;
+  }
+  
+  &-pie, &-donut {
+    background-size: 40% 60%;
+  }
+
+  &-bar, &-column, &-kpi  {
+    background-size: 40% 50%;
+  }
+
+  &-grid {
+    background-size: 50%;
+  }
+}

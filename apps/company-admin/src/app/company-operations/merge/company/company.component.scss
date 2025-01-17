@@ -1,0 +1,349 @@
+/* ============ Vendor files ====== */
+@import '~@angular/material/theming';
+
+/* core assets */
+@import '~@gs/core/assets/scss/core/variables';
+@import '~@gs/core/assets/scss/core/common';
+@import '~@gs/core/assets/scss/core/module-header';
+@import "~@gs/core/assets/scss/components/material/radiobutton";
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.gs-header {
+  justify-content: space-between;
+}
+
+.gs-content {
+  padding: 1rem;
+  display: block;
+  flex: 1;
+  overflow: auto;
+  background: $gs-sheet-color;
+  margin: 2rem;
+}
+
+.gs-search-options {
+  align-self: flex-end;
+  width: 30rem;
+}
+
+nz-list-item{
+  height: 6rem;
+}
+
+.gs-filter {
+  background: $gs-sheet-color;
+  border-radius: 3px;
+  width: 80rem;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+
+  &__icon {
+    border-radius: 20px;
+
+    &.active {
+      background: $gs-primary-color;
+      color: $gs-white-color;
+    }
+  }
+
+  &__header {
+    border-bottom: 1px solid $gs-border-color;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    padding: 2rem;
+    flex: 1 0 auto;
+    box-sizing: content-box;
+    overflow: auto;
+  }
+
+  &__row {
+    display: flex;
+    margin-bottom: 1.6rem;
+
+    &.mat-form-field {
+      width: 40rem;
+      flex-direction: column;
+    }
+
+    .mat-form-field {
+      min-width: 0;
+    }
+
+    .mat-form-field + .mat-form-field {
+      margin-left: 1.6rem;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.6rem;
+    border-top: 1px solid $gs-border-color;
+    flex-shrink: 0;
+  }
+
+  &__sctn-ttl {
+    @include mat-typography-level-to-styles($gs-typography-config, body-2);
+    background: $gs-sheet-content-bg;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+.gs-list-view-cnt {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.gs-fab-menu {
+  position: fixed;
+  right: 50px;
+  bottom: 35px;
+  width: 5.6rem;
+  text-align: center;
+
+  .mat-fab {
+    ::ng-deep .mat-button-wrapper {
+      padding: 0.9rem 0;
+    }
+
+    &.mat-accent {
+      width: 4rem;
+      height: 4rem;
+      margin: 1rem 0;
+
+      ::ng-deep .mat-button-wrapper {
+        line-height: 2rem;
+      }
+
+      .material-icons {
+        line-height: 2rem;
+      }
+    }
+  }
+}
+
+.gs-module-body{
+  background: $gs-sheet-color;
+  border-radius: 3px;
+  margin: 2rem 2rem 0;
+  flex: 1;
+  overflow: auto;
+  height: 100%
+}
+
+/*--  Mat list styles --*/
+.gs-company-merge{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .mat-list-base {
+    padding-top: 0px !important;
+  }
+
+  &__header{
+    width: 100%;
+  }
+
+  &__body{
+    width: 100%;
+  }
+
+  &__item-content{
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    padding-left: 1.6rem;
+  }
+
+  &__content-wrap {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    &.w-100 {
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
+
+  &--body {
+    justify-content: flex-start;
+  }
+
+  &__item{
+    &.nz-list-item{
+      height: 6rem;
+    }
+    &.mat-list-item{
+      height: 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.4rem;
+      border-bottom: 1px solid $gs-row-separator;
+    }
+
+    &:hover{
+      background-color: $gs-row-selected;
+    }
+
+    &:first-child {
+      border-bottom: none;
+    }
+  }
+
+  &__item-field{
+    width: 25%;
+    padding: 0.5rem;
+
+    ::ng-deep {
+      label {
+        span {
+          display: inline-block;
+        }
+      }
+    }
+    &--cheader{
+      display: flex;
+      align-items: center;
+    }
+
+    .gs-field-error{
+      margin: -1.2rem 0 0 3.2rem;
+      font-size: 1rem;
+    }
+    .mat-error{
+      margin: -1.2rem 0 0 3.2rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__select{
+    margin-left: 1rem;
+  }
+
+  &__show-all{
+    text-align: right;
+    margin: 1rem 2rem;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-bottom: 1.4rem;
+    &.f-14 {
+      font-size: unset;
+    }
+  }
+
+  &__step-title {
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  &__cdropdowns {
+    display: flex;
+  }
+
+  &__cname {
+    margin-right: 1.6rem;
+    width: 25%;
+
+    nz-select {
+      width: 100%;
+    }
+  }
+}
+
+.gs-select-company-msg{
+  display: flex;
+  height: 12rem;
+  width: 22rem;
+  background: url("../../../../assets/images/icons/CompanyMergeHome.svg") no-repeat center;
+  margin-right: 20rem;
+}
+
+.gs_merge_info{
+  margin: 1.5rem 1.5rem 0 2.5rem;
+}
+
+.gs-module-footer{
+  padding: 0 2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 1.6rem;
+}
+
+.gs-company-dropdown{
+  ::ng-deep {
+    .ui-dropdown {
+      border: 1px solid $gs-border-color;
+      min-width: 20rem;
+      width: 100%;
+    }
+
+    .ui-dropdown-trigger {
+      border: none;
+    }
+  }
+}
+
+.gs-company-merge-heading{
+  font-weight: bold;
+    display: block;
+}
+
+.gs-company-merge__item-field{
+  ::ng-deep{
+    .mat-radio-label-content {
+     white-space: nowrap;
+     text-overflow: clip;
+     overflow: hidden;
+     display: block;
+     max-width: 26rem;
+    }
+    
+  }
+}
+
+.aggregation-type {
+    //display: flex;
+    //align-items: center;
+}
+
+.merge-aggregation-type {
+  height: 6rem;
+   //display: flex;
+   //flex-direction: column;
+   /*This styles we needed because our usecase needs the text above nz-select to be left align*/
+  //::ng-deep {
+  //  .ant-form-item-label {
+  //    top: 5px;
+  //  }
+  //}
+}

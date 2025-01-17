@@ -1,0 +1,13 @@
+<ng-container *transloco="let t; read: '360'">
+<section class="summary-leads">
+    <div fxLayout="column" fxLayoutGap="4px">
+      <div class="summary-leads__head">
+          <h6 nz-title nzType="sub-section" nzColor="subtitle">{{widgetItem.label}}
+              <i nz-icon nzType="info" nzTheme="general" nzSize="16" nz-tooltip nzTooltipTitle="{{t('csm.summary.lead_widget.tooltip_success')}}"></i>
+          </h6>
+      </div>
+      <h4 nz-title nz-tooltip nzTooltipTitle="{{t('csm.summary.lead_widget.tooltip_company')}}">{{leadsCount}}</h4>
+      <label nz-text nzType="small">{{t('csm.summary.lead_widget.total_count')}}</label>
+  </div>
+</section>
+</ng-container>

@@ -1,0 +1,15 @@
+<gs-portfolio-inline-edit #inlineGrid (resized)="onGridResized()" class="h-100"
+(gridLoaded)="onWidgetLoaded()"
+(portfolioIdUpdated)="onPortfolioIdUpdate($event)"
+(bulkEditClicked)="openBulkEdit()"
+[loadWidgetData]="properties?.context?.loadWidgetData"
+*ngIf="showInlineEdit && widgetConfig && widgetConfig.configuration"
+[globalFilter]="globalFilter"
+[configuredObjectNames]="configuredObjectNames"
+[widgetRequestSource]="properties?.context?.requestSource"
+[describeObjFieldTreeMap]="describeFieldTreeMap"
+[config]="widgetConfig">
+</gs-portfolio-inline-edit>
+<div *ngIf="widgetConfig && !widgetConfig.configuration" class="h-100 deleted-config">
+      <span>{{widgetConfig?.error?.message || errorMsg }}</span>
+</div>

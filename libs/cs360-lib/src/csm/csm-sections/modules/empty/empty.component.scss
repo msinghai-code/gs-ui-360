@@ -1,0 +1,24 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.empty-state {
+    i {
+        display: flex;
+        height: 13rem;
+        width: 22rem;
+    }
+    .empty-state-img {
+        background: url("../../../../../assets/images/empty-state.svg") no-repeat center;
+    }
+    .no-sections-img {
+        background: url("../../../../../assets/images/no-sections.svg") no-repeat center;
+    }
+    h5 {
+        margin-top: 1.6rem;
+        margin-bottom: 0 !important;
+    }
+    span {
+        margin-top: 0.2rem;
+        color: $rich-gray-60;
+    }
+}

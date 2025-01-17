@@ -1,0 +1,16 @@
+<div class="gs-rte-cells__wrapper">
+  <div class="gs-rte-cells__content" [innerHtml]="sanitizeText"></div>
+  <div class="gs-rte-cells__actions" *ngIf="!!sanitizeText && !!params.showActions && !isNull">
+    <button mat-icon-button nz-popover
+            [nzPopoverTitle]="titleTemplate"
+            [nzPopoverContent]="contentTemplate"
+            [nzPopoverTrigger]="'click'"
+            class="gs-rte-cells__actions-btn">
+    </button>
+  </div>
+</div>
+<!--{360.admin.full_content}= Full Content-->
+<ng-template #titleTemplate>{{params?.colDef?.headerName}} {{'360.admin.full_content'| transloco}}</ng-template>
+<ng-template #contentTemplate>
+  <div class="gs-rte-cells__content-tmpl" [innerHtml]="sanitizeText"></div>
+</ng-template>

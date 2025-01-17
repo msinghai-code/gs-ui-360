@@ -1,0 +1,298 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/index";
+
+// gdk styles
+@import "~@gs/gdk/spinner/style/index";
+@import "~@gs/gdk/field-tree/style/index";
+@import "~@gs/gdk/core/style/index";
+@import '~@gs/gdk/assets/grid/font-gs-icons/operators/gs-icons-operator';
+@import "~@gs/gdk/field-chooser/style/index";
+@import "~@gs/gdk/grid/style/index";
+@import "../../ng-horizon.scss";
+
+.gs-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  .ant-form-item {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.cdk-overlay-container .gs-form__field--view>span, .gainsight-app .gs-form__field--view>span {
+  height: 2.6rem;
+  vertical-align: middle;
+  line-height: 2.4rem;
+  display: inline-block;
+}
+
+/*=== Pagination Styles ===*/
+.gs-custom-paginator {
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  &__custom-page-number {
+    border: none !important;
+  }
+
+  .gs-page-info {
+    font-size: 1.2rem;
+    margin-right: auto;
+  }
+  .gs-pages {
+    order: 1;
+    padding: 0 0 0 1rem;
+  }
+}
+/*=== End of Pagination Styles ===*/
+
+
+.portfolio-bulk-edit .ant-tabs-bar {
+  margin: 0;
+}
+
+//Column picker styles
+.gs-add-column__popover {
+  .ui-tree-empty-message {
+    padding-left: 3.5rem;
+    font-size: 12px;
+    color: text-color(disabled);
+  }
+  .ant-popover-title {
+    padding: 1.6rem 1.6rem 0;
+    border: none;
+  }
+  .gs-column-pckr {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    > .ant-input-group {
+      width: calc(100% - 3rem);
+      margin: 1.2rem 1.6rem 1.65rem;
+    }
+    nz-collapse {
+      display: block;
+      flex: 0 1 auto;
+      overflow: auto;
+      border-top: 1px solid border-color(default);
+      .ant-collapse-header {
+        padding: 1.2rem 1.6rem !important;
+      }
+    }
+  }
+  .gs-add-column__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid border-color(default);
+    > button {
+      margin-left: 2rem;
+    }
+  }
+  .ant-collapse-borderless .ant-collapse-item {
+    border-bottom: 0;
+    .ant-collapse-content .ant-collapse-content-box {
+      padding: 0;
+    }
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: .5rem .5rem .25rem 2.6rem;
+    font-weight: 500;
+    .ant-collapse-arrow {
+      right: unset;
+      left: 0px;
+    }
+  }
+}
+
+.gs-column-pckr{
+  overflow: auto;
+  width: 360px;
+  height: calc(400px - 37px - 49px);//header title & footer heights
+}
+
+.ant-tabs-content {
+  height: calc(100% - 4.5rem);
+  .ant-tabs-tabpane {
+    height: 100%;
+  }
+}
+
+.ant-drawer-body {
+  height: calc(100% - 5.5rem);
+}
+
+.gs-portfolio-widget__header__actions {
+  .ant-btn {
+    font-size: 2.4rem !important;
+  }
+}
+
+.edit-fields-rows {
+  .gs-form__field--edit-dropdown {
+   height: 4.2rem !important;
+  }
+  .gs-px-edit-date {
+    height: 4.2rem !important;
+    width: 100%;
+  }
+  .ant-select-selection__rendered {
+    height: 3.2rem;
+    max-height: 3.2rem;
+    overflow: hidden;
+  }
+}
+
+//.cdk-overlay-container{
+//  z-index: 1400;
+//}
+
+.notLiveWidget {
+  .ag-overlay {
+    .gs-nodata-placeholder__icon {
+      display: none;
+    }
+  }
+}
+
+/*
+* TODO: Remove grid overrides after upgrading to 4.x
+*/
+// Material theme is overriding font size to 13px. Hence override back to 14px
+.ag-theme-material {
+  font-size: 14px;
+}
+
+.non-editable-cell{
+  cursor: url('~src/assets/images/not-allowed-cursor.svg'), no-drop !important;
+}
+
+.ag-cell-not-inline-editing {
+  // Company or relationship name cell text color
+  .url-cell {
+    //color: $link-color;
+  }
+
+  // Inline editing cell box highlight style
+  &:hover {
+    cursor: pointer;
+    .grid-cell-hover-highlight {
+      height: 5.2rem;
+      width: 70%;
+      padding: 8px;
+      border-radius: 4px;
+      background-color: rgba(184, 200, 216, 0.2);
+    }
+
+    // For dropdown fields, by default cell renderer is there. so above grid-cell-hover-highlight is not there. so adding custom styles
+    gs-field-editor {
+      .gs-form__select-label {
+        padding-right: 8px !important;
+        background-color: rgba(184, 200, 216, 0.2);
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+// Remove border that separates header and floating filter
+.ag-theme-material .ag-header-cell,
+.ag-theme-material .ag-header-group-cell {
+  border: none !important;
+}
+
+ //Center align cell content vertically
+ .ag-theme-material .ag-ltr .ag-cell {
+   //display: flex;
+   //align-items: center;
+
+   // Give right padding 0 to the checkbox renderer for each row. This doesn't include header
+   &[col-id="select-all"] {
+     display: inline-flex;
+     align-items: center;
+     padding-right: 0 !important;
+   }
+ }
+
+// NULLs show in italic
+.ag-cell-null-color {
+  font-style: italic;
+  color: #B8C8D8;
+}
+
+//cell styles for date and number
+.dt-number, .dt-date {
+  .ag-cell-wrapper {
+    margin-left: auto;
+  }
+}
+
+// Remove outline for floating filter inputs
+.gs-grid-filter__input {
+  outline: none;
+}
+
+// Remove header right border for the header header which is pinned
+.ag-theme-material .ag-pinned-left-header {
+  border-right: none !important;
+}
+
+// Increase select all checkbox size
+.gs-grid-wrapper .ag-header-row .ag-checkbox .ag-checkbox-input-wrapper::after,
+.ag-theme-material .ag-checkbox-input-wrapper::after {
+  font-size: 18px !important;
+}
+
+// cursor pointer on select checkbox
+.ag-theme-material .ag-checkbox-input-wrapper input {
+  cursor: pointer;
+}
+
+// Add header to give vertical space between header bottom border and header floating filters
+.ag-header {
+  height: 6.8rem !important;
+  min-height: 6.8rem !important;
+}
+
+
+// Give border to only paginator host element but not every element with same class - there is one such element
+gs-custom-paginator.gs-custom-paginator {
+  border-top: $border-width-base $border-style-base $border-color-base;
+}
+
+// Workaround for arrow sizes
+.gs-page-switch {
+  font-size: 20px;
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+.ag-tooltip {
+  color: $tooltip-color !important;
+  background-color: $tooltip-bg !important;
+}
+
+// TODO: remove these styles in 4.x
+.gs-custom-paginator__pagination {
+  *:not(.anticon), *:not(.anticon svg) {
+    font-size: 12px !important;
+  }
+
+  .anticon, .anticon svg {
+    font-size: 20px !important;
+  }
+
+  .anticon svg {
+    top: 0 !important;
+  }
+
+  .float_right.display_in-flx {
+    height: 40px;
+  }
+}

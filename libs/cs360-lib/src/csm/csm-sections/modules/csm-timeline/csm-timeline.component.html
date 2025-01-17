@@ -1,0 +1,5 @@
+<ng-container *ngIf="moduleConfig">
+    <ax-lazy-element (activitySaved)="onActivitySave($event)"
+                     *axLazyElementDynamic="elementTag,url:url" [options]="moduleConfig">
+    </ax-lazy-element>
+</ng-container>

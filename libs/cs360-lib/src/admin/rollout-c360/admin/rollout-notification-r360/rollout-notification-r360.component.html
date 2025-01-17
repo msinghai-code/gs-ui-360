@@ -1,0 +1,62 @@
+<section class="gs-rollout-notification-cntr">
+  <div class="gs-rollout-notification__left">
+    <span nz-text nzType="sub-section" class="configure-text">{{'360.admin.rollout_notification.configureBefore'| transloco}}</span>
+    <span nz-text nzType="small" nzColor="secondary">
+      {{'360.admin.rollout_notification.adminAction'| transloco}}
+      <a href="https://support.gainsight.com/Gainsight_NXT/07360/New_360_Experience/Admin_Guides" target="_blank">{{'360.admin.rollout_notification.readDoc'| transloco}}</a>
+    </span>
+    <div class="gs-rollout-notification__steps">
+      <nz-steps nzSize="small" [nzCurrent]="index">
+        <nz-step [nzTitle]="'360.admin.rollout_notification.step1headerTitle'| transloco"></nz-step>
+        <nz-step [nzTitle]="'360.admin.rollout_notification.step2headerTitle'| transloco"></nz-step>
+        <nz-step [nzTitle]="'360.admin.rollout_notification.step3Title'| transloco"></nz-step>
+      </nz-steps>
+    </div>
+  </div>
+  <div class="gs-rollout-notification__right">
+    <button class="what-new-text" nz-button nzType="default" (click)="explore()">{{'360.admin.rollout_notification.whatsNew'| transloco}}</button>
+
+      <button nz-button nzType="default"
+              nz-tooltip placement="top"
+              [nzTooltipTitle]="'360.admin.rollout_notification.tooltipTitle'| transloco"
+              (click)="onRemigration($event)">{{'360.admin.rollout_notification.reImport'|transloco}}</button>
+    <button nz-button [nzType]="buttonType"
+            nz-tooltip nzTooltipTitle="{{index === 1 ? step1Title: step2Title}}" placement="bottom"
+            (click)="onContinue(index)">{{index === 1 ? step1BtnText: step2BtnText}}</button>
+    <button nz-button nzType="primary"
+            nz-tooltip [nzTooltipTitle]="'360.admin.rollout_notification.clickToActivate'| transloco" placement="bottom"
+            (click)="onActivate($event)" *ngIf="index === 2">{{'360.admin.rollout_notification.activateBtn'| transloco}}</button>
+      <div class="enable-preview">{{'360.admin.rollout_notification.enablePreview'| transloco}} <nz-switch [(ngModel)]="switchValue" (click)="clickSwitch()"></nz-switch></div>
+  </div>
+</section>
+<nz-modal nzWrapClassName="modal-wrapper-class" [(nzVisible)]="activationModal.isVisible"
+          [nzTitle]="'360.admin.rollout_notification.activationTitle'| transloco"
+          [nzOkText]="'360.admin.rollout_notification.activationOkText'| transloco"
+          [nzCancelText]="'360.admin.rollout_notification.activationCancelText'| transloco"
+          nzCentered = "true"
+          [nzOkLoading]="activationModal.okLoading"
+          (nzOnCancel)="activationModal.handleCancel()"
+          (nzOnOk)="activationModal.handleOk()">
+  <gs-rollout-activation [isBothText]="isBothText" [isSingleText]="isSingleText" (action)="onAction($event)"></gs-rollout-activation>
+</nz-modal>
+<nz-modal nzWrapClassName="modal-wrapper-class" [(nzVisible)]="exploreModal.isVisible"
+          [nzOkText]="'360.admin.rollout_notification.exploreOkText'| transloco"
+          [nzCancelText]="'360.admin.rollout_notification.exploreCancelText'| transloco"
+          nzCentered="true"
+          nzWidth="1030"
+          [nzOkLoading]="exploreModal.okLoading"
+          [nzCancelText]="null"
+          (nzOnCancel)="exploreModal.handleCancel()"
+          (nzOnOk)="exploreModal.handleOk()">
+  <gs-rollout-explorer [showFooter]="false"></gs-rollout-explorer>
+</nz-modal>
+<nz-modal nzWrapClassName="modal-wrapper-class" [(nzVisible)]="reMigrationModal.isVisible"
+          [nzTitle]="'360.admin.rollout_notification.reMigrationTitle'| transloco"
+          [nzOkText]="'360.admin.rollout_notification.reMigrationOkText'| transloco"
+          [nzCancelText]="'360.admin.rollout_notification.reMigrationCancelText'| transloco"
+          nzCentered = "true"
+          [nzOkLoading]="reMigrationModal.okLoading"
+          (nzOnCancel)="reMigrationModal.handleCancel()"
+          (nzOnOk)="reMigrationModal.handleOk()">
+        <span>{{'360.admin.rollout_notification.reMigrationText'| transloco}} </span>
+</nz-modal>

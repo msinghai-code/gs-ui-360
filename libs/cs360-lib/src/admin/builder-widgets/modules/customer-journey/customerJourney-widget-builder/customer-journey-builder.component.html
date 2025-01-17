@@ -1,0 +1,17 @@
+<div class="gs-customerjourney">
+  <ng-container *ngIf="widgetItem?.config; else empty">
+    <div class="section-configuration-wrapper__empty cols-{{widgetItem.cols}} rows-{{widgetItem.rows}}">
+    </div>
+</ng-container>
+</div>
+<ng-template #empty>
+  <div class="section-configuration-wrapper__empty cols-{{widgetItem.cols}} rows-{{widgetItem.rows}}">
+    <div class="light-grey-bg-full">
+      <button nz-button nzType="primary" nzSize="small" (click)="onConfigureClick()">
+        <i nz-icon nzType="settings" [nzSize]="14"></i>
+        Configure
+      </button>
+    </div>
+  </div>
+</ng-template>
+

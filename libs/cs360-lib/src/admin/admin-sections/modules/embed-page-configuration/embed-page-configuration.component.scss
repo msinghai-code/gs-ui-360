@@ -1,0 +1,93 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.embed-page-config {
+    &-wrapper {
+        background-color: $rich-gray-0;
+    }
+  h5 {
+    margin-bottom: 0.5rem;
+  }
+    height: calc(100% - 2rem);
+    width: 80%;
+    margin-right: 15%;
+    margin-left: 15%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    overflow:auto;
+    .embed-page-form {
+        .url-field {
+            &__text {
+                color: $rich-gray-60;
+            }
+        }
+        .ant-form-item {
+            padding-bottom: 0 !important;
+        }
+        .ant-input-number {
+            width: 30rem;
+        }
+        .height-control__radio {
+            margin-top: 1rem;
+        }
+        .url-preview {
+            color: $royal-blue-70;
+            font-size: 1.4rem;
+        }
+
+        .include-session-validator {
+            margin-top: 2rem;
+        }
+    }
+    .parameters-header {
+        width: 74%;
+        padding-bottom: 2rem;
+        &__info {
+            color: $rich-gray-60;
+        }
+        h6 {
+            margin-bottom: 0;
+        }
+        button {
+            margin-left: 2rem;
+        }
+    }
+    .parameters {
+        width: 74%;
+        row-gap: 2rem;
+        overflow-y: auto;
+        .show-border {
+            padding: 12px 16px 12px 19px;
+            border: 1px solid $rich-gray-40;
+        }
+        .bundle-param {
+            row-gap: 2rem;
+            .name {
+                width: 24rem;
+            }
+        }
+        i {
+            color: $rich-gray-60;
+            font-size: 2.4rem;
+        }
+        .param-row {
+            column-gap: 1.4rem;
+            nz-select {
+                width: 49rem;
+                ::ng-deep{
+                    .ant-select-selection{
+                        &__rendered{
+                            width: 9.5rem !important;
+                        }
+                    }
+                }   
+            }
+        }
+    }
+}
+
+
+:host {
+    height: 100%;
+}

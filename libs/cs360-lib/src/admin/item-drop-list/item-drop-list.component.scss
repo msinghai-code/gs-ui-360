@@ -1,0 +1,118 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-item-drop-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__header {
+    text-align: center;
+  }
+  &__body {
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid transparent;
+    padding: 0 1rem;
+    &.highlight.cdk-drop-list-dragging {
+
+      .gs-item-drop-list__empty {
+        display: none;
+      }
+
+      border-color: #0369e9;
+      background-color: rgba(3, 105, 233, 0.08);
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(3, 105, 233, 0.08);
+      }
+    }
+  }
+  &__gridster {
+    // width: 400px;
+    // margin: 0 auto;
+    height: 100%;
+    border-radius: 4px !important;
+    ::ng-deep {
+      .gridster-row {
+        display: block;
+        border: 2px dashed #afc3d7;
+        background-color: rgba(117, 150, 183, 0.05);
+        border-radius: 4px;
+      }
+      .gridster-column {
+        border-left: 1px dashed #c3c3c3;
+        border-radius: 4px !important;
+        &:first-of-type {
+          border-left: 0;
+        }
+      }
+    }
+  }
+  &-item {
+    background: #fff;
+    margin-bottom: 1.6rem;
+    border-radius: 4px;
+    transition: all .2s;
+    &.empty {
+      border: 2px dashed $rich-gray-50;
+      background-color: rgba(117, 150, 183, 0.05);
+      border-radius: 4px;
+      height: 4.8rem;
+    }
+  }
+  &__empty {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    &--img {
+      background: url('../../../assets/images/zero-state.svg') no-repeat center;
+      background-size: 20rem;
+      display: block;
+      min-height: 10rem;
+    }
+    &--description {
+      color: #7596b7;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+  &__custom-placeholder-grid {
+    position: absolute;
+    width: 100%;
+    top: 5px;
+    left: 0px;
+    padding-left: 0.5rem;
+    &--item {
+      height: 4.8rem;
+      display: inline-block;
+      margin: 0.5rem;
+      border: 2px dashed #cccccc;
+      background-color: rgba(117, 150, 183, 0.05);
+      border-radius: 4px;
+    }
+  }
+}
+
+.cdk-drag {
+  &-preview {
+    // width: 40% !important;
+    height: unset !important;
+    transition: none;
+  }
+
+  &-animating {
+    transition: all .2s;
+  }
+}

@@ -1,0 +1,46 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/font";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-relationship-type-view {
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+  height: 100%;
+  overflow: hidden;
+  &__ribbon {
+
+    //For Main 360//
+
+    min-height: 10rem;
+    max-height: 184px;
+    margin-bottom: 1rem;
+
+    //For Mini 360//
+  } &__ribbon-mini360 {
+    margin-bottom: $font-size-lg;
+    width: 768px;
+    min-height: 92px;
+    max-height: 184px;
+    height: auto;
+    // height: $border-radius-ellipsis;
+    flex-shrink: 0;
+  }
+  &__view {
+    flex-grow: 1;
+    &.card-view {
+      overflow: auto;
+    }
+  }
+  &__empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

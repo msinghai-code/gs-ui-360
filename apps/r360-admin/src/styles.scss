@@ -1,0 +1,368 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* ============ Vendor files ====== */
+//@import '~material-design-icons/iconfont/material-icons.css';
+//@import '~@gs/ng-horizon/ng-horizon.scss';
+@import "~primeng/resources/primeng.min.css";
+//@import "~@gs/ng-horizon/style/entry";
+@import "ng-horizon.scss";
+@import "~@gs/design-tokens/scss/index";
+//@import "~@ng-select/ng-select/themes/ant.design.theme.css";
+@import "~@gs/gdk/field-tree/style/index";
+@import "~@gs/gdk/core/style/index";
+@import "~@gs/gdk/grid/style/index.scss";
+@import "~@gs/gdk/core/style/index.scss";
+@import '~@gs/gdk/assets/grid/font-gs-icons/operators/gs-icons-operator';
+@import "~@gs/gdk/field-chooser/style/index";
+
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/index.scss";
+
+///* core variables */
+//$imagesAssetPath: "~@gs/core/assets/images";
+//$fonts_dir : "~@gs/core/assets/fonts/";
+//$font_icons_dir: "~@gs/core/assets/font-gs-icons/";
+
+/* core fonts */
+//@import "~@gs/core/assets/fonts/Roboto/Roboto.scss";
+//@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+
+//$icomoon-font-path: "~@gs/core/assets/fonts/report-viewer";
+//@import "~@gs/core/assets/fonts/report-viewer/gs-icons-rprt";
+//@import "~@gs/core/assets/font-gs-icons/operators/gs-icons-operator";
+
+/* core assets */
+//@import '~@gs/core/assets/gsTheme-h2';
+//@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+//@import "~@gs/core/assets/scss/components/gainsight/in-app-sally";
+//@import '~@gs/core/assets/scss/horizon2.1/components/material/formelements';
+
+//@import "~ag-grid-community/dist/styles/ag-grid.css";
+//@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+//@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
+//@import "~@gs/core/src/shared/assets/scss/components/common/popover-menu";
+//
+//@import "~@gs/core/src/shared/assets/scss/components/vendor/_gs-cdk-dragndrop";
+
+html {
+  font-size: 10px;
+}
+.ag-theme-material.ag-dnd-ghost {
+  display: none !important;
+}
+
+.cdk-global-overlay-wrapper {
+  display: grid !important;
+  position: unset !important;
+}
+
+body {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0;
+  font-family: $font-family;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.gainsight-app {
+    height: 100vh;
+  }
+}
+
+body {
+  font-family: $font-family !important;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.gainsight-app, .cdk-overlay-container {
+  //@import "~@gs/core/assets/fonts/report-viewer/gs-icons-rprt";
+  //@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+  //@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+  //@import "~@gs/core/src/shared/assets/scss/components/common/popover-menu";
+  //@import "~@gs/core/src/shared/assets/scss/components/vendor/_gs-cdk-dragndrop";
+  //@import '~@gs/core/assets/scss/horizon2.1/components/material/formelements';
+  //@import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+  //@import "~@gs/core/assets/scss/horizon2.1/components/common-vendor/ng-select";
+  //@import "~@gs/core/assets/scss/horizon2.1/components/material/chips";
+}
+
+@import "assets/scss/module-overrides";
+@import 'assets/scss/utilities/utilities';
+@import 'assets/scss/360helper';
+@import 'assets/scss/typography';
+@import '@gs/cs360-lib/assets/scss/summary-csm';
+
+.cdk-overlay-container{
+  //z-index: 1400;
+}
+
+
+.image-widget-default {
+  background: url("@gs/cs360-lib/assets/images/widget-icons/widget-image.png") no-repeat center;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+.gs-loader-vertical-bar-skeleton-wrapper {
+  position: fixed !important;
+  z-index: 1302 !important;
+  background: rgba(255,255,255,0.6) !important;
+}
+
+.gs-loader-vertical-bar-skeleton {
+  //background-image: url("~@gs/core/src/shared/assets/images/loader-vertical-bar-skeleton.svg");
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper-opacity {
+  background: rgba(255,255,255,0.6) !important;
+}
+
+
+.gs-section-config-wrapper.mode__mobileScreen {
+  .csm-summary-widget-wrapper__content:not(.attr-widget) {
+    h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error) {
+      font-size: 1.8rem !important;
+      font-weight: normal !important;
+    }
+    .picklist-item, .bool-field{
+      font-size: 1.8rem !important;
+      font-weight: normal !important;
+    }
+    .item {
+      .value {
+        //color: $text-color;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      .label {
+        //color: $label-color;
+        font-size: 12px;
+      }
+    }
+  }
+  .csm-summary-widget-wrapper__content {
+    &.attr-widget {
+      .field-edit-hover-content-value {
+        font-size: 14px !important;
+      }
+      .field-edit-hover-content {
+          margin-top: 0.5rem !important;
+          .urlDetails {
+            a {
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  .csm-section-renderer-wrapper:not(.attribute){
+    .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title, [nz-paragraph].ant-typography {
+      font-size: 14px !important;
+  }
+  .gs-form__field--multiselect{
+    .multiselect-field {
+      font-size: 14px !important;
+    }
+  }
+  .picklist-item, .bool-field {
+    font-size: 14px;
+  }
+  }
+}
+
+.gs-section-config-wrapper.mode__smallScreen {
+  .csm-summary-widget-wrapper__content:not(.attr-widget) {
+    h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error) {
+      font-size: 2.1rem !important;
+      line-height: 2.4rem !important;
+      font-weight: normal !important;
+    }
+    .picklist-item, .bool-field {
+      font-size: 2.1rem !important;
+      line-height: 2.4rem !important;
+      font-weight: normal !important;
+    }
+    .item {
+      .value {
+        //color: $text-color;
+        font-size: 2.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .label {
+        //color: $label-color;
+        font-size: 12px;
+      }
+    }
+  }
+  .csm-summary-widget-wrapper__content {
+    &.attr-widget {
+      .field-edit-hover-content-value {
+        font-size: 14px !important;
+      }
+      .field-edit-hover-content {
+          /*margin-top: 0.5rem !important;*/
+          .urlDetails {
+            a {
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  .csm-section-renderer-wrapper:not(.attribute){
+    .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title,  [nz-paragraph].ant-typography {
+      font-size: 14px !important;
+    }
+    .gs-form__field--multiselect{
+      .multiselect-field {
+        font-size: 14px !important;
+      }
+    }
+    .picklist-item, .bool-field {
+      font-size: 14px;
+    }
+  }
+}
+
+.gs-section-config-wrapper.mode__largeScreen {
+  .csm-summary-widget-wrapper__content:not(.attr-widget) {
+    h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error) {
+      font-size: 2.8rem !important;
+      line-height: 3.3rem !important;
+      font-weight: normal !important;
+    }
+    .picklist-item, .bool-field {
+      font-size: 2.8rem !important;
+      line-height: 4rem !important;
+      font-weight: normal !important;
+    }
+    .item {
+      .value {
+        //color: $text-color;
+        font-size: 2.8rem;
+        margin-bottom: 0.5rem;
+      }
+      .label {
+        //color: $label-color;
+        font-size: 12px;
+      }
+    }
+  }
+  .csm-summary-widget-wrapper__content {
+    &.attr-widget {
+      .field-edit-hover-content-value {
+        font-size: 16px !important;
+      }
+      .field-edit-hover-content {
+          margin-top: 0.5rem !important;
+          .urlDetails {
+            a {
+              font-size: 16px !important;
+            }
+          }
+        }
+      }
+    }
+  .csm-section-renderer-wrapper:not(.attribute){
+    .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title, [nz-paragraph].ant-typography {
+      font-size: 16px !important;
+  }
+  .gs-form__field--multiselect{
+    .multiselect-field {
+      font-size: 16px !important;
+    }
+  }
+  .picklist-item, .bool-field {
+    font-size: 16px;
+  }
+  }
+}
+
+gs-field-selector,
+.section-listing-wrapper__body,
+.gs-list-view-config-body__left--tree-area,
+.gs-card-view-config-body__left{
+  @import '@gs/cs360-lib/assets/scss/section-config-field-tree';
+}
+
+@import "~@gs/gdk/spinner/style/index";
+@import "~@gs/gdk/field-tree/style/index";
+@import "~@gs/gdk/core/style/index";
+@import "~@gs/gdk/grid/style/index.scss";
+@import "~@gs/gdk/core/style/index.scss";
+@import '~@gs/gdk/assets/grid/font-gs-icons/operators/gs-icons-operator';
+@import "~@gs/gdk/field-chooser/style/index";
+
+@import "~@gs/ng-horizon/alert/style/index";
+
+// this is a hack to fix filter till it gets fixed in gdk
+
+.ant-col-4, .ant-col-6, .ant-col-14, .ant-col-3 {
+  display: block;
+  box-sizing: border-box;
+  float: left;
+  position: relative;
+}
+
+.ant-col-4 {
+  width: 16.66666667%;
+}
+.ant-col-6 {
+  width: 25%;
+}
+.ant-col-14 {
+  width: 58.33333333%;
+}
+.ant-col-3 {
+  width: 12.5%;
+}
+
+.cdk-drag-preview:not(.section-item-wrapper) {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  z-index: 9999 !important;
+  /*width: 22rem !important;*/
+  height: 3rem !important;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  .gs-icons{
+    margin-right: .5rem;
+  }
+  gs-base-content {
+    display: block;
+    width: 100%;
+    .gs-base-content{
+      display: block;
+      width: 100%;
+      > div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+      }
+    }
+    .gs-icons-rprt {
+      margin-right: .8rem;
+    }
+  }
+}
+

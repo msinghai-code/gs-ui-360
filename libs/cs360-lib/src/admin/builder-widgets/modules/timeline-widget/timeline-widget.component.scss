@@ -1,0 +1,25 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+
+:host{
+  ::ng-deep{
+    .ant-skeleton-avatar{
+      width:44px;
+      height: 44px;
+    }
+    .ant-skeleton{
+      padding: 2rem 0 0 2rem;
+      border-bottom: 1px solid $border-color-base;
+      height: 96px;
+    }
+    .ant-skeleton-title{
+      height: 2.4rem;
+      margin-top:0.8rem !important;
+    }
+    .ant-skeleton-paragraph{
+      height: 1.2rem;
+      width:8rem;
+      margin-top:0 !important;
+    }
+  }
+}

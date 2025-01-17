@@ -1,0 +1,69 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-cs360-layout-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__header {
+    height: 5.2rem;
+    background-color: $rich-gray-0;
+    box-shadow: 0 1px 0 0 #d5dee8;
+    padding: 16px 11px 15px 32px;
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: $rich-gray-90;
+    }
+  }
+  &__body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      width: 40rem;
+      padding: 2rem 6rem;
+      text-align: center;
+
+      .illustration {
+        ::ng-deep {
+          svg {
+            height: 15rem !important;
+            width: 28rem !important;
+            margin-bottom: 2.4rem !important;
+          }
+        }
+      }
+      .label {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .select-company-dropdown {
+      min-width: 21rem;
+      text-align: left;
+    }
+  }
+}
+
+::ng-deep{
+  .ant-modal-footer {
+    border-top: none !important;
+    ::ng-deep {
+      .cancelBtn {
+        margin-right: 8px;
+      }
+    }
+  }
+}

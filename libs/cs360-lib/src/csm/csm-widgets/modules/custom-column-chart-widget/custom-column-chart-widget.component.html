@@ -1,0 +1,63 @@
+<section class="csm-summary-widget-wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%" (window:resize)="onWindowResize()">
+  <h6 nz-title nzType="sub-section" nzColor="subtitle" class="csm-summary-widget-wrapper__label">{{widgetItem.label}}</h6>
+  <div class="csm-summary-widget-wrapper__content" fxLayout="row" fxFill fxFlex="100%" #summaryWidgetWrapper>
+      <div class="chart-wrapper" *ngIf="!isLoading else empty" [class.center]="!showScrollButtons">
+        <div class="columns-container" *ngIf="data.data.length else noData" [style.height]="colContainerHeight">
+           <div class="column-group-wrapper" *ngFor="let colGroup of data.data" >
+            <div class="column-group" 
+              [ngStyle]="{
+                marginRight: data.spacing
+              }"
+              nz-tooltip [nzTooltipTitle]="titleTemplate"
+              >
+              <div class="column-wrapper" *ngFor="let col of data.valueProps; let i = index" 
+                [ngStyle]="{
+                  width: data.colWidth,
+                  marginRight: data.groupItemSpacing
+                }"
+              >
+                <div class="column" *ngIf="colGroup && (colGroup.color || data?.colors[i]) && colGroup[col]" [ngStyle]="{
+                  backgroundColor: colGroup.color || data?.colors[i],
+                  height: (colGroup[col]/data.maxDataPoint) * 100 + '%' 
+                }"></div>
+              </div>
+         
+
+              <div class="label">{{ colGroup[data.labelProp] }}</div>
+            </div>
+            <ng-template #titleTemplate>
+              <div class="info-tooltip">
+                <div *ngIf="data.valueProps.length > 1 else single">
+                  <div class="item"><b>{{ colGroup[data.labelProp] }}</b></div>
+                  <div *ngFor="let item of data.valueProps; let i = index">
+                    <span class="key">{{ data.legends[i] }}</span>: <span class="value">{{colGroup[item]}}</span>
+                  </div>
+                </div>
+                <ng-template #single>
+                  <span class="key">{{ colGroup[data.labelProp] }}</span>: <span class="value"> <b>{{colGroup[data.valueProps[0]]}}</b> </span>
+                </ng-template>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <ng-template #noData>
+          <h1>NA</h1>
+        </ng-template>
+
+        <button *ngIf="showScrollButtons" [hidden]="hideLeftButton" class="scroll-button scroll-button-left" nz-button nzType="default" (click)="scrollChart($event, -100)">
+          <i nz-icon nzType="left" nzTheme="outline"></i>
+        </button>
+        <button *ngIf="showScrollButtons" [hidden]="hideRightButton" class="scroll-button scroll-button-right" nz-button nzType="default" (click)="scrollChart($event, 100)">
+          <i nz-icon nzType="right" nzTheme="outline"></i>
+        </button>
+      </div>
+  </div>
+</section>
+
+<ng-template #empty>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%">
+    <div class="gs-loader-vertical-bar-skeleton" style="height:100%" fxLayout="row" fxLayoutAlign="center center">
+    </div>
+  </div>
+</ng-template>

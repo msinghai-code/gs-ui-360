@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 10rem;
+    padding-right: 5rem;
+
+    .illustration {
+        width: 17rem;
+        height: 12.2rem;
+        background: url('../../../../assets/images/not-found.svg') no-repeat;
+    }
+    
+    .title {
+        font-size: 16px;
+        font-weight: 500;
+        color: #19232f;
+        margin-top: 3rem;
+    }
+    
+    .description {
+        color: #7596b7;
+        margin-top: 1.2rem;
+    }
+
+    .go-back-btn {
+        margin-top: 2.4rem;
+        padding: 0 2rem;
+    }
+}

@@ -1,0 +1,621 @@
+@import "~@gs/ng-horizon/style/themes/index";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/ng-horizon/formly/style/index";
+
+.gs-attr {
+  height: 100%;
+  width: 100%;
+  &__value-group {
+    float: left;
+    width: 50%;
+    padding: 0 1.6rem;
+    
+    &-full-width {
+      height: 100%;
+      width: 100% !important;
+      float: left;
+      .gs-rte-edit {
+        height: 100%;
+        border-radius: 0.4rem;
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(184, 200, 216, 0.2);
+          overflow: auto !important;
+        }
+      }
+
+    }
+  }
+  
+  &__label {
+    top: 0;
+    -webkit-transform: none;
+    transform: none;
+    font-size: 1.2rem;
+    color: #557391;
+    letter-spacing: 0.02rem;
+  }
+}
+
+.url-text-editMode {
+  display: block;
+}
+
+.is-url-empty {
+  color: $rich-gray-90;
+}
+
+.ngp-timerpicker {
+  display: inline-block;
+  position: relative;
+}
+
+.ngp-timerpicker {
+  position: relative;
+  input {
+    background: none;
+    border-bottom: 1px solid rgba(211, 214, 217, 0.42);
+    padding-right: 30px;
+    width: 42.3rem;
+    border-radius: 0;
+    &:focus {
+      outline: 0 none;
+      box-shadow: none;
+    }
+  }
+  &.time-label {
+    position: absolute;
+    left: 0;
+    bottom: -0.8rem;
+    color: text-color(disabled);
+    height: 3rem;
+    width: 42rem;
+    transition: all 0.35s;
+  }
+  &.time-picker-icon {
+    position: absolute;
+    right: .8rem;
+    bottom: .4rem;
+  }
+  &.ngp-time-focused, &.ngp-time-invalid {
+    .time-label {
+      bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.ant-select-dropdown-menu-item-group-title, .ant-select-dropdown-menu .gs-tbl-row {
+  display: flex ;
+}
+.gs-tbl-col{
+  width: 100%;
+  padding: 3px 10px 3px 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+p-calendar {
+  .pi {
+    //font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2.2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    vertical-align: middle;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    &.pi-chevron-up:before {
+      content: "\e316";
+    }
+    &.pi-chevron-down:before {
+      content: "\e313";
+    }
+  }
+}
+
+.checkbox-editor {
+  position: relative;
+  text-align: left;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+}
+
+.date-field-picker {
+  display: flex;
+  align-items: center;
+  .ant-time-picker {
+    padding-left: 1.6rem;
+  }
+  .mat-form-field {
+    flex: 1;
+  }
+  .mat-icon {
+    line-height: 16px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera
+  This is for hiding UP & DOWN Arrows for Number type fields
+*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+/*This will be for Detail View form builders*/
+.gs-cta-detail-view {
+  .gs-form__field--view {
+    &:not(.gs-form__field--readonly) {
+      width: 80%;
+      margin: 0 -0.45rem;
+    }
+  }
+}
+
+.gs-form {
+
+  // 40px line height is trimming the error message
+  // we should have more gaps between the attributes since 16px gap is not enough for errors
+  // todo: recheck later
+  &__lookup__main{
+    ::ng-deep {
+      .ant-form-item-control {
+        line-height: initial !important;
+      }
+    }
+  }
+
+  .ng-invalid {
+      border-color: #f75d4f!important;
+      ::ng-deep{
+        nz-select{
+          .ant-select-selection {
+            border-color: #f75d4f!important;
+          }
+        }
+      }
+    }
+  height: 100%;
+  display: flex;
+  width: 100%;
+
+  &.compact {
+    gs-rte {
+      ::ng-deep {
+        .fr-toolbar .fr-btn-grp:after {
+          top: 12px;
+        }
+      }
+    }
+  }
+  .align-start {
+    align-self: baseline;
+  }
+  &__field {
+    text-align: left;
+    width: 100%;
+    outline: none;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+    &--view {
+      // font-size: 1.4rem;
+      //border: 1px solid transparent;
+      padding: 0;
+      border-radius: 4px;
+      outline: none;
+      height: 2.6rem;
+      vertical-align: middle;
+      // line-height: 2.4rem;
+      display: flex;
+      &:not(.gs-form__field--readonly) {
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(184, 200, 216, 0.2);
+          .gs-form__select-icon {
+            display: flex;
+          }
+        }
+      }
+      &.gs-px-read-date, &.gs-px-read-lookup {
+        .clear {
+          display: none;
+        }
+        &:hover {
+          .clear {
+            display: inline-flex;
+            color: $rich-gray-70;
+            //padding-top: 0.2rem;
+          }
+        }
+      }
+      > span {
+        height: 2.6rem;
+        vertical-align: middle;
+        line-height: 2.4rem;
+        width: 100%;
+        align-items: center !important;
+        display: flex;
+        place-content: space-between;
+        &:not(.ant-typography-danger){
+          color: #19232f; // Theme colors
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+        }
+      }
+      .gs-form__select {
+        &-icon {
+          //padding-bottom: 0.5rem;
+          //font-size: 2rem;
+          display: none;
+        }
+      }
+    }
+    &--edit {
+      height: 3.2rem;
+    }
+    &--edit-dropdown {
+      height: 3.2rem;
+      gs-select {
+        top: 0;
+        height: 100%;
+        ::ng-deep {
+          .gs-fb-select {
+            display: inline;
+            vertical-align: top;
+
+            .ant-select-selection__clear{
+              top: 13px !important
+            }
+          }
+        }
+      }
+    }
+    &--edit-dropdown-multi {
+      gs-select {
+        ::ng-deep {
+          .ant-select-selection{
+              max-height: 5.6rem !important;
+          }
+        }
+      }
+    }
+    ::ng-deep {
+      .ant-input-group-addon {
+        padding: 0px 12px;
+      }
+    }
+    &--edit-dropdown {
+      width: 100%;
+    }
+    &--readonly {
+      outline: none;
+      padding: 0;
+    }
+    &--multiselect.gs-form__field--view {
+      .gs-form__select-label {
+        border: none;
+        // font-size: 1.4rem;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0;
+      }
+    }
+  }
+  &__field-label {
+    width: 100%;
+    &--editable-url {
+      color: #0f87ec !important;
+    }
+    &--url {
+      display: inline-block;
+    }
+  }
+  &__item {
+    width: 100%;
+    &.gs-form__select .gs-form__field--view:not(.gs-form__field--multiselect) {
+      margin: 0;
+      padding: 0;
+      height: auto;
+    }
+
+    &.gs-form__checkbox {
+      nz-form-control {
+        ::ng-deep {
+          .ant-form-item-control {
+            line-height: 27px;
+          }
+        }
+      }
+    }
+  }
+  &__caption-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: text-color(default);
+    padding: 0 !important;//TODO: Remove once local partials take precedence over ant-d styles
+    > label {
+      font-size: 1.2rem;
+    }
+  }
+  &__lookup-img {
+    margin-right: .6rem;
+    width: 20px;
+    height: 20px;
+  }
+  &__lookup-title {
+    //color: #557391; // Theme colors
+    width: calc(100% - 30px);
+    height: max-content;
+    //margin-bottom: 1em;
+  }
+  &__string-input {
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    text-align: inherit;
+  }
+  .ant-form-item-control {
+    outline: none;
+  }
+
+ .field_label{
+   margin-bottom: 0 !important;
+   margin-left: -1px;
+ }
+  ::ng-deep {
+
+    gs-rte {
+      .rte-container {
+        height: 100%;
+        
+        .rte-container__rte {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .fr-wrapper {
+            // height: calc(100% - 4rem);
+            overflow: auto;
+            border-radius: 10px;
+
+            .fr-element.fr-view {
+              padding-top: 0;
+            }
+
+            ul {
+              list-style-type: initial;
+            }
+
+            ol {
+              list-style-type: decimal;
+            }
+          }
+
+          .fr-toolbar {
+            .fr-dropdown.fr-active {
+              + .fr-dropdown-menu .fr-dropdown-wrapper {
+                height: 17.5rem !important;
+                overflow: auto;
+              }
+            }
+
+            .fr-link-insert-layer {
+              // to fit the rte editor popup within the rte wrapper
+              margin: 0 12px;
+
+              .fr-action-buttons {
+                padding-top: 0;
+                text-align: left;
+                justify-content: flex-start;
+                height: auto;
+              }
+            }
+
+            .fr-more-toolbar.fr-expanded {
+              height: 40px;
+            }
+          }
+
+          .fr-second-toolbar {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.gs-assocPrsn{
+  width: 100%;
+  .gs-form{
+    &__field{
+      &--view {
+        width: 100% !important;
+      }
+      &--edit {
+        height: 100% !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
+.gs-create-form {
+  .ant-col-offset-1:first-child {
+    margin-left: 0;
+  }
+}
+.gs-create-form-layout {
+  padding: 2rem;
+  border: 1px solid border-color(primary);
+  border-radius: 4px;
+  box-shadow: 0 -1px 4px 0 rgba(15,135,236,0.5), 0 2px 4px 0 rgba(131,153,175,0.4);
+  .ant-form-vertical .ant-form-item {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+//All form-builder dropdowns not multiple, e.g(create-cta, cta-detail view, create task, task detail view)
+.gs-fb-select__dropdown:not(.ant-select-dropdown--multiple) {
+  .ant-select-dropdown-menu {
+    padding: .8rem 0;
+    // min-height: $gs-fb-select-drpdwn-height;
+    .ant-select-dropdown-menu-item {
+      padding: 1.35rem 0.5rem 1.35rem 2rem;
+    }
+  }
+}
+
+::ng-deep {
+  .ant-select-selection--multiple .ant-select-selection__choice__remove {
+    display: none;
+  }
+}
+
+.gs-option {
+  display: flex;
+  align-items: center;
+  &__color-circle {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 1.2rem;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  &__text {
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 30px);
+  }
+}
+
+.gs-rte-field {
+  height: 100%;
+  .gs-rte-edit {
+    padding-right: 0 !important;
+  }
+  &.active {
+    height: calc(100% - 41px) !important;
+    // border: 1px solid $color-brand-400;
+    border-radius: 0.4rem;
+    // padding: 0.5rem 0 0 1rem;
+    padding: 0;
+  }
+  .read-content {
+    //overflow: auto;
+    height: inherit;
+  }
+  .rte-editor-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .save-cancel-wrapper {
+    position: absolute;
+    right: 20px;
+    bottom : 20px;
+    z-index: 2; 
+  }
+}
+
+.gs-field-error {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  padding-top: 0.1rem !important;
+}
+
+nz-date-picker {
+  display: inherit;
+  &.ng-invalid {
+
+    ::ng-deep {
+      input {
+        border-color: $tart-red-60 !important;
+      }
+      .ant-calendar-picker {
+        width: auto !important;
+      }
+    }
+  }
+}
+.gs-form__field-label{ 
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-wrap: break-word;
+    height: max-content;
+}
+.select-label{
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+.ant-form-item-control-link-read-only {
+  padding-left: 0 !important;
+  display: flex;
+}
+
+// overrides for mini 360 specific styles
+.mini-360 {
+  .gs-rte-field {
+    .rte-editor-wrapper:not(.summary-rte) {
+      display: flex;
+      flex-direction: column;
+    }
+    .save-cancel-wrapper {
+      position: static;
+      margin: 8px 20px 8px 0;
+      align-self: flex-end;
+    }
+    &.active {
+      height: 100%;
+    }
+  }
+
+  ::ng-deep{
+    gs-rte {
+      .rte-container{
+        min-height: 0;
+        .rte-container__rte{
+          // to fit the rte editor popup within the rte wrapper
+          min-height: 150px;
+        }
+      }
+    }
+  }
+}
+
+.gs-form__item {
+  &.url {
+    .gs-field-error {
+      margin-top: -8px;
+    }
+  }
+}
+
+::ng-deep{
+  .checkbox-editor-label{
+    .ant-checkbox{
+      padding-left: 0;
+    }
+  }
+}

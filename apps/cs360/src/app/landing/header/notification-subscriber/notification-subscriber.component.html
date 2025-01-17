@@ -1,0 +1,22 @@
+<button
+       nz-tooltip
+        [nzTooltipTitle]="buttonText == followText ? followTooltip : unfollowTooltip "
+        nzSize="small"
+        nz-button
+        nzType="link"
+        (click)="toggleNotification()"
+        (mouseover)="onMouseOver()"
+        (mouseout)="onMouseOut()"
+        [nzLoading]="isLoading"
+        [class.following]="following && showIcon && !isLoading"
+        [ngClass]="pxClasses">
+  <ng-container *ngIf="!isLoading && showIcon">
+    <ng-container *ngIf="following; else unfollow">
+      <i nz-icon nzType="tick" nzTheme="outline"></i>
+    </ng-container>
+  </ng-container>
+   {{buttonText}}
+</button>
+<ng-template #unfollow>
+  <i nz-icon nzType="add" nzTheme="outline"></i>
+</ng-template>

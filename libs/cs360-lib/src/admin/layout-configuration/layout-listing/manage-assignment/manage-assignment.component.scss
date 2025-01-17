@@ -1,0 +1,94 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+  display: block;
+  height: 100%;
+}
+.gs-layouts-listing-manage-assignment {
+  ::ng-deep {
+    // This is affecting the cursor for reordering, so setting it to 0 for manage assignment popup
+    .ag-theme-material .ag-cell, .ag-theme-material .ag-full-width-row .ag-cell-wrapper.ag-row-group {
+      padding-right: 0 !important;
+    }
+
+    //pading top of 3px is coming from gdk which does not look properly aligned
+    .gs-icons-draggable-indicator{
+      padding-top: 0 !important;
+    }
+
+    .gs-grid-container {
+      border: none !important;
+    }
+
+    .gs-grid-container {
+      border: none !important;
+    }
+  }
+}
+
+
+::ng-deep {
+  // This is affecting the cursor for reordering, so setting it to 0 for manage assignment popup
+  .ag-theme-material .ag-cell, .ag-theme-material .ag-full-width-row .ag-cell-wrapper.ag-row-group {
+    padding-right: 0 !important;
+  }
+}
+
+.gs-layouts-listing-manage-assignment {
+  height: calc(100vh - 29rem);
+  ::ng-deep {
+    gs-grid {
+      height: 99% !important;
+      .ag-overlay-loading-center {
+        display: none;
+      }
+      padding-bottom: 0; // Remove pagination padding
+      div.ag-cell {
+        -webkit-user-select: none;  /* Chrome 49+ */
+        -moz-user-select: none;     /* Firefox 43+ */
+        -ms-user-select: none;      /* No support yet */
+        user-select: none;          /* Likely future */
+      }
+      .layout-name {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  .gs-lkup__select {
+    width: 30rem;
+  }
+  .relationship-type {
+   label {
+     color: $rich-gray-70;
+     padding-bottom: 0.4rem;
+   }
+   &.in-form {
+     max-width: 40%;
+     margin-bottom: 2.4rem;
+   }
+  }
+  .find-layout {
+    &__info {
+      font-size: 1.2rem;
+      color: $rich-gray-60;
+      margin-top: -2rem !important;
+      margin-bottom: 2.4rem;
+    }
+    &__and {
+      color: $rich-gray-70;
+    }
+    &__selected-layout {
+      margin-top: 0.8rem;
+      padding: 2rem;
+      border-radius: 1rem;
+      background-color: $royal-blue-20;
+      label {
+        display: inline-block;
+        margin-bottom: 1.6rem;
+      }
+    }
+  }
+}
+

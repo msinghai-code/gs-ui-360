@@ -1,0 +1,19 @@
+<section class="gs-rollout-explore">
+  <div class="gs-rollout-explore__left">
+    <div class="gs-rollout-explore-feature">
+      <div class="gs-rollout-explore-feature__item {{feature?.selected ? ' selected': ''}}"
+           *ngFor="let feature of featureJukebox; let i = index">
+        <div class="gs-rollout-explore-feature-item__icon {{feature?.selected ? ' selected': ''}}">
+          <i nz-icon nzType="{{feature.iconType}}" nzTheme="outline"></i>
+        </div>
+        <div class="gs-rollout-explore-feature-item__intro {{feature?.selected ? ' selected': ''}}" (click)="playVideo(feature)">
+          <h6 class="gs-rollout-explore-feature-item__intro--header" nz-title>{{feature.title | transloco}}</h6>
+          <label nz-text nzType="small" nzColor="secondary">{{feature?.description | transloco}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gs-rollout-explore__right">
+    <iframe [src]="selectedFeature?.embed" width="600" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>

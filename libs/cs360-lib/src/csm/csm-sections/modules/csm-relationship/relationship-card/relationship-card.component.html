@@ -1,0 +1,55 @@
+<section class="gs-relationship-card">
+    <ng-container *ngIf="!showNoData else empty">
+        <div class="gs-relationship-card__body"
+             #cardBody
+             fxLayout="row wrap"
+             fxLayoutGap="30px"
+             fxLayoutAlign="flex-start"
+             fxLayout.xs="column">
+            <div class="gs-relationship-card-body__item"
+                 *ngFor="let card of cardDataList; trackBy: trackBy"
+                 [style.width.px]="cardBody.offsetWidth >= 830 ? (cardBody.offsetWidth - 90)/3: (cardBody.offsetWidth - 60)/2"
+                 [style.minWidth.px]="250"
+                 [style.maxWidth.px]="450">
+                <gs-360-card-view [items]="card?.items"
+                                  [config]="{title: card.name,
+                                            showMore: showMore,
+                                            identifier: {rowIdentifierGSID: card?.rowIdentifierGSID, rowIdentifierRelTypeGSID: card?.rowIdentifierRelTypeGSID}
+                                            }"
+                                  (action)="onAction($event)">
+                </gs-360-card-view>
+            </div>
+        </div>
+        <div class="gs-relationship-card__pagination">
+            <nz-pagination  class="gs-custom-paginator" #paginationRef
+                                 [nzPageSizeOptions]="customPaginator.pageSizes"
+                                 [nzTotal]="customPaginator.totalRecords"
+                                 [nzPageSize]="customPaginator.currentPageSize"
+                                 [nzPageIndex]=1
+                                 (nzPageIndexChange)="onPaginationAction($event)"
+                                 [nzShowSizeChanger]="true">
+            </nz-pagination>
+        </div>
+    </ng-container>
+</section>
+<!-- Action popover -->
+<nz-overlay [closeOnClick]="true" #contextMenuGrid>
+    <div class="pop-panel gs-popover-menu">
+        <nz-list class="gs-popover-menu__list">
+            <nz-list-item class="gs-popover-menu__item"
+                           ngClass="gs-popover-menu__item--{{action.type.toLowerCase()}}"
+                           *ngFor="let action of contextMenuInfo.contextMenuItems"
+                           [ngStyle]="{'cursor': action?.disabled ? 'not-allowed': 'pointer'}"
+                           (click)="!action?.disabled && onContextMenuAction($event, action.type)">
+                <i class="context-menu-action gs-popover-menu__item-icon">{{action.icon}}</i>&nbsp;{{action.label| transloco}}
+            </nz-list-item>
+        </nz-list>
+    </div>
+</nz-overlay>
+<ng-template #empty>
+    <div class="gs-relationship-card__empty" fxLayout="column" fxLayoutAlign="center center" fxFill>
+        <i class="empty-state-img"></i>
+        <h5 nz-title>{{'360.csm.relationship_card.noData'| transloco}}</h5>
+        <span>{{'360.csm.relationship_card.contactAdmin'| transloco}}</span>
+    </div>
+</ng-template>

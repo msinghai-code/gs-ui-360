@@ -1,0 +1,48 @@
+.gs-csm-relationship-filter-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__body {
+    flex-grow: 1;
+  }
+  &__footer {
+    height: 5rem;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+  ::ng-deep{
+    .ant-select-dropdown-menu {
+      max-width: 365px;
+    }
+  }
+}
+
+
+.gs-csm-relationship-filter-inactive {
+  &__item {
+    display: flex;
+    flex-direction: row;
+    background-color: #F6F6F6;
+    padding: 1rem;
+    border-radius: 2px;
+    align-items: center;
+    margin: 0 11rem 0 4.3rem;
+    cursor: pointer;
+  }
+}
+
+
+.gs-csm-relationship-filter-item {
+  &__operator {
+    font-size: 1.2rem;
+    color: #868b93;
+    padding: 0 1rem;
+  }
+}
+  ::ng-deep {
+    .ant-select-selection__choice__content {
+      max-width: 289px !important;
+    }
+  }
+

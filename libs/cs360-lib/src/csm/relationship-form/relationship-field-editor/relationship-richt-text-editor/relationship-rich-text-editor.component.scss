@@ -1,0 +1,85 @@
+@import "~@gs/design-tokens/scss/spacings";
+
+::ng-deep {
+  .gs-attr__value-group-full-width {
+    margin-right: $space-xlarge;
+    padding: 0.8rem 0 !important;
+    relationship-rich-text-editor {
+      gs-rte {
+        .rte-container  {
+          height: 100%;
+          .rte-container__rte {
+            height: 100%;
+  
+            .fr-wrapper {
+              height: calc(100% - 4rem);
+              overflow: auto;
+
+              .fr-element.fr-view {
+                padding-top: 0;
+              }
+
+              ul {
+                list-style-type: initial;
+              }
+
+              ol {
+                list-style-type: decimal;
+              }
+              
+            }
+
+
+            .fr-toolbar {
+              .fr-dropdown.fr-active {
+                + .fr-dropdown-menu .fr-dropdown-wrapper {
+                  height: 12.5rem !important;
+                  overflow: auto;
+                }
+              }
+
+              .fr-link-insert-layer {
+                margin: 5px 2.5px;
+                padding: 10px;
+
+                .fr-action-buttons {
+                  padding-top: 0;
+                }
+              }
+            }
+
+            .fr-wrapper {
+              background-image: url(../../../../../assets/images/resize-icon-blue.svg);
+              visibility: visible;
+              background-repeat: no-repeat;
+              background-position: right bottom;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;
+            }
+
+            .fr-selected-set {
+              .fr-selected-color {
+                background: url("../../../../../assets/images/tick.svg") center
+                  no-repeat;
+                background-position: 50% 70%;
+                color: transparent;
+                font-family: unset;
+              }
+            }
+            .fr-second-toolbar {
+              display: none;
+            }
+          }
+        
+          &__view{
+            cursor: not-allowed;
+            background-color:  #fbfbfc;
+            border: 1px solid #e3eaf1;
+            left: 0;
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}

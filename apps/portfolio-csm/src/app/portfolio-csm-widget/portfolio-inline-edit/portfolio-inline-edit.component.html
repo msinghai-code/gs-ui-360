@@ -1,0 +1,76 @@
+<div (resized)="resizeGrid()" class="gs-portfolio-widget">
+   <div class="gs-portfolio-widget__header">
+      <div *ngIf="showFullScreen" class="gs-portfolio-widget__header__actions">
+         <button (click)="bulkEdit()" nz-button nzType="link" nzShape="circle"><i nz-icon
+               nzType="fullscreen" nzTheme="outline"></i></button>
+      </div>
+   </div>
+   <div gsSpinner [nzSize]="'xl'" [show]="loading" [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams"
+      class="gs-portfolio-widget__body">
+      <div class="gs-portfolio-widget__body__title">
+         <h3>{{config?.portfolioName}}</h3>
+         <ng-container *ngIf="selectedGridRows[objectName].length">
+            <ng-container
+               *ngTemplateOutlet="editActionTemplate;context:{count:selectedGridRows[objectName].length,objectName:objectName,label: objectName + '(s)'}">
+            </ng-container>
+         </ng-container>
+      </div>
+
+      <nz-tabset *ngIf="configuredObjectNames.length > 1 else singleTemplate" (nzSelectChange)="onTabChange($event)"
+         #tabs class="gs-portfolio-widget__body__grid">
+         <nz-tab [nzTitle]="'360.csm.bulk_edit_modal.company'| transloco">
+            <ng-template nz-tab>
+               <gs-portfolio-column-chooser *ngIf="showColumnChooser" [fieldTree]='describeObjFieldTreeMap["company"]'
+                                           [filterFields]="displayFieldsFromColumnChooser['company']" [config]="columnChooserConfig"
+                  [objectName]="'company'" (save)="onColumnChooserSave($event)"></gs-portfolio-column-chooser>
+              <div class="h-100">
+                  <gs-portfolio-widget-grid #portfolioGrid (action)="onGridAction($event, 'company')"
+                     [isNotLiveWidget]="!loadWidgetData" [objectName]="'company'" [requestSource]="gridRequestSource"
+                     [gridInfo]="companyGridInfo">
+                  </gs-portfolio-widget-grid>
+               </div>
+            </ng-template>
+         </nz-tab>
+         <nz-tab *ngIf="isRelationshipEnabled" [nzTitle]="'360.csm.bulk_edit_modal.relationship'| transloco">
+            <ng-template nz-tab>
+               <gs-portfolio-column-chooser *ngIf="showColumnChooser"
+                                            [filterFields]="displayFieldsFromColumnChooser['relationship']"
+                                            [fieldTree]="describeObjFieldTreeMap['relationship']" [config]="columnChooserConfig"
+                                            [objectName]="'relationship'" (save)="onColumnChooserSave($event)">
+               </gs-portfolio-column-chooser>
+               <div class="h-100">
+                  <gs-portfolio-widget-grid #portfolioGrid [gridInfo]="relationshipGridInfo"
+                     [isNotLiveWidget]="!loadWidgetData" [requestSource]="gridRequestSource"
+                     (action)="onGridAction($event, 'relationship')" [objectName]="'relationship'">
+                  </gs-portfolio-widget-grid>
+               </div>
+            </ng-template>
+         </nz-tab>
+      </nz-tabset>
+      <ng-template #singleTemplate>
+         <div class="gs-portfolio-widget__body__grid single-grid">
+            <gs-portfolio-column-chooser *ngIf="showColumnChooser"
+               [filterFields]="displayFieldsFromColumnChooser[objectName]"
+               [fieldTree]="describeObjFieldTreeMap[objectName]" [config]="columnChooserConfig"
+               [objectName]="objectName" (save)="onColumnChooserSave($event)"></gs-portfolio-column-chooser>
+            <div class="h-100">
+               <gs-portfolio-widget-grid #portfolioGrid [gridInfo]="selectedGridInfo"
+                  [isNotLiveWidget]="!loadWidgetData" [requestSource]="gridRequestSource"
+                  (action)="onGridAction($event, objectName)" [objectName]="objectName">
+               </gs-portfolio-widget-grid>
+            </div>
+         </div>
+      </ng-template>
+   </div>
+</div>
+
+<ng-template #editActionTemplate let-objectName="objectName" let-count="count" let-label="label">
+   <div nz-row nzGutter="8" nzType="flex" nzAlign="middle" class="border-class">
+      <div nz-col>
+         <button nz-button nzType="link" (click)="editFields()">
+            <i class="f-s-16" nz-icon nzType="edit" nzTheme="outline"></i>
+            <span nz-text style="color: #0F87EC;">{{'360.csm.bulk_edit_modal.massEdit'| transloco}}</span>
+         </button>
+      </div>
+   </div>
+</ng-template>

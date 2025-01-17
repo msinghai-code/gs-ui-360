@@ -1,0 +1,99 @@
+<div class="gs-log__wrapper" gsSpinner [nzSize]="'xl'" [show]="!(loaded | async)" *ngIf="mergeConfigs | async as configs">
+  <div class="flex gs-exc-log" *ngIf="configs && configs.length">
+    <div class="gs-exc-log__left-ctn">
+      <div class="gs-exc-log__title">{{'360.logs_comp.logs'| transloco}}
+        {{configs && configs.length > 0 ? '('+ configs.length +')' : ''}} </div>
+      <div class="gs-exc-log__list-ctn">
+        <nz-list *ngIf="configs && configs.length">
+          <nz-list-item (click)="onConfigSelect(config)" *ngFor="let config of configs;"
+            [ngClass]="{'is-selected': (selectedMergeConfig && selectedMergeConfig.mergeId) === config.mergeId}">
+            <div class="gs-exc-log__text-wrap">
+              <h4 nz-tooltip nzTooltipTitle="{{config.mergeName}}">{{config.mergeName}}</h4>
+              <p> {{config.jobStartDateTime | localeTime : userLocale?.DateTimeFormat : userLocale?.TimeZone}}
+              </p>
+            </div>
+            <div class="gs-exc-log__icon-wrap {{config.jobStatus?config.jobStatus.toLowerCase():'' }}">
+            </div>
+          </nz-list-item>
+        </nz-list>
+      </div>
+    </div>
+    <!--end of left -->
+
+    <div class="gs-exc-log__right-ctn">
+      <ng-container gsSpinner [nzSize]="'xl'" [show]="!selectedMergeConfig" *ngIf="selectedMergeConfig">
+        <div class="gs-exc-log__title">
+          <div nz-tooltip nzTooltipTitle="{{selectedMergeConfig.mergeName}}">{{selectedMergeConfig.mergeName}}</div>
+<!--          <nz-list-item>-->
+            <button nz-button nzShape="round"
+              class="mat-chip mat-standard-chip gs-exc-log__chip gs-exc-log__chip-{{selectedMergeConfig && selectedMergeConfig.jobStatus?selectedMergeConfig.jobStatus.toLowerCase():''}}"
+              selected>
+              {{selectedMergeConfig && selectedMergeConfig.jobStatus?selectedMergeConfig.jobStatus.toLowerCase():''}}
+            </button>
+<!--          </nz-list-item>-->
+        </div>
+        <div class="gs-exc-log__detail-ctn">
+          <ng-container>
+              <nz-alert nzType="info" *ngIf="selectedMergeConfig?.jobStatus?.toUpperCase() === 'PARTIAL_SUCCESS' && !dismissedMerges[selectedMergeConfig?.mergeId] && selectedMergeConfig?.failedModules > 0" [nzMessage]='pageBannerMsg'  class="logs-banner" [nzCloseable]="false"
+                        [nzActions]="bannerActions"
+                        (nzOnAction)="onRetriggerAction($event)"></nz-alert>
+            <div class="flex gs-exc-log__detail-items">
+              <div *ngFor="let companyName of companies; let i = index">
+                <div class="gs-exc-log__status">
+                  <span *ngIf="i===0" class="gs-exc-log__detail-title">{{'360.logs_comp.compMaster'|
+                    transloco}}</span>
+                  <span *ngIf="i>0" class="gs-exc-log__detail-title">{{'360.logs_comp.company'| transloco}}
+                    {{i+1}}</span>
+                  <div class="gs-exc-log__detail-content">
+                    <span class="gs-exc-log__detail-name" matTooltip="{{companyName.name}}">
+                      {{companyName.name}}
+                    </span>
+                    <i *ngIf="companyName.info" class="material-icons gs-exc-log__detail-icon"
+                      matTooltip="{{companyName.info}}">info</i>
+                  </div>
+                </div>
+              </div>
+              <div class="gs-exc-log__endtime">
+                <span class="gs-exc-log__detail-title">{{'360.logs_comp.mergedBy'| transloco}}</span>
+                <span class="gs-exc-log__detail-content">{{selectedMergeConfig.createdByName}}</span>
+              </div>
+            </div>
+
+            <div class="flex gs-exc-log__detail-items">
+              <div class="gs-exc-log__runtime"><span>{{'360.logs_comp.runTime'| transloco}}
+                  {{selectedMergeConfig.jobStartDateTime | localeTime : userLocale?.DateTimeFormat :
+                  userLocale?.TimeZone }}
+                  -
+                  {{ selectedMergeConfig.jobEndDateTime | localeTime : userLocale?.DateTimeFormat :
+                  userLocale?.TimeZone}}
+                </span>
+              </div>
+            </div>
+
+            <div class="flex gs-exc-log__detail-items">
+              <div class="gs-exc-log__summary">
+                {{'360.logs_comp.logSummary'| transloco}}
+              </div>
+            </div>
+
+            <div class="gs-exc-log__detail-info-wrapper">
+              <div class="gs-exc-log__detail-info"
+                *ngFor="let log of (selectedMergeConfig?selectedMergeConfig.logs:[])">
+                <span class="log-message" *ngIf="log.isStartMessage else usualMessage">{{log.uiMessage}} at
+                  {{log.createdDate | localeTime : userLocale?.DateTimeFormat : userLocale?.TimeZone}}</span>
+                <ng-template #usualMessage class="align-items-center">
+                  <span
+                    [ngClass]="{'gs-success': log.logStatus==='SUCCESS', 'gs-failure': log.logStatus === mergeJobStatus.FAILED, 'gs-warning': log.logStatus === mergeJobStatus.PARTIAL_SUCCESS}"></span>
+                  {{log.uiMessage}}
+                </ng-template>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <!--end of right -->
+  </div>
+  <span *ngIf="!(configs && configs.length) && (loaded | async)" mat-line>{{'360.logs_comp.logNotAvailable'|
+    transloco}}</span>
+</div>

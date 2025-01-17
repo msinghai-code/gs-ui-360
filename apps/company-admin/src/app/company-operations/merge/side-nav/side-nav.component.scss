@@ -1,0 +1,188 @@
+@import '~@angular/material/theming';
+
+/* Gainsight custom variables and mixins */
+
+
+@import "~@gs/core/assets/scss/core/variables";
+@import "~@gs/core/assets/scss/core/mixins";
+// @import "~@gs/core/assets/scss/core/breakpoints";
+// @import "~@gs/core/assets/scss/core/module-header";
+$imagesAssetPath: "~@gs/core/assets/images";
+
+// $imagesAssetPath: "../~@gs/core/assets/images";
+
+$collpasedWidth: 0.5rem;
+
+$expandedWidth: 20rem;
+$timing: 0.2s;
+
+.gs-module-nav {
+  background: $gs-white-color;
+  height:  calc(100% - 5.1rem);
+  position: absolute;
+  top: 5.1rem;
+  bottom: 0;
+  z-index: 301;
+  box-sizing: border-box;
+  width: $collpasedWidth;
+  transition: width $timing linear;
+  background: #f0f3f6;
+  padding-top: 0.1rem;
+  font-family: "Proxima Nova Rg", sans-serif, arial !important;
+  font-weight: inherit;
+  
+  &--expand {
+    width: $expandedWidth;
+    .gs-module-nav__item {
+      animation: secondaryNavModuleName $timing linear;
+    }
+
+    .gs-module-nav__search{
+      display: block;
+      animation: secondaryNavModuleName $timing linear;
+    }
+    .gs-module-nav__toggle-arrow {
+      background-image: url("#{$imagesAssetPath}/core/nav/Arrow-2ndNav-open.png");
+      left: $expandedWidth;
+    }
+  }
+  &__toggle-arrow {
+    height: 4rem;
+    width: 1.5rem;
+    background: $gs-white-color url("#{$imagesAssetPath}/core/nav/Arrow-2ndNav-collapsed.png") no-repeat 2px 16px;
+    box-shadow: 3px 2px 5px 0 rgba(0,0,0,.2);
+    left: $collpasedWidth;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: left $timing linear;
+  }
+  &__list {
+    
+    height: calc(100% - 6.1rem);
+    width: 100%;
+    overflow: auto;
+    &__child{
+      
+    }
+    
+  }
+  &__list-item {
+    &__child{
+
+      margin: 0 0.2rem 0.1rem 1rem;
+      border-left: solid 2px transparent;
+      &:hover , &--selected {
+        background-color: #e5e8ec;
+        border-left: 2px solid $gs-primary-color;
+        margin-left: 1rem;
+        .gs-module-nav__item {
+          color: $gs-primary-color;
+      }
+    }
+
+    }
+    &__parent{
+      font-size: 1.5rem;
+    }
+  }
+  &__item {
+    &__child{
+      padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+      display: inline-block;
+      
+      width: 100%;
+      font-size: 1.4rem;
+      line-height: 2.5rem;
+      color: #868b93;
+    border-bottom: none;
+   
+    
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    &__parent{
+      //font-size: 1.3rem;
+      //margin-left: 1rem; 
+      
+         
+      line-height: 2.5rem;
+      
+      border-bottom: none;
+      padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+  }
+  &__search{
+    
+    display: none;
+    height: 4rem;
+    border-bottom: 1px solid #ccc;
+    //padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  }
+  &__search-input{
+    line-height: 2.5rem;
+    width: 100%;
+    height: 4rem !important;
+    width: 17rem !important;
+    border: none;
+    border-bottom: 1px solid #d3d6d9;
+    background-color: transparent;
+    box-sizing: border-box !important; 
+    outline: none;
+    &::-webkit-input-placeholder {
+      font-size: 1.4rem;
+      font-family: mat-font-family($gs-typography-config);
+      font-style: italic;
+    }
+    &::-moz-placeholder { 
+      font-size: 1.4rem;
+      font-family: mat-font-family($gs-typography-config);
+      font-style: italic;
+    }
+    &:-ms-input-placeholder {
+      font-size: 1.4rem;
+      font-family: mat-font-family($gs-typography-config);
+      font-style: italic;
+    }   
+
+  }
+  
+}
+:host {
+  position: absolute;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+.gs-search-black-icon {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: -3px -1630px;
+  display: inline-flex;
+  align-items: flex-end;
+  margin: 1rem 0.5rem;
+  float: left;
+}
+@keyframes secondaryNavModuleName {
+  0% {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  99% {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  100% {
+    white-space: normal;
+    overflow: visible;
+  }
+}

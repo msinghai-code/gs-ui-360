@@ -1,0 +1,23 @@
+:host{
+  height:100%
+}
+
+//commenting the below code since extra opacity is added when using gdk field tree
+
+// ::ng-deep {
+//   .cdk-drag-disabled {
+//     cursor: no-drop;
+//     .ui-treenode-label, .gs-icons {
+//       cursor: no-drop;
+//       opacity: .25;
+//     }
+//   }
+// }
+
+.field_tree_cntr {
+  ::ng-deep {
+    .ui-treenode-label {
+      display: inline-block !important;
+    }
+  }
+}

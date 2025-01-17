@@ -1,0 +1,15 @@
+<div class="gs-column-pckr" gsSpinner [nzSize]="'xl'" [show]="isLoading">
+    <!-- {360.admin.column_picker.columnPlaceholder}=Search Column name-->
+    <nz-input-group>
+        <input #searchInput type="text" nz-input [placeholder]="'360.admin.column_picker.columnPlaceholder'| transloco"
+            [(ngModel)]="searchValue" (ngModelChange)="this.searchInputSubject.next($event)" />
+    </nz-input-group>
+    <nz-collapse [nzBordered]="false">
+        <nz-collapse-panel #p class="gs-column-pckr__panel" *ngFor="let panel of panels;" [nzHeader]="panel.name"
+            [nzActive]="panel.active" [ngStyle]="panel.customStyle">
+            <gs-base-tree [searchString]="debouncedSearchValue" [value]="panel.sourceObjectTree"
+                [options]="panel.fieldTreeOptions">
+            </gs-base-tree>
+        </nz-collapse-panel>
+    </nz-collapse>
+</div>

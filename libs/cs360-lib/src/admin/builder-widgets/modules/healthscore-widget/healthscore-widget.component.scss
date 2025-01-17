@@ -1,0 +1,29 @@
+:host{
+  padding: 0 2rem 2rem 3.2rem;
+  height: calc(100% - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+.widget {
+  .healthscore-widget{
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+    width: 85%;
+    height: 100%;
+  }
+  &-HEALTH_SCORE_METRIC {
+    .healthscore-widget{
+      background-image: url('../../../../../assets/images/other-placeholders/healthscore.svg') !important;
+      width: 40%;
+      height: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  &-HEALTH_SCORE_METRIC_AND_HISTORY {
+    .healthscore-widget{
+      background-image: url('../../../../../assets/images/other-placeholders/healthscore-history-skeleton.svg');
+    }
+  }
+}

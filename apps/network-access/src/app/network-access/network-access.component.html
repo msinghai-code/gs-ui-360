@@ -1,0 +1,32 @@
+<gs-layouts-header>
+  <gs-layouts-module-title>{{'360.add_edit_iprange.trustedIPRanges'| transloco}}
+    <i class="material-icons info" matTooltip="{{informationMessage}}" matTooltipClass="mat-tool-tip">
+      info
+    </i>
+  </gs-layouts-module-title>
+  <mat-slide-toggle
+    [disabled]="(configurationResponse && configurationResponse.byPassSaveInProgress) || !(loaded && (allIPRange | async).length)"
+    [(ngModel)]="configurationResponse.byPassMobile" (change)="onBypassToggle()" class="toggle">
+    {{'360.add_edit_iprange.bypassMobile'| transloco}}
+  </mat-slide-toggle>
+  <mat-chip-list>
+    <mat-chip color="primary" selected (click)="openAddTrustedIPDialog({})" class="cursor_pointer">
+      {{'360.add_edit_iprange.new'| transloco}}</mat-chip>
+  </mat-chip-list>
+</gs-layouts-header>
+<section class="gs-list__container" gsSpinner [nzSize]="'xl'" [show]="!(loaded | async)">
+  <gs-grid rowModelType="clientSide" [columnDefs]="columnDefs" [data]="allIPRange | async" [gridOptions]="gridOptions"
+    (columnAction)="columnAction($event)" [showCustomPagination]="false" [pagination]="false">
+  </gs-grid>
+</section>
+
+<nz-overlay [closeOnClick]="true" #contextMenuGrid>
+  <div class="pop-panel gs-popover-menu">
+    <mat-nav-list class="gs-popover-menu__list">
+      <mat-list-item class="gs-popover-menu__item" ngClass="gs-popover-menu__item--{{action.label.toLowerCase()}}"
+        *ngFor="let action of contextMenuOptions" (click)="onContextMenuAction(action)">
+        <i class="material-icons gs-popover-menu__item-icon">{{action.icon}}</i> {{action.label}}
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</nz-overlay>

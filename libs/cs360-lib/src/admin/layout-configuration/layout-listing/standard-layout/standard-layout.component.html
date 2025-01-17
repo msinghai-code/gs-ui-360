@@ -1,0 +1,48 @@
+<section gsSpinner [nzSize]="'xl'" [show]="loading" class="gs-standard-layout-list">
+  <gs-layouts-listing #gsStandardlayoutlisting
+                      [config]="config"
+                      [manageAssignmentsData]="describeData"
+                      [data]="data"
+                      (action)="onAction($event)"></gs-layouts-listing>
+    <!--{360.admin.standard_layout.renameLayout}=Rename Layout-->
+  <nz-modal [(nzVisible)]="showRenameModal" [nzTitle]="'360.admin.standard_layout.renameLayout'|transloco" (nzOnCancel)="renameSectionCancel()"
+  [nzFooter]="customFooter" [nzWidth]="380">
+  <form *ngIf="showRenameModal" nz-form [formGroup]="renameForm" class="rename-form" nzLayout="vertical">
+    <nz-form-item>
+        <!--{360.admin.standard_layout.name}=Name-->
+      <nz-form-label nzRequired nzFor="name">{{'360.admin.standard_layout.name'| transloco}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="errorTpl">
+        <input autocomplete="off" nz-input formControlName="name">
+        <ng-template #errorTpl let-control>
+          <!--{360.admin.standard_layout.blankField}=The field cannot be left blank.-->
+          <!--{360.admin.standard_layout.maxCharAllowed}=Maximum characters allowed are-->
+          <ng-container *ngIf="control.hasError('required')">{{'360.admin.standard_layout.blankField'| transloco}}</ng-container>
+          <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.standard_layout.maxCharAllowed'| transloco}} {{control.errors.maxlength.requiredLength}}</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label>{{'360.admin.standard_layout.description'| transloco}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="descErrorTpl">
+        <textarea  nz-input formControlName="description" rows="2"></textarea>
+        <ng-template #descErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.standard_layout.maxCharAllowed'| transloco}} {{control.errors.maxlength.requiredLength}}</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  </nz-modal>
+  <!-- Layout preview component -->
+  <gs-layout-preview *ngIf="showPreview" [params]="params" (close)="showPreview = false"></gs-layout-preview>
+</section>
+
+<ng-template #customFooter>
+  <div class="gs-standard-layout-list-rename-modal__footer">
+    <div class="gs-standard-layout-list-rename-modal__footer--defaultoptions">
+        <!--{360.admin.standard_layout.cancelBtn}=Cancel-->
+        <!--{360.admin.standard_layout.saveBtn}=Save-->
+      <button nz-button nzType="default" (click)="renameSectionCancel()">{{'360.admin.standard_layout.cancelBtn'| transloco}}</button>
+      <button nz-button nzType="primary" (click)="renameSectionSave()" [disabled]="isRenameSaveDisabled">{{'360.admin.standard_layout.saveBtn'| transloco}}</button>
+    </div>
+  </div>
+</ng-template>

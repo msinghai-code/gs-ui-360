@@ -1,0 +1,118 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.add-association {
+    .sub-header {
+        color: $rich-gray-60;
+    }
+    .basic-info {
+        margin-bottom: 3.2rem;
+        padding-right: 35%;
+        label {
+            color: $rich-gray-70;
+        }
+    }
+    &__object {
+        width: 26rem;
+        margin-bottom: 3.2rem;
+    }
+    &__relType {
+        width: 50rem;
+        margin-bottom: 3.2rem;
+    }
+    &__body {
+        margin-top: 2.5rem;
+        overflow-y: auto;
+    }
+    &__footer {
+        padding: 1.2rem 0 0 0;
+        border-top: 1px solid $rich-gray-40;
+    }
+    .association-configuration {
+        &__header {
+            h6 {
+                margin-bottom: 0 !important;
+            }
+        }
+        &__fields {
+            &-header {
+                h6 {
+                    margin-bottom: 0 !important;
+                }
+            }
+            .indirect {
+                margin-top: 1.5rem;
+                &__header {
+                    color: $rich-gray-70;
+                }
+            }
+            .link-info {
+                align-self: flex-end;
+            }
+        }
+    }
+    .object-row {
+        width: 89%;
+        .config-close {
+            font-size: 2.4rem;
+            margin: 0 0 0 1.2rem;
+            color: $rich-gray-60;
+            align-self: flex-end;
+            margin-bottom: 1rem;
+            display: flex;
+        }
+        label {
+            color: $rich-gray-70;
+            margin-bottom: 0.4rem;
+        }
+        .arrow {
+            color: $rich-gray-60;
+            font-size: 1.6rem;
+            align-self: flex-end;
+        }
+        .disabled-input {
+            align-self: flex-end;
+            background-color: $rich-gray-20;
+            border: none;
+            width: 46%;
+        }
+        ::ng-deep {
+            nz-select{
+            width: 18rem;
+            }
+        }
+    }
+    .conditions {
+        overflow: auto;
+    }
+    .condition-row {
+        label {
+            color: $rich-gray-70;
+            margin-bottom: 0.8rem;
+        }
+        .equal {
+            color: $rich-gray-60;
+            font-size: 1.6rem;
+            align-self: flex-end;
+        }
+        &__actions {
+            align-self: flex-end;
+            margin-bottom: 1rem;
+            i {
+                font-size: 2.4rem;
+                margin: 0 0 0 1.2rem;
+                color: $rich-gray-60;
+            }
+        }
+    }
+}
+
+.advanced-association-info {
+    font-size: 18px;
+    position: relative;
+    top: -2px;
+}

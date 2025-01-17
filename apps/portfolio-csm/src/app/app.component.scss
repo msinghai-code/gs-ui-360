@@ -1,0 +1,59 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/font";
+
+@import "~primeng/resources/primeng.min.css";
+
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+
+.gainsight-app, .gs-app {
+  font-family: $font-family;
+}
+
+body {
+  font-size: 14px;
+  margin: 0;
+  font-family: $font-family;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.gainsight-app {
+    height: 100vh;
+  }
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.module-body {
+  overflow-y: auto;
+  height: 100%;
+  flex: 1;
+}
+
+@import "../assets/scss/module-vendor-overrides";
+
+//.cdk-overlay-container {
+//  z-index: 1400 !important;
+//}
+
+.gs-loader-vertical-bar-skeleton-wrapper {
+  position: fixed !important;
+  z-index: 1302 !important;
+  background: rgba(255,255,255,0.6) !important;
+}
+
+.gs-loader-vertical-bar-skeleton {
+  background-image: url("~src/assets/images/loader-vertical-bar-skeleton.svg");
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper-opacity {
+  background: rgba(255,255,255,0.6);
+}

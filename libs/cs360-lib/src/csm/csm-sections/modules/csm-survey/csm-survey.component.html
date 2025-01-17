@@ -1,0 +1,12 @@
+<ng-template #loading>
+        <div class="gs-survey__response">
+                <nz-skeleton [nzActive]="true" [nzParagraph]="{rows: 6}"></nz-skeleton>
+        </div>
+</ng-template>
+<ax-lazy-element
+        *axLazyElementDynamic="elementTag,url:url, loadingTemplate: loading;" [moduleConfig]="moduleConfig" [hostEnvironment]="env"
+        [sectionMetaData] = "section && section.sectionMeta | async">
+</ax-lazy-element>
+
+
+

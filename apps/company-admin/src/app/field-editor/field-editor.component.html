@@ -1,0 +1,187 @@
+<ng-container [formGroup]="parentFormGroup" [ngSwitch]="dataType">
+    <ng-container *ngSwitchDefault>
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group" [class.gs-attr__value-group-full-width]="field.label === 'Name'">
+                <mat-label>{{field.label | labelWithSymbol: field}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+                <input [formControlName]="field.fieldName" type="text" matInput>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'CURRENCY'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+              <mat-label>{{field.label | labelWithSymbol: field : selectedCurrencyIsoCode}} <span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <input matInput [formControlName]="field.fieldName" type="text">
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'URL'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+              <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <input matInput [formControlName]="field.fieldName" type="text">
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName]  | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'GSID'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+              <mat-label> {{field.label}} <span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <input [formControlName]="field.fieldName" type="text" matInput>
+
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'LOOKUP'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+              <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <input [matAutocomplete]="auto"
+                [formControlName]="field.fieldName"
+                (keyup)="search.emit([$event.target.value, field, $event.keyCode, $event.target])"
+                type="text" matInput [placeholder]="field.label">
+              <span matSuffix gsSpinner [show]="searching[field.fieldName]" size="xs"></span>
+              <mat-icon matSuffix>search</mat-icon>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+            <mat-autocomplete (optionSelected)="onOptionSelected($event.option, field)" [displayWith]="displayWith" #auto="matAutocomplete">
+              <mat-option *ngFor="let item of searchResult | async | fieldResult:field" [value]="item">
+                {{ item?.name || item?.gsid }}
+              </mat-option>
+            </mat-autocomplete>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'PICKLIST'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+                <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>  
+              <mat-select (openedChange)="getOptions($event)" [formControlName]="field.fieldName" multiple="false">
+                <mat-option *ngFor="let opt of picklistOptions" [disabled]="opt.active==false" [value]="opt.value">{{opt.label}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'MULTISELECTDROPDOWNLIST'">
+        <div class="gs-attr">
+            <mat-form-field class="gs-attr__value-group">
+              <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <mat-select [formControlName]="field.fieldName" multiple="true">
+                <mat-option *ngFor="let opt of field.options" [disabled]="opt.active==false" [value]="opt.value">{{opt.label}}</mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'BOOLEAN'">
+        <div class="gs-attr">
+          <div class="gs-attr__value-group checkbox-editor">
+            <mat-checkbox [formControlName]="field.fieldName" color="primary"></mat-checkbox> &nbsp;
+            <mat-label class="gs-attr__label">{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+            <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'DATE'">
+        <div class="gs-attr">
+          <div class="gs-attr__value-group date-field-picker">
+            <mat-form-field class="gs-date-picker">
+              <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <input readonly [formControlName]="field.fieldName" matInput [matDatepicker]="picker"  (focus)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+            <button *ngIf="!parentFormGroup.get(field.fieldName).disabled" (click)="onClearButtonClick($event.target, field)" class="gs-attr__value-clear" mat-icon-button mat-button><mat-icon class="md-16">clear</mat-icon></button>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'DATETIME'">
+        <div class="gs-attr gs-date-time">
+          <div class="gs-attr__value-group date-field-picker">
+            <mat-form-field class="gs-date-picker">
+              <mat-label>{{field.label}}<span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+              <!--{360.admin.field_editor.select_date}=Select Date-->
+              <input [placeholder]="'360.admin.field_editor.select_date' | transloco" readonly [formControlName]="field.fieldName" matInput [matDatepicker]="picker"  (focus)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+            </mat-form-field>
+              
+              <nz-time-picker [nzAllowEmpty]="false" #nzTimePickerComponent [class.disabled-time-picker]="parentFormGroup.get(field.fieldName).disabled" [nzUse12Hours]="true" [formControlName]="field.fieldName + '_time'" nzFormat={{date_format}}></nz-time-picker>
+              <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+              <button *ngIf="!parentFormGroup.get(field.fieldName).disabled" (click)="onClearButtonClick($event.target, field)" class="gs-attr__value-clear" mat-icon-button mat-button><mat-icon class="md-16">clear</mat-icon></button>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'RICHTEXTAREA'">
+        <!-- When is Token based is false; default behaviour-->
+        <div style="width: 100%;" *ngIf="!field.isTokenBased">            
+          <div class="gs-attr">
+              <div class="gs-attr__value-group-full-width">
+              <mat-label class="gs-attr__label">{{field.label}} <span class="mandate" *ngIf="field.meta?.required">*</span></mat-label>
+                <div class="gs-rte-field">
+                <quill-editor placeholder="" [modules]="quillConfig" [(ngModel)]="rtaText" [ngClass]="{'gs-rte-disabled': parentFormGroup.get(field.fieldName).disabled}" [readOnly]="parentFormGroup.get(field.fieldName).disabled" 
+                  [ngModelOptions]="{standalone: true}" class="gs-editor" (onContentChanged)="onRTAContentChanged($event)">
+                </quill-editor>
+                <div class="gs-field-error" *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <!-- When is Token based is true-->
+        <div *ngIf="field.isTokenBased">
+          <div class="gs-attr gs-attr--longtext">
+            <span class="gs-attr__label">{{field.label}}
+              <span class="mandate" *ngIf="field.meta?.required">*</span>
+            </span>
+            <div class="gs-attr__value-group">
+              <div class="gs-rte-field">
+                <gs-token-field [formControlName]="field.fieldName" [style]="{'height':'115px'}" class="gs-editor" [showFields]="field.showFields"></gs-token-field>
+                <div class="gs-field-error" *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'WHOID'">
+          <div class="gs-attr">
+            <span class="gs-attr__label">{{field.label}}
+              <span class="mandate" *ngIf="field.meta?.required">*</span>
+            </span>
+            <div class="gs-attr__value-group">
+              <mat-form-field *ngIf="isWhoIdDisabled">
+                <input readonly [formControlName]="field.fieldName" type="text" matInput >
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+              </mat-form-field>
+              <mat-form-field *ngIf="!isWhoIdDisabled">
+                <input [formControlName]="field.fieldName" type="text" matInput >
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngIf="_errors[field.fieldName]">{{_errors[field.fieldName] | gsError: field}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+</ng-container>

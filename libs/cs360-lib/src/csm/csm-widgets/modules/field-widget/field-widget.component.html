@@ -1,0 +1,97 @@
+<section *ngIf="!widgetItem?.hidden else maskedWidget"
+         [ngClass]="{'masked_widget': !(widgetItem?.properties?.editable && widgetItem?.editable),
+         'masked_widget-url': widgetItem?.dataType !== 'RICHTEXTAREA' && !(widgetItem?.properties?.editable && widgetItem?.editable) && widgetItem?.dataType==='URL'}"
+         class="csm-summary-widget-wrapper {{widgetItem?.properties?.navigationConfig ? 'cursor-pointer' : ''}}"
+         fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%"
+         class="attribute-gridster-wrapper"
+         (click)="navigateToRoute($event)">
+
+<div class="csm-summary-widget-wrapper__parent">
+    <h6 nzType="sub-section"
+        gsShowIfEllipsis
+        (isEllipsisVisible)="tooltipVisible($event)"
+        nz-tooltip [nzTooltipTitle]="isTooltipVisible ? (widgetItem.label|| '--' ) :  ''"   nzEllipsis  nzEllipsisRows="2"
+        nz-title
+        nzColor="subtitle"
+        class="csm-summary-widget-wrapper__parent__label">{{widgetItem.label}}</h6>
+    <div  *ngIf="widgetItem.description" class="summary-widget-info" nz-tooltip  [nzTooltipTitle]="widgetItem.description"></div>
+  </div>
+  <div class="csm-summary-widget-wrapper__content" fxLayout="column" fxFill fxFlex="100%" *ngIf="widgetItem?.properties?.editable else readonlyView">
+    <!--- If Loader is needed so we can add spinner here without ngIf data actually not rendered properly in attribute-editor component -->
+    <gs-attribute-field-editor-wrapper fxLayout="column"
+      *ngIf="!isLoading else empty"
+      fxFill [isLoading]="isLoading" [fieldItem]="widgetItem" [data]="data" [treeData]="attrService.treeData" [ellispsisRows] ="2"
+      (updates)="onUpdate($event)" [isSummarySection]="true"></gs-attribute-field-editor-wrapper>
+  </div>
+    <ng-template #readonlyView>
+        <h4 *ngIf="widgetItem?.dataType !== 'BOOLEAN' && widgetItem?.dataType !== 'URL'&& widgetItem?.dataType !== 'RICHTEXTAREA'"
+              class="all-fields-notUrl"
+              nz-title
+              nz-tooltip
+              nzEllipsis
+              [nzEllipsisRows]="2"
+              [innerHTML]="widgetItem?.dataType === 'RICHTEXTAREA' ? richtextformatter(data?.fv || '---') : data?.fv || '---'"
+              [nzTooltipTitle]="widgetItem?.dataType === 'RICHTEXTAREA' ? '' : data?.fv || '---'"
+              [nzTooltipPlacement]="'bottomLeft'"
+              [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'">
+       </h4 >
+       <span class="url-empty-label" *ngIf="widgetItem?.dataType === 'URL' && !data?.fv" [innerText]="'---'" nz-tooltip [nzTooltipPlacement]="'bottomLeft'" [nzTooltipTitle]="'---'"
+       [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'"></span>
+        <a *ngIf="widgetItem?.dataType === 'URL' && data?.fv"
+           class="urlreadonly"
+           [href]="data?.fv"
+           nz-text
+           target="_blank"
+           rel="noopener"
+           [innerHTML]="data?.fv"
+           nzEllipsis [nzEllipsisRows]="2"
+           nz-tooltip
+           [nzTooltipTitle]="data?.fv"
+           [nzTooltipPlacement]="'bottomLeft'"
+           [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'">
+        ></a>
+        <span *ngIf="widgetItem?.dataType === 'BOOLEAN'"
+              fxLayout="row"
+              nz-tooltip
+              [nzTooltipTitle]="data?.fv || '---'"
+              [nzTooltipPlacement]="'bottomLeft'"
+              [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'">
+            <label *ngIf="data" nz-checkbox [(ngModel)]="data.fv" [nzDisabled]="true" class="checkbox-editor-readonly"></label>
+        </span>
+        <div class="rte-masked" *ngIf="widgetItem?.dataType === 'RICHTEXTAREA'">
+            <gs-rte
+                    [options]="{ iframe: true, readOnly: true, autofocus: false }"
+                    [content]="richtextformatter(data?.fv || '---')"
+                    nz-tooltip  [nzTooltipTitle]="''"
+                    [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'" [nzTooltipPlacement]="'bottomLeft'"
+            ></gs-rte>
+        </div>
+
+    </ng-template>
+</section>
+
+<ng-template #empty>
+  <div fxFill gsSpinner [show]="isLoading" [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams">
+  </div>
+</ng-template>
+
+<ng-template #maskedWidget>
+    <div fxLayout="column" fxlayoutAlign="center center" class="masked_widget">
+        <div
+                [nzTooltipContent]="'You don’t have the required permissions to view this information. Contact your Gainsight Administrator to request access.'"
+                [nzTooltipTitle]="'Permission Needed'"
+                [nzTooltipPlacement]="'bottomLeft'"
+                nz-tooltip
+                fxlayout="row" fxLayoutAlign="start center"
+                fxLayoutGap="16px"
+        >
+        <i class="lock-icon" nz-icon nzSize="24" nzTheme="outline" nzType="lock"></i>
+        <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+            <div fxLayout="row" fxLayoutAlign="start baseline">
+                <label nz-text nzType="small" class="header_lock">{{'Permission Needed'}}</label>
+            </div>
+            <label nz-text nzType="small" class="subtitle_lock">{{'Contact Admin'}}</label>
+        </div>
+        </div>
+    </div>
+</ng-template>

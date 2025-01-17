@@ -1,0 +1,27 @@
+<div class="gridster-wrapper" [style.height]="widgetItem ? 'inherit' : 'auto'"
+     gsSpinner [nzSize]="'xl'" [show]="loaders > 0">
+    <div [class.widget-item]="!!widgetItem" [class.maxWidth]="!widgetItem" class="attributes-row" #attrContainer>
+        <div class="widget_container z-depth-1 attributes-column" data-id="{{item.id}}"
+             [class.editable]="item?.properties?.editable"
+             [class.rte]="item?.dataType === 'RICHTEXTAREA'" [class.edit]="editMode[i]"
+             [class.rte-column]="item?.dataType === 'RICHTEXTAREA'"
+             *ngFor="let item of currentFields; let i = index">
+            <div>
+                <label [ngStyle]="{display: 'inline-block', 'max-width': '95%'}" gsShowIfEllipsis (isEllipsisVisible)="tooltipVisible($event)"
+                       elementType="inline" nzEllipsis
+                       nzEllipsisRows="1" nz-tooltip [nzTooltipTitle]="isTooltipVisible ? (item?.label || '--' ) :  ''"
+                       nz-text
+                       nzType="extra-small">{{item?.label}}</label>
+                <span *ngIf="item.description" class="widget-info" nz-tooltip [nzTooltipTitle]="item.description">
+                    <i nz-icon nzType="info" nzTheme="outline" nzSize="12"></i>
+                </span>
+            </div>
+            <gs-attribute-field-editor-wrapper *ngIf="loaded" [fieldItem]="item" [data]="data[item.itemId]"
+                                               [class.rte]="item?.dataType === 'RICHTEXTAREA'"
+                                               [treeData]="treeData" [isSummarySection]="true"
+                                               (updates)="onUpdate($event, item)"
+                                               (editState)="editStateChanged($event, i)">
+            </gs-attribute-field-editor-wrapper>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<section *ngIf="!showNoData else noData" class="gs-csm-relationship-list-view">
+<!--  <gs-grid-column-chooser *ngIf="true"-->
+<!--                          (columnsUpdated)="onColumnUpdated($event)"-->
+<!--                          [columns]="columnDefs"></gs-grid-column-chooser>-->
+  <gs-grid
+          [ngClass]=" isMini360 ? 'mini_grid': '' "
+          [data]="filterData"
+          [rowModelType]="'clientSide'"
+          [columnDefs]="columnDefs"
+          [gridOptions]="gridOptions"
+          [paginationPageSize]=10
+          [gridAdditionalOptions]="gridAdditionalOptions"
+          [showCustomPagination]="true"
+          (gridChanges)="onGridChanges($event)"
+          [colResizeDefault]= "isMini360 ? 'shift': ''"
+      >
+  </gs-grid>
+</section>
+
+<ng-template #noData>
+  <div class="gs-csm-relationship-list-view__empty" fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <i class="empty-state-img"></i>
+    <h5 nz-title>{{'360.csm.relationship_card.noData'| transloco}}</h5>
+    <span>{{'360.csm.relationship_card.contactAdmin'| transloco}}</span>
+  </div>
+</ng-template>

@@ -1,0 +1,132 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.preview-toggle {
+    font-size: 14px;
+    font-weight: normal;
+
+    &--switch {
+        margin-right: 1rem;
+    }
+    &--label {
+        margin-right: 2rem;
+    }
+}
+
+.gs-section-config-drawer {
+    &__header {
+        .summary-preview-title {
+            &__section-name {
+                margin-bottom: 0 !important;
+                color: $royal-blue-70;
+                cursor: pointer;
+            }
+            h4 {
+                margin-top: 0 !important;
+            }
+        }
+        padding: .3rem 3rem;
+        .preview-toggle--switch {
+            ::ng-deep {
+                i {
+                    font-size: unset;
+                }
+                .ant-switch-loading-icon svg {
+                    right: unset;
+                }
+            }
+        }
+
+        > a {
+            display: flex;
+            align-items: flex-end;
+            width: 27rem;
+
+            i {
+                padding-right: .5rem;
+                color: unset;
+            }
+        }
+
+        &--main-title {
+            // text-align: center;
+            // left: 50%;
+            // transform: translateX(-50%);
+            // position: absolute;
+
+            h4 {
+                margin: 0;
+            }
+
+            div {
+                margin-bottom: .3rem;
+            }
+        }
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgb(37 52 69 / 10%), 0 0 1px 0 rgb(37 52 69 / 20%);
+    background: #fff;
+    width: 40rem;
+    margin: 0 auto;
+    padding: 6rem;
+    text-align: center;
+    
+    &-wrapper {
+        padding-top: 10rem;
+    }
+
+    .label {
+        margin-bottom: 1.6rem;
+    }
+
+    .illustration {
+      ::ng-deep {
+        svg {
+          height: 15rem !important;
+          margin-bottom: 2.4rem !important;
+          width: 28rem !important;
+        }
+      }
+    }
+}
+
+.select-company-dropdown {
+    min-width: 21rem;
+    max-width: 30rem;
+    text-align: left;
+}
+
+.gs-section-config-wrapper {
+    height: 100%;
+    overflow: auto;
+}
+
+::ng-deep{
+    .select-company-dropdown {
+        .ant-select-search--inline {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        i{
+            padding-right: 0 !important;
+        }
+    }
+    
+}
+
+.gs-preview-mode {
+    &__switch{
+        ::ng-deep {
+            .ant-radio-group-view-switcher-with-icon .anticon {
+                color: transparent !important;
+            }
+        }
+    }
+}

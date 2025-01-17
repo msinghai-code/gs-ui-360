@@ -1,0 +1,47 @@
+<ng-container *ngIf="attributesConfig.length else empty">
+    <ng-container *ngIf="isMini360 else main360">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <button (click)="scrollLeft()" *ngIf="showLeftArrow" class="left_icon" nz-button nzType="action">
+                <i nz-icon nzSize="24" nzTheme="general" nzType="chevron-left"></i>
+            </button>
+            <section #scrollContainer class="gs-cs360-summary-ribbon">
+                <div *ngFor="let config of attributesConfig"
+                     class="gs-cs360-summary-ribbon__item-mini360">
+                    <gs-summary-ribbon-attribute-view [attributesConfig]="config" [class]="isMini360 ? 'miniWidth' : 'fullWidth'"></gs-summary-ribbon-attribute-view>
+                    <nz-divider
+                            class="divider_ribbon"
+                            nzType="vertical"
+                    ></nz-divider>
+                </div>
+            </section>
+            <button (click)="scrollRight()" *ngIf="showRightArrow" class="right_icon" nz-button nzType="action">
+                <i nz-icon nzSize="24" nzTheme="general" nzType="chevron-right"></i>
+            </button>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #main360>
+    <section class="gs-cs360-summary-ribbon">
+        <div class="gs-cs360-summary-ribbon__item"
+             [style.width.%]="(100 / options.maxLimit)"
+             [style.min-width.px]="150"
+             *ngFor="let config of attributesConfig">
+            <gs-summary-ribbon-attribute-view [attributesConfig]="config" [class]="isMini360 ? 'miniWidth' : 'fullWidth'"></gs-summary-ribbon-attribute-view>
+            <nz-divider
+                    class="divider_ribbon"
+                    nzType="vertical"
+            ></nz-divider>
+        </div>
+    </section>
+</ng-template>
+<ng-template #empty>
+    <div class="gs-cs360-summary-ribbon__empty">
+        <nz-empty [nzNotFoundContent]="contentTpl">
+            <ng-template #contentTpl>
+                <span nz-text nzColor="secondary"
+                      nzType="small">{{ '360.csm.rel_summary_ribbon.noViews'| transloco }}</span>
+            </ng-template>
+        </nz-empty>
+    </div>
+</ng-template>

@@ -1,0 +1,22 @@
+<!--{360.admin.add_association.add_obj_assocaition}=Add Object Association-->
+<nz-drawer class="gs-keygen"
+[nzBodyStyle]="{'padding-top' : '1rem'}"
+[nzWrapClassName]="'add-association-drawer'"
+[nzWidth]="'61rem'"
+[nzVisible]="showAddAssoc"
+[nzPlacement] = "'right'"
+[nzMaskClosable]="true"
+[nzTitle]="'360.admin.add_association.add_obj_assocaition' | transloco"
+[nzClosable]="true"
+(nzOnClose)="onCancel()"
+[nzFooter]="footer"
+[nzMask]="true"
+>
+<gs-add-association-content #aac [associationConfigInfo]="associationConfigInfo" [isBasicConfigEditable]="isBasicConfigEditable" [relationshipTypesInfo]="relationshipTypes" (onSaveOrCancel)="onAddAssocAction($event)"></gs-add-association-content>
+<ng-template #footer>
+    <div fxLayout="row" fxLayoutGap="8px">
+      <button nz-button nzType="default" type="button" (click)="onCancel()"><span>{{'360.admin.add_association.cancel'| transloco}}</span></button>
+      <button nz-button nzType="primary" type="button" (click)="onSave()"><span>{{'360.admin.add_association.save'| transloco}}</span></button>
+    </div>
+  </ng-template>
+</nz-drawer>

@@ -1,0 +1,27 @@
+<section class="gs-action-header">
+  <div class="gs-action-header-row">
+    <div class="gs-action-header__column">
+      <div class="gs-input-label">Operation <i nz-icon nz-tooltip nzType="icons:info-icon" class="info-icon" [nzTooltipTitle]="'Insert creates new records.  Update changes the existing records which satisfy the identifiers chosen below.  Upsert updates any matching records and if there are no matching records, new records are created.'"
+        nzTheme="outline"></i></div>
+      <nz-select [(ngModel)]="operation" (ngModelChange)="updates(actionHeaderEvents.OPERATION_CHANGE, operation)"
+                 [nzDropdownClassName]="'gs-ui-dropdown-panel-on-body'" nzShowSearch nzPlaceHolder="Select Operation"
+                 [nzDisabled]="supportedOperations.length === 1 || previewMode">
+        <nz-option *ngFor="let option of supportedOperations" [nzLabel]="option.label"
+                   [nzValue]="option.value"></nz-option>
+      </nz-select>
+    </div>
+    <div class="gs-action-header__column" *ngIf ="config.showCurrencyHonourFlag && isMultiCurrencyEnabled">
+      <label nz-checkbox [(ngModel)]="honourSourceCurrency" [nzDisabled]="previewMode">Honour Source Currency Code</label>
+    </div>
+    <p *ngIf="isMultiCurrencyEnabled" class="gs-action-header__currency-code-info">
+      Currency code mapping is recommended when mapping currency fields for updation or insertion.
+    </p>
+  </div>
+  <div class="gs-action-header-row gs-action-header-desc-col">
+    <nz-form-item class="description">
+      <nz-form-label>Description</nz-form-label>
+      <textarea class="gs-action__description" nz-input placeholder="Enter your message" nzAutosize maxlength="1000"
+                [nzAutosize]="{ minRows: 3, maxRows: 3 }" [(ngModel)]="description" [disabled]="previewMode"></textarea>
+    </nz-form-item>
+  </div>
+</section>

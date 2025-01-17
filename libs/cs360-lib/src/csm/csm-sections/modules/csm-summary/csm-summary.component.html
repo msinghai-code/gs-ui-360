@@ -1,0 +1,48 @@
+<div *ngIf="section && loaded else loadingTemplate" class="gridster-defaults-csm">
+    <button nz-button *ngIf="isMini360" nzShape="round" nzType="default" (click)="setShowChooser()" class="sticky_button" [nzOverlayClassName]="'gs-popover-with-col-chooser'" nzTrigger="click" nz-dropdown [nzDropdownMenu]="menu">
+        <i nz-icon nzType="settings" nzTheme="outline"></i>
+    </button>
+  <gridster *ngIf="selectedWidgets?.length else empty" #gridster [options]="options">
+    <gridster-item [class]="'widget_container ' + item.className" [ngClass]="{
+      'gridster-defaults-csm-customer-journey': item.widgetType === 'CUSTOMER_JOURNEY',
+      'gridster-csm-report-kpi-widget' : item?.subType === 'REPORT' && item?.config?.visualizationType === 'KPI',
+      'redirect': redirect[item.subType],
+      'd-none': ctx.isCompact && !item.supportedInSmallScreen && !ctx.containerResizable,
+      'unsupported-in-small-screen': ctx.isCompact && !item.supportedInSmallScreen,
+      'compact': ctx.isCompact,
+      'z-depth-1': !ctx.isCompact
+    }" *ngFor="let item of selectedWidgets" [item]="item" (click)="redirectTo(redirect[item.subType], $event)">
+      <div *ngIf="ctx.isCompact && !item.supportedInSmallScreen" class="expand-to-view">
+        <h6 class="csm-summary-widget-wrapper__label" nz-title nzColor="subtitle" nzType="sub-section" gsShowIfEllipsis
+          (isEllipsisVisible)="tooltipVisible($event)" nz-tooltip
+          [nzTooltipTitle]="isTooltipVisible ? (item.label|| '--' ) :  ''" nzEllipsis nzEllipsisRows="2" nz-title>
+          {{item.label}}</h6>
+        <div class="image"></div>
+        <div class="text">{{ '360.csm.summary.expand_to_view' | transloco}}</div>
+      </div>
+    </gridster-item>
+  </gridster>
+
+</div>
+<ng-template #loadingTemplate>
+  <div class="gs-loader-vertical-bar-skeleton" style="width: 200px; height : 200px"></div>
+</ng-template>
+
+<ng-template #empty>
+  <div fxFill fxLayout="row" fxLayoutAlign="center center">
+    <gs-empty [section]="section"></gs-empty>
+  </div>
+</ng-template>
+
+  <nz-dropdown-menu #ddMenu #menu="nzDropdownMenu">
+    <gs-column-chooser
+            *ngIf="showChooser"
+            [options]="widgets"
+            [dataKey]="'itemId'"
+            [selectedColumns]="selectedWidgets"
+            (applyMultiSelect)="applyColumnSelection($event)"
+            (cancelMultiSelect)="cancelColumnSelection($event)"
+            class="mini_column_chooser"
+    >
+    </gs-column-chooser>
+  </nz-dropdown-menu>

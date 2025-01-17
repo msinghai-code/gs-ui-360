@@ -1,0 +1,30 @@
+// @import "~@angular/material/theming";
+// @import "~@gs/core/assets/scss/horizon2.1/core/variables";
+
+.gs-portfolio-grid-visualizer {
+    height : 100%; 
+    max-height:100%;
+    &.hide {
+        display:none;
+    }
+}
+
+.h-100 {
+    height: 100%;
+    max-height: 100%;
+    // background-color: background-color(light-widget-bg-color);
+    background-color: #E9EEF3; // TODO get the equivalent horizon color from UX team
+    &.deleted-config {
+      display: flex;
+      padding: 1rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 2.4rem;
+      // color: text-color(default);
+      color: #2B3D51; // TODO get the equivalent horizon color from UX team
+      // background-color: background-color(light-widget-bg-color);
+      background-color: #E9EEF3; // TODO get the equivalent horizon color from UX team
+    }
+  }

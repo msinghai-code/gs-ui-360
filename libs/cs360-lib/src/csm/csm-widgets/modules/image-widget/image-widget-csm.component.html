@@ -1,0 +1,74 @@
+<section *ngIf="!(widgetItem?.hidden || widgetItem?.config?.hidden) else maskedWidget" class="csm-summary-widget-wrapper"  fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+  <i nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="action-image cursor-pointer"
+    *ngIf="widgetItem.config?.properties?.editable && !isReadOnly && data?.fv">
+    <div nz-tooltip [nzTooltipTitle]="'360.csm.image_widget.tooltipTitle'| transloco" nzTooltipPlacement="bottom">
+     <i nz-icon   nzType="more-horizontal" [nzSize]="24" nzTheme="outline"></i>
+    </div>
+  </i>
+
+
+  <div class="" fxLayout="column" fxFill fxFlex="100%" #imgContainer>
+    <ng-container *ngIf="isLoading else imageTemplate">
+      <div class="gs-loader-vertical-bar-skeleton" style="height:100%" fxLayout="row" fxLayoutAlign="center center">
+      </div>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #imageTemplate>
+  <ng-container *ngIf="data?.fv else emptyTemplate">
+    <img src="{{data?.fv}}" style="height:100%; width:100%; object-fit: contain" />
+  </ng-container>
+</ng-template>
+
+
+<ng-template #emptyTemplate>
+    <ng-container *ngIf="!isReadOnly || !(widgetItem.config?.properties?.editable); else readOnlyTemplate">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%" fxLayoutGap="8px">
+        <div fxLayout="column" fxLayoutGap="8px" style="height: 100%">
+            <h6 nz-title nzType="sub-section" nzColor="subtitle">{{'360.csm.image_widget.addLogo'| transloco | uppercase}}</h6>
+            <label  *ngIf="objectName" nz-text nzType="small">
+                {{'Logo goes here'}}
+            </label>
+            <a (click)="uploadImage()"
+                    *ngIf="widgetItem.config?.properties?.editable && !isReadOnly"
+            >{{'360.csm.image_widget.uploadImage'| transloco}}</a>
+        </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #readOnlyTemplate>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%">
+    <div class="image-widget-default masked_widget"
+         [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'"
+         [nzTooltipTitle]="'Permission Needed'"
+         [nzTooltipPlacement]="'bottomLeft'"
+         nz-tooltip
+    > </div>
+  </div>
+</ng-template>
+
+<nz-dropdown-menu  #menu="nzDropdownMenu">
+  <ul class="image-dropdown" nz-menu style="padding: 1rem 0;">
+    <li  class ="delete_image" nz-menu-item (click)="removeImage()" class="logo-field-delete">{{'360.csm.image_widget.deleteImage'| transloco}}</li>
+    <li nz-menu-item (click)="uploadImage()" class="logo-field-updates">{{'360.csm.image_widget.changeImage'| transloco}}</li>
+  </ul>
+</nz-dropdown-menu>
+
+
+<ng-template #maskedWidget>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="masked_widget"
+         [nzTooltipContent]="'You don’t have the required permissions to view this information. Contact your Gainsight Administrator to request access.'"
+         [nzTooltipTitle]="'Permission Needed'"
+         [nzTooltipPlacement]="'bottomLeft'"
+         nz-tooltip>
+        <i class="lock-icon" nz-icon nzSize="24" nzTheme="outline" nzType="lock"></i>
+        <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+            <div fxLayout="row" fxLayoutAlign="start baseline">
+                <label nz-text nzType="small" class="header_lock">{{'Permission Needed'}}</label>
+            </div>
+            <label nz-text nzType="small" class="subtitle_lock">{{'Contact Admin'}}</label>
+        </div>
+    </div>
+</ng-template>

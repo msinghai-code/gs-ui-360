@@ -1,0 +1,10 @@
+<div fxLayout="column" fxFill>
+  <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="label"> Widget Name</nz-form-label>
+      <nz-form-control nzErrorTip="Widget name is required">
+        <input autocomplete="off" autofocus nz-input formControlName="label" maxlength="50">
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

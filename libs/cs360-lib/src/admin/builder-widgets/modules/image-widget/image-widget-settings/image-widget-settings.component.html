@@ -1,0 +1,37 @@
+<div fxLayout="column" fxFill>
+  <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+    <nz-form-item>
+      <!--{360.admin.image_widget_settings.widget_name}=Widget Name-->
+      <nz-form-label class="gs-keygen" nzRequired nzFor="label">{{'360.admin.image_widget_settings.widget_name' | transloco}}</nz-form-label>
+       <!--{360.admin.image_widget_settings.widget_name_errortip}="Widget name is required!"-->
+      <nz-form-control  class="gs-keygen" nzErrorTip="{{'360.admin.image_widget_settings.widget_name_errortip'| transloco}}">
+        <input autocomplete="off" autofocus nz-input formControlName="label" maxlength="50">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+       <!--{360.admin.image_widget_settings.select_image}=Select Image Field-->
+      <nz-form-label  class="gs-keygen" nzRequired nzFor="config">{{'360.admin.image_widget_settings.select_image' | transloco}}</nz-form-label>
+      <nz-form-control fxFill>
+          <!--{360.admin.image_widget_settings.select_image_errortip}=Please select image field!-->
+        <nz-select class="gs-keygen" nzErrorTip="'360.admin.image_widget_settings.select_image_errortip' | transloco" [nzDisabled]="loading" formControlName="config"
+          [nzLoading]="loading">
+          <nz-option *ngFor="let field of options" [nzValue]="field" [nzLabel]="field.label"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+       <!--{360.admin.image_widget_settings.enable_image_message}=Enable end users to change/add image directly from the widget-->
+      <nz-form-label class="gs-keygen">{{'360.admin.image_widget_settings.enable_image_message' | transloco}}?</nz-form-label>
+      <nz-form-control>
+        <nz-radio-group [nzDisabled]="!widgetForm.get('config')?.value?.meta?.updateable" formControlName="editable">
+            <!--{360.admin.image_widget_settings.yes}=Yes-->
+              <!--{360.admin.image_widget_settings.on}=No-->
+          <label  class="gs-keygen" nz-radio [nzValue]="true">{{'360.admin.image_widget_settings.yes' | transloco}}</label>
+          <label  class="gs-keygen" nz-radio [nzValue]="false">{{'360.admin.image_widget_settings.on' | transloco}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

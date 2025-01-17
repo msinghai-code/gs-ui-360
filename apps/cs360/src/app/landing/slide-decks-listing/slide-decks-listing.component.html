@@ -1,0 +1,19 @@
+<ng-template #loading>
+  <div class="gs-listing__response">
+    <nz-skeleton [nzActive]="true" [nzParagraph]="{rows: 6}"></nz-skeleton>
+  </div>
+</ng-template>
+<ng-template #error>
+
+  <div class="widget-not-available">
+    <!-- {360.csm.slide_decks.errorMsg}=There was a problem in loading this widget. Try again or reach out to Gainsight support if the problem persists. -->
+    <div>{{'360.csm.slide_decks.errorMsg' | transloco}}</div>
+  </div>
+</ng-template>
+<ng-container *ngIf="url">
+  <ax-lazy-element [isAuthenticated]="isAuthenticated" [isDrive]="true" [title]="title" [isNewFolder]="true"
+    [enableHeaderIcon]="true" [disableDecks]="true" [disableFooter]="true" [disableHeaderClose]="true" [isI18nEnabled]="true"
+    *axLazyElementDynamic="elementTag,url:url ,loadingTemplate: loading;errorTemplate: error"
+    (action)="onAction($event)" class="gs-listing__element">
+  </ax-lazy-element>
+</ng-container>

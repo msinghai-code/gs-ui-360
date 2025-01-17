@@ -1,0 +1,12 @@
+// Parent classes are to apply these changes where tree is opened in dropdown
+// but not in flat structure like widget listing
+.ant-dropdown, .nz-dropdown {
+
+  // reference for these tree dimensions taken from GDK filters field tree
+  .gs-tree-node__body, .gs-fields-chooser__content {
+    overflow: auto;
+    width: 100%;
+    height: 35rem;
+    min-width: 32rem;
+  }
+}

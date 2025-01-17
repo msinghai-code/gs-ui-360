@@ -1,0 +1,17 @@
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/spacings";
+.gs-report-widget-viewer {
+  background: none;
+  ::ng-deep {
+    gridster {
+      background: none;
+      padding-top: 2px !important;
+      padding-bottom: 2px !important;
+      gridster-item{
+        padding: $space-large;
+        border-radius: $border-radius-large;
+        border: $border-width-base $border-style-base $border-color-base;
+      }
+    }
+  }
+}

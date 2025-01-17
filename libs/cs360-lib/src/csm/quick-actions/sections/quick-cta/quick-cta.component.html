@@ -1,0 +1,6 @@
+<ng-container *ngIf="url">
+  <ax-lazy-element *axLazyElementDynamic="elementTag ;url:url" 
+    [properties]="properties"
+    (removeWidget) = "removeWidget($event)">
+  </ax-lazy-element>
+</ng-container>

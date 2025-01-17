@@ -1,0 +1,205 @@
+@import "~@gs/design-tokens/scss/index";
+::ng-deep{
+  .ag-tooltip{
+    background-color: #161F27 !important;
+    color: white !important;
+  }
+  .gs-module-container {
+    border-top: 1px solid #d5d9de;
+  }
+}
+
+.ant-notification{
+  width: 38rem;
+}
+
+.gridster-defaults-csm-attribute {
+  gridster {
+    background: #fff;
+    gridster-preview {
+      background: none;
+    }
+    gridster-item {
+      padding: 1.5rem;
+      border: none;
+      box-shadow: none;
+      border: 1px solid rgb(43 61 81 / 10%);
+      border-radius: 0.3rem;
+    }
+  }
+}
+.gridster-defaults-csm-customer-journey {
+  padding: 0 !important;
+}
+
+gs-field-tree-view {
+  > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .gs-tree-node__body {
+    flex-grow: 1;
+    overflow: auto;
+    min-width: initial;
+    max-width: 100%;
+    .gs-tree-node__root {
+      display: none;
+    }
+    .ui-tree {
+      padding-left: 0;
+      > .ui-tree-container > p-treenode > .ui-treenode {
+        padding-left: 0;
+        margin: 0;
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/*-- Popover styles --*/
+//.pop-container {
+//  .pop-panel {
+//    background-color: background-color(white);
+//    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+//      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+//    border-radius: 3px;
+//  }
+//}
+
+
+// all custom css related to filters goes here
+//::ng-deep {
+//  .gs-global-filter-chip__item--value,
+//  .gs-filt-qury-rul {
+//    gs-filter-control {
+//      .gs-filt-qury-rul-rhs__value {
+//        &-field {
+//          ng-select.ng-select-single {
+//            .ng-select-container.ng-has-value {
+//              .ng-value-container {
+//                .ng-input {
+//                  caret-color: rgba(0, 0, 0, 0);
+//                }
+//              }
+//            }
+//          }
+//          &--select-field {
+//            .ng-select {
+//              top: -0.3rem;
+//              width: 20rem; // TODO, need to make all styles consistent with dashboard
+//            }
+//            .ng-clear-wrapper {
+//              border-radius: 50%;
+//              height: 1.6rem;
+//              width: 1.6rem;
+//              right: 0;
+//              line-height: 0.85;
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
+
+.gs-cs360-landing__body{
+  .ant-tabs {
+    overflow: hidden !important;
+  }
+  .ant-tabs-tabpane-active {
+    overflow-y: auto;
+  }
+}
+
+
+.cdk-overlay-container .company-hierarchy__filter {
+  .ant-drawer-content {
+      .ant-drawer-body {
+          height: calc(100% - 4.4rem);
+          padding: 0;
+          .filter-container {
+              height: calc(100% - 2rem);
+          }
+      }
+  }
+  //gs-filter-control {
+  //    .gs-filt-qury-rul-rhs__value {
+  //      &-field {
+  //        ng-select.ng-select-single {
+  //          .ng-select-container.ng-has-value {
+  //            .ng-value-container {
+  //              .ng-input {
+  //                caret-color: rgba(0, 0, 0, 0);
+  //              }
+  //            }
+  //          }
+  //        }
+  //        &--select-field {
+  //          .ng-select {
+  //            top: -0.3rem;
+  //            width: 20rem; // TODO, need to make all styles consistent with dashboard
+  //          }
+  //          .ng-clear-wrapper {
+  //            border-radius: 50%;
+  //            height: 1.6rem;
+  //            width: 1.6rem;
+  //            right: 0;
+  //            line-height: 0.85;
+  //          }
+  //        }
+  //      }
+  //    }
+  //}
+}
+
+.tree {
+  svg {
+    width: 100%;
+  }
+}
+
+.cdk-overlay-dark-backdrop  {
+  background: none !important;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+// cockpit widget rte froala editor styles
+.fr-popup{
+  z-index: 1302 !important;
+  margin-top: 5px; // to fit the rte editor popup within the rte wrapper
+}
+.fr-view{
+  *, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.gs-fc-field-row {
+  &.ant-dropdown-link {
+    color: inherit;
+  }
+}
+
+.gs-tree-node__body {
+  overflow: auto;
+  width: 100%;
+  height: 35rem;
+  max-width: 500px;
+}
+.gs-csm-relationship-list-view {
+    gs-grid {
+        .gs-grid-filter__input {
+          height: 20px !important;
+        }
+  }
+}
+
+

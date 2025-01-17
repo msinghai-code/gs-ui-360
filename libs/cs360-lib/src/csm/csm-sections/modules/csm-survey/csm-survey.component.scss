@@ -1,0 +1,14 @@
+.gs-survey__response {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    &.loader-ctn {
+      display: none;
+    }
+}

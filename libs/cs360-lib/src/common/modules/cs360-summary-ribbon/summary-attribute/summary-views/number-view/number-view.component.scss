@@ -1,0 +1,38 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/font";
+
+:host{
+  max-width: 100%;
+}
+.gs-number-view {
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  padding-top: $border-radius-xsmall;
+  align-items: center;
+  color: $rich-gray-90;
+  font-size: $heading-4-size;
+  font-style: normal;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-base;
+  .value {
+    padding-right: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: 100%;
+  }
+  .trend-icons{
+    font-size: 1.6rem;
+  }
+  .count {
+    display: flex;
+    align-items: center;
+    i {
+      width: 2.4rem;
+      height: 2.4rem;
+      // background: url("../../../../../assets/ICONS/summaryRenewalsCompanyIcon.svg") no-repeat center;
+    }
+  }
+}

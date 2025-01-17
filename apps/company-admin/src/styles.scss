@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+/*=== Vendor Files ===*/
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+@import '~primeng/resources/primeng.min.css';
+// @import '~primeng/resources/themes/nova-light/theme.css';
+@import "~@progress/kendo-theme-material/dist/all.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@gs/gdk/field-tree/style/index";
+@import "~@gs/gdk/core/style/index";
+@import "~@gs/gdk/grid/style/index.scss";
+@import "~@gs/gdk/column-chooser/style/index.scss";
+
+/*=== Core Variables ===*/
+$imagesAssetPath: "~@gs/core/assets/images";
+$fonts_dir : "~@gs/core/assets/fonts/";
+$font_icons_dir: "~@gs/core/assets/font-gs-icons/";
+
+/*=== Core Fonts ===*/
+//@import "~@gs/core/assets/fonts/Roboto/Roboto.scss";
+@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+
+/*=== Core Assets ===*/
+@import '~@gs/core/assets/gsTheme-h2';
+@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+@import "~@gs/core/assets/scss/components/gainsight/in-app-sally";
+@import '~@gs/core/assets/scss/horizon2.1/core/spinner';
+
+
+
+html {
+  font-size: 10px;
+}
+
+//body {
+//  font-family: $font-family !important;
+//}
+.mat-radio-button {
+  font-family: $font-family !important;
+}
+body {
+  background: background-color(content);
+  font-family: $font-family !important;
+  //font-family: mat-font-family($gs-typography-config);
+  font-size: 1.4rem;
+  height: 100%;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+
+  &.gainsight-app {
+    height: 100vh;
+  }
+  &.sfdcBody {
+    margin: 0 !important;
+  }
+}
+
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.module-body {
+  flex:1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.gainsight-app, .cdk-overlay-container {
+  @import "./assets/scss/module-overrides";
+  @import '~@gs/core/assets/scss/horizon2.1/components/material/dialog';
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/formelements";
+  @import "~@gs/core/assets/scss/horizon2.1/components/primeng/sidebar";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/gs-wizard";
+}
+@import "./assets/scss/module-overrides";
+@import '~@gs/core/assets/scss/horizon2.1/components/material/dialog';
+@import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/formelements";
+@import "~@gs/core/assets/scss/horizon2.1/components/primeng/sidebar";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/gs-wizard";
+
+@import "~@gs/gdk/spinner/style/index";
+
+

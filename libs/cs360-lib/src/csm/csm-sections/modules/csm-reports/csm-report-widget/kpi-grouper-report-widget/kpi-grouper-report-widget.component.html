@@ -1,0 +1,25 @@
+<div class="gs-csm-report-widget-component-loader" gsSpinner [show]="spinnerLoading"></div>
+
+<section class="gs-csm-report-widget-container">
+  <div class="gs-csm-report-widget-container__header--active">
+    <div class="gs-csm-report-widget-container__header__title">
+      <span>{{group?.name?.toUpperCase()}}</span>
+    </div>
+  </div>
+  <div class="gs-csm-report-widget-container__body gs-csm-report-widget-body">
+    <gridster [options]="subGroupOptions"
+              style="padding: 0 0; overflow:auto">
+      <gridster-item
+              class="gs-csm-report-widget-body__gridster-item"
+              *ngFor="let subgroup of group.subGroups;"
+              [item]="subgroup"
+              intersectionObserver
+              [intersectionDebounce]="500"
+      >
+        <div class="gs-csm-report-widget-body__right" id ="{{subgroup.id}}">
+          {{subgroup.report.name}}
+        </div>
+      </gridster-item>
+    </gridster>
+  </div>
+</section>

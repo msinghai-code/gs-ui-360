@@ -1,0 +1,43 @@
+<ng-template #headerRef>
+  <div fxLayout="row" fxLayoutAlign="space-between flex-end" class="gs-section-config-drawer__header">
+    <div class="gs-section-config-drawer__header__title">
+      <i (click)="handleHeaderEvents()" nz-icon class="gs-section-config-drawer__header__title__arrow"
+        nzType="arrow-left"></i>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <span (click)="handleHeaderEvents()" class="gs-section-config-drawer__header__layout-name"
+            nz-text>{{section.layoutName}}</span>
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <span class="gs-section-config-drawer__header__layout_subheader">
+                  {{section?.label}} {{'360.admin.company_hierarchy_config.configuration'| transloco}}
+              </span>
+            <nz-tag *ngIf="section?.isDetachSectionPreview" nz-tooltip
+              nzTooltipTitle="{{'360.admin.company_hierarchy_config.tooltip'| transloco}}"
+              class="gs-section-config-drawer__header__tag" [nzColor]="'#fef3d1'">
+              <label nz-text nzType="extra-small">{{'360.admin.company_hierarchy_config.prebuilt'| transloco}}</label>
+            </nz-tag>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nz-tabset fxFlex="55" [(nzSelectedIndex)]="selectedIndex">
+      <nz-tab *ngFor="let view of viewInfos" nzTitle="{{view.title | transloco}} {{'360.admin.company_hierarchy.view'| transloco}}" (nzClick)="onMenuChange()">
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</ng-template>
+<!--{{360.admin.company_hierarchy.View}}=View-->
+<ng-template #tabSetTemplate>
+  <nz-tabset class="global-view" fxFill [(nzSelectedIndex)]="selectedIndex">
+    <nz-tab *ngFor="let view of viewInfos" nzTitle="{{view.title | transloco}} {{'360.admin.company_hierarchy.View'| transloco}}" (nzClick)="onMenuChange()">
+      <gs-field-selector [viewInfo]="view" [fieldConfigOptions]="view.fieldConfigOptions" (changes)="onChanges()">
+      </gs-field-selector>
+    </nz-tab>
+  </nz-tabset>
+</ng-template>
+
+
+<div *ngIf="section?.layoutId else tabSetTemplate" fxFill fxLayoutAlign="center center" fxLayout="column">
+  <gs-field-selector [isDetachSectionPreview]="section?.isDetachSectionPreview" [viewInfo]="viewInfos[selectedIndex]"
+    [fieldConfigOptions]="viewInfos[selectedIndex].fieldConfigOptions" (changes)="onChanges()"></gs-field-selector>
+</div>

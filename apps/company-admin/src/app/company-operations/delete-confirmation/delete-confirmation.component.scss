@@ -1,0 +1,27 @@
+
+.gs-delete-dailog {
+	&__body {
+		margin-right: 2.4rem;
+		font-size: 12px;
+		line-height: 14px;
+		&-content {
+			ul li {
+				padding-bottom: 0.8rem;
+			}
+			.mat-checkbox-label {
+				line-height: 15px;
+				color: state-color(icon-hover);
+				font-size: 13px;
+			}
+			.mat-checkbox-frame {
+				border-color: border-color(default);
+			}
+			.mat-checkbox-inner-container {
+				padding-right: 0.8rem;
+			}
+		}
+		.gs-delete-warn {
+			color: #F15748;
+		}
+	}
+}

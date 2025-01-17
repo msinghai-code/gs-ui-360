@@ -1,0 +1,31 @@
+/* ============ Vendor files ====== */
+//@import '~@angular/material/theming';
+
+/* core assets */
+//@import '~@gs/core/assets/scss/core/variables';
+//@import '~@gs/core/assets/scss/core/module-header';
+@import '@gs/cs360-lib/assets/scss/list-common';
+
+:host {
+  height: 100%;
+}
+
+::ng-deep{
+  .ant-modal-body{
+    height: 335px ;
+    //overflow-y: auto;
+    //overflow-x: hidden;
+  }
+}
+
+.mat-card-title {
+	span {
+		line-height: 19px;
+    	font-size: 16px;
+	}
+}
+
+#companyListGrid {
+  height: 92%;
+}
+

@@ -1,0 +1,63 @@
+:host{
+  padding : 16px;
+  height: calc(100% - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.widget {
+  background-repeat: no-repeat;
+  background-position: left;
+
+  &-COCKPIT_CTA, &-SP {
+    background-image: url('../../../../../assets/images/other-placeholders/cockpit-cta-skeleton.svg');
+    background-size: 100% 100%;
+    background-position: left;
+
+    nz-skeleton { visibility: hidden; }
+  }
+
+  &-ARR_WITH_HISTORY {
+    background-image: url('../../../../../assets/images/report-placeholder/line.svg');
+    background-size: 80% 60%;
+    background-position: center;
+
+    nz-skeleton { visibility: hidden; }
+  }
+
+  &-CSAT, &-NPS {
+    background-image: url('../../../../../assets/images/other-placeholders/nps-csat-skeleton.svg');
+    background-size: 100% 100%;
+    background-position: left;
+
+    nz-skeleton { visibility: hidden; }
+  }
+
+  &-ASP {
+    background-image: url('../../../../../assets/images/other-placeholders/active-success-plan.svg');
+    background-size: 100% 100%;
+    background-position: left;
+
+    nz-skeleton { visibility: hidden; }
+  }
+
+  &-COCKPIT {
+    background-image: url('../../../../../assets/images/other-placeholders/open-cta-graph.svg');
+    background-size: 100% 100%;
+    background-position: left;
+
+    nz-skeleton { visibility: hidden; }
+  }
+  
+  &-LEADS, &-CSM, &-RENEWAL_DATE, &-ORIGINAL_CONTRACT_DATE {
+    background-image: url('../../../../../assets/images/other-placeholders/field-widget-skeleton-max.svg');
+    background-size: 100% 100%;
+    background-position: left;
+
+    nz-skeleton { visibility: hidden; }
+  }  
+
+  &-COMMUNITY_METRICS, &-CE_LEARNERS_METRICS {
+    overflow: hidden;
+  }
+}

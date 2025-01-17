@@ -1,0 +1,26 @@
+<section class="gs-summary-ribbon-attribute-view" *ngIf="!loader else fancyplaceholder">
+  <gs-summary-attribute
+          *ngIf= "loadSummaryRibbon else maskedRibbon"
+          [attributeConfig]="attributesConfig.item"
+          (changes)="attributeEventHandler($event)">
+  </gs-summary-attribute>
+    <ng-template #maskedRibbon>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="6px" class="masked_widget"
+             [nzTooltipContent]="'You don’t have the required permissions to view this information. Contact your Gainsight Administrator to request access.'"
+             [nzTooltipTitle]="'Permission Needed'"
+             [nzTooltipPlacement]="'bottomLeft'"
+             nz-tooltip>
+            <i class="lock-icon" nz-icon nzSize="24" nzTheme="outline" nzType="lock"></i>
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+                <div fxLayout="row" fxLayoutAlign="start baseline">
+                    <label nz-text nzType="small" class="header_lock">{{'Permission Needed'}}</label>
+                </div>
+                <label nz-text nzType="small" class="subtitle_lock">{{'Contact Admin'}}</label>
+            </div>
+        </div>
+    </ng-template>
+</section>
+<!-- fancy placeholder -->
+<ng-template #fancyplaceholder>
+  <nz-skeleton [nzTitle]="false" [nzActive]="true" [nzParagraph]="{ rows: 2 }"></nz-skeleton>
+</ng-template>

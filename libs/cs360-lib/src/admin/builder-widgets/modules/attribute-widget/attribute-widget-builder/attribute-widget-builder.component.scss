@@ -1,0 +1,148 @@
+@import "~@gs/design-tokens/scss/border";
+
+:host {
+  display: flex;
+}
+
+.field-item {
+  padding: 1rem .7rem;
+  height: 100%;
+  justify-content: space-between;
+
+  &__settings {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    i {
+      color: #7596b7;
+      font-size: 1.8rem;
+      display: none;
+
+      &:not(:last-child) {
+        margin-right: .5rem;
+      }
+    }
+    ::ng-deep {
+      svg {
+        top: 0 !important;
+      }
+    }
+  }
+  &__label {
+    margin-left: 1.6rem;
+  }
+  &:hover {
+    i {
+      display: block;
+    }
+    .widget-header {
+      width: calc(100% - 5rem);
+    }
+  }
+  .widget-header {
+    width: 100%;
+    .gs-icons-draggable-indicator{
+      color: #7596b7;
+      font-size: 2rem;
+    }
+    input {
+      padding: .3rem 0.5rem;
+      margin-right: .5rem;
+      height: 100%;
+    }
+  
+    &-title {
+      font-size: 1.4rem;
+      font-weight: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: .3rem 0.5rem;
+  
+      &:hover {
+        border-radius: 0.4rem;
+        background-color: rgba(117, 150, 183, 0.1);
+        cursor: pointer;
+      }
+
+      &-wrapper {
+        width: calc(100% - 2rem);
+      }
+    }
+  }
+}
+
+
+.section-configuration-wrapper {
+  &__empty{
+    background-image: url('../../../../../../assets/images/other-placeholders/attributes-skeleton.svg');
+    width: 100%;
+    height: 100%;
+
+    &.cols {
+      &-4 {
+        background-image: url('../../../../../../assets/images/other-placeholders/attributes-4-skeleton.svg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      
+      &-3 {
+        background-repeat: no-repeat;
+        background-size: 100%;  
+      }
+      
+      &-2 {
+        background-repeat: no-repeat;
+        background-size: 135%;  
+      }
+      
+      &-1 {
+        background-size: 400%;  
+      }
+    }
+  }
+}
+
+gridster-item {
+  border-radius: 3px;
+  border: 1px solid $border-color-base;
+  box-shadow: none;
+}
+
+.detach-preview {
+  cursor: auto;
+}
+.gridster-defaults-builder {
+  ::ng-deep {
+    .gridster-column {
+      border: none !important;
+    }
+    .gridster-row {
+      border: none !important;
+    }
+  }
+}
+::ng-deep{
+  .attribute-widget-drawer {
+    .ant-drawer{
+      &-title{
+        font-size: 1.8rem;
+      }
+      &-body, &-header{
+        padding-left: 3.2rem;
+      }
+    }
+  }
+  .field-config-wrapper{
+    .ant-drawer{
+      &-title{
+        max-width: calc(100% - 4rem);
+        word-break: break-word;
+      }
+    }
+  }
+}
+
+.field-configuration{
+  overflow: hidden;
+}

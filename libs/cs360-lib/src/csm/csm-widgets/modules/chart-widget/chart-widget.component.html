@@ -1,0 +1,21 @@
+<section class="csm-summary-widget-wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+  <h6 nz-title nzType="sub-section" nzColor="subtitle" class="csm-summary-widget-wrapper__label">{{widgetItem.label}}</h6>
+  <div class="csm-summary-widget-wrapper__content" fxLayout="row" fxFill fxFlex="100%">
+      <ng-container *ngIf="!isLoading else empty">
+        <div class="chart-wrapper">
+          <div class="chart" [ngStyle]="{ 'min-width': width + 'px' }">
+            <gs-chart *ngIf="chartConfigLoaded"
+              [config]="chartConfig"
+            ></gs-chart>
+          </div>
+        </div>
+      </ng-container>
+  </div>
+</section>
+
+<ng-template #empty>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%">
+    <div class="gs-loader-vertical-bar-skeleton" style="height:100%" fxLayout="row" fxLayoutAlign="center center">
+    </div>
+  </div>
+</ng-template>

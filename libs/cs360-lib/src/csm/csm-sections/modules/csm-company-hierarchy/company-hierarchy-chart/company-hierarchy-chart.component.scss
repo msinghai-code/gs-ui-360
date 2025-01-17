@@ -1,0 +1,171 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+.tree-wrapper {
+    height: 100%;
+    width: 100%;
+    &.fullScreen {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1300;
+        background-color: #f8f9fa;
+        .chart-warning {
+            top: 2rem;
+        }
+        .chart-operations {
+            top: 2rem;
+        }
+    }
+  &.miniFullScreen {
+    left: calc(100% - 840px);
+    width: 840px;
+  }
+}
+
+.chart-warning {
+    display: flex;
+    position: absolute;
+    color: $rich-gray-70;
+    left: 3rem;
+    top: 12rem;
+    z-index: 99;
+    align-self: flex-start;
+    align-items: center;
+    font-size: 2.4rem;
+    column-gap: 1rem;
+    margin: 2rem 0rem 0rem 2rem;
+    padding: 1rem 1.6rem;
+    background-color: $rich-gray-30;
+    &__info-icon {
+        background: url('../../../../../../assets/images/icons-16-info.svg') no-repeat center;
+        background-size: 1.6rem;
+        display: block;
+        min-height: 1rem;
+        height: 1.6rem;
+        width: 1.6rem;
+    }
+}
+.chart-actions {
+    justify-content: end;
+}
+
+.chart-operations {
+    border-radius: $space-large;
+    display: flex;
+    z-index: 99;
+    align-self: flex-end;
+    align-items: center;
+    font-size: 2.4rem;
+    column-gap: 1rem;
+    margin: 2rem 2rem 0rem 0rem;
+    padding: 0 0.5rem 0 0.5rem;
+    background-color: $rich-gray-30;
+    span, div {
+        &:hover {
+            cursor: pointer;
+            background-color: $rich-gray-30;
+        }
+    }
+    // .remove {
+    //     padding: 0rem 1.25rem 0rem 1.25rem;
+    //     background: url('../../../../../../assets/images/icons-24-minus.svg') no-repeat center;
+    //     background-size: 2.4rem;
+    //     display: block;
+    //     min-height: 1rem;
+    //     height: 2.4rem;
+    //     width: 2.4rem;
+    // }
+    .fit {
+        label {
+            padding: $space-medium 0px $space-medium 0px;
+        }
+        font-size: 1.4rem !important;
+        display: flex;
+        align-items: center;
+    }
+    i, .remove {
+        color: $rich-gray-60;
+    }
+}
+
+.tree {
+    background-color: #f8f9fa;
+    text-align: center;
+    overflow: auto !important;
+    width: 100%;
+    min-width: 100%;
+    height: calc(100% - 5.6rem);
+    svg {
+        height: 100%;
+        width: 100%;
+        max-height: 100%;
+    }
+}
+
+::ng-deep {
+    .node {
+        text {
+            height: 16px;
+            margin-bottom: 2rem;
+            a {
+                fill: #0369e9;
+            }
+        }
+        .primary {
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+            stroke: $royal-blue-70 !important;
+        }
+        .text-primary {
+            font-weight: 500;
+            font-size: 20px;
+            fill: $rich-gray-90;
+        }
+        .text-secondary {
+            font-weight: normal;
+            font-size: 16px;
+            &.grey {
+                fill: $rich-gray-70;
+            }
+            &.light-grey {
+                fill: $rich-gray-60;
+            }
+            &.red {
+                fill: $tart-red-60;
+            }
+            &.blue {
+                fill: $royal-blue-70;
+            }
+        }
+        .text-count{
+            font-weight: 500;
+            font-size: 16px;
+            fill: #19232F;
+        }
+        .gs-action-menu-btn{
+            cursor: pointer;
+            circle {
+                fill: #FFFFFF;
+                &:hover {
+                    fill: rgba(117, 150, 183, 0.05);
+                }
+            }
+        }
+    }
+    .expand{
+        transform:scaleX() translateY(-25px);
+    }
+    .not-expand {
+        transform:scaleY(-1) translateY(-25px);
+    }
+}

@@ -1,0 +1,139 @@
+<section [ngClass]="{'no-drop-cursor': widgetItem?.hidden, 'non-editable-flp': !widgetItem?.properties?.editable}" class="csm-summary-widget-wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+    <div *ngIf="widgetItem?.subType !== arrWithHistory">
+        <h6 *ngIf="!(widgetItem?.hidden || widgetItem?.config?.hidden)" nz-title fxLayout="row" fxLayoutAlign="start center" nzType="sub-section" [nzColor]="'subtitle'">{{ widgetItem.label }}
+            <span *ngIf="widgetItem.description" [nzTooltipTitle]="widgetItem.description" class="widget-info"
+                  nz-tooltip></span>
+        </h6>
+<!--    csm widget-base, field , image-->
+      <ng-container *ngIf="widgetItem?.hidden || widgetItem?.config?.hidden" [ngTemplateOutlet]="maskedWidget"></ng-container>
+    </div>
+  
+  <!-- <span  *ngIf="widgetItem.description" class="summary-widget-info" nz-tooltip  [nzTooltipTitle]="widgetItem.description"></span> -->
+  <div class="csm-summary-widget-wrapper__content" fxLayout="column" fxFill fxFlex="100%">
+    <ng-container *ngIf="!isLoading else empty">
+    <ng-container *ngIf="widgetItem?.hidden && widgetItem?.subType === arrWithHistory" [ngTemplateOutlet]="maskedWidget"></ng-container>
+      <ng-container *ngIf="widgetItem?.subType === arrWithHistory && !widgetItem?.hidden else widget">
+        <div class="chart-visualizer-wrapper">
+          <div class="chart-visualizer-wrapper__header">
+            <h6 nz-title class="chart-visualizer-wrapper__title-left" nzColor="subtitle" nzType="sub-section">{{widgetItem.label}}</h6>
+            <!-- <span  class="chart-visualizer-wrapper__title-left">{{widgetItem.label}}</span> -->
+              <div class="chart-visualizer-wrapper__title-right">
+                <span class="chart-visualizer-wrapper__date-picker-literals">
+                <nz-date-literal-picker
+                [nzAllowClear] = "false"
+                [nzPlaceHolder]="dateLiteralPlaceHolder"
+                [nzDateLiterals] = "dataConfig.durationDatesConfig"
+                (ngModelChange)="onDurationDateChange($event)"
+                [(ngModel)]="dataConfig.selectedDateDuration"
+                nzBorderLess
+                class="date-literal-picker"
+                ></nz-date-literal-picker>
+                <i class="chart-visualizer-wrapper-icon" nz-icon nzType="chevron-down" nzTheme="outline" nzSize="24"></i>
+                </span>
+                <span class="chart-visualizer-wrapper__date-picker-groupby">
+                <nz-date-literal-picker
+                [nzAllowClear] = "false"
+                [nzPlaceHolder]="dateLiteralPlaceHolder"
+                [nzDateLiterals] = "dataConfig.groupByDatesConfig"
+                (ngModelChange)="onGroupByDateChange($event)"
+                [(ngModel)]="dataConfig.selectedGroupByDates"
+                nzBorderLess
+                class="date-literal-picker"
+                ></nz-date-literal-picker>
+                <i class="chart-visualizer-wrapper__icon" nz-icon nzType="chevron-down" nzTheme="outline" nzSize="24"></i>
+                </span>
+              </div>
+
+          </div>
+          <div [ngClass]="{'chart-visualizer-wrapper__body': !isMini360, 'chart-visualizer-wrapper__body-mini360': isMini360}"> 
+            <ng-container *ngIf="!loading else loader">
+                <gs-chart-visualizer
+                *ngIf="response?.data && response.data[0] && response?.data[0]?.data?.length > 0 else ArrWidgetEmpty"
+                #chartVisualizer
+                [type]="'line'"
+                [data]="response"
+                [chartType]="'HIGHCHARTS'"
+                (loadComplete)="loadCompleteEvent($event)"
+                ></gs-chart-visualizer>
+            </ng-container>
+
+            <ng-template #ArrWidgetEmpty>
+              <div class="gs-ae-highcharts-display__no-data">
+                <nz-empty [nzNotFoundContent]="contentTpl">
+                  <ng-template #contentTpl>
+                    <span class="gs-chart-error">{{'reports.report_message_constants.no_data_found'| transloco}}<br/>
+                      {{errorMsg}}</span>
+                  </ng-template>
+                </nz-empty>
+              </div>
+            </ng-template>
+
+            <ng-template #loader>
+              <div class="loader-container-arr">
+                <div class="piano-loader">
+                  <i nz-icon [nzType]="'images:piano-loader'" nzTheme="fill"></i>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #widget>
+        <ng-container  *ngIf="widgetItem?.subType !== 'CSM' && !widgetItem.hidden else csmWidget">
+          {{data?.fv || '---'}}
+        </ng-container>
+      </ng-template>
+
+
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #empty>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <nz-skeleton class="half-skeleton" [nzActive]="false" [nzParagraph]="false" fxLayout="row" [nzTitle]="true"
+      flex="50%"></nz-skeleton>
+    <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+  </div>
+</ng-template>
+
+<ng-template #csmWidget>
+  <div fxLayout="row" fxLayoutGap="16px" class="user-name" *ngIf="!widgetItem.hidden">
+    <div class="csm-summary-widget" *ngIf="widgetItem?.properties?.editable else readonlyView"
+         fxLayout="column">
+      <gs-attribute-field-editor-wrapper fxLayout="column" fxFill [isLoading]="isLoading" [fieldItem]="widgetItem" [data]="data" [ellispsisRows] ="2"
+        (updates)="onUpdate($event)" [isSummarySection]="true" [treeData]="attrService.treeData"></gs-attribute-field-editor-wrapper>
+      </div>
+
+    </div>
+    <ng-template #readonlyView>
+        <h4 nz-title nz-tooltip
+              [nzTooltipTitle]="data?.fv || '---'"
+                [nzTooltipPlacement]="'bottomLeft'"
+              [nzTooltipContent]="'Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.'"
+        >{{data?.fv || '---'}}</h4>
+    </ng-template>
+</ng-template>
+
+
+<ng-template #maskedWidget>
+  <div fxLayout="column" fxlayoutAlign="center center" class="masked_widget">
+      <div
+              [nzTooltipContent]="'You don’t have the required permissions to view this information. Contact your Gainsight Administrator to request access.'"
+              [nzTooltipTitle]="'Permission Needed'"
+              [nzTooltipPlacement]="'bottomLeft'"
+              nz-tooltip
+              fxlayout="row" fxLayoutAlign="start center"
+              fxLayoutGap="16px"
+      >
+      <i class="lock-icon" nz-icon nzSize="24" nzTheme="outline" nzType="lock"></i>
+      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px">
+          <div fxLayout="row" fxLayoutAlign="start baseline">
+              <label nz-text nzType="small" class="header_lock">{{'Permission Needed'}}</label>
+          </div>
+          <label nz-text nzType="small" class="subtitle_lock">{{'Contact Admin'}}</label>
+      </div>
+      </div>
+  </div>
+</ng-template>

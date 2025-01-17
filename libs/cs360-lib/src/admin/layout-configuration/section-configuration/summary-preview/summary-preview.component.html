@@ -1,0 +1,49 @@
+<nz-modal [nzClosable]="false" [nzVisible]="true" nzWidth="100%" nzWrapClassName="gs-section-config-drawer"
+     [nzTitle]="headerWrapper" [nzBodyStyle]="wrapperStyles" [nzModalType]="'fullscreen'" [nzFooter]="null">
+    <div class="gs-section-config-wrapper mode__{{selectedPreviewMode}}" [ngStyle]="modeDimension" gsSpinner [nzSize]="'xl'" [show]="stateLoading" *ngIf="selectedCompany && !isSelectedItemLoading">
+        <gs-csm-summary [section]="section" [isPreview]="true" class="p-20" fxLayout="column" fxFill [previewCtx]="previewCtx">
+        </gs-csm-summary>
+    </div>
+    <div class="card-wrapper" *ngIf="!selectedCompany && !stateLoading">
+        <div class="card">
+            <i nz-icon [nzType]="'360-preview'" nzTheme="images" class="illustration"></i>
+            <h5 nz-title class="label">{{'360.admin.summary_preview.selectRecord'| transloco}}</h5>
+            <ng-container [ngTemplateOutlet]="companySelectorDropdown"></ng-container>
+        </div>
+    </div>
+
+</nz-modal>
+
+<ng-template #headerWrapper>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center" class="gs-section-config-drawer__header">
+        <div fxLayout="row">
+            <i nz-icon nzType="arrow-left" (click)="close()"></i>
+            <div fxLayout="column" class="summary-preview-title" fxLayoutAlign="center start">
+                <div (click)="close()" class="summary-preview-title__section-name" nz-text nzType="small" nzColor="secondary">{{sectionName}}</div>
+                <h4 nz-title>{{'360.admin.summary_preview.summary_preview_configuration'| transloco}}</h4>
+            </div>
+        </div>
+        <div *ngIf="selectedCompany" fxLayout="row" fxFlexAlign="center" class="gs-preview-mode__switch">
+            <nz-radio-group [(ngModel)]="radioValue" [nzButtonStyle]="'switch'" nzHasIcon="true">
+                <label nz-radio-button nzValue="mobileScreen" (click)="changePreviewMode('mobileScreen')"><i nz-icon [nzType]="selectedPreviewMode === 'mobileScreen' ? 'images:icons_24_tablet_selected'  : 'images:icons_24_tablet'"></i></label>
+                <label nz-radio-button nzValue="smallScreen" (click)="changePreviewMode('smallScreen')"><i nz-icon [nzType]="selectedPreviewMode === 'smallScreen' ? 'images:icons_24_laptop_selected' : 'images:icons_24_laptop'" ></i></label>
+                <label nz-radio-button nzValue="largeScreen" (click)="changePreviewMode('largeScreen')"><i nz-icon [nzType]="selectedPreviewMode === 'largeScreen' ? 'images:icons_24_monitor_selected' : 'images:icons_24_monitor'"></i></label>
+              </nz-radio-group>
+          </div>
+        <div fxLayout="row" fxLayoutAlign="end center" class="preview-toggle" *ngIf="selectedCompany">
+            <div class="preview-toggle--label">{{'360.admin.summary_preview.previewing'| transloco}}</div>
+            <ng-container [ngTemplateOutlet]="companySelectorDropdown"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #companySelectorDropdown>
+    <nz-select nzShowSearch nzAllowClear class="select-company-dropdown"
+    [(ngModel)]="selectedCompany" [nzPlaceHolder]="'360.admin.summary_preview.select_record'| transloco" nzServerSearch="true"
+    [nzLoading]="isPreviewItemsLoading" (nzOnSearch)="searchItemsForPreview($event)"
+    (nzOpenChange)="onItemDropdownOpen($event)" (ngModelChange)="onValueSelectedItemChange($event)">
+        <nz-option [nzValue]="item.Gsid" [nzLabel]="item.Name" *ngFor="let item of previewItems">
+        </nz-option>
+    </nz-select>
+</ng-template>

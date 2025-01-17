@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>Cs360</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <script src="./assets/sfdc.index.mock.js"></script> -->
+  <script src="./assets/native.index.mock.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.4.4/custom-elements-es5-adapter.js" integrity="sha512-ghu3B55L7mKaf35O7RoyJTyarNPaxcpas/jKNvZAEBMRxr7BR4Oi52Aqnv/H8kyiXZtTVH9IZ490f9z7F4f4kA==" crossorigin="anonymous"></script>
+<style id="css-vars">/**
+ * Do not edit directly
+ * Generated on Wed, 26 Jun 2024 01:59:32 GMT
+ */
+
+:root {
+  --hz-primary-color: #0369E9;
+  --hz-heading-color: #181F26;
+  --hz-normal-color: #5F6C7A;
+  --hz-error-color: #DC3626;
+  --hz-success-color: #12995B;
+  --hz-processing-color: #0369E9;
+  --hz-warning-color: #FFBB00;
+  --hz-info-color: #0369E9;
+  --hz-control-bg-base: #F5F7F9;
+  --hz-component-background: #FFFFFF;
+  --hz-text-color-primary: #181F26;
+  --hz-text-color-secondary: #5F6C7A;
+  --hz-text-color-inverse: #FFFFFF;
+  --hz-text-color-disabled: #ACB4BD;
+  --hz-text-color-placeholder: #ACB4BD;
+  --hz-text-color-new-feat: #6E32AE;
+  --hz-text-color-selected: #0369E9;
+  --hz-text-color-focused: #0369E9;
+  --hz-text-sub-title-color: #3C4A57;
+  --hz-text-highlighted-bg: #FFD45C;
+  --hz-bg-color-base-hover: #F5F7F9;
+  --hz-bg-color-base: #FDFDFE;
+  --hz-bg-color-secondary: #E6E9EC;
+  --hz-bg-color-image: #E6E9EC;
+  --hz-bg-color-success: #EBFBEE;
+  --hz-bg-color-warning: #FFF3D1;
+  --hz-bg-color-new-feat: #F0E5FA;
+  --hz-bg-color-tertiary: #D5D9DE;
+  --hz-bg-color-skeleton: #ACB4BD;
+  --hz-bg-color-strong: #25313B;
+  --hz-bg-color-contrast: #181F26;
+  --hz-bg-color-info: #E6F0FD;
+  --hz-bg-color-focused: #E6F0FD;
+  --hz-bg-color-active: #D2E4FB;
+  --hz-bg-color-active-strong: #A2C7F7;
+  --hz-bg-color-selected: #0369E9;
+  --hz-bg-color-progress: #0369E9;
+  --hz-bg-color-brand: #034AA3;
+  --hz-bg-color-error: #FFF2F1;
+  --hz-bg-color-notify: #F75D4F;
+  --hz-bg-color-moderate: #5F6C7A;
+  --hz-bg-color-disabled: #E6E9EC;
+  --hz-input-disabled-bg: #F5F7F9;
+  --hz-shadow-color-inverse: #FFFFFF;
+  --hz-item-active-bg: #D5D9DE;
+  --hz-background-color-light: #D5D9DE;
+  --hz-font-variant-base: tabular-nums;
+  --hz-font-feature-settings-base: 'tnum';
+  --hz-font-family: Noto Sans,Noto Sans JP,-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --hz-font-size-base: 14px;
+  --hz-font-size-lg: 16px;
+  --hz-font-size-sm: 12px;
+  --hz-font-size-xs: 11px;
+  --hz-font-weight-light: 300;
+  --hz-font-weight-regular: 400;
+  --hz-font-weight-semibold: 600;
+  --hz-code-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --hz-heading-hero-size: 42px;
+  --hz-heading-1-size: 28px;
+  --hz-heading-2-size: 26px;
+  --hz-heading-3-size: 21px;
+  --hz-heading-4-size: 18px;
+  --hz-heading-5-size: 16px;
+  --hz-heading-6-size: 14px;
+  --hz-heading-7-size: 12px;
+  --hz-heading-8-size: 11px;
+  --hz-line-height-base: 24px;
+  --hz-line-height-hero: 64px;
+  --hz-line-height-h1: 40px;
+  --hz-line-height-h2: 40px;
+  --hz-line-height-h3: 32px;
+  --hz-line-height-h4: 24px;
+  --hz-line-height-h5: 24px;
+  --hz-line-height-h6: 24px;
+  --hz-line-height-h7: 16px;
+  --hz-line-height-h8: 16px;
+  --hz-line-height-body: 24px;
+  --hz-line-height-body-small: 16px;
+  --hz-border-radius-2xsmall: 2px;
+  --hz-border-radius-xsmall: 4px;
+  --hz-border-radius-small: 6px;
+  --hz-border-radius-base: 8px;
+  --hz-border-radius-medium: 12px;
+  --hz-border-radius-large: 16px;
+  --hz-border-radius-xlarge: 24px;
+  --hz-border-radius-2xlarge: 32px;
+  --hz-border-radius-3xlarge: 40px;
+  --hz-border-radius-4xlarge: 48px;
+  --hz-border-radius-5xlarge: 56px;
+  --hz-border-radius-6xlarge: 64px;
+  --hz-border-radius-7xlarge: 72px;
+  --hz-border-radius-ellipsis: 100px; /* deprecated */
+  --hz-border-width-base: 1px;
+  --hz-border-style-base: solid;
+  --hz-border-color-base: #D5D9DE;
+  --hz-border-color-light: #E6E9EC;
+  --hz-border-color-success: #98E7B1;
+  --hz-border-color-warning: #FFE18F;
+  --hz-border-color-new-feat: #DAC0F2;
+  --hz-border-color-inverse: #FFFFFF;
+  --hz-border-color-disabled: #ACB4BD;
+  --hz-border-color-secondary: #5F6C7A;
+  --hz-border-color-strong: #181F26;
+  --hz-border-color-focused: #D2E4FB;
+  --hz-border-color-info: #A2C7F7;
+  --hz-border-color-error: #FCBEB9;
+  --hz-border-color-selected: #0369E9;
+  --hz-text-color-link-decoration: none;
+  --hz-text-color-link-hover-decoration: 'tnum';
+  --hz-text-color-link: #0369E9;
+  --hz-text-color-link-hover: #0369E9;
+  --hz-text-color-link-active: #0369E9;
+  --hz-outline-blur-size: 0;
+  --hz-outline-width: 0px;
+  --hz-outline-color: #0369E9;
+  --hz-icon-color-inherit: inherit;
+  --hz-icon-color-normal: #5F6C7A;
+  --hz-icon-color-hover: #3C4A57;
+  --hz-icon-color-success: #13C77F;
+  --hz-icon-color-warning: #F4A702;
+  --hz-icon-color-active: #181F26;
+  --hz-icon-color-info: #0369E9;
+  --hz-icon-color-wait: #0369E9;
+  --hz-icon-color-error: #F75D4F;
+  --hz-icon-color-inverse: #FFFFFF;
+}
+</style></head>
+<body class="gainsight-app">
+  <gs-root></gs-root>
+  <script src="https://staticjs.develgs.com/gs-app-container/1.4.10/scripts.js"></script>
+  <script src="https://staticjs.develgs.com/gs-app-container/1.4.10/polyfills-es5.js" nomodule="" defer=""></script>
+  <script src="https://staticjs.develgs.com/gs-app-container/1.4.10/polyfills-es2015.js" type="module"></script>
+  <script src="https://staticjs.develgs.com/gs-app-container/1.4.10/main-es5.js" nomodule="" defer=""></script>
+  <script src="https://staticjs.develgs.com/gs-app-container/1.4.10/main-es2015.js" type="module"></script>
+
+
+</body></html>

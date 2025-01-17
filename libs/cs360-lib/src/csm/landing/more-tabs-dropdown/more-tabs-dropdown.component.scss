@@ -1,0 +1,104 @@
+@import "~@gs/design-tokens/scss/font";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/spacings";
+
+.gs-tabs-more-wrapper {
+  width: 296px;
+  max-height: 340px;
+  flex-direction: column;
+  display: flex;
+  ::ng-deep {
+    .input-group {
+      padding-left: 0;
+    }
+  }
+  &__header {
+    width: 100%;
+    padding: 1.6rem;
+
+    .all-sections {
+      color: $rich-gray-70;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+  &__content {
+    overflow-y: auto;
+    flex: 1;
+    width: 100%;
+    padding: 0 1.6rem;
+
+    &__tab_item {
+      font-size: 14px;
+      margin-bottom: 1rem;
+      width: 100%;
+      padding-left: 1rem;
+      
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(85, 115, 145, .06);
+      }
+    }
+    
+  }
+  &__footer {
+    width: 100%;
+    border-top: 1px solid $border-color-base;
+  }
+}
+
+.section-title {
+  opacity: .8;
+  margin-bottom: 1rem;
+  color: #3E5872;
+  padding-bottom: 1rem;
+  font-weight: 600 !important;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  width: 100%;
+  margin: 4px 0 16px 0;
+}
+
+.empty {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  color: #7596b7;
+  font-size: $font-size-sm;
+  margin-bottom: 7px;
+}
+
+.unsupported-sections {
+  display: flex;
+  padding: $border-radius-xsmall $font-size-sm $border-radius-xsmall $border-radius-large;
+  align-items: center;
+  gap: $border-radius-base;
+  color: $royal-blue-70;
+  font-size: $font-size-base;
+  font-style: normal;
+  font-weight: 400;
+  line-height: $line-height-base;
+
+  .links {
+    margin-left: auto;
+  }
+}
+
+.all-sections {
+  padding: $font-size-sm 0px 0px $space-large;
+  color: #3c4a57;
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+.personalized-btn {
+  text-align: center;
+  padding: $border-radius-base 0px $border-radius-base 0px;
+  width: 100%;
+  border-top: 1px solid $rich-gray-40;
+}
+.content {
+  overflow-y: scroll;
+}

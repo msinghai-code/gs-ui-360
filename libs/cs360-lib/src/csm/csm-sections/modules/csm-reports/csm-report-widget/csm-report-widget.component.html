@@ -1,0 +1,50 @@
+<div class="gs-csm-report-widget-component-loader" gsSpinner [show]="spinnerLoading"></div>
+
+<section class="gs-csm-report-widget-container">
+    <div class="gs-csm-report-widget-container__header"
+         [ngClass]="{'gs-csm-report-widget-container__header--active': (group.reports.length > 1)}">
+        <div class="gs-csm-report-widget-container__header__title">
+            <span>{{group?.name?.toUpperCase()}}</span>
+        </div>
+    </div>
+    <div class="gs-csm-report-widget-container__body gs-csm-report-widget-body" #reportHostElemRefParent>
+        <div *ngIf="!isMini360Variant" class="gs-csm-report-widget-body__left"
+             [ngClass]="{'gs-csm-report-widget-body__left--active': (group.reports.length > 1)}"
+             nz-resizable
+             [style.width.px]="RESIZER_VALUES.width"
+             (nzResize)="onResize($event)"
+             (nzResizeStart)="onResizeStart($event)"
+             (nzResizeEnd)="onResizeEnd($event)">
+            <div class="gs-csm-report-widget-body__left__item" nz-tooltip
+                 [nzTooltipContent]="report?.reportName"
+                 *ngFor="let report of group.reports"
+                 [ngClass]="{'selected': (report?.reportId === selectedReport?.reportId)}"
+                 (click)="selectReport($event, report)">
+                {{report?.reportName}}
+            </div>
+            <nz-resize-handle nzDirection="right">
+                <div class="custom_resizer" [ngClass]="RESIZER_VALUES.dragging ? RESIZER_VALUES.active_class: ''"></div>
+            </nz-resize-handle>
+        </div>
+        <div *ngIf="isMini360Variant" class="gs-csm-report-widget-body__left"
+            [ngClass]="{'gs-csm-report-widget-body__left--active': (group.reports.length > 1)}"
+            [style.width.px]="RESIZER_VALUES.width">
+            <nz-tabset [nzTabPosition]="'left'" [nzSelectedIndex]='seletedReportTab' [nzType]="'button'"
+                (nzSelectChange)="reportTabChange($event)">
+                <ng-container *ngFor="let report of group.reports">
+                    <ng-template #tabTitleTemplate>
+                        <span nz-tooltip [nzTooltipTitle]="report.reportName" [nzTooltipPlacement]="'topLeft'">{{ report.reportName }}</span>
+                    </ng-template>
+                    <nz-tab [nzTitle]="tabTitleTemplate" (nzClick)="selectReport($event, report)">
+                        <!-- Tab content -->
+                    </nz-tab>
+                </ng-container>
+            </nz-tabset>
+        </div>
+        <div class="gs-csm-report-widget-body__right" #reportHostElemRef
+             [style.width.px]="reportHostElemRefParent.offsetWidth - RESIZER_VALUES.width">
+        </div>
+    </div>
+</section>
+
+<div #gdmObjectFormHostElemRef class="gdm-object-form-container"></div>

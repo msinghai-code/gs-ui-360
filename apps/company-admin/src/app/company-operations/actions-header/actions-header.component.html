@@ -1,0 +1,69 @@
+<div class="gs-controls-left" *ngIf="_selectedRows.length">
+  <div class="gs-selected-companies">
+    {{_selectedRows.length}} {{selectedObjectName}} {{'360.actions_header.selected'| transloco}}
+  </div>
+  <button nz-button (click)="onButtonClicked('Delete')" class="header-icon">
+      <i class="delete-icon"></i>{{'360.actions_header.delete'| transloco}}
+  </button>
+  <button nz-button *ngIf="_selectedRows.length===2"
+    (click)="onButtonClicked('Merge')" class="header-icon">
+      <i class="merge-icon"></i>{{'360.actions_header.merge'|
+    transloco}}</button>
+</div>
+
+<div class="gs-controls" *ngIf="!_selectedRows.length">
+  <div class="gs-controls-left">
+    <div class="gs-selected-companies">
+      {{initialDisplayHeader}}
+    </div>
+  </div>
+  <div class="gs-controls-right">
+    <button nz-button (click)="openFilters($event)">
+      <nz-badge nzDot [nzShowDot] = "filterInfo.filterInfo.conditions.length > 0">
+        <i nz-icon nzType="filter"></i>
+      </nz-badge>   
+    </button>
+    <nz-overlay [closeOnClick]="false" #filterPopover>
+        <div class="gs-filter" *ngIf="showFilters">
+          <div class="gs-filter__header">{{'360.actions_header.filters'| transloco}}</div>
+          <div class="gs-filter__body">
+            <gs-filter-query-builder #fqb [host]="filterInfo.host" [tokenized]="false" [baseObject]="filterInfo.objectName" [config]="filterInfo.config"
+              [filterInfo]="filterInfo.filterInfo" (status)="filterValidityUpdate($event)" [keepLastRule]="false" [nestLevels]="0" [isAdvanceDateFilter]="false" [allowConditionalLogic]="true"
+              [inputValueSettings]="inputValueSettings" [filterFunction]="fieldFilterFunction">
+            </gs-filter-query-builder>
+          </div>
+          <div class="gs-filter__footer">
+            <button nz-button nzTyoe="primary" (click)="applyFilters();close()" [disabled]="invalid">{{'360.actions_header.apply'| transloco}}</button>
+            <button nz-button nzTyoe="primary" (click)="resetFilters();close()">{{'360.actions_header.reset'| transloco}}</button>
+            <button nz-button nzTyoe="primary" (click)="close()">{{'360.actions_header.cancel'| transloco}}</button>
+          </div>
+        </div>
+      </nz-overlay>
+    <button nz-button (click)="openTreePopover($event)">
+        <i nz-icon nzType="settings"></i>
+    </button>
+    <nz-overlay [closeOnClick]="false" #popoverEle>
+      <div class="gs-column-chooser-pop mat-elevation-z12">
+        <gs-column-chooser [options]="clonedFields" [dataKey]="'fieldName'" [disabledFields]="disabledColumns"
+          [selectedColumns]="selectedColumns" (applyMultiSelect)="applyMultiSelect($event)"
+          (cancelMultiSelect)="cancelMultiSelect($event)">
+        </gs-column-chooser>
+      </div>
+    </nz-overlay>
+
+  <nz-button-group>
+      <button class="icon-button" nz-button nz-dropdown nzType="link" [nzDropdownMenu]="menu1" nzPlacement="bottomRight" [nzTrigger]="'click'">
+          <i nz-icon nzType="more-vertical"></i>
+      </button>
+  </nz-button-group>
+
+  <nz-dropdown-menu #menu1="nzDropdownMenu">
+      <ul nz-menu>
+          <li nz-menu-item *ngFor="let item of menuItems" (click)="onMenuItemClick(item)">{{item.label | transloco}}</li>
+      </ul>
+  </nz-dropdown-menu>
+
+    <button *ngIf="!_selectedRows.length" nz-button nzType="primary"
+      (click)="onButtonClicked('Add')">{{addButtonLabel}}</button>
+  </div>
+</div>

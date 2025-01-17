@@ -1,0 +1,18 @@
+<section *ngIf="load" class="csm-summary-widget-wrapper gs-sc-health-widget csm-healthscore-summary-widget__wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%" style="height: 100%">
+    <div class="gs-sc-health-widget-header">
+        <h6 nz-title nzType="sub-section" nzColor="subtitle" class="csm-summary-widget-wrapper__label">{{widgetItem.label}}</h6>
+        <div class="gs-sc-health-widget-refresh" (click)="onRefresh()">
+            <div class="gs-sc-health-widget-refresh-icon"></div>
+        </div>
+    </div>
+    <div  class="csm-summary-widget-wrapper__content csm-healthscore-summary-widget__wrapper_content" fxLayout="row" fxFill fxFlex="100%">
+        <ax-lazy-element  *axLazyElementDynamic="elementTag,url:url" [options]="options" [events]="refreshEventsSubject.asObservable()" (navigateToScorecard)="navigate($event)">
+        </ax-lazy-element>
+    </div>
+</section>
+<ng-template #empty>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%">
+        <div class="gs-loader-vertical-bar-skeleton" style="height:100%" fxLayout="row" fxLayoutAlign="center center">
+        </div>
+    </div>
+</ng-template>

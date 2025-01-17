@@ -1,0 +1,171 @@
+<div fxFill class="embed-page-config-wrapper">
+  <div class="embed-page-config">
+    <!--{360.admin.embed_page.basic_details}= Basic Details-->
+    <h5 class="gs-keygen" nz-title>{{'360.admin.embed_page.basic_details'| transloco}}</h5>
+    <div fxFill fxLayout="column">
+      <form nz-form [formGroup]="embedPageForm" class="embed-page-form" nzLayout="vertical">
+        <div nz-col>
+          <div nz-row>
+            <nz-form-item class="url-field">
+              <!--{360.admin.embed_page.url}=URL-->
+              <nz-form-label nzRequired nzFor="url">{{'360.admin.embed_page.url' | transloco}}</nz-form-label>
+              <!--{360.admin.embed_page.errortip}=URL is required-->
+              <nz-form-control nzErrorTip="{{'360.admin.embed_page.errortip'| transloco}}">
+                <!--{360.admin.embed_page.enter_url}=Enter URL-->
+                <input fxFlex="74%" type="text" formControlName="url" nz-input
+                  placeholder="{{'360.admin.embed_page.enter_url' | transloco}}" />
+              </nz-form-control>
+              <!--{360.admin.embed_page.help_text}=Note: Use ${} notation to refer parameters in the URL-->
+              <label nz-text nzType="small" class="url-field__text">{{'360.admin.embed_page.help_text' | transloco}}
+              </label>
+            </nz-form-item>
+          </div>
+          <div class="height-control" fxLayout="column" fxLayoutGap="1rem">
+            <nz-form-control fxLayout="column">
+              <!--{360.admin.embed_page.height_label}=Height-->
+              <nz-form-label class="gs-keygen">{{'360.admin.embed_page.height_label'| transloco}}</nz-form-label>
+              <nz-radio-group class="height-control__radio" formControlName="heightFormat">
+                <!--{360.admin.embed_page.percentage}=Percentage-->
+                <!--{360.admin.embed_page.pixels}=Pixels-->
+                <label nz-radio nzValue="%">{{'360.admin.embed_page.percentage'| transloco}}</label>
+                <label nz-radio nzValue="px">{{'360.admin.embed_page.pixels' | transloco}}</label>
+              </nz-radio-group>
+            </nz-form-control>
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="errorTpl">
+                <nz-input-number formControlName="height" id="height"></nz-input-number>
+                <ng-template #errorTpl let-control>
+                  <!--{360.admin.embed_page.min_height}= Height cannot be less than-->
+                  <ng-container *ngIf="control.hasError('min')">
+                    {{min_height}}!
+                  </ng-container>
+                  <!--{360.admin.embed_page.max_height}=Height cannot be more than-->
+                  <ng-container *ngIf="control.hasError('max')">
+                    {{max_height}}!
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row>
+            <nz-form-item>
+              <!--{360.admin.embed_page.url_preview}=URL Preview-->
+              <nz-form-label nzFor="urlPreview">{{'360.admin.embed_page.url_preview'| transloco}}</nz-form-label>
+              <nz-form-control>
+                <input fxFlex="74%" class="url-preview" nzSize="large" type="text" formControlName="urlPreview" nz-input
+                  disabled />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="parameters-header" fxLayout="row" fxLayoutAlign="space-between center">
+          <div>
+            <!--{360.admin.embed_page.parameters}=Parameters-->
+            <h6 class="gs-keygen" nz-title>{{'360.admin.embed_page.parameters'| transloco}}</h6>
+            <!--{360.admin.embed_page.click}=Click -->
+            <!--{360.admin.embed_page.add_bundled_parameter}=Add Bundled Parameter-->
+            <!--{360.admin.embed_page.to_add}=to add a bundle or-->
+            <!--{360.admin.embed_page.add_parameter}=Add Parameter-->
+            <!--{360.admin.embed_page.individual_parameter}=to add individual parameter.-->
+            <label class="parameters-header__info " *ngIf="!section?.isDetachSectionPreview" nz-text
+              nzType="small">{{'360.admin.embed_page.click' | transloco}} <b> {{'360.admin.embed_page.add_bundled_parameter'
+                | transloco}}</b> {{'360.admin.embed_page.to_add' | transloco}} <b>{{'360.admin.embed_page.add_parameter' |
+                transloco}}</b> {{'360.admin.embed_page.individual_parameter' | transloco}}</label>
+          </div>
+          <div fxLayout="row" *ngIf="!section?.isDetachSectionPreview">
+            <!--{360.admin.embed_page.add_bundled_parameter}=Add Bundled Parameter-->
+            <!--{360.admin.embed_page.add_parameter}=Add Parameter-->
+            <button nz-button (click)="onAddParam(paramTypes.Bundled)"
+              nzType="secondary">{{'360.admin.embed_page.add_bundled_parameter' | transloco}}</button>
+            <button nz-button (click)="onAddParam(paramTypes.Single)"
+              nzType="secondary">{{'360.admin.embed_page.add_parameter' | transloco}}</button>
+          </div>
+        </div>
+        <div fxLayout="column" class="parameters" fxLayoutAlign="flex-start center">
+          <div style="width: 100%;" *ngFor="let param of queryParams">
+            <div fxLayout="column" class="bundle-param show-border"
+              *ngIf="param.type === paramTypes.Bundled else singleParam">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <!--{360.admin.embed_page.enter_bundle_name}=enter_bundle_name-->
+                <input [disabled]="section?.isDetachSectionPreview" class="name" nz-input
+                  placeholder="{{'360.admin.embed_page.enter_bundle_name' | transloco}}" [(ngModel)]="param.name" [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="onParamChange()">
+                <i *ngIf="!section?.isDetachSectionPreview" nz-icon nzType="delete" (click)="onDeleteParam(param)"></i>
+              </div>
+              <div *ngFor="let innerParam of param.params">
+                <ng-container
+                  *ngTemplateOutlet="parameterRow;context:{paramInfo: innerParam, parentParam: param, showBundleIcons: true, disabled: section?.isDetachSectionPreview}">
+                </ng-container>
+              </div>
+            </div>
+            <ng-template #singleParam>
+              <ng-container *ngIf="param?.params?.length">
+                <ng-container
+                  *ngTemplateOutlet="parameterRow;context:{paramInfo: param.params[0], disabled: section?.isDetachSectionPreview}">
+                </ng-container>
+              </ng-container>
+            </ng-template>
+          </div>
+        </div>          
+          <nz-form-control class="include-session-validator" *ngIf="showSessionValidator">
+            <label nz-checkbox formControlName="includeSessionValidator">
+              {{'360.admin.embed_page.include_session_validator' | transloco}}
+              <i nz-icon nz-tooltip nzType="icons:info-icon" [nzTooltipTitle]="'360.admin.embed_page.session_validator_tooltip' | transloco" nzTooltipPlacement="bottom" nzTheme="outline"></i>
+            </label>
+          </nz-form-control>
+        </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #parameterRow let-paramInfo="paramInfo" let-parentParam="parentParam" let-showBundleIcons="showBundleIcons"
+  let-disabled="disabled">
+  <ng-container *ngIf="disabled">
+    <ng-container
+      *ngTemplateOutlet="disabledParameterRow;context:{paramInfo: paramInfo, parentParam: parentParam, showBundleIcons: showBundleIcons}">
+    </ng-container>
+  </ng-container>
+  <div *ngIf="!disabled" fxLayout="row" [class.show-border]="!showBundleIcons" class="param-row"
+    fxLayoutAlign="space-between center">
+    <!--{360.admin.embed_page.parameter_name}=Parameter Name-->
+    <!--{360.admin.embed_page.select_field}=Select Field-->
+    <input [(ngModel)]="paramInfo.name" (ngModelChange)="onParamChange()" nz-input
+      placeholder="{{'360.admin.embed_page.parameter_name' | transloco}}"> =
+    <nz-select [disabled]="!!paramInfo?.selectedValue" nzPlaceHolder="{{'360.admin.embed_page.select_field'| transloco}}"
+      nzShowSearch [ngModel]="paramInfo?.selectedField?.fieldName"
+      (ngModelChange)="onSelectedFieldChange($event, paramInfo)" nzAllowClear>
+      <nz-option-group *ngFor="let group of selectFieldOptionGroups" [nzLabel]="group.label">
+        <nz-option *ngFor="let field of group.fields" [nzValue]="field.fieldName" [nzLabel]="field.label"></nz-option>
+      </nz-option-group>
+      <!--{360.admin.embed_page.or}= or-->
+    </nz-select>{{'360.admin.embed_page.or' | transloco}}
+    <!--{360.admin.embed_page.enter_value}=Enter Value-->
+    <input [disabled]="paramInfo?.selectedField?.fieldName" nz-input
+      placeholder="{{'360.admin.embed_page.enter_value' | transloco}}" [(ngModel)]="paramInfo.selectedValue"
+      (ngModelChange)="onParamChange()">
+    <div fxLayout="row" *ngIf="showBundleIcons else deleteIcon">
+      <i nz-icon nzType="add" (click)="onAddParam(paramTypes.Single, parentParam)"></i>
+      <i nz-icon nzType="close" (click)="onDeleteParam(parentParam, paramInfo)"></i>
+    </div>
+    <ng-template #deleteIcon>
+      <i nz-icon nzType="delete" (click)="onDeleteParam(paramInfo)"></i>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #disabledParameterRow let-paramInfo="paramInfo" let-parentParam="parentParam"
+  let-showBundleIcons="showBundleIcons">
+  <div fxLayout="row" [class.show-border]="!showBundleIcons" class="param-row" fxLayoutAlign="space-between center">
+    <input [(ngModel)]="paramInfo.name" [disabled]="true" nz-input
+      placeholder="{{'360.admin.embed_page.parameter_name' | transloco}}"> =
+    <nz-select [disabled]="true" nzPlaceHolder="{{'360.admin.embed_page.select_field' | transloco}}" nzShowSearch
+      [ngModel]="paramInfo?.selectedField?.fieldName" (ngModelChange)="onSelectedFieldChange($event, paramInfo)"
+      nzAllowClear>
+      <nz-option-group *ngFor="let group of selectFieldOptionGroups" [nzLabel]="group.label">
+        <nz-option *ngFor="let field of group.fields" [nzValue]="field.fieldName" [nzLabel]="field.label"></nz-option>
+      </nz-option-group>
+    </nz-select> {{'360.admin.embed_page.or' | transloco}}
+    <input [disabled]="true" nz-input placeholder="{{'360.admin.embed_page.enter_value' | transloco}}"
+      [(ngModel)]="paramInfo.selectedValue" (ngModelChange)="onParamChange()">
+  </div>
+</ng-template>

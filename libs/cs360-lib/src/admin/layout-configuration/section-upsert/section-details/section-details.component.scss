@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-section-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__body {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    flex-grow: 1;
+  }
+  &__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-top: 1px solid #e3eaf1;
+    padding: 12px 20px;
+    background-color: #fff;
+    button {
+      margin: 0 1rem;
+    }
+  }
+
+  &-form {
+    width: 100%;
+    max-width: 46rem;
+    height: 100%;
+    padding: 2rem;
+    padding-top: 10rem;
+
+    .page-title {
+      margin-bottom: 2.4rem;
+      font-size: 1.6rem;
+    }
+
+    nz-form-label {
+      line-height: normal;
+    }
+    
+    nz-form-item.description {
+      nz-form-label {
+        line-height: 25px;
+      }
+
+      textarea {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+}

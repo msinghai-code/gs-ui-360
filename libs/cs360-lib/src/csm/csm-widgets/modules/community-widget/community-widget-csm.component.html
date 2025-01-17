@@ -1,0 +1,14 @@
+<ng-container *ngIf="!isPreviewSection else empty">
+  <ng-container *ngIf="load else empty">
+    <div class="csm-summary-widget-wrapper__content" fxLayout="row" fxFill fxFlex="100%">
+        <ax-lazy-element *axLazyElementDynamic="elementTag,url:url" [widgetItem]="widgetItem" [context]="ctx"></ax-lazy-element>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #empty>
+  <span class="heading">{{widgetItem?.label}}</span>
+  <div class="csm-community-widget__empty">
+    <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+  </div>
+</ng-template>

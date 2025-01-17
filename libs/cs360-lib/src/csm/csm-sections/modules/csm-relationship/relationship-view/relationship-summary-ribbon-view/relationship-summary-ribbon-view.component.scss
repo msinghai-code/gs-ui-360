@@ -1,0 +1,86 @@
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.gs-cs360-summary-ribbon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0 0 $space-base;
+  overflow-x: auto;
+  overflow-y: hidden;
+  // overflow: auto;
+  border-radius: $border-radius-large;
+  border: 1px solid $rich-gray-30;
+  background: $rich-gray-0;
+  flex-grow: 1; // to occupy the whole width available
+  &__item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex: 1; // for main since in main there will be only one row of ribbon
+  }
+  &__item-mini360 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  &__item:last-child, &__item-mini360:last-child {
+    border-right: none;
+    margin-right: 8px;
+    .divider_ribbon{
+        display: none;
+    }
+  }
+  &__item:last-child{
+    .fullWidth{
+      width: 100%;
+    }
+  }
+  &__empty {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    ::ng-deep {
+      nz-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .ant-empty-image {
+        height: 5rem;
+      }
+      .ant-empty-description {
+        margin: 0;
+      }
+    }
+  }
+  .divider_ribbon{
+    height: $space-2xlarge !important;
+  }
+}
+
+.left_icon {
+  position: absolute;
+  left: $space-large;
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(25, 35, 47, 0.06), 0 0 1px rgba(52, 56, 58, 0.20);
+}
+
+.right_icon {
+  position: absolute;
+  right: $space-xlarge;
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(25, 35, 47, 0.06), 0 0 1px rgba(52, 56, 58, 0.20);
+}
+
+.miniWidth{
+  width: 100%;
+}
+
+.fullWidth{
+  width: calc(100% - 18px);
+}

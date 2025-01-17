@@ -1,0 +1,10 @@
+<gs-container *ngIf="!chromeLess">
+  <ng-template gsModuleContent>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </ng-template>
+</gs-container>
+<gs-chromeless-container *ngIf="chromeLess">
+  <ng-template gsModuleContent>
+    <router-outlet></router-outlet>
+  </ng-template>
+</gs-chromeless-container>

@@ -1,0 +1,66 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-standard-layout-list {
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 2px 3px 0 rgba(47, 57, 67, 0.1);
+}
+
+.gs-standard-layout-list {
+  ::ng-deep .vertical-center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ::ng-deep .vertical-center-modal .ant-modal {
+    top: 0;
+  }
+  
+  ::ng-deep {
+    .gs-status-cell-renderer {
+      .label{
+        font-size: 1.1rem !important;
+      }
+      line-height: 2rem;
+      padding: 0.6rem 0;
+    }
+    .ag-cell {
+      nz-tag {
+        padding: .4rem .8rem;
+      }
+      .default {
+        nz-tag {
+          border: 1px solid #a5abe4;
+        }
+      }
+      .assigned {
+        nz-tag {
+          border: 1px solid #90E2C2;
+        }
+      }
+      .unassigned {
+        nz-tag {
+          border: 1px solid #E3EAF1;
+        }
+      }
+      .draft {
+        nz-tag {
+          border: 1px solid #FCDF91;
+        }
+      }
+      .gs-drag-label__text{
+        text-overflow: ellipsis ;
+        overflow: hidden ;
+        white-space: nowrap ;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,51 @@
+<section class="gs-csm-relationship-filters">
+  <div class="gs-csm-relationship-filters__header">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text"
+             nz-input
+             [formControl]="searchControl"
+             (keydown.enter)="onChange($event)"
+             [placeholder]="'360.csm.relationship_filter.placeholder'| transloco" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+  <div class="gs-csm-relationship-filters__body">
+    <nz-collapse [nzBordered]="false">
+      <nz-collapse-panel
+              class="gs-csm-relationship-filters-body-collapse-panel"
+              *ngFor="let panel of panels"
+              [nzHeader]="panel.name"
+              [nzActive]="panel.active"
+              [nzDisabled]="panel.disabled"
+              [nzShowArrow]="panel.arrow">
+        <!-- list item will go here -->
+        <div class="gs-csm-relationship-filter-body__group" [ngClass]="panels.length === 1 ? 'full-height': ''">
+          <ng-container *ngIf="!loader else loadertmpl">
+            <nz-list [nzDataSource]="panel.data"
+                     [nzRenderItem]="defaultItem"
+                     nzSize="small"
+                     [nzNoResult]="nodata">
+              <ng-template #defaultItem let-item>
+                <nz-list-item
+                        style="border-bottom: none;"
+                        class="gs-csm-relationship-filter-body__group-item"
+                        [ngClass]="{'selected': (selectedItem?.id === item?.id)}"
+                        (click)="onItemClick(panel, item, true)">
+                  <label nz-text nzType="medium">{{item?.label || item?.name}}</label>
+                </nz-list-item>
+              </ng-template>
+              <ng-template #nodata>
+                <nz-empty></nz-empty>
+              </ng-template>
+            </nz-list>
+          </ng-container>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </div>
+</section>
+<ng-template #loadertmpl>
+  <nz-skeleton [nzActive]="true"></nz-skeleton>
+</ng-template>

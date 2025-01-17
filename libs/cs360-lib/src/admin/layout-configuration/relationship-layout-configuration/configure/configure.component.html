@@ -1,0 +1,34 @@
+<section class="gs-relationship-configuration-configure">
+  <div class="gs-relationship-configuration-configure__content">
+    <nz-tabset class="gs-relationship-configuration-configure__tabset"
+               [nzSize]="'medium'"
+               nzLinkRouter
+               [nzAnimated]="false"
+               [nzTabBarGutter]="24"
+               [(nzSelectedIndex)]="selectedIndex">
+      <nz-tab *ngFor="let tab of tabs" (nzSelect)="onTabSelect(tab)" [nzForceRender]="true">
+        <a nz-tab-link class="gs-relationship-configuration-configure__tabset--label">{{tab?.label}}</a>
+        <div class="gs-relationship-configuration-configure__body-content">
+          <ng-container [ngSwitch]="tab.name">
+            <gs-summary-ribbon-config (onChanges)="onChanges($event)" *ngSwitchCase="'ribbon'"></gs-summary-ribbon-config>
+            <gs-list-view-config (onChanges)="onChanges($event)" *ngSwitchCase="'list'"></gs-list-view-config>
+            <gs-card-view-config (onChanges)="onChanges($event)" *ngSwitchCase="'card'"></gs-card-view-config>
+          </ng-container>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+  <div class="gs-relationship-configuration-configure__footer">
+      <!--{360.admin.configure.back_btn}=Back-->
+    <button    class="gs-keygen" nz-button nzType="default" (click)="navigateToAssign()" [disabled]="isDefault">  {{'360.admin.configure.back_btn' | transloco}}</button>
+    <div class="gs-summary-ribbon-config-footer__action">
+      <!--{360.admin.configure.cancel_btn}=Cancel-->
+        <!--{360.admin.configure.save_btn}=  Save-->
+      <button   class="gs-keygen" nz-button nzType="default" (click)="close()">{{'360.admin.configure.cancel_btn' | transloco}}</button>
+      <button   class="gs-keygen" nz-button nzType="primary" (click)="!isSaveIsInProgress? save():''" [nzLoading]="isSaveIsInProgress">
+        {{'360.admin.configure.save_btn' | transloco}}
+      </button>
+    </div>
+  </div>
+</section>
+

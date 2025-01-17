@@ -1,0 +1,4 @@
+<ax-lazy-element
+       fxLayout="column" fxFlex="100%" fxFill *axLazyElementDynamic="elementTag,url:url" [context]="renderContext" [widgetItem]="widgetItem"
+       (navigateToSection)="navigateToSection($event)" [section] = "widgetItem">
+</ax-lazy-element>

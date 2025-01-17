@@ -1,0 +1,275 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/font";
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/border";
+
+@mixin text-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+$size-xs: 1rem;
+$size-sm: 1.2rem;
+$size-md: 1.4rem;
+$size-lg: 1.6rem;
+$size-xl: 1.8rem;
+$size-xxl: 2rem;
+$size-22: 2.2rem;
+$size-24: 2.4rem;
+$size-26: 2.6rem;
+$size-28: 2.8rem;
+$size-3x: 3rem;
+
+
+@mixin screen-sm {
+  .title {
+    margin-bottom: .5rem;
+    font-size: $size-xs;
+    line-height: $size-xs;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+  .content {
+    font-size: $size-sm;
+    line-height: $size-sm;
+    margin-right: .5rem;
+    ::ng-deep{
+      .gs-visualization-suffix,.attribute-message, .attribute-warning {
+        font-size: $size-xs;
+        @include text-ellipsis;
+        min-width: $size-sm;
+      }
+      .gs-numeric-score{
+        height: $size-sm;
+      }
+      .gs-color-score{
+        height: $size-sm;
+      }
+      .gs-grade-score{
+        height: $size-sm;
+      }
+    }
+  }
+}
+@mixin screen-md {
+  .title {
+    margin-bottom: 1rem;
+    font-size: $size-sm;
+    line-height: $size-sm;
+  }
+  .content{
+    font-size: $size-xl;
+    line-height:  $size-xl;
+    margin-right: .8rem;
+    ::ng-deep{
+      .gs-visualization-suffix,.attribute-message, .attribute-warning {
+        font-size: $size-sm;
+        min-width: $size-xl;
+        @include text-ellipsis;
+        .value{
+          padding: 0px;
+        }
+      }
+      .gs-numeric-score{
+        height: $size-xl;
+      }
+      .gs-color-score{
+        height: $size-xl;
+      }
+      .gs-grade-score{
+        height: $size-xl;
+      }
+    }
+
+  }
+}
+@mixin screen-lg {
+  .title {
+    margin-bottom: $size-sm;
+    font-size: $size-md;
+    line-height: $size-md;
+  }
+  .content {
+    font-size: $size-22;
+    line-height: $size-22;
+    margin-right: $size-sm;
+    ::ng-deep{
+      .gs-visualization-suffix,.attribute-message, .attribute-warning {
+        font-size: $size-md;
+        @include text-ellipsis;
+        min-width: $size-26;
+      }
+      .gs-numeric-score{
+        height: $size-24;
+      }
+      .gs-color-score{
+        height: $size-24;
+      }
+      .gs-grade-score{
+        height: $size-24;
+      }
+    }
+  }
+}
+@mixin screen-xl {
+  .title {
+    margin-bottom: $size-md;
+    font-size: $size-md;
+    line-height: $size-lg;
+  }
+  .content{
+    font-size: $size-26;
+    line-height: $size-26;
+    margin-right: $size-md;
+    ::ng-deep{
+      .gs-visualization-suffix,.attribute-message, .attribute-warning {
+        font-size: $size-lg;
+        @include text-ellipsis;
+        min-width: $size-26;
+      }
+      .gs-numeric-score{
+        height: $size-26;
+      }
+      .gs-color-score{
+        height: $size-26;
+      }
+      .gs-grade-score{
+        height: $size-26;
+      }
+
+    }
+  }
+}
+@mixin screen-xxl {
+  .title {
+    margin-bottom: $size-lg;
+    font-size: $size-xl;
+    line-height: $size-xl;
+  }
+  .content{
+    font-size: $size-28;
+    line-height: $size-28;
+    margin-right: $size-md;
+    ::ng-deep{
+      .gs-visualization-suffix, .attribute-message, .attribute-warning {
+        font-size: $size-lg;
+        @include text-ellipsis;
+        min-width: $size-28;
+      }
+      .gs-numeric-score{
+        height: $size-28;
+      }
+      .gs-color-score{
+        height: $size-28;
+      }
+      .gs-grade-score{
+        height: $size-28;
+      }
+    }
+  }
+}
+
+.pie-chart-content {
+  display: flex;
+}
+
+.gs-summary-attribute {
+    /* Base styles that work for any screen size */
+    height: 100%;
+    overflow: hidden;
+    padding: $border-radius-base;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    //min-width: 1rem;
+    .title {
+      display: block;
+      margin-bottom: 4px !important;
+      color: $rich-gray-60;
+      font-size: $font-size-sm; 
+      line-height: $size-md;
+      max-width: 90%;
+      @include text-ellipsis;
+    }
+    .left-content {
+      max-width: 40px;
+      display: flex;
+      flex-direction: row;
+      margin-right: $space-large;
+      &__warning-icon {
+        color: #FFC933;
+      }
+      ::ng-deep.gs-visualization-suffix {
+        font-size: $size-md;
+        margin: 0;
+        .value {
+          padding: 0;
+        }
+      }
+      .attribute-warning{
+        font-size: $size-xs;
+      }
+      .attribute-message{
+        font-size: $size-xs;
+        color: #4B6A87;
+        width: 100%;
+        @include text-ellipsis;
+      }
+    }
+    /* Overridden styles that work for the classes based on its container size */
+    &.XXL{
+      @include screen-xxl;
+    }
+    &.XL{
+      @include screen-xl;
+    }
+    &.LG{
+      @include screen-lg;
+    }
+    &.MD{
+      @include screen-md;
+    }
+    &.SM{
+      @include screen-sm;
+    }
+  .right-content{
+    //since we have graph of 40px width + 16px gap
+    max-width: calc(100% - 56px);
+  }
+  &.singleRow {
+    ::ng-deep{
+      .gs-number-view {
+        span.count {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.attribute-message {
+  color: $rich-gray-60;
+  font-size: 10px;  // no design token for 10px if i put less than 10 coming very small font
+  @include text-ellipsis;
+}
+
+@media(min-width: 125em){
+  @include screen-xxl;
+}
+@media(min-width: 100em){
+  @include screen-xxl;
+}
+@media(min-width: 99em){
+  @include screen-xl;
+}
+@media(min-width: 90em){
+  @include screen-lg;
+}
+@media(min-width: 80em){
+  @include screen-md;
+}
+@media(max-width: 79.99em){
+  @include screen-sm;
+}

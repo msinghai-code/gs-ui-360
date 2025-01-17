@@ -1,0 +1,29 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/app",
+		"types": [],
+		"paths": {
+			"@gs/core": [
+				"../../imports/gs_ng_core"
+			],
+			"@gs/ng-horizon": [
+				"../../node_modules/@gs/ng-horizon"
+			],
+			"@gs/ng-horizon/*": [
+				"../../node_modules/@gs/ng-horizon/*"
+			]
+		},
+		"allowSyntheticDefaultImports": true
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"src/test.ts",
+		"src/**/*.spec.ts"
+	],
+	"files": [
+		"../../imports/gs_ng_core/typings/GSGlobals.d.ts"
+	]
+}

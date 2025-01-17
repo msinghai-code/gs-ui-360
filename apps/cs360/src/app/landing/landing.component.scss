@@ -1,0 +1,242 @@
+
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/alias";
+// @import "~@gs/design-tokens/scss/font";
+@import "~@gs/design-tokens/scss/spacings";
+// @import "~@gs/design-tokens/scss/border";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-cs360-landing {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // height: 1000gs-cs360-summary-ribbonpx;
+  &.c360 {
+    .header {
+      background-color: $plain-gray-0;
+      padding-left: $space-medium;
+    }
+    .body {
+      // flex-grow: 1; Its not working in this scenario
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0.75rem;
+    }
+
+    .csm-section-renderer-wrapper {
+      &.miniVariant {
+        ::ng-deep{
+          gridster-item {
+            padding: $space-large;
+          }
+        }
+      }
+      &:not(.timeline){
+        margin: $space-large $space-2xlarge $space-2xlarge $space-2xlarge;
+      }
+      height: calc(100% - 48px) !important; // 48px is the height of the header
+
+      // This is done to handle summary section responsiveness in Account widget.
+      &.summary{
+        &:not(.compact):not(.miniVariant) {
+          min-width: 1110px;
+        }
+
+        @media screen and (min-width: 600px) {
+          &.compact {
+            min-width: 1110px;
+          }
+        }
+      }
+    }
+    .preview-banner {
+      height: 9.2rem;
+    }
+  }
+  &.r360 {
+    .header {
+      // height: 6.8rem;
+      padding-left: $space-medium;
+      background-color: $plain-gray-0;
+    }
+    .body {
+      // flex-grow: 1; Its not working in this scenario
+      // height: calc(100% - 6.8rem);
+     // height: calc(100% - 5.6rem);
+      height: 100%;
+      min-height: 0.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .csm-section-renderer-wrapper {
+      // margin: 18px 20px !important;
+      height: calc(100% - 48px) !important; // 48px is the height of the header
+      &.miniVariant {
+        ::ng-deep{
+          gridster-item {
+            padding: $space-large;
+          }
+        }
+      }
+      &:not(.timeline){
+        margin: $space-large $space-2xlarge $space-2xlarge $space-2xlarge;
+      }
+      // This is done to handle summary section responsiveness in Account widget.
+      &.summary{
+        &:not(.compact):not(.miniVariant) {
+          min-width: 1110px;
+        }
+
+        @media screen and (min-width: 600px) {
+          &.compact {
+            min-width: 1110px;
+          }
+        }
+      }
+    }
+  }
+  .c360-vertical-loader-cntr {
+    flex: 1;
+    overflow: auto;
+    height: auto;
+    padding-left: $space-medium;
+    &__section {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      &--header {
+        margin: 1.6rem 0;
+      }
+      &--content {
+        flex-grow: 1;
+        height: auto;
+        display: flex;
+      }
+    }
+  }
+
+  &.compact {
+    background-color: #fff;
+    &.c360 {
+      .csm-section-renderer-wrapper {
+        margin: 0 !important;
+        padding: $space-base !important;
+        height: 100% !important;
+      }
+    }
+
+    &.r360 {
+      .csm-section-renderer-wrapper {
+        margin: 0 !important;
+        padding: $space-base !important;
+        height: 100% !important;
+      }
+
+      .body {
+        height: 100%;
+      }
+    }
+
+    ::ng-deep {
+
+      .ant-tabs-bar {
+        padding: 0 !important;
+      }
+      .ant-tabs-nav {
+        // padding-left: 5px;
+        > div {
+          .ant-tabs-tab {
+            margin-right: $space-large;
+            &:first-child {
+              margin-left: 7px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.compact) {
+    ::ng-deep {
+      .ant-tabs-top-bar {
+        box-shadow: 0 2px 3px 0 rgb(47 57 67 / 10%), 0 0 1px 0 rgb(47 57 67 / 20%);
+        border: none !important;
+        font-weight: 600 !important;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .ant-tabs-tabpane {
+      overflow: auto;
+    }
+
+    .ant-tabs-bar {
+      position: relative;
+    }
+    .ant-tabs-extra-content {
+      position: absolute;
+      z-index: 99;
+      padding: $space-base 0px 0px $space-large;
+      color: $rich-gray-60;
+    }
+
+     .ant-tabs{
+      overflow-y: hidden;
+    }
+    .gs-render-all {
+      .ant-tabs-content {
+        display:none !important;
+      }
+    }
+    .ant-tabs-content {
+      height: calc(100% - 3.2rem);
+    }
+
+    .ant-tabs-bar {
+      margin-bottom : 0px !important;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .ant-select-dropdown {
+      position: static !important;
+    }
+
+    .ant-tabs-top-bar {
+      position: sticky !important;
+      top: 0;
+      z-index: 2;
+    }
+  }
+}
+
+.mini360Variant{
+  height: 100vh;
+}
+
+.unread-count {
+  font-size: 11px;
+  color: #fff;
+  background-color: #f75d4f;
+  padding: $space-2xsmall $space-base;
+  border-radius: $space-large;
+  margin-left: 1px;
+}
+
+.gs-manage-personalized-section-modal {
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    button {
+      margin: 0 8px;
+    }
+  }
+}

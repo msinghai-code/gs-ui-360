@@ -1,0 +1,160 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+$default-rte-font: 14px;
+
+:host {
+
+    ::ng-deep {
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+            // box-shadow: inset 0 0 5px grey; 
+            border-radius: 3px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 4px solid transparent;
+            background-clip: padding-box;
+        }
+    }
+}
+
+.section-wrapper {
+    overflow: hidden;
+    height: 100%;
+    display: block !important;
+    &:hover {
+        overflow-y: auto !important;
+    }
+
+  ::ng-deep {
+
+    .rte-container__view:hover {
+        background-color: unset;
+    }
+
+    gs-rte {
+        font-size: $default-rte-font !important;
+        ul {
+            list-style-type: disc;
+            ul {
+                list-style-type: circle;
+                ul {
+                    list-style-type: square;
+                }
+            }
+            li {
+                list-style-type: disc !important;
+            }
+        }
+
+        ol {
+            list-style-type: decimal;
+        }
+
+        p {
+            margin: 0 !important;
+            line-height: initial !important;
+        }
+
+        .fr-dropdown-menu {
+            top: 32.8px !important;
+            bottom: unset !important;
+        }
+
+        .fr-selected-color {
+            background: url('../../../assets/images/tick.svg') center no-repeat;
+            background-position: 50% 70%;
+            color: transparent;
+            font-family: unset;
+        }
+
+        .fr-active-item {
+            border: 2px solid #0469e9;
+        }
+    }
+  }
+}
+
+.field-edit-hover {
+    .edit-icon {
+        display: none;
+    }
+    &:hover {
+        border-radius: 0.4rem;
+        background-color: #ebf3fe;
+        .edit-icon {
+            display: block;
+        }
+    }
+
+    &-content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+
+        &.editable {
+            border-radius: 4px;
+            outline: none;
+            height: 2.6rem;
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(184, 200, 216, 0.2);
+            }
+        }
+    }
+}
+
+.rta-editor-wrapper {
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+
+.rta-preview {
+    overflow: auto;
+    height: 100%;
+}
+
+.ant-popover-inner {
+    height: unset !important;
+    padding: 2rem !important;
+    max-width: 50rem;
+    word-wrap: break-word;
+}
+  
+.urlDetails{
+    overflow-wrap: break-word;
+}
+.mini-360 {
+    &.section-wrapper {
+        overflow: initial; // reset the overflow
+        height: initial; // reset the height
+    }
+    ::ng-deep {
+        gs-rte {
+            .rte-container {
+                min-height: 0;
+            }
+        }
+    }
+}
+
+.non-editable-flp {
+  cursor: url('../../../assets/images/not-allowed-cursor.svg'), no-drop;
+
+  &__block{
+    pointer-events: none;
+  }
+}
+
+.attr-wrapper {
+  display: block !important;
+}

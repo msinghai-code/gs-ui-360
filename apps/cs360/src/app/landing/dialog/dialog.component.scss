@@ -1,0 +1,109 @@
+//@import '~@angular/material/theming';
+//@import '../../../../../../assets/scss/horizon2.1/core/variables';
+
+.header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 26px;
+}
+
+.export-header {
+  color: #4B6A87;
+  width: 147px;
+  height: 16px;
+  //font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+}
+
+.close {
+  float: right;
+}
+
+.account {
+  width: 325px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+}
+
+.account-image-sec {
+  width: 10%;
+  float: left;
+  margin-left: 19px;
+}
+
+.header-account-image {
+  width: 12%;
+  float: left;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.account-image {
+  width: 36px;
+  border-radius: 64%;
+  border: 2px solid #E2E9F0;
+}
+
+.default-image {
+  width: 36px;
+  height: 38px;
+  background-size: contain;
+  background: url("../../../assets/images/User_Profile.svg") no-repeat center;
+}
+
+.account-details {
+  width: 80%;
+  height: 78%;
+  float: right;
+}
+
+.account-name {
+  width:100%;
+  height: 37%;
+  color: #2B3D51;
+  font-size: 13px;
+}
+
+.account-email {
+  width:100%;
+  height: 37%;
+  color: #557391;
+  font-size: 12px;
+}
+
+.revoke-msg {
+  color: #557391;
+  font-size: 12px;
+  width: 269px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+}
+
+.revoke-button {
+  width: 114px;
+  height: 28px;
+  border-radius: 16px;
+  border: solid 1px #e3eaf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0470F7;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+::ng-deep {
+  .mat-dialog-container {
+    padding: unset !important;
+  }
+}

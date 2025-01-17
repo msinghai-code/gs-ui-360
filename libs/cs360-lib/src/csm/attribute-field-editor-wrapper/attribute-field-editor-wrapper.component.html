@@ -1,0 +1,100 @@
+<section *ngIf="!isLoading else empty" class="attr-wrapper" [class.section-wrapper]="fieldItem?.dataType === 'RICHTEXTAREA'" [class.non-editable]="!fieldItem?.properties?.editable"
+[class.mini-360]="isMini360">
+  <div
+    [ngClass]="{
+      'editable': fieldItem?.properties?.editable && !isReadOnly,
+      'rta': fieldItem.dataType === 'RICHTEXTAREA',
+      'ql-snow': fieldItem.dataType === 'RICHTEXTAREA',
+      'non-editable-flp': !fieldItem?.properties?.editable
+    }"
+    *ngIf="(!fieldItem?.properties?.editable || isReadOnly) && fieldItem?.dataType !== 'BOOLEAN' else editorTemplate" class="field-edit-hover-content">
+    <div nz-text nzEllipsis [nzEllipsisRows]="fieldItem?.dataType !=='RICHTEXTAREA'  ? ellispsisRows : '' "  gsShowIfEllipsis (isEllipsisVisible)="tooltipVisible($event)" elementType="inline" class ="urlDetails" [class.non-editable-flp]="!fieldItem?.properties?.editable" nz-tooltip [nzTooltipTitle]="(fieldItem?.dataType === 'RICHTEXTAREA' || ( isSummarySection && !isTooltipVisible) || fieldItem.showLockedInfo) ? '' : titleTemplate">
+      <ng-container *ngIf="fieldItem.dataType === 'URL' else stringField">
+        <a *ngIf="data?.fv else generalField" [href]="data?.fv | formatData : fieldItem : true"
+          nz-text
+          target="_blank"
+          rel="noopener" 
+          [innerHTML]="data?.fv || '---'" nz-tooltip  [nzTooltipTitle]="fieldItem.showLockedInfo? (data?.fv || '---'):''"
+           [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'">
+        </a>
+      </ng-container>
+      <ng-template #stringField>
+        <h4 nz-title appExternalLink nzEllipsis [nzEllipsisRows]="ellispsisRows" *ngIf="fieldItem?.dataType === 'STRING' && !isMappingField else mappingField" class="field-edit-hover-content-value generalfields" [innerHTML]="data?.fv || '---' | decodeData" [nzContent]="data?.fv  || '---' | formatData: fieldItem" nz-tooltip  [nzTooltipTitle]="fieldItem.showLockedInfo? (data?.fv || '---'):''"
+              [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'"></h4>
+      </ng-template>
+
+      <ng-template #mappingField>
+        <h4 nz-title nzEllipsis [nzEllipsisRows]="ellispsisRows" *ngIf="fieldItem?.dataType === 'STRING' || fieldItem?.dataType === 'LOOKUP' && isMappingField else generalField" class="field-edit-hover-content-value generalfields" [innerText]="data?.fv || '---' | decodeData" [nzContent]="data?.fv  || '---' | formatData: fieldItem" nz-tooltip [nzTooltipTitle]="fieldItem.showLockedInfo? (data?.fv || '---'):''"  [nzTooltipTitle]="fieldItem.showLockedInfo? tooltipTemplate:''"
+              [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'"></h4>
+      </ng-template>
+      <ng-template #generalField>
+        <h4 nz-title nzEllipsis [nzEllipsisRows]="ellispsisRows" appExternalLink *ngIf="fieldItem?.dataType !== 'RICHTEXTAREA' else richText" class="field-edit-hover-content-value generalfields" [innerHTML]="data?.fv || '---'" [nzContent]="data?.fv  || '---' | formatData: fieldItem" nz-tooltip [nzTooltipTitle]="fieldItem.showLockedInfo? (data?.fv || '---'):''"  [nzTooltipTitle]="fieldItem.showLockedInfo? tooltipTemplate:''"
+              [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'"></h4>
+      </ng-template>
+      <ng-template #richText>
+       <!--<h4 nz-title class="field-edit-hover-content-value" [innerHTML]="(data?.fv  || '---' | formatData: fieldItem) | safeHTML"></h4> -->
+        <gs-rte 
+          [options]="{ iframe: true, readOnly: true, autofocus: false }"
+          [content]="(data?.fv || '---') | formatData: fieldItem"
+          nz-tooltip  [nzTooltipTitle]="''"
+          [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'"
+        ></gs-rte>
+      </ng-template>
+    </div>
+  </div>
+</section>
+
+
+<ng-template #editorTemplate>
+  <div fxLayout="column" fxFlex [class.rta-editor-wrapper]="fieldItem.dataType === 'RICHTEXTAREA'">
+    <gs-attribute-field-editor 
+      #fieldEditor  
+      fxLayout="column" fxFlex="calc(100% - 2rem)"
+      [showLabel]="false"
+      [editable]="false"
+      [isReadOnly]="isReadOnly"
+      [gridInlineEditEnabled]="true"
+      [fields]="[fieldItem]"
+      [showErrors]="true"
+      [defaultOpenPopups]="true"
+      [treeData] = "treeData"
+      [nzEllipsisRows]="ellispsisRows"
+      (updateValue)="onFocusout()"
+      (managedByData)="fetchManagedByData($event)"
+      (valueChanged)="onValueUpdated($event, fieldEditor)"
+      (editState)="editStateChanged($event)"
+      >
+    </gs-attribute-field-editor >
+
+    <nz-overlay #popover [nzPopoverPlacement]="'topLeft'">
+      <div class="ant-popup">
+        <div class="ant-popup-content">
+          <div class="ant-popover-inner">
+            <div class="ant-popover-message">
+              <h4  class="gs-keygen" nz-title>{{'360.csm.attribute_field_editor_wrapper.updateAttribute'| transloco}}</h4>
+                <label>{{'360.csm.attribute_field_editor.updatingMessage'| transloco}} '{{fieldItem.label}}' {{'360.csm.attribute_field_editor.updatingMessageReset'| transloco}}: ({{fieldItem.controllingFieldLabels}})</label>
+            </div>
+            <div class="ant-popover-buttons">
+              <button nz-button nzType="default" (click)="onCancel()">{{'360.csm.attribute_field_editor_wrapper.cancel'| transloco}}</button>
+              <button nz-button nzType="primary" (click)="onUpdate()">{{'360.csm.attribute_field_editor_wrapper.update'| transloco}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nz-overlay>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div fxFill gsSpinner [show]="isLoading" [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams">
+  </div>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <div [innerText]="data?.fv || '---'" nz-tooltip  [nzTooltipTitle]="fieldItem.showLockedInfo? (data?.fv || '---'):''"
+       [nzTooltipContent]="fieldItem.showLockedInfo? tooltipTemplate:''" [nzTooltipPlacement]="'bottomLeft'"> </div>
+</ng-template>
+
+<ng-template #tooltipTemplate>
+    <p class="lockedText">Editing this field requires additional permissions. Please reach out to your Gainsight Administrator to request access.</p>
+</ng-template>

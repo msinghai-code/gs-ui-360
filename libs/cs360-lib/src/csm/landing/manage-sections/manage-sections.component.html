@@ -1,0 +1,73 @@
+<nz-spin class="manage_section" [nzSize]="'xl'" [nzSpinning]="isLoading">
+    <label nz-text nzType="small" nzColor="secondary">{{title}}</label>
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="input-bar">
+    <input type="text" nz-input [placeholder]="'360.csm.more_tabs.placeholder'| transloco" [formControl]="searchInput" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <div style="max-height : calc(100vh - 38rem); overflow-y: auto;"
+    *ngIf="(applicableSections| filterListBySearchTerm : 'label': searchTerm).length > 0">
+      <h6 nz-text nzType="small" class="section-title">{{'360.csm.manage_section.pinned' | transloco}}
+      ({{pinnedSections.length}}/{{sectionsLimit}})</h6>
+    <span *ngIf="pinnedSections.length === 0" class="pinned-status">{{'360.csm.manage_section.noSecPinned' |
+      transloco}}</span>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event, true)" class="manage_section__container">
+      <ng-container
+        *ngFor="let section of pinnedSections | filterListBySearchTerm :'label': searchTerm;">
+        <div class="manage_section__item_pin">
+          <div *ngIf="section.pinned" cdkDrag class="manage_section__item" fxLayout="row"
+            fxLayoutAlign="space-between center">
+            <div class="manage_section__itemlabel" fxLayout="row" fxLayoutAlign="start center">
+              <i nz-icon nzType="drag" nzTheme="outline" class="gs-icons gs-icons-draggable-indicator"></i>
+              <span class="disable_text_selection" nz-tooltip [nzTooltipTitle]="section.label" nzTooltipPlacement="right">{{section.label}}</span>            </div>
+            <div class="manage_section__pin">
+                <i nz-icon nzType="pin-filled" nzTheme="fill" nzSize="24" (click)="togglePin(section)"></i>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <nz-divider class="divider-groups"></nz-divider>
+      <h6 class="section-title" nz-text nzType="small">{{'360.csm.manage_section.unpinned' | transloco}}</h6>
+      <h6 nz-text nzType="small" nzColor="secondary" *ngIf="pinnedSections.length === sectionsLimit && unPinnedSections.length == 0">
+        {{'360.csm.manage_section.allPinned' | transloco}}</h6>
+      <label nz-text nzType="small" nzColor="secondary" *ngIf="pinnedSections.length === sectionsLimit && unPinnedSections.length != 0">
+      {{ isMini360 ?
+        'Maximum 5 sections can be pinned. You must unpin an existing section before you add a new one.' :
+        ('360.csm.manage_section.maxPin' | transloco) }}
+    </label>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event, false)" class="manage_section__container">
+      <ng-container
+        *ngFor="let section of unPinnedSections | filterListBySearchTerm : 'label': searchTerm;">
+        <div *ngIf="!section.pinned" cdkDrag class="manage_section__item" fxLayout="row"
+          fxLayoutAlign="space-between center">
+          <div class="manage_section__itemlabel" fxLayout="row" fxLayoutAlign="start center">
+              <i nz-icon nzType="drag" nzTheme="outline" class="gs-icons gs-icons-draggable-indicator"></i>
+              <span class="disable_text_selection" nz-tooltip [nzTooltipTitle]="section.label" nzTooltipPlacement="right">{{section.label}}</span>          </div>
+          <div class="manage_section__pin" *ngIf="isMini360 ? pinnedSections.length<5 : pinnedSections.length<10">
+            <div class='manage_section__unpin'>
+                <i nz-icon nzType="pin-line" nzTheme="general" nzSize="24" (click)="togglePin(section)"></i>
+            </div>
+          </div>
+          <div class="manage_section__pin" *ngIf="isMini360 ? pinnedSections.length == 5 : pinnedSections.length == 10">
+            <div class='manage_section__unpin'>
+<!--              <i nz-icon [nzType]="'images:pin'" [nzSize]="20" nzTheme="fill" disabled nz-tooltip-->
+<!--                [nzTooltipTitle]="tooltipTitle"></i>-->
+                <i nz-icon nzType="pin-line" nzTheme="general" nzSize="24" disabled nz-tooltip [nzTooltipTitle]="tooltipTitle"></i>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+    <div *ngIf="(applicableSections| filterListBySearchTerm : 'label': searchTerm).length === 0" class="no-results">
+        <div><i nz-icon nzType="search" nzTheme="outline" nzSize="41"></i></div>
+        <ng-container *transloco="let t; read: '360'">
+            {{t('csm.manage_section.noSectionFound',{searchTerm : searchTerm})}}
+        </ng-container>
+    </div>
+</nz-spin>

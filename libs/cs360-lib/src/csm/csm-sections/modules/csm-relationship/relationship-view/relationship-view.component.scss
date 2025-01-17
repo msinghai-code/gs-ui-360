@@ -1,0 +1,249 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/border";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-relationship-view-main360 {
+  padding: $space-large;
+}
+
+.gs-csm-relationship-view {
+  height: 100%;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // padding: 0 0.5rem;
+    // display: flex;
+    // padding: 8px;
+    // justify-content: space-between;
+    // align-items: center;
+  }
+  &__header-mini360 {
+    display: flex;
+    padding: $space-base;
+    width: 776px;
+    justify-content: space-between;
+  }
+  &__body {
+    height: calc(100% - 4rem);
+    overflow: auto;
+  }
+  &.no-padding {
+    padding: 0;
+  }
+  .filtered {
+    padding-left: $space-base;
+  }
+  .no-break-tag {
+    display: none;
+  }
+  .selected-grid-type {
+    padding-left: $space-base;
+  }
+}
+
+.gs-csm-relationship-view-header {
+  &__left {
+    padding: $space-xsmall $space-xsmall $space-xsmall 0px;
+    align-items: flex-start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    left: -$space-base;
+    position: relative;
+    .type-label {
+      font-weight: 700;
+    }
+  }
+  &__right {
+    display: flex;
+    // align-items: center;
+    gap: $space-large;
+  }
+  &__search {
+    width: 20rem;
+  }
+  &__refresh {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    i {
+      color: $rich-gray-60;
+    }
+  }
+  &__sort {
+    font-size: 2rem;
+    i {
+      color: $rich-gray-60;
+    }
+  }
+  &__filter {
+    // font-size: 2rem;
+    // margin-bottom: 1.8rem;
+    // padding: 0 1.5rem;
+    ::ng-deep {
+      .ant-btn-circle {
+        &:hover {
+          background-color: $rich-gray-30;
+        }
+      }
+      .ant-btn-link {
+        &:focus {
+          background-color: $rich-gray-30;
+        }
+      }
+    }
+    button {
+      padding-bottom: $space-2xsmall;
+    }
+    i {
+      color: $rich-gray-60;
+    }
+  }
+  &__view-switcher {
+    padding-right: 1.5rem;
+    min-width: 18rem;
+  }
+  &__add-rel {
+    padding-bottom: 0.8rem;
+  }
+}
+
+
+
+.gs-csm-relationship-drawer-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &__body {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0 0 $space-2xlarge $space-2xlarge;
+  }
+  &__footer {
+    border-top: $border-width-base $border-style-base $border-color-base;
+    padding: $space-medium $space-2xlarge;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__footer-btn:not(:first-of-type) {
+    margin-left: $space-large;
+  }
+
+}
+
+.selected-item-label {
+  font-weight: 600;
+}
+
+.gs-csm-relationship {
+  &_card-view {
+    &::before {
+      opacity: 0;
+    }
+  }
+  &__drawer {
+    height: 100%;
+    ::ng-deep {
+      .gs-filt-qury__nonagg{
+          padding-left: 4.2% !important;
+      }
+      .gs-filt-qury__alias{
+          margin-right: 0.5rem !important;
+      }
+    }
+  }
+  &__banner {
+    position: absolute;
+    width: 100%;
+    bottom: 9.5rem;
+  }
+}
+
+.filtered{
+font-size: 12px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: 1.33;
+letter-spacing: normal;
+color: $rich-gray-70;
+}
+
+
+::ng-deep {
+  .gs-info-banner {
+    left: -20px !important;
+}
+}
+
+.sort-menu {
+  height: 100%;
+  align-items: flex-start;
+  &__radio {
+    margin: 1.4rem;
+  }
+  nz-divider {
+    margin: 0;
+  }
+  &__columns {
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 1rem;
+    &__selected {
+      color: $royal-blue-70;
+    }
+  }
+}
+
+.drawerTitle {
+  color: $rich-gray-90;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.relationship-breadcrumb {
+  padding-bottom: $space-xsmall;
+  a{
+    color: $royal-blue-70;
+  }
+}
+::ng-deep {
+.rel-filter-modal {
+    .ant-modal-footer {
+      button:first-child {
+        position: absolute;
+        left: 25px;
+      }
+    }
+  }
+}
+
+// overiding for now will remove once fix is done from horizon ///
+.relationship-ant-dropdown {
+  overflow-x: auto;
+  max-height: 32rem;
+}
+
+::ng-deep {
+  .gs-csm-relationship-drawer {
+    .ant-drawer-title {
+      padding: $space-base $space-base $space-base $space-large !important;
+    }
+  }
+}
+::ng-deep {
+.gs-csm-relationship-drawer {
+    .ant-drawer-body {
+      padding: $space-base 0 0 0;
+      overflow: auto
+    }
+  } 
+}

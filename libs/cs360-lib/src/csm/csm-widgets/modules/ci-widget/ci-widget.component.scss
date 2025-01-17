@@ -1,0 +1,40 @@
+.csm-ci-summary-widget{
+    &__header_container{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__label{
+        width: calc(100% - 80px);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+    }
+    // &__navLink{
+
+    // }
+}
+gs-company-intelligence-web{
+    width: 100%
+}
+.csm-ci-summary-widget{
+    &__wrapper{
+        margin: -20px;
+        width: calc(100% + 40px)!important;
+        height: calc(100% + 40px)!important;
+        max-width: none!important;
+
+        &_content{
+            padding: 0;
+        }
+    }
+}
+.csm-ci-spinner{
+    display: block;
+    margin: auto;
+    position: relative;
+    width: 32px;
+    height: 44px;
+    // top: calc(50% - 44px);
+}

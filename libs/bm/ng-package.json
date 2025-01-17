@@ -1,0 +1,9 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../publish",
+  "deleteDestPath": true,
+  "lib": {
+    "entryFile": "./public-api.ts"
+  },
+  "whitelistedNonPeerDependencies": ["angular", "lodash", "dompurify", "he", "date-fns-tz", "penpal", "@gs/gdk", "@gs/ng-horizon", "@gs/report", "@ag-grid-enterprise/master-detail"]
+}

@@ -1,0 +1,18 @@
+<section class="csm-summary-widget-wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+    <h6 nz-title nzType="sub-section" nzColor="subtitle">{{widgetItem.label}}</h6>
+    <div fxLayout="row" fxFill fxFlex="100%">
+        <ng-container *ngIf="!isLoading else empty">
+            <div class="item" fxLayout="column" fxFlex="100%" fxLayoutGap="4px" *ngFor="let item of (data || [{},{}])">
+                <h4 nz-title>{{ item?.value }}</h4>
+                <label nz-text nzType="small">{{ item?.label }}</label>
+            </div>
+        </ng-container>
+    </div>
+</section>
+
+<ng-template #empty>
+    <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+        <nz-skeleton [nzActive]="false" [nzParagraph]="false" fxLayout="row" [nzTitle]="true" flex="50%"></nz-skeleton>
+        <nz-skeleton [nzActive]="false" [nzParagraph]="false"></nz-skeleton>
+    </div>
+</ng-template>

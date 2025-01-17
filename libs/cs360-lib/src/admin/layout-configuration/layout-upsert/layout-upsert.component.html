@@ -1,0 +1,29 @@
+<nz-modal [nzClosable]="true" [nzModalType]="'fullscreen'" [nzFooter]="null" [nzKeyboard]="false" [nzWrapClassName]="className" [nzVisible]="displayLayoutUpsert" nzWidth="100%" nzPlacement="left"
+  [nzTitle]="headerRef" (nzOnCancel)="navigateBack()" [nzBodyStyle]="{padding:'0px', height: '100%' }"
+  class="layout-upsert__cntr"
+>
+  <ng-template #headerRef>
+    <div fxFill fxLayout="row">
+      <div fxLayout="row" fxLayoutGap="0.4rem" class="layout-upsert__title" nz-tooltip [nzTooltipTitle]="header" nzTooltipPlacement="bottomLeft" [nzShowArrow]="false" >
+        <span class="layout-upsert__title__header">{{header}}</span>
+        <span *ngIf="subHeader" class="layout-upsert__title__subheader"nz-text nzType="small">{{subHeader}}</span>
+      </div>
+      <div class="layout-upsert__steps-container">
+        <nz-steps *ngIf="isCreateMode else editLayout" class="layout-upsert__steps" [nzCurrent]="current" (nzIndexChange)="onIndexChange($event)" nzSize="small">
+          <nz-step *ngFor="let step of tabs;let i = index" [nzTitle]="step.label | transloco" [nzDisabled]="i > 0 && !layoutId"></nz-step>
+        </nz-steps>
+        <ng-template #editLayout>
+          <nz-tabset class="layout-upsert__tabs" [nzSize]="'medium'" [nzLinkExact]="true" [nzLinkRouter]="true"
+          [nzAnimated]="false" [(nzSelectedIndex)]="selectedIndex">
+          <nz-tab *ngFor="let tab of tabs">
+            <a nz-tab-link [routerLink]="tab?.link" queryParamsHandling="merge">{{tab?.label}}</a>
+          </nz-tab>
+          </nz-tabset>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+  <div class="layout-upsert__step-content">
+    <router-outlet></router-outlet>
+  </div>
+</nz-modal>

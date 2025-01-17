@@ -1,0 +1,222 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"portfolio-admin": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss",
+					"skipTests": true
+				},
+				"@schematics/angular:class": {
+					"skipTests": true
+				},
+				"@schematics/angular:directive": {
+					"skipTests": true
+				},
+				"@schematics/angular:guard": {
+					"skipTests": true
+				},
+				"@schematics/angular:interceptor": {
+					"skipTests": true
+				},
+				"@schematics/angular:module": {
+					"skipTests": true
+				},
+				"@schematics/angular:pipe": {
+					"skipTests": true
+				},
+				"@schematics/angular:service": {
+					"skipTests": true
+				}
+			},
+			"root": "",
+			"sourceRoot": "src",
+			"prefix": "gs",
+			"architect": {
+				"build": {
+					"builder": "ngx-build-plus:browser",
+					"options": {
+						"extraWebpackConfig": "./webpack.externals.js",
+            			"singleBundle": true,
+						"outputPath": "../../dist/portfolio-admin",
+						"index": "src/index.html",
+						"main": "src/main.ts",
+						"polyfills": "src/polyfills.ts",
+						"tsConfig": "tsconfig.app.json",
+						"aot": true,
+						"assets": [
+							"src/favicon.ico",
+							"src/assets",
+							{
+								"glob": "**/*",
+								"input": "../../node_modules/@gs/horizon-icons/",
+								"output": "/assets/"
+							},
+                            {
+                              "glob": "**/*",
+                              "input": "../../node_modules/@gs/horizon-icons/nz-icons/datatype",
+                              "output": "/assets/datatype"
+                            }
+                        ],
+						"styles": [
+						],
+						"scripts": [
+							"../../node_modules/rxjs/bundles/rxjs.umd.js",
+							"../../node_modules/@angular/core/bundles/core.umd.js",
+							"../../node_modules/@angular/common/bundles/common.umd.js",
+							"../../node_modules/@angular/common/bundles/common-http.umd.js",
+							"../../node_modules/@angular/compiler/bundles/compiler.umd.js",
+							"../../node_modules/@angular/elements/bundles/elements.umd.js",
+							"../../node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+							"../../node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+							"../../node_modules/@angular/forms/bundles/forms.umd.js",
+							"../../node_modules/@angular/router/bundles/router.umd.js",
+							{
+							  "bundleName": "polyfill-webcomp-es5",
+							  "input": "../../node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
+							},
+							{
+							  "bundleName": "polyfill-webcomp",
+							  "input": "../../node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce-pf.js"
+							}
+						]
+					},
+					"configurations": {
+						"production": {
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.prod.ts"
+								}
+							],
+							"optimization": true,
+							"outputHashing": "none",
+							"sourceMap": false,
+							"extractCss": true,
+							"namedChunks": false,
+							"aot": true,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "10mb",
+									"maximumError": "20mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "20kb",
+									"maximumError": "20kb"
+								}
+							]
+						},
+						"build": {
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.prod.ts"
+								}
+							],
+							"optimization": false,
+							"outputHashing": "none",
+							"sourceMap": true,
+							"extractCss": true,
+							"namedChunks": false,
+							"aot": true,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": false,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "10mb",
+									"maximumError": "10mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "20kb",
+									"maximumError": "20kb"
+								}
+							]
+						}
+					}
+				},
+				"serve": {
+					"builder": "ngx-build-plus:dev-server",
+					"options": {
+						"extraWebpackConfig": "./webpack.externals.js",
+						"singleBundle": true,
+						"browserTarget": "portfolio-admin:build"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "portfolio-admin:build:production"
+						}
+					}
+				},
+				"extract-i18n": {
+					"builder": "ngx-build-plus:extract-i18n",
+					"options": {
+						"browserTarget": "portfolio-admin:build"
+					}
+				},
+				"test": {
+					"builder": "ngx-build-plus:karma",
+					"options": {
+						"main": "src/test.ts",
+						"polyfills": "src/polyfills.ts",
+						"tsConfig": "tsconfig.spec.json",
+						"karmaConfig": "karma.conf.js",
+						"assets": [
+							"src/favicon.ico",
+							"src/assets"
+						],
+						"styles": [
+						],
+						"scripts": []
+					}
+				},
+				"lint": {
+					"builder": "ngx-build-plus:tslint",
+					"options": {
+						"typeCheck": true,
+						"tslintConfig": "tslint.json",
+						"format": "codeFrame",
+						"tsConfig": [
+							"tsconfig.app.json",
+							"tsconfig.spec.json",
+							"e2e/tsconfig.json"
+						],
+						"exclude": [
+							"**/node_modules/**"
+						]
+					},
+					"exclude": [
+						"**/node_modules/**",
+						"../../imports/**"
+					]
+				},
+				"e2e": {
+					"builder": "ngx-build-plus:protractor",
+					"options": {
+						"protractorConfig": "e2e/protractor.conf.js",
+						"devServerTarget": "portfolio-admin:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "portfolio-admin:serve:production"
+						}
+					}
+				}
+			}
+		}
+	},
+	"defaultProject": "portfolio-admin",
+	"cli": {
+		"packageManager": "yarn"
+	}
+}

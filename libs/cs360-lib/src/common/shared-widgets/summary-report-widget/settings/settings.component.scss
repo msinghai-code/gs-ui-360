@@ -1,0 +1,76 @@
+.summary-report-field-tree {
+  display: block;
+  max-width: 422px; // keep it inside drawer even when the dropdown tree has long fields names
+  ::ng-deep {
+    .field-tree-view {
+      .gs-tree-node__search-wrapper {
+        border-bottom: 1px solid #E3EAF1;
+        .ant-input-affix-wrapper {
+          .ant-input-suffix {
+            top: .5rem;
+          }
+        }
+      }
+      .ui-state-highlight{
+        color: #0369e9 !important;
+        background-color: transparent !important;
+        border: none !important;
+        .gs-icons{
+          color: #0369e9 !important;
+        }
+      }
+      .gs-tree-node__body{
+        width: 32rem !important;
+        .ui-tree > .ui-tree-container > p-treenode > .ui-treenode .ui-treenode-children .ui-treenode-children .ui-treenode .ui-treenode-content{
+          padding-left: 4rem;
+        }
+      }
+    }
+    .ui-tree .ui-treenode-content.ui-treenode-selectable {
+      .ui-treenode-label {
+        margin: 0;
+      }
+    }
+    p-tree .gs-source-icon-enabled {
+      margin-top: 5px;
+    }
+  }
+}
+.gs-summary-report-widget-settings {
+  display: block;
+  padding: 2rem 2rem 2rem 3.2rem;
+  width: 30rem;
+  &-field__dd {
+    button {
+      border-radius: .4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #19232f;
+      font-size: 14px;
+      font-weight: normal;
+      padding-left: 1.2rem;
+      padding-right: .5rem;
+
+      &:hover {
+        background: none;
+        border-color: #0369e9;
+      }
+    }
+  }
+}
+
+.gs-summary-report-widget-settings {
+  &__widget {
+    margin-bottom: 3.2rem;
+  }
+  &__field {
+    width: 100%;
+  }
+}
+
+gs-summary-report-widget-settings-field {
+  &__dd {
+    width: 100%;
+  }
+}

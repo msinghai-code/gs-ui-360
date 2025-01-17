@@ -1,0 +1,5 @@
+<ng-container *ngIf="url">
+    <ax-lazy-element
+            *axLazyElementDynamic="elementTag, url:url" [properties]="properties">
+    </ax-lazy-element>
+</ng-container>

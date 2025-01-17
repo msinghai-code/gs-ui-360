@@ -1,0 +1,6 @@
+<div class="gs-numeric-score" *ngIf="data && data?.length" [ngClass]="{'gs-numeric-score-auto': isMini}">
+  <div *ngFor="let i of data" [style.background]="i.color" [style.width]="i.width"
+       class='gs-numeric-score-square' nz-tooltip nzTooltipTitle="{{(i.tooltip | transloco) || (i.label +': '+ i.value)}}">
+    <span class="gs-numeric-score-square-text"></span>
+  </div>
+</div>

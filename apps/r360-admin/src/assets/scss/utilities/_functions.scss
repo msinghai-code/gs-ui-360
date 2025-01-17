@@ -1,0 +1,35 @@
+//1) "Margin helpers" and "Padding helpers" for instance class name is generated as 'mt-0', 'mr-0', 'mb-0' and 'mb-0' with all values.
+//2) Same css will generate for padding, but name would be change as 'p' instead of 'm' (For instance 'pr-0').
+
+@import 'variables';
+@each $space in $spaceamounts {
+    @each $side in $sides {
+        .m#{str-slice($side, 0, 1)}-#{$space} {
+            margin-#{$side}: #{$space}px !important;
+        }
+        .p#{str-slice($side, 0, 1)}-#{$space} {
+            padding-#{$side}: #{$space}px !important;
+        }
+        .m-#{$space} {
+            margin: #{$space}px !important;
+        }
+        .p-#{$space} {
+            padding: #{$space}px !important;
+        }
+        .h-#{$space} {
+            height: #{$space}px !important;
+        }
+        .mxh-#{$space}vh {
+            max-height: #{$space}vh !important;
+        }
+        .w-#{$space} {
+            width: #{$space}px !important;
+        }
+        .mxh-#{$space}p {
+            max-height: #{$space}px !important;
+        }
+        .mxw-#{$space}p {
+            max-width: #{$space}px !important;
+        }
+    }
+}

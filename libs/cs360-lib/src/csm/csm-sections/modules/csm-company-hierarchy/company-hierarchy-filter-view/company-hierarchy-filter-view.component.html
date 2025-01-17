@@ -1,0 +1,25 @@
+<section class="gs-csm-relationship-filter-view">
+  <div class="gs-csm-relationship-filter-view__body">
+    <div class="gs-csm-relationship-filter-inactive" *ngIf="readOnlyFilter && readOnlyFilter.conditions.length">
+      <div class="gs-csm-relationship-filter-inactive__item" *ngFor="let filter of readOnlyFilter.conditions">
+        <label class="gs-csm-relationship-filter-item__label">{{filter.leftOperand.label | transloco}}</label>
+        <span class="gs-csm-relationship-filter-item__operator">{{getOperatorlabel(filter.leftOperand.dataType.toUpperCase(), filter.comparisonOperator) | transloco}}</span>
+        <label class="gs-csm-relationship-filter-item__value">{{filter.filterValue.value[0]}}</label>
+      </div>
+
+    </div>
+    <div class="gs-csm-relationship-filter-active">
+      <gs-filter-query-builder *ngIf="filterQueryBuilder?.show else loadertmpl" [tokenized]="false" [host]="host"
+        [source]="filterQueryBuilder?.source" (status)="statusUpdate($event)"
+        [baseObject]="filterQueryBuilder?.baseObject" [config]="config" [filterInfo]="filters"
+        [filterFunction]="filterQueryBuilder?.filterFunction" [keepLastRule]="false"
+        [nestLevels]="filterQueryBuilder?.maxNestLevels" [lookupMultiple]="true"
+        [inputValueSettings]="{showMore: false, selectionLimit: 10, byPassValidation: false}"
+        [fieldSearchSetting]="{includeUnmatchedParents: true, maintainDefaultOrder: false}" [allowConditionalLogic]="true"></gs-filter-query-builder>
+
+    </div>
+      <nz-alert *ngIf="showErrors && ctx.appVariant === 'MINI_360'" [nzMessage]="'360.csm.company_hierarchy.filter_message' | transloco" [nzType]="'error'" class="gs-tab-sidebar__banner" [nzCloseable]="false"></nz-alert>
+  </div>
+</section>
+<ng-template #loadertmpl>
+</ng-template>

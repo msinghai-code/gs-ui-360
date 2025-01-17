@@ -1,0 +1,2 @@
+<!-- this icon is used by leads summary widget as this icon is nnot available as part of horizon icons. once its available in horizon we will remove this usage-->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="nonzero" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 1.4a7.6 7.6 0 1 0 0 15.2 7.6 7.6 0 0 0 0-15.2zm0 5.917a.7.7 0 0 1 .694.605l.006.095v5a.7.7 0 0 1-1.394.095l-.006-.095v-5a.7.7 0 0 1 .7-.7zm0-3a.7.7 0 0 1 .694.605l.006.095v1a.7.7 0 0 1-1.394.095l-.006-.095v-1a.7.7 0 0 1 .7-.7z"/></svg>

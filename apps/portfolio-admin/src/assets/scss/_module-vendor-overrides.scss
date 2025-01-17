@@ -1,0 +1,136 @@
+// @import "~@gs/ng-horizon/style/scss/horizon_variables";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/index";
+
+// gdk styles
+@import "~@gs/gdk/spinner/style/index";
+@import "~@gs/gdk/core/style/index";
+@import '~@gs/gdk/assets/grid/font-gs-icons/operators/gs-icons-operator';
+@import "~@gs/gdk/grid/style/index";
+@import "../../ng-horizon.scss";
+
+
+/*=== Pagination Styles ===*/
+nz-pagination {
+  padding-left: 1px;
+  .ant-pagination {
+    display: flex;
+    margin: 0;
+    align-items: center;
+    color: #181F26;
+    font-size: var(--heading-7-size);
+    padding: 0 12px
+  }
+  .ant-table-pagination.ant-pagination li:first-child {
+    margin-right: auto;
+  }
+}
+
+.cdk-overlay-container{
+  //z-index: 1400;
+}
+
+.notLiveWidget {
+  .ag-overlay {
+    .gs-nodata-placeholder__icon {
+      display: none;
+    }
+  }
+}
+
+/*
+* TODO: Remove grid overrides after upgrading to 4.x
+*/
+// Material theme is overriding font size to 13px. Hence override back to 14px
+//.ag-theme-material {
+//  font-size: 14px;
+//}
+
+.ag-cell-not-inline-editing {
+  // Company or relationship name cell text color
+  .url-cell {
+    //color: $link-color;
+  }
+
+  // Inline editing cell box highlight style
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// Remove border that separates header and floating filter
+//.ag-theme-material .ag-header-cell,
+//.ag-theme-material .ag-header-group-cell {
+//  border: none !important;
+//}
+
+// Center align cell content vertically
+//.ag-theme-material .ag-ltr .ag-cell {
+//  display: flex;
+//  align-items: center;
+//
+//  // Give right padding 0 to the checkbox renderer for each row. This doesn't include header
+//  &[col-id="select-all"] {
+//    padding-right: 0 !important;
+//  }
+//}
+
+// NULLs show in italic
+.ag-cell-null-color {
+  font-style: italic;
+  color: #B8C8D8;
+}
+
+//cell styles for date and number
+.dt-number, .dt-date {
+  .ag-cell-wrapper {
+    margin-left: auto;
+  }
+}
+
+// Remove outline for floating filter inputs
+.gs-grid-filter__input {
+  outline: none;
+}
+
+// Remove header right border for the header header which is pinned
+//.ag-theme-material .ag-pinned-left-header {
+//  border-right: none !important;
+//}
+
+// Increase select all checkbox size
+//.gs-grid-wrapper .ag-header-row .ag-checkbox .ag-checkbox-input-wrapper::after,
+//.ag-theme-material .ag-checkbox-input-wrapper::after {
+//  font-size: 18px !important;
+//}
+
+// cursor pointer on select checkbox
+//.ag-theme-material .ag-checkbox-input-wrapper input {
+//  cursor: pointer;
+//}
+
+// Add header to give vertical space between header bottom border and header floating filters
+.ag-header {
+  height: 6.8rem !important;
+  min-height: 6.8rem !important;
+}
+
+
+// Give border to only paginator host element but not every element with same class - there is one such element
+//gs-custom-paginator.gs-custom-paginator {
+//  border-top: $border-width-base $border-style-base $border-color-base;
+//}
+
+// Workaround for arrow sizes
+.gs-page-switch {
+  font-size: 20px;
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+.ag-tooltip {
+  color: $tooltip-color !important;
+  background-color: $tooltip-bg !important;
+}

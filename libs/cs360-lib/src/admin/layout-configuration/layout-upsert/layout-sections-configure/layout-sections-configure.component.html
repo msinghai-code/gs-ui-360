@@ -1,0 +1,160 @@
+<div gsSpinner [show]="loading" [nzSize]="'xl'" fxFlex="100%" fxLayout="column" class="layout-sections-configure">
+  <div class="layout-sections-configure__header">
+    <div class="layout-sections-configure__header__text">{{'360.admin.layout_sections_configure.configureSection' | transloco}}</div>
+<div class="preview-config">
+    <ng-container *transloco="let t; read: '360.admin'">
+        <span class="layout-sections-configure__header__info">{{t('layout_sections_configure.dragDropFields',{label : label})}}</span>
+    </ng-container>
+    <button nz-button nzType="link" (click)="openPreviewconfig(layoutId)"><i class="action-icon"  nz-tooltip [nzTooltipTitle]="'360.admin.layout_sections_configure.viewPrebuiltLayouts'| transloco" nz-icon nzType="view"></i>{{'360.admin.layout_sections_configure.preview' | transloco}}
+    </button> 
+</div>
+<!-- Layout preview component -->
+<gs-layout-preview *ngIf="showPreview" [params]="params" (close)="showPreview = false"></gs-layout-preview>
+       
+  </div>
+  <div class="gs-layout-builder" cdkDropListGroup fxFlex="100%" fxLayout="row">
+    <div class="gs-layout-builder__section_list" fxFlex="25%" fxLayout="column">
+      <gs-section-listing *ngIf="layoutDetails" [configuredSections]="droppedSections"
+        [sectionCategoryList]="sectionCategories" [options]="sectionListingOptions" [isLoading]="false">
+      </gs-section-listing>
+    </div>
+    <div class="gs-layout-builder__section_container" fxFlex="75%" fxLayout="column">
+      
+      <div class="show-search" *ngIf="!showSearchBar" @fade2>
+        <i class="ant-input-search-icon" nz-icon nzType="search" (click)="clickedSearchIcon($event)"></i>
+      </div>
+      <nz-input-group *ngIf="showSearchBar" @fade class="search__layout" [nzSuffix]="suffixLayoutSearch">
+       <input autofocus type="text" nz-input placeholder="{{'360.admin.layout_sections_configure.placeholder_search' | transloco}}" [formControl]="searchInput" (keydown.esc)="clearSearch()" />
+      </nz-input-group>
+      <ng-template #suffixLayoutSearch>
+        <i class="ant-input-search-icon" *ngIf="!searchInput?.value" nz-icon nzType="search"></i>
+        <i
+          nz-icon
+          class="ant-input-clear-icon"
+          nzType="close"
+          *ngIf="searchInput?.value"
+          (click)="clearSearch()"
+          ></i>
+      </ng-template>
+
+      <div class="gs-layout-builder__section_container__body" [class.highlight]="highlight"
+        cdkDropList (cdkDropListDropped)="onSectionDrop($event)" (dragover)="$event.preventDefault()" (cdkDropListEntered)="checkForHighlight($event)">
+        <ng-container *ngIf="droppedSections.length else empty">
+          <ng-container *ngFor="let section of (droppedSections | searchFilter: 'label' : searchInput.value); let i = index">
+            <div [class.addAassociationHighlight]="section.showAddAssociations" [@items]="enableAnimation && 'added'" class="z-depth-1 section-item-wrapper" data-id="{{section.sectionId}}" cdkDrag (cdkDragStarted)="checkForHighlight($event)">
+              <ng-container *ngIf="section.scope === layoutScopes.GLOBAL && !section.decoupled else configurableSectionHeader">
+                <div class="section-item">
+                  <div class="section-item__left">
+                    <i nz-icon nzType="drag" nzSize="24" nzTheme="outline"></i>
+                    <div class="section-item__info">
+                      <div class="section-item__info__header" *ngIf="!section.showLabelInput else showLabelInput" (click)="handleSectionLabel(section)" (mousedown)="$event.stopPropagation()">
+                        <span nz-text nzType="sub-section">{{section.label || section.originalLabel}} </span>
+                        <span *ngIf="section.label ? section.sectionName !== section.label : section.sectionName !== section.originalLabel" class="section-name" nz-text nzType="small" nzColor="secondary">- {{section.sectionName}}</span>
+                        <nz-tag nz-tooltip [nzTooltipTitle]="'360.admin.layout_sections_configure.prebuiltTooltip'| transloco" class="section-item__info__header__tag" [nzColor]="'#fef3d1'">
+                          <label nz-text nzType="extra-small">{{'360.admin.layout_sections_configure.prebuilt' | transloco}}</label>
+                        </nz-tag>
+                      </div>
+                        <ng-template #showLabelInput>
+                            <div class="section-item__info__label-input" (mousedown)="$event.stopPropagation()">
+                                <input autofocus nz-input maxlength="50" (blur)="saveInput(section)" (change)="saveInput(section)" (keydown.esc)="resetInput(section)" [(ngModel)]="section.tempLabel">
+                                <span *ngIf="section.sectionName !== section.label" class="section-name" nz-text nzType="small" nzColor="secondary">- {{section.sectionName}}</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                  </div>
+                  <div class="section-item__actions">
+                    <i class="action-icon" (click)="onSectionConfigureClick(section)" nz-tooltip [nzTooltipTitle]="'360.admin.layout_sections_configure.viewPrebuiltTooltip'| transloco" nz-icon nzType="view"></i>
+                      <i nz-icon [nzType]="'images:icon-detatch'" nz-tooltip [nzTooltipTitle]="'360.admin.layout_sections_configure.unlinkSectionTooltip'| transloco" (click)="onDetachSection(section)" class="action-icon detach"></i>
+                    <i class="action-icon" (click)="onSectionDelete(section)" nz-icon nzType="delete"></i>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #configurableSectionHeader>
+                <div class="section-item">
+                  <div class="section-item__left">
+                      <i nz-icon nzType="drag" nzSize="24" nzTheme="outline"></i>
+                    <div class="section-item__info">
+                      <div *ngIf="!section.showLabelInput else showLabelInput" (click)="handleSectionLabel(section)" (mousedown)="$event.stopPropagation()" class="section-item__info__header">
+                        <span nz-text nzType="sub-section">{{section.label || section.originalLabel}} </span>
+                        <span *ngIf="section.sectionName !== section.label" class="section-name" nz-text nzType="small" nzColor="secondary">- {{section.sectionName}}</span>
+                      </div>
+                      <ng-template #showLabelInput>
+                        <div class="section-item__info__label-input" (mousedown)="$event.stopPropagation()">
+                          <input autofocus nz-input maxlength="50" (blur)="saveInput(section)" (change)="saveInput(section)" (keydown.esc)="resetInput(section)" [(ngModel)]="section.tempLabel">
+                          <span *ngIf="section.sectionName !== section.label" class="section-name" nz-text nzType="small" nzColor="secondary">- {{section.sectionName}}</span>
+                        </div>
+                      </ng-template>
+                      <div *ngIf="section.configurable && !section.configured"
+                        class="section-item__info__content">
+                          <i nz-icon nzType="warning-filled" nzTheme="general" nzSize="24"></i>
+                          <div innerHtml="{{'360.admin.layout_sections_configure.sectionConfigured'| transloco}}"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="section-item__actions">
+                    <button nz-button nzType="primary" [nzSize]="'small'"
+                      *ngIf="section.configurable && !section.configured"
+                      (click)="onSectionConfigureClick(section)" class="configure-button">
+                      <i nz-icon nzType="settings" [nzSize]="14"></i>{{'360.admin.layout_sections_configure.configureBtn'| transloco}}
+                    </button>
+                    <i nz-icon class="action-icon" nzType="settings" *ngIf="section.configurable && section.configured"
+                      (click)="onSectionConfigureClick(section)"> </i>
+                    <i class="action-icon" (click)="onSectionDelete(section)" nz-icon nzType="delete"></i>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="add-associations" *ngIf="section.showAddAssociations" fxLayout="row">
+              <span class="add-associations__info">
+                {{'360.admin.layout_sections_configure.sectionDetails'| transloco}}
+              </span>
+              <button nz-button (click)="onAddAssociationsClick(section)" nzType="link" class="add-associations-btn">{{'360.admin.layout_sections_configure.addAssociations'| transloco}}</button>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="layout-sections-configure__footer">
+    <!-- <button *ngIf="isCreateMode" (click)="onBackClick()" nz-button nzType="default">Back</button> -->
+    <div fxLayout="row" class="layout-sections-configure__footer__right" fxLayoutAlign="flex-end center">
+      <span *ngIf="changed" fxLayoutAlign="center center" fxLayout="row"><i nz-icon nzType="warning-filled" nzTheme="general" nzSize="24"></i>{{'360.admin.layout_sections_configure.unsavedChanges'| transloco}}</span>
+      <button *ngIf="isCreateMode" (click)="onSaveAsDraftClick()" nz-button nzType="link" class="save-as-draft">{{'360.admin.layout_sections_configure.saveAsDraft'| transloco}}</button>
+      <button nz-button (click)="onCancelClick()" nzType="default">{{'360.admin.layout_sections_configure.cancelBtn'|transloco}}</button>
+      <button [disabled]="!changed && !isCreateMode" nz-button (click)="onSaveClick()" nzType="primary">
+        <span *ngIf="isCreateMode">{{'360.admin.layout_sections_configure.nextBtn'|transloco}}</span>
+        <span *ngIf="!isCreateMode">{{'360.admin.layout_sections_configure.saveBtn'|transloco}}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="gs-layout-builder__section_container__body__empty">
+    <nz-empty [nzNotFoundImage]="imageTpl" [nzNotFoundContent]="contentTpl">
+      <ng-template #imageTpl>
+        <i class="gs-layout-builder__section_container__body__empty--img"></i>
+      </ng-template>
+      <ng-template #contentTpl>
+          <ng-container *transloco="let t; read: '360.admin'">
+              <span class="gs-layout-builder__section_container__body__empty--description">{{t('layout_sections_configure.dragDropFrom',{pageContext : ctx.pageContext})}}</span>
+          </ng-container>
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>
+
+<nz-modal [nzWrapClassName]="'vertical-center-modal'" [(nzVisible)]="showConfirmSaveModal" [nzTitle]="'360.admin.layout_sections_configure.saveToConfigure'| transloco" (nzOnCancel)="showConfirmSaveModal = false"
+  (nzOnOk)="onConfirmSaveModalOkClick()" [nzOkText]="'360.admin.layout_sections_configure.okText'| transloco" [nzCancelText]="'360.admin.layout_sections_configure.cancelText'| transloco" [nzOkLoading]="loading"
+  [nzContent] = "'360.admin.layout_sections_configure.unsavedChangesText'| transloco">
+</nz-modal>
+<nz-modal [nzWrapClassName]="'vertical-center-modal'" [(nzVisible)]="showDetachModal" [nzTitle]="'360.admin.layout_sections_configure.unlinkSectionTooltip'| transloco" (nzOnCancel)="showDetachModal = false;selectedSectionIndexToDetach = null;"
+  (nzOnOk)="onDetachModalOkClick()" [nzOkText]="'360.admin.layout_sections_configure.okText'| transloco">
+   <div class="gs-keygen" innerHtml="{{'360.admin.layout_sections_configure.convertMsg'| transloco}}"></div>
+</nz-modal>
+
+<gs-multiple-associations-addition *ngIf="addAssociationFormDrawer.show"
+                    [showAddAssoc]="addAssociationFormDrawer.show"
+                    [multipleAssociationConfigInfo]="addAssociationFormDrawer.associationInfo"
+                    (onSaveOrCancel)="addAssociationFormDrawer.onAddAssocAction($event)" >
+</gs-multiple-associations-addition>

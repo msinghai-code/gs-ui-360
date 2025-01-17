@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g transform="translate(-979 -395) translate(763 324) translate(221 76)">
+                    <g stroke="#E3EAF1" stroke-opacity=".5" stroke-width="9">
+                        <circle cx="59" cy="59" r="59"/>
+                    </g>
+                    <rect width="33.523" height="26.818" x="48.273" y="44.25" fill="#E3EAF1" rx="3"/>
+                    <rect width="14.75" height="10.727" x="28.159" y="52.295" fill="#E3EAF1" rx="3"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

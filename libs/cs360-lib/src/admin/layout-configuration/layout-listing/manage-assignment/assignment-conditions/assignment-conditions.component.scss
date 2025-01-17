@@ -1,0 +1,80 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.default-assignment {
+  color: $rich-gray-50;
+}
+.assignment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-top: 10px;
+
+    nz-tag {
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+    }
+    .show-more-toggle {
+      line-height: 0;
+
+      nz-tag {
+        cursor: pointer;
+      }
+
+      a {
+        line-height: 24px;
+        margin-left: .5rem;
+      }
+    }
+    .assign-conditions {
+        display: inline-flex;
+        .filter-chip {
+            display: flex;
+            align-content: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            &__filter {
+              display: flex;
+              align-content: center;
+              padding-left: 0.5rem;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+              color: #253445;
+              &__alias {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0.5rem 0 0.5rem 0.5rem;
+                overflow: hidden;
+                color: #4B6A87;
+                max-width: 10rem;
+              }
+              &__label {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0.5rem;
+                overflow: hidden;
+                color: #4B6A87;
+                max-width: 10rem;
+              }
+              &__operator {
+                width: 3rem;
+                text-align: center;
+                padding: 0.5rem;
+                .gs-icons-operator {
+                  font-size: 1rem !important;
+                }
+              }
+              &__value {
+                max-width: 8rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0.5rem;
+                overflow: hidden;
+              }
+            }
+        }
+          
+    }
+}

@@ -1,0 +1,156 @@
+<ng-container *ngIf="showTabView else singleSectionWidget">
+  <section class="gs-cs360-landing {{ctx?.pageContext?.toLowerCase()}}"
+           [ngClass]="{'gs-render-all' : loadAll, 'compact': ctx.isCompact, 'mini360Variant': isMini360}" gsSpinner [nzSize]="'xl'" [show]="isSaveInProgress">
+    <div class="preview-banner" *ngIf="ctx.isp">
+      <gs-preview-banner></gs-preview-banner>
+    </div>
+    <div class="header">
+      <gs-cs360-header *ngIf="!ctx.isSmartWidget && !hideHeader && loadHeader"
+        [moduleConfig]="moduleConfig"
+        [isPreview]="ctx.isp"
+        [snapshots]="snapshots"
+        [isNativeWidget]="isNativeWidget"
+        [relationshipsByType]="relationshipsByType"
+        [isSsHaEnabled]="isSsHaEnabled"
+        [options]="{loadAll: loadAll}"
+        (hierarchyIconClicked)="onMoreUpdate($event, null)"
+        (relationshipChanged)="navigateToCR360($event)"
+        (action)="onAction($event)"
+        (modalClose)="onModalClose($event)"
+        ></gs-cs360-header>
+    </div>
+    <div *ngIf="!isSaveInProgress && sections?.length && (notAvailableSectionForInMini360?.length === 0) else empty" class="body" (window:resize)="onWindowResize()">
+
+      <nz-tabset *ngIf="!loadAll" class="height-100" nzLinkRouter nzDefaultRouteIndex="0"
+        [(nzSelectedIndex)]	= "selectedTabIndex" (nzSelectedIndexChange)="onSectionChange($event)"
+        [nzTabBarStyle]="{backgroundColor: '#FFFFFF', color: '#19232F', fontSize: '14px', fontWeight: 500, letterSpacing: 0, lineHeight: '20px', paddingLeft: '32px'}"
+        [nzTabBarGutter]="24" [nzTabBarExtraContent]="!ctx.hidePinUpin && extraTemplate" [nzShowDropdown]="ctx.hidePinUpin" [nzCompactScrollButtons]="ctx.isCompact">
+        <ng-container *ngFor="let section of sections; trackBy: trackTabs index as i;">
+          <nz-tab (nzSelect)="onTabSelect(section)"
+                  *ngIf="(noSectionsPinned || section.pinned|| section.tempPinned || sectionId === section?.sectionId || ctx.hidePinUpin) && (isMini360 ? ((section.tempPinned || i < 5) && section.displayOrder !== -1) :  true) "
+                  [nzForceRender]="true" [nzTitle]="ctx.isCompact ? section?.label : null">
+            <!-- Tab Header -->
+              <!-- Web Component Mode -->
+              <a *ngIf="isMini360" nz-tab-link queryParamsHandling="merge"
+              [ngClass]="section | addSectionPX">{{section?.label}} <span
+                *ngIf="c360Service.sectionMetaMap[section.sectionId]?.unread as unread" [@fadeInOut]
+                class="d-inline-block"> <span class="unread-count" *ngIf="unread">{{unread}}</span> </span></a>
+              <!-- Normal Mode -->
+              <a *ngIf="!isMini360" nz-tab-link [routerLink]="'/'+section?.sectionId" queryParamsHandling="merge"
+              [ngClass]="section | addSectionPX">{{section?.label}} <span
+                *ngIf="c360Service.sectionMetaMap[section.sectionId]?.unread as unread" [@fadeInOut]
+                class="d-inline-block"> <span class="unread-count" *ngIf="unread">{{unread}}</span> </span></a>
+            <!-- Tab Content -->
+            <div class="csm-section-renderer-wrapper"
+                 [class.miniVariant]="ctx.appVariant==='MINI_360'"
+                 [class.compact]="ctx.isCompact"
+                 [class.summary]="section.sectionType.toLowerCase() === 'summary'"
+                 [class.attribute]="section.sectionType.toLowerCase() === 'attribute'"
+                 [class.timeline]="section.sectionType.toLowerCase() === 'timeline'">
+              <gs-csm-section-renderer [render]="section.isLoaded" [section]="section" (changes)="onSectionRendererChanges($event)">
+              </gs-csm-section-renderer>
+            </div>
+          </nz-tab>
+        </ng-container>
+      </nz-tabset>
+
+      <nz-affix *ngIf="loadAll" [nzTarget]="scrollContainer" id="affix-container-target" style="height: 3rem;">
+        <nz-tabset nzLinkRouter nzDefaultRouteIndex="0"
+                   [nzTabBarStyle]="{backgroundColor: '#FFFFFF', color: '#19232F', fontSize: '14px', fontWeight: 500, letterSpacing: 0, lineHeight: '20px;', paddingLeft: '32px'}"
+                   [nzSelectedIndex]="selectedTabIndex"
+                   [nzTabBarGutter]="24" [nzTabBarExtraContent]="extraTemplate">
+          <ng-container *ngFor="let section of sections; trackBy: trackTabs index as i;">
+            <nz-tab (click)="onTabSelect(section)"
+              *ngIf="noSectionsPinned || section.pinned|| section.tempPinned || sectionId === section?.sectionId">
+              <!-- Tab Header -->
+              <!-- Web Component Mode -->
+              <a *ngIf="isMini360" nz-tab-link queryParamsHandling="merge">{{section?.label}}</a>
+              <!-- Normal Mode -->
+              <a *ngIf="!isMini360" nz-tab-link [routerLink]="'/'+section?.sectionId" queryParamsHandling="merge">{{section?.label}}</a>            </nz-tab>
+          </ng-container>
+        </nz-tabset>
+      </nz-affix>
+
+      <div *ngIf="loadAll && !isMini360" class="c360-vertical-loader-cntr" #vertScrollElem>
+        <div class="c360-section c360-vertical-loader-cntr__section"
+             id="{{section.sectionId}}"
+             attr.data-sectionId="{{section.sectionId}}"
+             attr.data-label = "{{section?.label}}"
+             style="margin: 18px 20px"
+             [style.minHeight.px]="vertScrollElem.offsetHeight"
+             *ngFor="let section of sections; trackBy: trackTabs index as i;"
+             intersectionObserver
+             [intersectionDebounce]="1000"
+             (visibilityChange)="onVisibilityChanged(section, $event)">
+          <ng-container [ngSwitch]="section.sectionType">
+            <ng-container *ngSwitchCase="'RELATED_LIST'"></ng-container>
+            <ng-container *ngSwitchCase="'COMPANY_INTELLIGENCE'"></ng-container>
+            <div class="c360-vertical-loader-cntr__section--header" *ngSwitchDefault>
+              <span nz-text nzType="section">{{section?.label}}</span>
+            </div>
+          </ng-container>
+          <div class="c360-vertical-loader-cntr__section--content">
+            <gs-csm-section-renderer *ngIf="section?.isLoaded" style="flex: 1; height: auto; min-width: 0;"
+              [render]="loadAll" [section]="section" (changes)="onSectionRendererChanges($event)">
+            </gs-csm-section-renderer>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    <!-- {360.csm.landing.personalizeSection}=Personalize Sections-->
+  <nz-modal *ngIf="showManageSections" [(nzVisible)]="showManageSections" [nzTitle]="'360.csm.landing.personalizeSection'|transloco" (nzOnCancel)="manageSectionCancel()"
+    [nzFooter]="customFooter" [nzWidth]="425">
+    <gs-manage-sections [sections]="sections" [sectionId]="sectionId"
+      [isLoading]="isSaveInProgress"></gs-manage-sections>
+  </nz-modal>
+</ng-container>
+
+<ng-template #singleSectionWidget>
+  <div class="height-100 c360-section p-20" *ngFor="let section of sections; trackBy: trackTabs index as i;">
+    <gs-csm-section-renderer [section]="section" (changes)="onSectionRendererChanges($event)">
+    </gs-csm-section-renderer>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <gs-not-avilable-only-mini
+    *ngIf="notAvailableSectionForInMini360.length"
+    [sections]="notAvailableSectionForInMini360"
+    [ctx]="ctx"
+  >
+  </gs-not-avilable-only-mini>
+  <div fxFill *ngIf="!(notAvailableSectionForInMini360.length)">
+    <gs-empty class="empty-state-wrapper" [showNoSectionsImage]="true" [label]="'Sections are not configured'">
+    </gs-empty>
+  </div>
+</ng-template>
+
+<ng-template #extraTemplate>
+  <button [(nzVisible)]="moreVisible" nzTrigger="click" nz-button nzType='link' nz-dropdown [nzDropdownMenu]="menu">    
+    <i nz-icon nzType="more-horizontal"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <gs-more-tabs-dropdown
+      [sections]="sections"
+      (updates)="onMoreUpdate($event, menu)"
+      [isMini360]="isMini360"
+    ></gs-more-tabs-dropdown>
+  </nz-dropdown-menu>
+</ng-template>
+<!-- Personalised Section Modal -->
+<ng-template #customFooter>
+  <div class="gs-manage-personalized-section-modal__footer">
+    <button style="border-style: none;" nz-button nzType="default"
+      class="gs-manage-personalized-section-modal__footer--reset" (click)="manageReset()"> {{'360.csm.landing.resetBtn'
+      | transloco}} </button>
+    <div class="gs-manage-personalized-section-modal__footer--defaultoptions">
+      <button nz-button nzType="default" (click)="manageSectionCancel()"> {{'360.csm.landing.cancelBtn' | transloco}}
+      </button>
+      <button nz-button nzType="primary" (click)="!isSaveInProgress && manageSectionOk()" [ngClass]="{'mini_360_save_section' : isMini360}"> {{'360.csm.landing.saveBtn' |
+        transloco}} </button>
+    </div>
+  </div>
+</ng-template>

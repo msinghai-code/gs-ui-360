@@ -1,0 +1,28 @@
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+gs-chart {
+    width: 100%;
+    height: 100%;
+
+    ::ng-deep {
+        .highchart-viewport-container {
+            width: 100%;
+            height: 100%;
+            // position: relative;
+
+            > div {
+                // position: absolute;
+                height: 100% !important;
+                width: 100% !important;
+            }
+        }
+    }
+}
+
+.csm-summary-widget {
+    &-wrapper {
+        &__content {
+            padding-top: 0 !important;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+@import "~@gs/ng-horizon/style/scss/horizon_variables";
+
+::ng-deep {
+  .gs-module-container {
+    border-top: 1px solid $border-color-base;
+  }
+}

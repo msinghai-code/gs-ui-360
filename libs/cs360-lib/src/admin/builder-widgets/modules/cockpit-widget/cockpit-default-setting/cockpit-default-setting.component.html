@@ -1,0 +1,22 @@
+<div fxLayout="column" fxFill>
+  <form nz-form [formGroup]="widgetForm" nzLayout="vertical" fxLayout="column" fxLayoutGap="1rem">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="label"> Widget Name</nz-form-label>
+      <nz-form-control nzErrorTip="Widget name is required!">
+        <input autocomplete="off" autofocus nz-input formControlName="label" maxlength="50">
+      </nz-form-control>
+    </nz-form-item>
+    <div fxLayout="column" fxLayoutGap=".5rem">
+      <h6 nz-title>Insights to display</h6>
+      <label nz-text nzType="small" nzDisabled> Select any 2 insights</label>
+    </div>
+
+    <ul fxLayout="column" fxLayoutGap="1rem" style="font-size:14px">
+      <li *ngFor="let item of properties">
+        <label nz-checkbox [(ngModel)]="item.selected" [nzTooltipTitle]="item | disableOptions : properties : displayCount : true"  nzTooltipPlacement="top"  nz-tooltip  [nzDisabled]="item | disableOptions : properties : displayCount"
+        [ngModelOptions]="{standalone: true}"> 
+          {{ item.label }}</label>
+      </li>
+    </ul>
+  </form>
+</div>

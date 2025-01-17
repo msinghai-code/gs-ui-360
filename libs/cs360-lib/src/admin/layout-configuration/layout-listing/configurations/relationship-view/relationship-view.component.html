@@ -1,0 +1,58 @@
+<section gsSpinner [nzSize]="'xl'" [show]="navigating" class="gs-relationship-section-config">
+  <div class="gs-relationship-section-config__header">
+    <div class="gs-relationship-section-config__header--left">
+      {{'360.admin.relationship_view.relationship_section_view' | transloco}} ({{!!data ? data.length: 0}})
+        <div nz-text nzType="small" class="help-text"> {{'360.admin.relationship_view.relationship_section_subMessage' | transloco}} </div>
+    </div>
+    <div class="gs-relationship-section-config__header--right">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input autofocus type="text" nz-input [placeholder]="'360.admin.relationship_view.placeholder'| transloco" [formControl]="searchControl" (keydown.enter)="onChange($event)"/>
+      </nz-input-group>
+      <div>
+        <button class="gs-relationship-section-config__header--right--btn1" (click)="onAdd()" nz-button nzType="primary"> {{'360.admin.relationship_view.add' | transloco}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="gs-relationship-section-config__body" gsSpinner [nzSize]="'xl'" [show]="loader">
+    <div class="gs-relationship-section-config__body--grid-wrapper">
+      <gs-grid-column-chooser #gridColumnChooser
+       (columnsUpdated)="onColumnsUpdated($event)"
+       [columns]="gridOptions.options.columnDefs"></gs-grid-column-chooser>
+      <gs-grid
+                  [gridOptions]="gridOptions.options"
+                  [data]="data"
+                  [mode]="gridOptions.mode"
+                  [rowModelType]="'clientSide'"
+                  [columnDefs]="gridOptions.options.columnDefs"
+                  [showCustomPagination]="false"
+                  [gridAdditionalOptions]="gridOptions.additionalOptions"
+                  (columnAction)="columnAction($event)"
+                  (gridChanges)="onGridReady($event)"></gs-grid>
+    </div>
+  </div>
+</section>
+<ng-template #suffixIconSearch>
+  <i *ngIf="!searchControl?.value" nz-icon nzType="search"></i>
+  <i
+    nz-icon
+    class="ant-input-clear-icon"
+    nzTheme="fill"
+    nzType="close-circle"
+    *ngIf="searchControl?.value"
+    (click)="searchControl?.setValue('')"
+  ></i>
+</ng-template>
+<!-- Action popover -->
+<nz-overlay [closeOnClick]="true" #contextMenuGrid>
+  <div class="pop-panel gs-popover-menu">
+    <nz-list class="gs-popover-menu__list">
+      <nz-list-item class="gs-popover-menu__item"
+                     ngClass="gs-popover-menu__item--{{action.label.toLowerCase()}}"
+                     *ngFor="let action of contextMenuInfo?.contextMenuItems"
+                     [ngStyle]="{'cursor': action?.disabled ? 'not-allowed': 'pointer'}"
+                     (click)="!action?.disabled && onContextMenuAction($event, action)">
+        <i class="context-menu-action gs-popover-menu__item-icon">{{action.icon}}</i>&nbsp;{{action.label}}
+      </nz-list-item>
+    </nz-list>
+  </div>
+</nz-overlay>

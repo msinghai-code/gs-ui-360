@@ -1,0 +1,318 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@gs/design-tokens/scss/index";
+
+
+/* ============ Vendor files ====== */
+@import "~primeng/resources/primeng.min.css";
+// This is used in zoom app for styles
+@import "~@gs/ng-horizon/style/entry";
+//@import "~@gs/ng-horizon/style/scss/_horizon_colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+// This is needed for RTE fields
+// This is used in zoom app for styles
+// @import '~@gs/ng-horizon/ng-horizon.min.css';
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/font";
+@import "ng-horizon.scss";
+// @import "~@gs/design-tokens/scss/index";
+// @import "~@gs/ng-horizon/style/scss/_horizon_colors";
+// @import "~@gs/ng-horizon/style/scss/_horizon_variables";
+// This is needed for RTE fields
+@import "~froala-editor/css/froala_editor.pkgd.min.css";
+@import "~@gs/gdk/field-tree/style/index";
+@import "~@gs/gdk/core/style/index";
+@import "~@gs/gdk/rte/style/index.scss";
+@import '~@gs/gdk/assets/grid/font-gs-icons/operators/gs-icons-operator';
+@import "~@gs/gdk/grid/style/index.scss";
+@import "./assets/scss/widget-common.scss";
+
+/* core variables */
+//$imagesAssetPath: "~@gs/core/assets/images";
+//$fonts_dir : "~@gs/core/assets/fonts/";
+//$font_icons_dir: "~@gs/core/assets/font-gs-icons/";
+
+/* core fonts */
+//@import "~@gs/core/assets/fonts/Roboto/Roboto.scss";
+//@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+
+//$icomoon-font-path: "~@gs/core/assets/fonts/report-viewer";
+//@import "~@gs/core/assets/fonts/report-viewer/gs-icons-rprt";
+
+//@import "~quill/dist/quill.core.css";
+//@import "~quill/dist/quill.snow.css";
+
+/* core assets */
+//@import '~@gs/core/assets/gsTheme-h2';
+//@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+//@import "~@gs/core/assets/scss/components/gainsight/in-app-sally";
+
+//@import "~ag-grid-community/dist/styles/ag-grid.css";
+//@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+//@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+
+//@import "~primeng/resources/primeng.min.css";
+
+.gainsight-app, .cdk-overlay-container {
+  //@import "~@gs/core/assets/fonts/report-viewer/gs-icons-rprt";
+  //@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+  //@import "~@gs/core/assets/font-gs-icons/gs-icons.scss";
+  //@import "~@gs/core/src/shared/assets/scss/components/common/popover-menu";
+  //@import "~@gs/core/src/shared/assets/scss/components/vendor/_gs-cdk-dragndrop";
+  //@import '~@gs/core/assets/scss/horizon2.1/components/material/formelements';
+  //@import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+  //@import "~@gs/core/assets/scss/horizon2.1/components/material/chips";
+  //@import "~@gs/core/assets/scss/horizon2.1/core/custom-paginator";
+}
+
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0;
+  //background: $gs-material-bg-color;
+  //font-family: mat-font-family($gs-typography-config);
+  font-family: $font-family !important;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.gainsight-app {
+    height: 100vh;
+  }
+}
+.mat-list-item {
+  font-family: $font-family !important;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper {
+  position: fixed !important;
+  z-index: 1302 !important;
+  background: rgba(255,255,255,0.6) !important;
+}
+
+.gs-loader-vertical-bar-skeleton {
+  background-image: url("~@gs/core/src/shared/assets/images/loader-vertical-bar-skeleton.svg");
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper-opacity {
+  background: rgba(255,255,255,0.6) !important;
+}
+@import "assets/scss/module-overrides";
+@import 'assets/scss/utilities/utilities';
+@import 'assets/scss/360helper';
+@import 'assets/scss/typography';
+
+@import '@gs/cs360-lib/assets/scss/summary-csm';
+
+.cdk-overlay-container{
+  //z-index: 1400;
+}
+
+$c360-breakpoints: (
+	mobile: 1200,
+	desktop: 1440,
+	largedesktop: 1920
+);
+
+$desktop-below1200: "screen and (max-width: #{map_get($c360-breakpoints, mobile)}px)" !default;
+$desktop-1200: "screen and (min-width: #{map_get($c360-breakpoints, mobile)}px) and (max-width : #{map_get($c360-breakpoints, desktop)}px)" !default;
+$desktop-1440: "screen and (min-width: #{map_get($c360-breakpoints, desktop)}px) and (max-width : #{map_get($c360-breakpoints, largedesktop)}px)" !default;
+$desktop-1920: "screen and (min-width: #{map_get($c360-breakpoints, largedesktop)}px)" !default;
+
+// @media #{$desktop-below1200}, #{$desktop-1200} {
+//   .csm-summary-widget-wrapper__content:not(.attr-widget) {
+//     h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error) {
+//       font-size: 1.8rem !important;
+//       font-weight: normal !important;
+//       line-height: 2.1rem !important;
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 1.8rem !important;
+//       font-weight: normal !important;
+//     }
+//     .item {
+//       .value {
+//         //color: $text-color;
+//         font-size: 1.8rem;
+//         margin-bottom: 0.5rem;
+
+//       }
+//       .label {
+//         color: $rich-gray-70;
+//         font-size: 12px;
+//      }
+//     }
+//   }
+//   .csm-summary-widget-wrapper__content {
+//     &.attr-widget {
+//       .field-edit-hover-content-value{
+//         font-size: 14px !important;
+//       }
+//       .field-edit-hover-content {
+//           .urlDetails {
+//             a {
+//               font-size: 14px !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   .csm-section-renderer-wrapper:not(.attribute){
+//     .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title,  [nz-paragraph].ant-typography {
+//       font-size: 14px !important;
+//   }
+//     .gs-form__field--multiselect {
+//       .multiselect-field {
+//         font-size: 14px !important;
+//       }
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 14px;
+//     }
+//   }
+// }
+
+// @media #{$desktop-1440} {
+//   .csm-summary-widget-wrapper__content:not(.attr-widget) {
+//     h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content,.gs-field-error, .gs-field-error) {
+//       font-size: 2.1rem !important;
+//       line-height: 2.4rem !important;
+//       font-weight: normal !important;
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 2.1rem !important;
+//       line-height: 2.4rem !important;
+//       font-weight: normal !important;
+//     }
+//     .item {
+//       .value {
+//         //color: $text-color;
+//         font-size: 2.1rem;
+//         margin-bottom: 0.5rem;
+//       }
+//       .label {
+//         color: $rich-gray-70;
+//         font-size: 12px;
+//       }
+//     }
+//   }
+//   .csm-summary-widget-wrapper__content {
+//     &.attr-widget {
+//       .field-edit-hover-content-value{
+//         font-size: 14px !important;
+//       }
+//       .field-edit-hover-content {
+//           .urlDetails {
+//             a {
+//               font-size: 14px !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   .csm-section-renderer-wrapper:not(.attribute){
+//     .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title, [nz-paragraph].ant-typography {
+//       font-size: 14px !important;
+//     }
+//     .gs-form__field--multiselect{
+//       .multiselect-field {
+//         font-size: 14px !important;
+//       }
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 14px;
+//     }
+//   }
+// }
+
+// @media #{$desktop-1920} {
+//   .csm-summary-widget-wrapper__content:not(.attr-widget) {
+//     h4, .ant-card-meta-title, [nz-paragraph].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error), [nz-text].ant-typography:not(.ql-editor .field-edit-hover-content-value, .rta, .read-content, .gs-field-error) {
+//       font-size: 2.8rem !important;
+//       line-height: 3.3rem !important;
+//       font-weight: normal !important;
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 2.8rem !important;
+//       line-height: 4rem !important;
+//       font-weight: normal !important;
+//     }
+//     .ant-avatar{
+//       margin: 0 12px 28px 0 !important;
+//     }
+//     .item {
+//       .value {
+//         //color: $text-color;
+//         font-size: 2.8rem;
+//         margin-bottom: 0.5rem;
+//       }
+//       .label {
+//         color: $rich-gray-70;
+//         font-size: 12px;
+//       }
+//     }
+//   }
+//   .csm-summary-widget-wrapper__content {
+//     &.attr-widget {
+//       .field-edit-hover-content-value{
+//         font-size: 16px !important;
+//       }
+//       .field-edit-hover-content {
+//           .urlDetails {
+//             a {
+//               font-size: 18px !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   .csm-section-renderer-wrapper:not(.attribute){
+//     .field-edit-hover-content-value, .gs-form__field-label, .gs-form__field--view, .gs-form__lookup-title, [nz-paragraph].ant-typography {
+//       font-size: 16px !important;
+//   }
+//     .gs-form__field--multiselect{
+//       .multiselect-field {
+//         font-size: 16px !important;
+//       }
+//     }
+//     .picklist-item, .bool-field {
+//       font-size: 16px;
+//     }
+//   }
+// }
+
+@import "~@gs/gdk/spinner/style/index";
+@import "~@gs/report/assets/styles/report-builder";
+
+.z-depth-1 {
+  // box-shadow: 0 0 1px 0 rgba(43,61,81,.3), 0 2px 3px 0 rgba(43,61,81,.1);
+}
+  .ag-tooltip{
+    background-color: #161F27 !important;
+    color: white !important;
+  }
+.gs-grid-filter.gs-grid-date-filter {
+  .ant-calendar-picker-clear {
+    display: block !important;
+  }
+}
+
+
+
+
+

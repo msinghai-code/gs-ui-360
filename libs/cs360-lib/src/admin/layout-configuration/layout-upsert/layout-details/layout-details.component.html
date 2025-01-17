@@ -1,0 +1,67 @@
+<div gsSpinner [nzSize]="'xl'" [show]="loading" class="details">
+  <!--{360.admin.layout_details.details}=Details-->
+  <div class="details__header">{{'360.admin.layout_details.details'| transloco}}</div>
+  <form nz-form [formGroup]="detailsForm" class="details-form" nzLayout="vertical">
+    <nz-form-item>
+        <!--{360.admin.layout_details.name}=Name-->
+      <nz-form-label nzRequired nzFor="name">{{'360.admin.layout_details.name'| transloco}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="errorTpl">
+        <input autocomplete="off" nz-input formControlName="name">
+        <ng-template #errorTpl let-control>
+            <!--{360.admin.layout_details.fieldError}=The field cannot be left blank.-->
+          <ng-container *ngIf="control.hasError('required')">{{'360.admin.layout_details.fieldError'| transloco}}</ng-container>
+            <!--{360.admin.layout_details.maxCharError}=Maximum characters allowed are-->
+          <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.layout_details.maxCharError'| transloco}} {{control.errors.maxlength.requiredLength}}.</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item *ngIf="showRelationshipTypeSelection">
+        <!--{360.admin.layout_details.forRelType}=For Relationship Type-->
+      <nz-form-label nzRequired nzFor="relationshipTypeId">{{'360.admin.layout_details.forRelType'| transloco}}</nz-form-label>
+        <!--{360.admin.layout_details.typeError}=Select type to proceed!-->
+      <nz-form-control  [nzErrorTip]="'360.admin.layout_details.typeError' | transloco">
+        <nz-select [nzDisabled]="!isCreateMode" [nzShowSearch]="true" formControlName="relationshipTypeId">
+          <nz-option *ngFor="let type of relationshipTypes" [nzValue]="type.Gsid"
+            [nzLabel]="type.Name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+        <!--{360.admin.layout_details.description}=Description-->
+      <nz-form-label class="gs-keygen">{{'360.admin.layout_details.description'| transloco}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="descErrorTpl">
+        <textarea  nz-input formControlName="description" rows="2"></textarea>
+        <ng-template #descErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.layout_details.maxCharError'| transloco}} {{control.errors.maxlength.requiredLength}}.</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="clone-layout-info" *ngIf="showRelChangeBanner">
+      <div class="info-section">
+          <span></span>
+          <!--{360.admin.layout_details.missingAssociationFor}=Any missing object associations for-->
+          <!--{360.admin.layout_details.copiedFrom}=type will be copied from the-->
+          <!--{360.admin.layout_details.type}=type-->
+        <div class="info-section-txt">
+            {{'360.admin.layout_details.missingAssociationFor' | transloco}} <b>{{targetRelType.Name}}</b> {{'360.admin.layout_details.copiedFrom' | transloco}} <b>{{cloneSourceRelType.Name}}</b> {{'360.admin.layout_details.type' | transloco}}
+        </div>
+      </div>
+     
+      
+    </div>
+  </form>
+</div>
+<div class="details__footer">
+  <div>
+    <!-- <button *ngIf="isCreateMode" nz-button (click)="onSaveAsDraftClick()" nzType="link">Save as Draft</button> -->
+      <!--{360.admin.layout_details.cancelBtn}=Cancel-->
+      <!--{360.admin.layout_details.nextBtn}=Next-->
+      <!--{360.admin.layout_details.saveBtn}=Save-->
+    <button nz-button (click)="onCancelClick()" nzType="default">{{'360.admin.layout_details.cancelBtn' | transloco}}</button>
+    <button nz-button (click)="onSaveClick()" nzType="primary">
+      <span *ngIf="isCreateMode">{{'360.admin.layout_details.nextBtn' | transloco}}</span>
+      <span *ngIf="!isCreateMode">{{'360.admin.layout_details.saveBtn' | transloco}}</span>
+    </button>
+  </div>
+</div>
+

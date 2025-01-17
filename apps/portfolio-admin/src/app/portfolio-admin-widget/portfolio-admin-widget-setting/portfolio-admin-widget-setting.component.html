@@ -1,0 +1,81 @@
+<div class="gs-portfolio-widget-setup">
+    <div class="gs-portfolio-widget-setup__header">
+        <span *ngIf="!showTitleInput" (click)="handleTitleActions(TITLE_ACTIONS.SHOW)"
+            class="gs-portfolio-widget-setup__header__title">{{updatedConfig.portfolioName}}</span>
+        <div *ngIf="showTitleInput" class="gs-portfolio-widget-setup__header__input">
+            <!-- <mat-form-field> -->
+                <!--{360.admin.widget_setting.title}=Title-->
+                <!-- <input matInput [placeholder]="'360.settings.component.widget_name_placeholder' | transloco" required [(ngModel)]="updatedConfig.portfolioName" />
+            </mat-form-field> -->
+            <nz-input-group>
+                <input type='text' nz-input [placeholder]="'360.settings.component.widget_name_placeholder' | transloco" required [(ngModel)]="updatedConfig.portfolioName" />
+            </nz-input-group>
+            <!-- <mat-icon (click)="handleTitleActions(TITLE_ACTIONS.DONE)">done</mat-icon> -->
+            <i nz-icon nzType="tick" (click)="handleTitleActions(TITLE_ACTIONS.DONE)" [nzSize]="24"></i>
+            <!-- <mat-icon (click)="handleTitleActions(TITLE_ACTIONS.CLEAR)">clear</mat-icon> -->
+            <i nz-icon nzType="close" (click)="handleTitleActions(TITLE_ACTIONS.CLEAR)" [nzSize]="24"></i>
+        </div>
+    </div>
+    <div class="gs-portfolio-widget-setup__body">
+        <nz-tabset #tabs class="h-100">
+            <nz-tab [nzTitle]="'360.admin.widget_setting.companyTab' | transloco">
+                <ng-template nz-tab>
+                    <div class="gs-portfolio-widget-setup__body--content">
+                        <div class="gs-portfolio-widget-setup__body--switch">
+                            <span class="gs-keygen">{{'360.admin.widget_setting.viewCompanyRecords' | transloco}}</span>
+                            <mat-slide-toggle color="primary"
+                                [(ngModel)]="this.updatedConfig.configuration.company.showTab"
+                                (ngModelChange)="onGridDisable()"></mat-slide-toggle>
+                        </div>
+                        <gs-widget-field (onInvalidStateChange)="setInvalid($event)"
+                            [ngClass]="{'feature-disabled': !this.updatedConfig.configuration.company.showTab}"
+                            [fieldTreeMap]="updatedFieldTree" [objectName]="'company'"></gs-widget-field>
+                        <div *ngIf="showGlobalFilterWarning?.length" class="gs-portfolio-widget-setup__error-container">
+                            <div class="gs-portfolio-widget-setup__error-message">
+                                <i nz-icon nzType="alert-warning" nzTheme="outline"></i>
+                                <span
+                                    [innerHTML]="showGlobalFilterWarningText"></span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </nz-tab>
+            <nz-tab *ngIf="isRelationshipEnabled" [nzTitle]="'360.admin.widget_setting.RelationshipTab' | transloco">
+                <ng-template nz-tab>
+                    <div class="gs-portfolio-widget-setup__body--content">
+                        <div class="gs-portfolio-widget-setup__body--switch">
+                            <span class="gs-keygen">{{'360.admin.widget_setting.viewRelationshipRecords' |
+                                transloco}}</span>
+                            <mat-slide-toggle color="primary"
+                                [(ngModel)]="this.updatedConfig.configuration.relationship.showTab"
+                                (ngModelChange)="onGridDisable()"></mat-slide-toggle>
+                        </div>
+                        <gs-widget-field (onInvalidStateChange)="setInvalid($event)"
+                            [ngClass]="{'feature-disabled': !this.updatedConfig.configuration.relationship.showTab}"
+                            [fieldTreeMap]="updatedFieldTree" [objectName]="'relationship'"></gs-widget-field>
+                        <div *ngIf="showGlobalFilterWarning?.length" class="gs-portfolio-widget-setup__error-container">
+                            <div class="gs-portfolio-widget-setup__error-message">
+                                <i nz-icon nzType="alert-warning" nzTheme="outline"></i>
+                                <span
+                                    innerHTML="{{'360.admin.admin_widget.globalFiltersText1' | transloco}} {{showGlobalFilterWarning.join(', ')}} {{'360.admin.admin_widget.globalFiltersText2' | transloco}}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </nz-tab>
+        </nz-tabset>
+    </div>
+    <div class="gs-portfolio-widget-setup__footer">
+        <!-- {360.admin.widget_setting.widgetChangesNote}=Note: Changes made to this widget are directly published and can impact the user customizations.-->
+        <span class="gs-keygen">{{'360.admin.widget_setting.widgetChangesNote' | transloco}}</span>
+        <div class="gs-portfolio-widget-setup__footer__buttons">
+            <!-- {360.admin.widget_setting.cancelBtn}=Cancel-->
+            <button nz-button nzType="default" nzShape="round" (click)="close()">{{'360.admin.widget_setting.cancelBtn'
+                |
+                transloco}}</button>
+            <!-- {360.admin.widget_setting.saveBtn}=Save-->
+            <button nz-button nzType="primary" nzShape="round"
+                (click)="saveSettings()">{{'360.admin.widget_setting.saveBtn' | transloco}}</button>
+        </div>
+    </div>
+</div>

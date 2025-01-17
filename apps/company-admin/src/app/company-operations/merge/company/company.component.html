@@ -1,0 +1,234 @@
+<ng-container *ngIf="(mergeData$ | async) as st">
+  <div class="gs-module-body">
+    <div class="gs-company-merge" [ngClass]="{'gs-company-merge--body' : (st.data && st.data.length)}">
+      <ng-container>
+        <div class="gs-company-merge__content-wrap w-100">
+          <div class="gs-company-merge-heading-content">
+            <div class="gs-company-merge__title">
+              {{'360.company_comp.merge'| transloco}}
+            </div>
+            <div *ngIf="st.companyObj1 && st.companyObj2 && st.data && st.data.length; else masterCompanyInfo" class="gs-company-msg">
+              <p>
+                {{'360.company_comp.masterCompany'| transloco}}<a [href]="companyDocumentationUrl" target="_blank"
+                  class="gs-link">{{'360.company_comp.clickHere'| transloco}}</a>.
+              </p>
+              <div class="gs-company-merge__cdropdowns">
+                <div class="gs-company-merge-heading gs-company-merge__item-field">
+                  {{'360.company_comp.selectMaster'| transloco}}</div>
+                <div class="gs-company-merge__item-field">
+                    <mat-radio-button color="primary" value="0" name="master_record"
+                    [checked]="st.postquery.masterRecord === st.selectedCompanyList[0]" (click)="selectMasterField(0)"
+                    matTooltip={{st.companyObj1.Name}} matTooltipPosition="above">{{st.companyObj1.Name}}
+                  </mat-radio-button>
+                </div>
+                <div class="gs-company-merge__item-field">
+                    <mat-radio-button color="primary" value="1" name="master_record"
+                    [checked]="st.postquery.masterRecord === st.selectedCompanyList[1]" (click)="selectMasterField(1)"
+                    matTooltip={{st.companyObj2.Name}} matTooltipPosition="above">{{st.companyObj2.Name}}
+                  </mat-radio-button>
+                </div>
+              </div>
+            </div>
+            <ng-template #masterCompanyInfo class="gs-company-msg">
+              <p>
+                {{'360.company_comp.acquire'| transloco}}
+              </p>
+
+              <p>
+                {{'360.company_comp.selectCompToMerge'| transloco}}
+              </p>
+            </ng-template>
+          </div>
+          <div class="empty_msg">
+            <i class="gs-select-company-msg"></i>
+          </div>
+        </div>
+      </ng-container>
+      <div class="gs-company-merge__header" *ngIf="!(st.data && st.data.length)">
+        <div class="gs-company-merge__cdropdowns">
+          <div class="gs-company-merge__cname">
+            <nz-select
+              [(ngModel)]="st.companyObj1"
+              nzShowSearch
+              nzServerSearch
+              [nzPlaceHolder]="'360.company_comp.placeholder'| transloco"
+              [nzDisabled]="disableOptions"
+              (nzOnSearch)="onCompanySearch($event)"
+              (ngModelChange)="selectCompany($event,0)"
+              >
+              <nz-option *ngFor="let company of st.companiesListComp1" [nzValue]="company" [nzLabel]="company.Name"></nz-option>
+            </nz-select>
+          </div>
+          <div class="gs-company-merge__cname">
+            <nz-select
+              [(ngModel)]="st.companyObj2"
+              nzShowSearch
+              nzServerSearch
+              [nzPlaceHolder]="'360.company_comp.placeholder'| transloco"
+              [nzDisabled]="disableOptions"
+              (nzOnSearch)="onCompanySearch($event)"
+              (ngModelChange)="selectCompany($event,1)"
+              >
+              <nz-option *ngFor="let company of st.companiesListComp2" [nzValue]="company" [nzLabel]="company.Name"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </div>
+      <div class="gs-company-merge__content-wrap w-100" *ngIf="st.data && st.data.length">
+        <div class="gs-company-merge-heading-content">
+          <div class="gs-company-msg">
+            <p>
+              {{'360.company_comp.sortedValues'| transloco}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="gs-company-merge__body">
+        <ng-container *ngIf="st.companyObj1 && st.companyObj2 && st.data && st.data.length">
+          <nz-list class="gs-company-merge__list">
+            <nz-list-item class="gs-company-merge__item">
+              <div class="gs-company-merge__item-content">
+                <div class="gs-company-merge__item-field">
+                </div>
+
+                <div class="gs-company-merge__item-field gs-company-merge-heading">
+                  {{st.companyObj1.Name}}
+                </div>
+                <div class="gs-company-merge__item-field gs-company-merge-heading">
+                  {{st.companyObj2.Name}}
+                </div>
+                <div class="gs-company-merge__item-field">
+                </div>
+              </div>
+            </nz-list-item>
+            <nz-list-item class="gs-company-merge__item">
+              <div class="gs-company-merge__item-content">
+                <div class="gs-company-merge__item-field">
+                  {{'360.company_comp.fields'| transloco}}
+                </div>
+                <div class="gs-company-merge__item-field">
+                    <label name="select_all" nz-checkbox nzValue="0" [ngModel]="st.allRecordsFrom === 0" (change)="selectAllRecords(0)" (click)="selectAllRecords(0)">{{'360.company_comp.selectAll'| transloco}}</label>
+                </div>
+                <div class="gs-company-merge__item-field">
+                    <label name="select_all" nz-checkbox nzValue="1" [ngModel]="st.allRecordsFrom === 1" (change)="selectAllRecords(1)" (click)="selectAllRecords(1)">{{'360.company_comp.selectAll'| transloco}}</label>
+                </div>
+                <div class="gs-company-merge__item-field">
+                </div>
+              </div>
+            </nz-list-item>
+            <ng-container *ngFor="let field of st.data; let i = index">
+              <nz-list-item class="gs-company-merge__item" *ngIf="field.showField">
+                <div class="gs-company-merge__item-content">
+                  <div class="gs-company-merge__item-field">
+                    {{ field.displayName }}
+                  </div>
+                  <div class="gs-company-merge__item-field">
+                    <mat-radio-button [disabled]="field?.meta?.dependentPicklist && field?.meta?.controllerName"
+                      color="primary" value="1" name="field_item_{{ i }}" value="field.c1_value"
+                      [checked]="field.c1_checked" (click)="setFieldValue(field, 0, i, st)">
+                      <ng-container [ngSwitch]="field.dataType">
+
+                        <section *ngSwitchDefault nz-tooltip nzTooltipTitle="{{ field.c1_value || '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value || '--' }}
+                        </section>
+                        <section *ngSwitchCase="'CURRENCY'"
+                        nz-tooltip nzTooltipTitle="{{ field.c1_value ? ( field.c1_value | objectcurrency : field : field ) : '--'  }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value ? ( field.c1_value | objectcurrency : field : field ) : '--' }}
+                        </section>
+                        <section *ngSwitchCase="'RICHTEXTAREA'"
+                         nz-tooltip nzTooltipTitle="{{ field.c1_value ? ( field.c1_value | objectRTA : field : field ) : '--'  }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value ? ( field.c1_value | objectRTA : field : field ) : '--' }}
+                        </section>
+                        <section *ngSwitchCase="'NUMBER'"
+                         nz-tooltip nzTooltipTitle="{{ field.c1_value ? ( field.c1_value | objectNumber: field : field ): '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value ? ( field.c1_value | objectNumber: field : field ): '--' }}
+                        </section>
+                        <section *ngSwitchCase="'DATE'"
+                         nz-tooltip nzTooltipTitle="{{ field.c1_value? ( field.c1_value | localeTime : dateTimeFormat : timeZone ) : '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value? ( field.c1_value | localeTime : dateFormat : timeZone ) : '--' }}
+                        </section>
+                        <section *ngSwitchCase="'DATETIME'"
+                        nz-tooltip nzTooltipTitle="{{ field.c1_value? ( field.c1_value | localeTime : dateFormat : timeZone): '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c1_value? ( field.c1_value | localeTime : dateFormat : timeZone): '--' }}
+                        </section>
+                      </ng-container>
+                    </mat-radio-button>
+                  </div>
+                  <div class="gs-company-merge__item-field">
+                    <mat-radio-button [disabled]="field?.meta?.dependentPicklist && field?.meta?.controllerName"
+                      color="primary" value="2" name="field_item_{{ i }}" value="field.c2_value"
+                      [checked]="field.c2_checked" (click)="setFieldValue(field, 1, i, st)">
+                      <ng-container [ngSwitch]="field.dataType">
+                        <section *ngSwitchDefault nz-tooltip nzTooltipTitle="{{ field.c2_value || '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value || '--' }}
+                        </section>
+                        <section *ngSwitchCase="'CURRENCY'"
+                         nz-tooltip nzTooltipTitle=" {{ field.c2_value ? ( field.c2_value | objectcurrency : field : field ) : '--'  }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value ? ( field.c2_value | objectcurrency : field : field ) : '--' }}
+                        </section>
+                        <section *ngSwitchCase="'RICHTEXTAREA'"
+                         nz-tooltip nzTooltipTitle=" {{ field.c2_value ? ( field.c2_value | objectRTA : field : field ) : '--'  }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value ? ( field.c2_value | objectRTA : field : field ) : '--' }}
+                        </section>
+                        <section *ngSwitchCase="'NUMBER'"
+                         nz-tooltip nzTooltipTitle=" {{ field.c2_value ? ( field.c2_value | objectNumber : field : field ): '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value ? ( field.c2_value | objectNumber: field : field ): '--' }}
+                        </section>
+                        <section *ngSwitchCase="'DATE'"
+                         nz-tooltip nzTooltipTitle="{{ field.c2_value? ( field.c2_value | localeTime : dateFormat : timeZone ): '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value? ( field.c2_value | localeTime : dateFormat : timeZone ): '--' }}
+                        </section>
+                        <section *ngSwitchCase="'DATETIME'"
+                         nz-tooltip nzTooltipTitle=" {{ field.c2_value? ( field.c2_value | localeTime : dateFormat : timeZone): '--' }}"
+                          [nzTooltipPlacement]="'right'">
+                          {{ field.c2_value? ( field.c2_value | localeTime : dateFormat : timeZone): '--' }}
+                        </section>
+                      </ng-container>
+                    </mat-radio-button>
+                  </div>
+                  <div class="gs-company-merge__item-field">
+                    <ng-container *ngIf="dataTypeList.includes(field.dataType)">
+                      <mat-radio-button color="primary" value="3" name="field_item_{{ i }}"
+                        (click)="setFieldValue(field, 2, i, st.allRecordsFrom)" [checked]="field.c3_checked">
+                      </mat-radio-button>
+                      <mat-form-field class="merge-aggregation-type">
+                        <mat-label>{{'360.company_comp.aggrType'| transloco}}</mat-label>
+                        <mat-select (selectionChange)="setFieldValue(field, 2, i, st.allRecordsFrom)"
+                          [(ngModel)]="field.aggregationType">
+                          <mat-option *ngFor="let agg of aggregationTypes" [value]="agg.val">
+                            {{ agg.label | transloco }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="errorIndexList.includes(i)" class="">{{'360.company_comp.selectAggr'|
+                        transloco}}</mat-error>
+                    </ng-container>
+                  </div>
+                </div>
+              </nz-list-item>
+            </ng-container>
+          </nz-list>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="gs-company-merge__show-all" *ngIf="st.data && st.data.length">
+    {{ showMsg }}
+    <button nz-button nzType="link" (click)="showAllFields(showBtnIndx)">
+      {{ showbtnLabel }}
+    </button>
+  </div>
+</ng-container>

@@ -1,0 +1,48 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.layout-upsert {
+  height: 100%;
+  &__cntr {
+    ::ng-deep{
+      //adding these back again since it was removed earlier as a fix for some issue. Need to check later
+      .ant-modal-header{
+        border-bottom: 1px solid $rich-gray-40;
+      }
+      .ant-modal-title{
+        padding-bottom: 0;
+      }
+      .ant-tabs-ink-bar{
+        bottom: 2px;
+      }
+    }
+  }
+  &__title {
+    &__header {
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.9rem;
+      font-size: 1.8rem;
+    }
+    &__subheader {
+      font-weight: normal;
+      margin-bottom: 0.4rem;
+    }
+    padding-top: .4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 30%;
+    align-items: center;
+  }
+  &__steps {
+    &-container {
+      margin-left: 20%;
+      align-self: flex-end;
+      transform: translateX(-48%);
+    }
+  }
+  &__step-content {
+    height: 100%;
+  }
+}

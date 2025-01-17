@@ -1,0 +1,86 @@
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/shadows";
+@import "~@gs/design-tokens/scss/index";
+@import "~@gs/gdk/column-chooser/style/index";
+@import "~@gs/design-tokens/scss/spacings";
+
+gridster {
+    width: 100% !important;
+}
+.gridster-defaults-csm {
+   // display: flex;
+}
+.redirect {
+    ::ng-deep {
+        > * {
+            cursor: pointer;
+        }
+    }
+}
+
+.gridster-item-resizable-handler {
+    display: none;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.unsupported-in-small-screen {
+    .expand-to-view {
+        display: none;
+
+        .image {
+            width: 100%;
+            height: 120px;
+            background-image: url('../../../../../assets/images/other-placeholders/container-expand-to-view.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-top: 20px;
+        }
+    
+        .text {
+            color: #7596b7;
+            text-align: center;
+            margin-top: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .unsupported-in-small-screen {
+        padding: 2rem !important;
+        .expand-to-view {
+            display: block;
+        }
+    
+        ::ng-deep > *:not(.expand-to-view) {
+            display: none !important;
+        }
+    }
+}
+
+gridster-item.compact {
+    border: 1px solid $rich-gray-40;
+}
+
+.sticky_button{
+    position: absolute;
+    z-index: $zindex-popover;
+    right: 0;
+    border-radius: $border-radius-base 0px 0px $border-radius-base;
+    background: $rich-gray-0;
+    box-shadow: $gray-shadow-400-bottom;
+}
+
+.mini_column_chooser{
+    ::ng-deep{
+        .ant-input-prefix{
+            left: $space-base !important;
+            top: 5px;
+            width: min-content;
+        }
+    }
+}

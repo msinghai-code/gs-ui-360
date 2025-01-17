@@ -1,0 +1,5 @@
+<ax-lazy-element
+        *axLazyElementDynamic="elementTag,url:url" [section]="section" [context]="renderContext"
+        [sectionMetaData] = "section && section.sectionMeta | async"
+        (switchContextSection)="switchToAssociatedContextSection($event)" #csmSection>
+</ax-lazy-element>

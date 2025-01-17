@@ -1,0 +1,32 @@
+<div class="gs-add-widget-field-wrapper">
+  <div class="gs-add-widget-field-wrapper__header">
+    <!-- {360.admin.add_widget_field.selectFields}=Select fields to add. You can select/modify fields later.-->
+    <!-- {360.admin.add_widget_field.selectFieldsNote}=Note: In below list Rich Text Area fields are not available.-->
+    <div class="hint-text">{{'360.admin.add_widget_field.selectFields' | transloco}}<br>
+      {{'360.admin.add_widget_field.selectFieldsNote' | transloco}}
+    </div>
+
+
+  </div>
+  <!-- {360.admin.add_widget_field.selectControllerFields}=Select controller fields({{controllerFields}}) in order to add dependent field.-->
+  <ng-container *transloco="let t; read: '360'">
+    <div *ngIf="!isValidDependentPicklist" class="error-text">
+      {{t('admin.add_widget_field.selectControllerFields',{controllerFields : controllerFields})}}</div>
+  </ng-container>
+  <!--  <div *ngIf="!isValidDependentPicklist" class="error-text"> Select controller fields({{controllerFields}}) in order to add dependent field. </div>-->
+  <div class="gs-add-widget-field-wrapper__body">
+    <div class="gs-add-widget-field-wrapper__body__content gs-add-column__popover">
+      <gs-column-picker #columnPicker [fieldFilterFunction]="fieldFilterFunction.bind(this)"
+        [cockpitColumnPickerOptions]="config">
+      </gs-column-picker>
+    </div>
+  </div>
+  <div class="gs-add-widget-field-wrapper__footer">
+    <!-- {360.admin.add_widget_field.cancelBtn}=Cancel-->
+    <button nz-button nzType="default" nzShape="round" (click)="onClose()">{{'360.admin.add_widget_field.cancelBtn' |
+      transloco}}</button>
+    <!-- {360.admin.add_widget_field.applyBtn}=Apply-->
+    <button nz-button nzType="primary" nzShape="round" (click)="onSave()">{{'360.admin.add_widget_field.applyBtn'
+      | transloco}}</button>
+  </div>
+</div>

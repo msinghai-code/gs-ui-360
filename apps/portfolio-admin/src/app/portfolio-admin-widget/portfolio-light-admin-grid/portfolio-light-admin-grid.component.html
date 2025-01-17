@@ -1,0 +1,111 @@
+<nz-tabset *ngIf="configuredObjectNames.length > 1 else singleTemplate" #tabs class="h-100">
+    <!-- {360.admin.light_admin_grid.companyTab}=Company-->
+    <nz-tab [nzTitle]="'360.admin.light_admin_grid.companyTab' | transloco"
+        *ngIf="config && config.configuration.company.showTab">
+        <ng-container
+            *ngTemplateOutlet="lightWidget;context:{reportMaster: config.configuration.company, sourceDetails:companySourceDetails, showMeFields:showMeCompanyFields}">
+        </ng-container>
+    </nz-tab>
+    <!-- {360.admin.light_admin_grid.relationshipTab}=Relationship-->
+    <nz-tab [nzTitle]="'360.admin.light_admin_grid.relationshipTab' | transloco"
+        *ngIf="config && config.configuration.relationship.showTab">
+        <ng-container
+            *ngTemplateOutlet="lightWidget;context:{reportMaster: config.configuration.relationship, sourceDetails: relationshipSourceDetails, showMeFields:showMeRelationshipFields}">
+        </ng-container>
+    </nz-tab>
+</nz-tabset>
+
+<ng-template #singleTemplate>
+    <div class="h-100" *ngIf="config && config.configuration.company.showTab">
+        <ng-container
+            *ngTemplateOutlet="lightWidget;context:{reportMaster: config.configuration.company, sourceDetails:companySourceDetails, showMeFields:showMeCompanyFields}">
+        </ng-container>
+    </div>
+    <div class="h-100" *ngIf="config && config.configuration.relationship.showTab">
+        <ng-container
+            *ngTemplateOutlet="lightWidget;context:{reportMaster: config.configuration.relationship, sourceDetails: relationshipSourceDetails, showMeFields:showMeRelationshipFields}">
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #lightWidget let-reportMaster="reportMaster" let-sourceDetails="sourceDetails"
+    let-showMeFields="showMeFields">
+    <div class="gs-portfolio-widget-light-weight">
+        <div class="gs-portfolio-widget-light-weight__content">
+            <div class="gs-portfolio-widget-light-weight__content--data">
+                <div class="gs-portfolio-widget-light-weight__content--visualization">
+                    <div class="gs-portfolio-widget-light-weight gs-visualization-grid"></div>
+                </div>
+                <div class="gs-portfolio-widget-light-weight__content--widgetInfo">
+                    <div class="gs-portfolio-widget-light-weight__content--widgetInfo--sourceObjectInfo">
+                        <div class="gs-fields-container" *ngIf="sourceDetails">
+                            <!-- {360.admin.light_admin_grid.sourceType}=SourceType : -->
+                            <span class="gs-fields-container__label">{{'360.admin.light_admin_grid.sourceType' |
+                                transloco}}</span>
+                            <!-- <mat-chip-list>
+                                <mat-chip> {{sourceDetails?.connectionType}} </mat-chip>
+                            </mat-chip-list> -->
+                            <nz-tag> {{sourceDetails?.connectionType}} </nz-tag>
+                        </div>
+                        <div class="gs-fields-container" *ngIf="sourceDetails">
+                            <!-- {360.admin.light_admin_grid.object}=Object :-->
+                            <span class="gs-fields-container__label">{{'360.admin.light_admin_grid.object' |
+                                transloco}}</span>
+                            <!-- <mat-chip-list>
+                                <mat-chip> {{sourceDetails?.objectLabel | transloco}} </mat-chip>
+                            </mat-chip-list> -->
+                            <nz-tag> {{sourceDetails?.objectLabel | transloco}} </nz-tag>
+                        </div>
+                    </div>
+                    <div class="gs-portfolio-widget-light-weight__content--widgetInfo--showMe">
+                        <div class="gs-fields-container" *ngIf="reportMaster?.showFields?.length">
+                            <!-- {360.admin.light_admin_grid.showMe}=Show Me :-->
+                            <span class="gs-fields-container__label">{{'360.admin.light_admin_grid.showMe' |
+                                transloco}}</span>
+                            <!-- <mat-chip-list>
+                                <mat-chip *ngFor="let showField of reportMaster.showFields | slice:0:2">
+                                    <i></i><span>{{showField.displayName}}</span>
+                                </mat-chip>
+                                <mat-chip *ngIf="reportMaster?.showFields?.length > 2">
+                                    <i></i><span
+                                        [matTooltip]="showMeFields.join('\n')">+{{reportMaster?.showFields?.length -
+                                        2}}</span>
+                                </mat-chip>
+                            </mat-chip-list> -->
+
+                            <nz-tag *ngFor="let showField of reportMaster.showFields | slice:0:2">
+                                <i></i><span>{{showField.displayName}}</span>
+                            </nz-tag>
+                            <nz-tag *ngIf="reportMaster?.showFields?.length > 2">
+                                <i></i><span nz-tooltip [nzTooltipContent]="showMeFields.join('\n,')">+{{reportMaster?.showFields?.length - 2}}</span>
+                            </nz-tag>
+                        </div>
+                    </div>
+                    <div class="gs-portfolio-widget-light-weight__content--widgetInfo--groupBy">
+                        <div class="gs-fields-container" *ngIf="reportMaster?.groupByFields?.length">
+                            <!-- {360.admin.light_admin_grid.groupBy}=Group By :-->
+                            <span class="gs-fields-container__label">{{'360.admin.light_admin_grid.groupBy' |
+                                transloco}}</span>
+                            <!-- <mat-chip-list>
+                                <mat-chip *ngFor="let showField of reportMaster.groupByFields | slice:0:2">
+                                    <i></i><span>{{showField.displayName}}</span>
+                                </mat-chip>
+                                <mat-chip *ngIf="reportMaster?.groupByFields?.length > 2">
+                                    <i></i><span
+                                        [matTooltip]="reportMaster.groupByFields.join('\n')">+{{reportMaster?.groupByFields?.length
+                                        - 2}}</span>
+                                </mat-chip>
+                            </mat-chip-list> -->
+                            <nz-tag *ngFor="let showField of reportMaster.groupByFields | slice:0:2">
+                                <i></i><span>{{showField.displayName}}</span>
+                            </nz-tag>
+                            <nz-tag *ngIf="reportMaster?.groupByFields?.length > 2">
+                                <i></i><span nz-tooltip [nzTooltipContent]="reportMaster.groupByFields.join('\n')">+{{reportMaster?.groupByFields?.length - 2}}</span>
+                            </nz-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

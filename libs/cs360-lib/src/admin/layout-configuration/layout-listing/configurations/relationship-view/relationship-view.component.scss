@@ -1,0 +1,98 @@
+@import "~@gs/design-tokens/scss/colors";
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-relationship-section-config {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__header {
+    padding: 0.8rem 0rem 2.9rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 4px 4px 0 0;
+    box-shadow: inset 0 -1px 0 0 #E2E9F0;
+    &--left {
+      height: 1.6rem;
+      color: #123653;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 16px;
+      .help-text {
+        margin-top: 0.3rem;
+        color: #3E5872;
+        font-weight: 400;
+      }
+    }
+    &--right {
+      display: flex;
+      flex-direction: row;
+      margin-right: 2rem;
+      button {
+        margin: 0 0 0 2.4rem;
+        width: 8rem;
+      }
+    }
+  }
+  &__body {
+    flex-grow: 1;
+    &--grid-wrapper{
+      height: 100%;
+      position: relative;
+
+      gs-grid.hide {
+        display: none;
+      }
+
+      ::ng-deep {
+        gs-grid {
+          padding-bottom: 0;
+          
+          .gs-grid-cell-more-vent-icon {
+            mat-icon {
+              margin: 0 !important;
+              right: 10px;
+            }
+          }
+          
+          
+         
+          
+          
+          
+        }
+        .gs-drag-label{
+          font-size: 1.4rem !important;
+          color:$royal-blue-70 !important;
+        }
+      }
+    }
+  }
+}
+
+
+gs-grid-column-chooser {
+  position: absolute;
+  right: 2.4rem;
+  top: 0.4rem;
+  z-index: 99;
+}
+
+::ng-deep {
+  .gs-popover-menu__item {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    padding: 4px 1rem !important;
+    border-bottom: none !important;
+    min-width: 15rem;
+    &:hover {
+      background-color: #f5f7f8;
+    }
+  }
+}
+

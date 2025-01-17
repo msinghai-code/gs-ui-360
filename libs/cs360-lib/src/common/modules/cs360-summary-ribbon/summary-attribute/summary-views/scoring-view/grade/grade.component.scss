@@ -1,0 +1,52 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/font";
+.gs-grade-score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2.5rem;
+  &-square {
+    line-height: 2.4rem;
+    min-height: 2rem;
+    min-width: 2rem;
+    background-color: $border-color-base;
+    margin-right: 1px;
+    align-items: center;
+    display: flex;
+    &:first-child{
+      border-radius: 3px 0 0 3px;
+    }
+    &:last-child{
+      border-radius: 0 3px 3px 0;
+    }
+
+    &-text {
+      width: 100%;
+      text-align: center;
+      color: $rich-gray-0;
+      font-family: $font-family;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.2rem;
+      text-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    &-text-na {
+      color: grey;
+      font-family: $font-family;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 14px;
+      text-align: center;
+      width: 100%;
+    }
+
+    &:hover {
+      height: 2.4rem;
+      border-radius: 2px;
+    }
+  }
+}

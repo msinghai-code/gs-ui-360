@@ -1,0 +1,228 @@
+@import '~@angular/material/theming';
+@import '~@gs/core/assets/scss/horizon2.1/core/variables';
+
+:host {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+}
+.gs-search-input-field {
+  padding: 1px;
+  ::ng-deep {
+    .mat-form-field-label-wrapper {
+      span {
+        display: none;
+      }
+    }
+  }
+}
+.gs-widget-field-wrapper {
+  flex: 1 1 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2rem 1.5rem 2.4rem;
+    display: flex;
+    height: 7.2rem;
+    .fields {
+      color: text-color(default);
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.9rem;
+    }
+    button {
+      margin-left: 1.6rem;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 1rem;
+    .tbody {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    &__row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #d5dee8;
+      align-items: center;
+      cursor: move; /* fallback if grab cursor is unsupported */
+      cursor: grab;
+      &-col {
+        &-field {
+          padding: 1rem 0 1rem 2.4rem;
+          align-items: center;
+          width: 19rem;
+          white-space: nowrap;
+          overflow: hidden;
+          display: flex;
+          text-overflow: ellipsis;
+          .gs-icons {
+            display: flex;
+          }
+          &.name-field {
+            padding-left: 5.7rem;
+          }
+          .header {
+            color: text-color(disabled);
+            font-weight: 500;
+            font-size: 1.4rem;
+          }
+          .gs-icons-draggable-indicator {
+            font-size: 2rem;
+            opacity: 0.6;
+            padding-right: 1.6rem;
+          }
+          &:hover {
+            .gs-icons-draggable-indicator {
+              opacity: 1;
+            }
+          }
+        }
+        &-display-name {
+          padding: 1rem 2rem;
+          align-items: center;
+          display: flex;
+          width: 22rem;
+          .header {
+            color: text-color(disabled);
+            font-weight: 500;
+            font-size: 1.4rem;
+          }
+        }
+        &-editable {
+          padding: 1rem 2rem;
+          align-items: center;
+          display: flex;
+          .header {
+            color: text-color(disabled);
+            font-size: 1.4rem;
+            font-weight: 500;
+          }
+        }
+        &-action {
+          i {
+            display: none;
+            font-size: 2.4rem;
+            color: state-color(icon-hover);
+            padding-right: 1.6rem;
+          }
+          width: 10rem;
+          cursor: pointer;
+          padding: 1rem 2rem;
+          align-items: center;
+        }
+      }
+      &:hover {
+        .gs-widget-field-wrapper__content__row-col-action {
+          i {
+            display: table-cell;
+          }
+        }
+      }
+    }
+    .gs-field-placeholder {
+      background: #c1c1c1;
+      border: dotted 1px #d5dee8;
+      min-height: 5.3rem;
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+    &__message {
+      display: flex;
+      padding: 1rem 2rem;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+  }
+}
+
+//::ng-deep {
+//  .gs-base-tree {
+//    .ui-tree.ui-widget {
+//      .ui-tree-container {
+//        overflow-x: scroll;
+//      }
+//    }
+//  }
+//}
+
+::ng-deep {
+  .gs-portfolio-widget-setup__body--switch {
+    .mat-slide-toggle {
+      .mat-slide-toggle-label {
+        .mat-slide-toggle-bar {
+          margin-bottom: auto;
+        }
+      }
+    }
+  }
+  .cdk-drag-preview {
+    display: block !important;
+    .gs-icons {
+      display: none !important;
+    }
+    .gs-widget-field-wrapper__content__row-col-field {
+      padding-top: 6px;
+    }
+   }
+}
+
+::ng-deep {
+  .gs-icons-datatype-image svg {
+    fill: none !important;
+  }
+
+  .gs-icons-datatype-reference svg {
+    fill: none !important;
+  }
+}
+::ng-deep {
+  .ant-drawer-content-wrapper {
+    .ant-drawer-content {
+      .ant-drawer-wrapper-body {
+        .ant-drawer-header.ng-star-inserted {
+          height: 70px;
+
+          .ant-drawer-title {
+            margin-top: auto;
+          }
+
+          .ant-drawer-close {
+            margin-bottom: auto;
+            margin-left: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .gs-base-tree {
+    .ui-tree.ui-widget {
+      .ui-tree-container {
+        overflow-x: scroll;
+      }
+    }
+  }
+}
+
+
+.flp_hidden{
+  display: none;
+}

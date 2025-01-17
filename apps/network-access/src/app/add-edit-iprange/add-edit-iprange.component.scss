@@ -1,0 +1,13 @@
+.gs-ip-form {
+  max-width: 60rem;
+  min-width: 40rem;
+  margin: 0 auto;
+  .one-input {
+    mat-form-field {
+      display: block;
+    }
+  }
+  .custom-error {
+    font-size: 75%;
+  }
+}

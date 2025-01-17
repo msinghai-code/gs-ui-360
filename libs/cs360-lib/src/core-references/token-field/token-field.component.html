@@ -1,0 +1,17 @@
+<div [ngClass]="{'ce-disabled':disabled}">
+  <div contenteditable="true"
+       [innerHTML]="value"
+       #ce
+       placeholder="Comments"
+       (keyup)="editEvents.emit({target: $event.currentTarget, keyCode: $event.keyCode, value: ce.innerHTML})">
+  </div>
+  <div *ngIf="showTags" class="token-list-container">
+    <ul class="token-list">
+      <li class="token"
+          (click)="onTokenSelect($event, ce, tokenField)"
+          *ngFor="let tokenField of tokenFields">
+        <span>{{tokenField.label}}</span>
+      </li>
+    </ul>
+  </div>
+</div>

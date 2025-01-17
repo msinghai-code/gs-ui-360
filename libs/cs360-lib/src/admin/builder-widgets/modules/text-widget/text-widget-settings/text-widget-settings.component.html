@@ -1,0 +1,54 @@
+<div fxLayout="column" fxFill>
+  <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+    <nz-form-item>
+      <!--{360.admin.text_widget_settings.widget_name}=Widget Name-->
+      <nz-form-label  class="gs-keygen" nzRequired nzFor="label">{{'360.admin.text_widget_settings.widget_name' | transloco}} </nz-form-label>
+       <!--{360.admin.text_widget_settings.widget_name_errortip}=Widget name is required!-->
+      <nz-form-control  class="gs-keygen" [nzErrorTip]="'360.admin.text_widget_settings.widget_name_errortip'| transloco">
+        <input autocomplete="off" autofocus nz-input formControlName="label" maxlength="50">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <!--{360.admin.text_widget_settings.select_rich_text_field}=Select Rich Text Field-->
+      <nz-form-label class="gs-keygen" nzRequired nzFor="config">{{'360.admin.text_widget_settings.select_rich_text_field' | transloco}}</nz-form-label>
+      <nz-form-control fxFill>
+          <!--{360.admin.text_widget_settings.select_rich_text_field_errortip}=Please select image field!-->
+        <nz-select *ngIf="!ctx?.associatedObjects; else multiObj" class="gs-keygen"  nzErrorTip="'360.admin.text_widget_settings.select_rich_text_field_errortip' | transloco" [nzDisabled]="loading" formControlName="config"
+          [nzLoading]="loading">
+          <nz-option *ngFor="let field of options" [nzValue]="field" [nzLabel]="field.label"></nz-option>
+        </nz-select>
+        <ng-template #multiObj>
+            <nz-select [compareWith]="compareWith" class="gs-keygen"
+                       nzErrorTip="'360.admin.text_widget_settings.select_rich_text_field_errortip' | transloco"
+                       [nzLoading]="loading" formControlName="config"
+                       [nzDisabled]="loading">
+                <ng-container *ngIf="multiObjOptions$ | async as options">
+                    <nz-option [nzValue]="field" [nzLabel]="field.customLabel" *ngFor="let field of options"></nz-option>
+                </ng-container>
+            </nz-select>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+       <!--{360.admin.text_widget_settings.field_editablity}=Field Editablitity-->
+      <nz-form-label class="gs-keygen">{{'360.admin.text_widget_settings.field_editablity' | transloco}}</nz-form-label>
+      <nz-form-control>
+        <nz-radio-group [nzDisabled]="!widgetForm.get('config')?.value?.meta?.updateable" formControlName="editable">
+             <!--{360.admin.text_widget_settings.non_editable}=Non-Editable-->
+                <!--{360.admin.text_widget_settings.editable}=Editable-->
+          <label class="gs-keygen" nz-radio [nzValue]="false">{{'360.admin.text_widget_settings.non_editable' | transloco}}</label>
+          <label class="gs-keygen" nz-radio [nzValue]="true">{{'360.admin.text_widget_settings.editable' | transloco}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+      <nz-form-item *ngIf="widgetForm.value.editable">
+          <!--{360.admin.text_widget_settings.required}=Required-->
+          <nz-form-label class="gs-keygen">{{'360.admin.text_widget_settings.required' | transloco}}</nz-form-label>
+          <nz-switch formControlName="required"></nz-switch>
+      </nz-form-item>
+
+  </form>
+</div>

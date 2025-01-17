@@ -1,0 +1,23 @@
+@import "~@gs/design-tokens/scss/font";
+
+.csm-section-renderer-wrapper.summary {
+  .picklist-item, .widget-label, .user-name {
+    width: 100%;
+  }
+}
+
+.csm-summary-widget-wrapper__content {
+    &.attr-widget {
+      .field_label, .field-edit-hover-content-value, .picklist-item, .multiselect-field, .gs-form__lookup-title, .gs-form__field-label {
+        width: 100%;
+        font-size: $font-size-base;
+      }
+  }
+}
+
+.csm-section-renderer-wrapper.attribute {
+  .field_label, .field-edit-hover-content-value, .picklist-item, .multiselect-field, .gs-form__lookup-title, .gs-form__field-label {
+    width: 100%;
+    font-size: $font-size-base;
+  }
+}

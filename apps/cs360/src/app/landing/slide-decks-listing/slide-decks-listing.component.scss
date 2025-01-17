@@ -1,0 +1,71 @@
+:host {
+  ::ng-deep {
+    .gs-slide-deck-export-element {
+      width: 530px;
+      height: 340px;
+    }
+    .ss-deck-list__item {
+      padding-left: 10px;
+    }
+    .ss-deck-list__item.google-ppt-name__label {
+      padding-left: 10px;
+    }
+  }
+}
+
+::ng-deep {
+  .gs-slide-deck-export-element {
+    width: 530px;
+    height: 340px;
+  }
+  .ss-deck-list__item {
+    padding-left: 10px;
+  }
+  .ss-deck-list__item.google-ppt-name__label {
+    padding-left: 10px;
+  }
+
+  .gs-deck-list-footer__new-folder {
+    width: 25% !important;
+  }
+  .preloader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.gs-listing__response {
+  width: 530px;
+  height: 340px;
+  border-radius: 4px;
+  border: solid 1px #e3eaf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  &.loader-ctn {
+    display: none;
+  }
+}
+
+.gs-listing__element {
+  width: 530px;
+  height: 340px;
+  border-radius: 4px;
+  border: solid 1px #e3eaf1;
+  margin-bottom: 20px;
+  ::ng-deep {
+    .ss-deck-list {
+      height: 90% !important;
+    }
+    .make-relative {
+      position: relative;
+    }
+  }
+}
+
+.preloader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

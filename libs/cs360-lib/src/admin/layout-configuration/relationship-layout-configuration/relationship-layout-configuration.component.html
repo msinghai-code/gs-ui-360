@@ -1,0 +1,22 @@
+<nz-modal [nzModalType]="'fullscreen'" [nzFooter]="null" [nzClosable]="true"
+           [nzWrapClassName]="'relationship-configuration-modal'"
+           [nzVisible]="displayRelationshipConfiguration"
+           nzWidth="100%"
+           nzPlacement="left"
+           [nzTitle]="headerRef" (nzOnCancel)="navigateBack()" [nzBodyStyle]="{padding:'0px', height: '100%' }">
+  <ng-template #headerRef>
+    <div fxFill fxLayout="row">
+      <div fxFlex="40" class="relationship-configuration__title">
+        {{header}}
+      </div>
+      <div fxFlex="60">
+        <nz-steps class="relationship-configuration__steps" [nzCurrent]="current" nzSize="small">
+          <nz-step *ngFor="let step of tabs" [nzTitle]="step.label | transloco"></nz-step>
+        </nz-steps>
+      </div>
+    </div>
+  </ng-template>
+  <div class="relationship-configuration__step-content">
+    <router-outlet></router-outlet>
+  </div>
+</nz-modal>

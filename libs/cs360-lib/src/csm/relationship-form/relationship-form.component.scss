@@ -1,0 +1,51 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/font";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-relationship-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__relationship-types-dd {
+    margin-right: $space-xlarge;
+    ::ng-deep {
+      nz-select {
+        width: 100%;
+      }
+    }
+  }
+  &__relationship-types-fields {
+    flex-grow: 1;
+    overflow: auto;
+  }
+  &__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 5rem;
+  }
+  &__empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+nz-alert {
+  padding-bottom: 2rem;
+
+  .ant-alert-close {
+    display: none;
+  }
+}
+
+.gs-rel-type-label {
+  color: $rich-gray-70;
+  font-weight: $font-weight-regular;
+}

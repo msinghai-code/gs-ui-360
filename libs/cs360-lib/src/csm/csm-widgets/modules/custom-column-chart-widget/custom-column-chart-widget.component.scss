@@ -1,0 +1,101 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/icon-colors";
+.columns-container {
+    max-width: 100%;
+    display: flex;
+    height: calc(100% - 50px);
+    margin-left: 1.5rem;
+    transition: all .5s;
+    
+    .column {
+        // background-color: brown;
+        width: 100%;
+        border-radius: 2px 2px 0 0;
+
+        &-group {
+            display: flex;
+            position: relative;
+            height: 100%;
+
+            .label {
+                position: absolute;
+                bottom: 0;
+                right: 50%;
+                transform: rotate(-45deg);
+                transform-origin: center right;
+                color: #7596b7;
+                white-space: nowrap;
+                font-size: 11px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 7rem;
+            }
+
+            &-wrapper {
+                &:first-child {
+                    .label {
+                        max-width: 5rem;
+                    }
+                }
+            }
+        }
+        
+        &-wrapper {
+            background-color: #b8c8d840;
+            border-radius: 2px 2px 0 0;
+            width: 1rem;
+            height: calc(100% - 15px);
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+}
+
+.info-tooltip {
+    font-size: 12px;
+}
+
+.chart-wrapper {
+    overflow: hidden;
+    width: 100%;
+    min-height: 200px;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+    
+    &.center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .chart {
+        height: 100%;
+    }
+
+    .scroll-button {
+        position: absolute;
+        top: calc(50% - 1.5rem);
+        width: 2.6rem;
+        height: 3.2rem;
+        border: none;
+        box-shadow: 0 1px 4px 0 #afc3d7;
+        background: #fff;
+        cursor: pointer;
+        color: $icon-color-normal;
+
+        &-right {
+            right: 0;
+            border-radius: 10rem 0 0 10rem;
+        }
+        
+        &-left {
+            left: 0;
+            border-radius: 0 10rem 10rem 0;
+        }
+    }
+}
+
+
+h1 {
+    padding: 50px;
+    font-size: xx-large;
+}

@@ -1,0 +1,3 @@
+<gs-numeric-score *ngIf="scoringInfo && scoringInfo.type === 'bar'"  [data]="scoringInfo.values"></gs-numeric-score>
+<gs-grade-score *ngIf="scoringInfo && scoringInfo.type === 'grade'"  [data]="scoringInfo.values"></gs-grade-score>
+<gs-color-score *ngIf="scoringInfo && scoringInfo.type === 'color'"  [data]="scoringInfo.values"></gs-color-score>

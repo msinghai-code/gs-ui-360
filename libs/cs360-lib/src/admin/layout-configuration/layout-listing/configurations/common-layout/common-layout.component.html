@@ -1,0 +1,6 @@
+<section gsSpinner [nzSize]="'xl'" [show]="loading" class="gs-common-layout-list">
+  <gs-layouts-listing #gsCommonlayoutlisting
+                      [config]="config"
+                      [data]="data"
+                      (action)="onAction($event)"></gs-layouts-listing>
+</section>

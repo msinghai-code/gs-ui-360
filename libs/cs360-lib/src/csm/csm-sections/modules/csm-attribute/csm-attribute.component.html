@@ -1,0 +1,29 @@
+<div fxFill gsSpinner [nzSize]="'xl'" [show]="isLoading" [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams" [class.compact]="ctx.isCompact">
+  <div fxFill style="background : white;">
+    <div *ngIf="data && config else empty" fxFill fxLayout="column" class="attribute_ctn">
+        <div class="attribute_ctn__title" fxLayout="row" fxLayoutAlign="space-between center">
+        <h5 nz-title>{{section.label || attrText}}</h5>
+        <button class="refresh attr-widget-refresh" nz-button nzType="link" nzShape="circle" (click)="onRefresh()">
+          <i nz-icon nzType="refresh" nzTheme="outline"></i>
+        </button>
+      </div>
+      <div *ngFor="let group of config; let i = index">
+        <div *ngIf="group.columns && group.columns.length > 0" class="attribute_render_grid" style="background : white;">
+          <div *ngIf="!(i === 0 && config.length === 1)" class="attribute_render_grid__header">
+            <h6 nz-title nzColor="subtitle" nzType="sub-section" style="margin-bottom: 16px;">{{group.label || 'Group'}}</h6>
+            <a *ngIf="isMini360 && showMoreApplicable[i]" (click)="resizeItem(group.columns, i)">{{showingMore[i] ? 'View Less' : 'View All'}}</a>
+          </div>
+          <gs-csm-attribute-group-mini *ngIf="isMini360" [showAll]="(i === 0 && config.length === 1)" #csmAttributeGroup (updates)="onAttributeUpdates($event)" [isGroup]="config.length > 1" [fields]="group.columns" [data]="data" [context]="context" [ctx]="ctx"></gs-csm-attribute-group-mini>
+          <gs-csm-attribute-group *ngIf="!isMini360" (updates)="onAttributeUpdates($event)" [fields]="group.columns" [data]="data" [context]="context" [ctx]="ctx"></gs-csm-attribute-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #empty>
+  <div fxFill fxLayout="row" fxLayoutAlign="center center">
+    <gs-empty *ngIf="!isLoading" [section]="section"></gs-empty>
+  </div>
+</ng-template>

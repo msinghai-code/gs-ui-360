@@ -1,0 +1,13 @@
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/font";
+
+
+::ng-deep {
+  .gs-module-container {
+    border-top: 1px solid $border-color-base;
+  }
+}
+
+body{
+  font-family: $font-family;
+}

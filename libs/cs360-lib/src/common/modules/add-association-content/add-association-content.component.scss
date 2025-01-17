@@ -1,0 +1,182 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+::ng-deep{
+  .preloader-container{
+    .preloader-wrapper{
+      .ant-spin-indicator{
+        svg{
+          left: 34rem !important;
+          top: 21rem !important;
+          font-size: 4rem !important;
+        }
+      }
+    }
+
+  }
+}
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.add-association {
+    .sub-header {
+        color: $rich-gray-60;
+    }
+    .basic-info {
+        margin-bottom: 3.2rem;
+        padding-right: 35%;
+        label {
+            color: $rich-gray-70;
+        }
+    }
+    &__object {
+        width: 26rem;
+        margin-bottom: 3.2rem;
+    }
+    &__relType {
+        width: 100%;
+        margin-bottom: 3.2rem;
+        ::ng-deep {
+          .ant-select-selection--multiple {
+            max-height: 5.9rem;
+            overflow: auto;
+          }
+        }
+    }
+    &__body {
+      margin-top: 2.5rem;
+      overflow-y: auto;
+        .gs-tab-sidebar__banner {
+          ::ng-deep{
+            .gs-info-banner{
+              bottom: 5rem;
+            }
+          }  
+        }
+      h6 {
+        margin-bottom: 0.5rem;
+      }
+
+    }
+    &__footer {
+        padding: 1.2rem 0 0 0;
+        border-top: 1px solid $rich-gray-40;
+    }
+    .association-configuration {
+        height: calc(100% - 11rem);
+        &.basicEditable {
+            height: calc(100% - 20rem);
+        }
+        &__header {
+            h6 {
+                margin-bottom: 0 !important;
+            }
+        }
+        &__fields {
+            height: calc(100% - 7rem);
+            &-header {
+                h6 {
+                    margin-bottom: 0 !important;
+                }
+            }
+            .indirect {
+                margin-top: 1.5rem;
+                &__header {
+                    color: $rich-gray-70;
+                }
+            }
+            .link-info {
+                align-self: flex-end;
+                h6 {
+                  margin-bottom: -0.5rem !important;
+                }
+            }
+        }
+    }
+    .object-row {
+        width: 78%;
+        .config-close {
+            font-size: 2.4rem;
+            margin: 0 0 0 1.2rem;
+            color: $rich-gray-60;
+            align-self: flex-end;
+            margin-bottom: 1rem;
+            display: flex;
+        }
+        label {
+            color: $rich-gray-70;
+            margin-bottom: 0.4rem;
+        }
+        .arrow {
+            color: $rich-gray-60;
+            font-size: 1.6rem;
+            align-self: flex-end;
+        }
+        .disabled-input {
+            align-self: flex-end;
+            background-color: $rich-gray-20;
+            border: none;
+            width: 46%;
+        }
+      ::ng-deep {
+        nz-select{
+          width: 18rem;
+        }
+      }
+    }
+    .conditions {
+        overflow: auto;
+        min-height: 6rem;
+    }
+    .condition-row {
+      //margin-left: 2rem;
+        label {
+            color: $rich-gray-70;
+            margin-bottom: 0.8rem;
+        }
+        .equal {
+            color: $rich-gray-60;
+            font-size: 1.6rem;
+            align-self: flex-end;
+            padding-bottom: 5px;
+        }
+        &__actions {
+            align-self: flex-end;
+            margin-bottom: $space-xsmall;
+            display: flex;
+            i {
+                font-size: 2.4rem;
+                margin: 0 0 0 1.2rem;
+                color: $rich-gray-60;
+            }
+        }
+
+        .objectLabel{
+            min-width: 20rem ;
+            margin-bottom: 1.2rem;
+        }
+        .advancedLabel{
+            min-width: 22rem ;
+            margin-bottom: 1.2rem;
+        }
+    }
+}
+
+.advanced-association-info {
+    font-size: 18px;
+    position: relative;
+    top: -2px;
+}
+
+::ng-deep {
+  .add-association__relType-dropdown {
+    &.has-all
+    ul{
+      li:first-child {
+        font-weight: bold;
+      }
+    } 
+  }
+}

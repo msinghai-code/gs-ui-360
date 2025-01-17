@@ -1,0 +1,32 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/app",
+		"types": [],
+		"allowSyntheticDefaultImports": true,
+		"paths": {
+			"@gs/portfolio-lib": ["../../libs/portfolio-lib/index.ts"],
+            "@gs/gdk/*":  ["../../imports/gs-ui-gdk/components/*"]
+		}
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"src/test.ts",
+		"src/**/*.spec.ts"
+	],
+	"files": [
+		"../../imports/gs_ng_core/typings/GSGlobals.d.ts",
+		"../../imports/gs_ng_core/index.ts",
+		"../../libs/cs360-lib/src/admin/index.ts",
+		"../../libs/cs360-lib/src/common/index.ts",
+		"../../libs/cs360-lib/src/core-references/index.ts",
+		"../../libs/cs360-lib/src/csm/index.ts",
+		"../../libs/cs360-lib/src/portfolio-copy/index.ts",
+		"src/main.ts",
+		"src/polyfills.ts",
+		"../../libs/portfolio-lib/index.ts",
+		"../../libs/bm/index.ts"
+	]
+}

@@ -1,0 +1,79 @@
+<section class="gs-relationship-configuration-assign" gsSpinner [nzSize]="'xl'" [show]="loading">
+  <div class="gs-relationship-configuration-assign__body">
+    <div class="gs-relationship-configuration-assign-form">
+      <div class="gs-relationship-configuration-assign-form__name">
+        <!--{360.admin.assign.name}=Name-->
+        <h6 nz-title nzType="small" nzRequired>{{'360.admin.assign.name'| transloco}}</h6>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="null" [nzErrorTip]="errorTpl">
+            <!--{360.admin.assign.name_placeholder}=Enter Name-->
+            <input class="gs-keygen" nz-input [formControl]="name" [placeholder]="'360.admin.assign.name_placeholder'| transloco" type="text" maxLength="50">
+            <ng-template #errorTpl let-control>
+               <!--{360.admin.assign.enter_realtionship}=Enter a Relationship view name.-->
+                <!--{360.admin.assign.maximum_char}=Maximum characters allowed are 50-->
+              <ng-container  class="gs-keygen" *ngIf="control.hasError('required')">{{'360.admin.assign.enter_realtionship'| transloco}}</ng-container>
+              <ng-container class="gs-keygen"  *ngIf="control.hasError('maxlength')">{{'360.admin.assign.maximum_char'| transloco}}</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="gs-relationship-configuration-assign-form__types">
+         <!--{360.admin.assign.relationship_types}=For Relationship Types-->
+        <h6 class="gs-keygen" nz-title nzType="small" nzRequired>{{'360.admin.assign.relationship_types'| transloco}}</h6>
+        <div class="gs-relationship-configuration-assign-types" [class.invalid]="showTypeError && noTypeSelected" gsSpinner [nzSize]="'xl'" [show]="checkboxOptions.loader">
+          <nz-input-group [nzSuffix]="suffixIconSearch">
+             <!--{360.admin.assign.relationship_types_placeholder}=Search Relationship Types...-->
+            <input class="gs-keygen"  nz-input [formControl]="searchControl" [placeholder]=" '360.admin.assign.relationship_types_placeholder'| transloco " type="text" maxLength="50">
+            <ng-template #suffixIconSearch>
+              <i nz-icon *ngIf="!searchControl?.value" nzType="search"></i>
+              <i
+                  nz-icon
+                  style="font-size: 12px;"
+                  class="ant-input-clear-icon"
+                  nzTheme="fill"
+                  nzType="close-circle"
+                  *ngIf="searchControl?.value"
+                  (click)="searchControl?.setValue('')"
+                ></i>
+            </ng-template>
+          </nz-input-group>
+          <div class="gs-relationship-configuration-assign-types__selectall">
+             <!--{360.admin.assign.selectAll_relationship_types}= SELECT ALL-->
+            <label nz-checkbox
+                   [nzDisabled]="checkboxOptions.disabled"
+                   [(ngModel)]="checkboxOptions.allChecked"
+                   (ngModelChange)="checkboxOptions.updateAllChecked()"
+                   [nzIndeterminate]="checkboxOptions.indeterminate">
+                   {{'360.admin.assign.selectAll_relationship_types'| transloco}}
+            </label>
+             <!--{360.admin.assign.selected}= SELECTED-->
+            <label>{{checkedTypes}} / {{!!checkboxOptions? checkboxOptions.data.length: 'NA'}}   {{'360.admin.assign.selected'| transloco}}</label>
+          </div>
+          <div class="gs-relationship-configuration-assign-types__list">
+            <ng-container *ngIf="checkboxOptions.data.length; else emptylist">
+              <nz-checkbox-group [(ngModel)]="checkboxOptions.data" (ngModelChange)="checkboxOptions.updateSingleChecked()"></nz-checkbox-group>
+            </ng-container>
+          </div>
+        </div>
+           <!--{360.admin.assign.select_one_relationship}=Select at least one Relationship Type to continue.-->
+        <div *ngIf="showTypeError && noTypeSelected" class="error-msg">  {{'360.admin.assign.select_one_relationship'| transloco}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="gs-relationship-configuration-assign__footer">
+       <!--{360.admin.assign.next}=Next-->
+          <!--{360.admin.assign.cancel}=Cancel-->
+    <button class="gs-keygen"  nz-button (click)="onNextClick()" nzType="primary"> {{'360.admin.assign.next'| transloco}}</button>
+    <button  class="gs-keygen" nz-button (click)="onCancelClick()" nzType="default"> {{'360.admin.assign.cancel'| transloco}}</button>
+  </div>
+</section>
+<ng-template #emptylist>
+  <div class="gs-relationship-configuration-assign-types__list--empty">
+    <nz-empty [nzNotFoundContent]="contentTpl">
+       <!--{360.admin.assign.no_rel_found}=No Relationship Types found.-->
+      <ng-template class="gs-keygen" #contentTpl>
+        {{'360.admin.assign.no_rel_found'| transloco}}
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>

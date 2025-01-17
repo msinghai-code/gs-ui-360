@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="49px" height="14px" viewBox="0 0 49 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Group 10</title>
+    <desc>Created with Sketch.</desc>
+    <g id="V2_v3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-1776.000000, -574.000000)">
+            <g id="Group-10" transform="translate(1770.000000, 569.000000)">
+                <g id="Group-9">
+                    <polygon id="Fill-1" points="0 24 24 24 24 0 0 0"></polygon>
+                    <g id="Group-6" transform="translate(3.000000, 4.000000)" stroke="#0F87EC">
+                        <path d="M11.0203584,3.63280573 L7.52035836,3.63280573 L7.52035836,13.1328057 L11.0203584,13.1328057 L11.0203584,3.63280573 Z" id="Rectangle" transform="translate(9.270358, 8.382806) rotate(45.000000) translate(-9.270358, -8.382806) "></path>
+                        <path d="M5.77316195,11.3608121 L2.59409493,11.6123375 L4.6932174,14.0150252 L5.77316195,11.3608121 Z" id="Rectangle" transform="translate(4.250000, 13.403164) rotate(45.000000) translate(-4.250000, -13.403164) "></path>
+                        <path d="M13.7781641,2.5 C13.2949149,2.5 12.8574149,2.69587542 12.5407272,3.01256313 C12.2240395,3.32925084 12.0281641,3.76675084 12.0281641,4.25 L12.0281641,5.25 L15.5281641,5.25 L15.5281641,4.25 C15.5281641,3.76675084 15.3322887,3.32925084 15.015601,3.01256313 C14.6989132,2.69587542 14.2614132,2.5 13.7781641,2.5 Z" id="Rectangle" transform="translate(13.778164, 3.875000) rotate(45.000000) translate(-13.778164, -3.875000) "></path>
+                    </g>
+                </g>
+                <g id="Group-9" transform="translate(36.000000, 0.000000)">
+                    <polygon id="Fill-1" points="0 24 24 24 24 0 0 0"></polygon>
+                    <g id="Group-6" transform="translate(3.000000, 4.000000)" stroke="#B8C8D8">
+                        <path d="M11.0203584,3.63280573 L7.52035836,3.63280573 L7.52035836,13.1328057 L11.0203584,13.1328057 L11.0203584,3.63280573 Z" id="Rectangle" transform="translate(9.270358, 8.382806) rotate(45.000000) translate(-9.270358, -8.382806) "></path>
+                        <path d="M5.77316195,11.3608121 L2.59409493,11.6123375 L4.6932174,14.0150252 L5.77316195,11.3608121 Z" id="Rectangle" transform="translate(4.250000, 13.403164) rotate(45.000000) translate(-4.250000, -13.403164) "></path>
+                        <path d="M13.7781641,2.5 C13.2949149,2.5 12.8574149,2.69587542 12.5407272,3.01256313 C12.2240395,3.32925084 12.0281641,3.76675084 12.0281641,4.25 L12.0281641,5.25 L15.5281641,5.25 L15.5281641,4.25 C15.5281641,3.76675084 15.3322887,3.32925084 15.015601,3.01256313 C14.6989132,2.69587542 14.2614132,2.5 13.7781641,2.5 Z" id="Rectangle" transform="translate(13.778164, 3.875000) rotate(45.000000) translate(-13.778164, -3.875000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

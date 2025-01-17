@@ -1,0 +1,22 @@
+<div id="companyListGrid" #companyListGrid *ngIf="columnsLoaded" gsSpinner [nzSize]="'xl'" [show]="loading">
+  <gs-actions-header [addButtonLabel]="'360.list_comp.addBtnLabel'| transloco"
+    [initialDisplayHeader]="'360.list_comp.allCompanies'| transloco"
+    [selectedObjectName]="'360.list_comp.companies'| transloco" [menuItems]="headerMenuItems"
+    [numberOfRows]="numberOfRows" [selectedRows]="selectedCompanies" (filterInfoChanged)="onFilterInfoChanged($event)"
+    [fields]="fields" [filterInfo]="filterQuery?.filterInfo" (buttonClicked)="handleOperations($event)"
+    (menuItemSelected)="onHeaderMenuItemSelected($event)" (fieldsUpdated)="onFieldsUpdated($event)">
+  </gs-actions-header>
+  <gs-grid class="list-grid" [rowModelType]="'serverSide'" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [dataSource]="dataSource"
+    [gridAdditionalOptions]="additionalOptions" [showCustomPagination]="true" (columnAction)="columnAction($event)"
+    (gridChanges)="onGridChanges($event)" [pageInfo]="pageInfo"></gs-grid>
+</div>
+
+<nz-overlay [closeOnClick]="true" #contextMenuGrid>
+    <div class="pop-panel gs-popover-menu">
+      <nz-list class="gs-popover-menu__list">
+        <nz-list-item class="gs-popover-menu__item" ngClass="gs-popover-menu__item--{{action.label.toLowerCase()}}" *ngFor="let action of contextMenuInfo.contextMenuItems" (click)="onContextMenuAction($event,action.id)">
+            <i nz-icon nzType={{action.icon}} nzTheme="outline" [nzSize]="24"></i>&nbsp;{{action.label | transloco}}
+        </nz-list-item>
+      </nz-list>
+    </div>
+</nz-overlay>

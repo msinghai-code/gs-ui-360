@@ -1,0 +1,168 @@
+@import "~@gs/design-tokens/scss/colors";
+
+.section-configuration-wrapper {
+}
+
+.section-configuration-wrapper__heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.section-configuration-wrapper__sub-heading {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+::ng-deep{
+  .gs-icons-rprt-gauge, .gs-icons-rprt-funnel {
+    width: 22px !important;
+    height: 18px !important;
+  }
+  .summary-config-drawer{
+    .ant-drawer-header{
+      padding-left: 3.2rem;
+      overflow-wrap: anywhere;
+    }
+    .ant-drawer-title {
+      max-width: calc(100% - 4rem);
+      word-break: break-word;
+      padding-left: 0 !important;
+  }
+  }
+}
+
+.section-configuration-wrapper {
+  &__left {
+    border-right: 1px solid #f0f0f0;
+  }
+  &__right {
+    &-header {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 1rem 2.4rem 0;
+      background-color: #fff;
+      box-shadow: 0 2px 3px 0 rgb(47 57 67 / 10%);
+      z-index: 1;
+    }
+
+    &-content {
+      background: #fafbfc;
+      &__gridster {
+        height: 100%;
+        overflow: auto;
+        .section-configuration-wrapper__empty {
+          align-items: center !important;
+          .ant-empty {
+            position: absolute !important;
+            top: 25% !important;
+          }
+        }
+        &.cdk-drop-list-dragging {
+          background-color: rgba(3, 105, 233, 0.08);
+          border: 1px solid $royal-blue-70;
+          .section-configuration-wrapper__empty {
+            display: none;
+          }
+        }
+
+        &.detach-preview {
+          gridster-item {
+            cursor: auto;
+          }
+        }
+
+        gridster {
+          width: 100% !important;
+          margin-bottom: 2rem;
+
+          .widget_container {
+            cursor: auto;
+          }
+        }
+
+        .widget-header {
+          border-bottom: 1px solid #D5DEE8;
+          height: 4rem;
+
+          &.configurable {
+            .label-wrapper {
+              width: calc(100% - 5rem);
+            }
+          }
+          .label-wrapper {
+            width: calc(100% - 2rem);
+            .gs-icons-draggable-indicator{
+              font-size: 2.3rem;
+              color: #7596b7;
+              cursor: move;
+            }
+          }
+
+          .label {
+            overflow: hidden;
+          }
+
+          input {
+            padding: .3rem 0.5rem;
+            margin-right: .5rem;
+            height: 100%;
+          }
+
+          &-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            padding: .3rem 0.5rem;
+            margin-right: .5rem;
+            &.configurable {
+              cursor: pointer;
+              &:hover {
+                border-radius: 0.4rem;
+                background-color: rgba(117, 150, 183, 0.1);
+              }
+              &.gs-non-editableTitle {
+                background: none;
+                cursor: default;
+                &:hover {
+                  background: none;
+                  cursor: default;
+                }
+              }
+            }
+          }
+        }
+        .actions_section {
+          font-size: 2rem;
+          color: #7596b7ff;
+
+          ::ng-deep {
+            svg {
+              top: 0 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__empty {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    &--img {
+      background: url('../../../../../assets/images/zero-state.svg') no-repeat
+        center;
+      background-size: 20rem;
+      display: block;
+      min-height: 10rem;
+    }
+    &--description {
+      color: #7596b7;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+.portfolio-bulk-edit {
+    height: 100%;
+    max-height:100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.6rem 1.6rem 0.8rem 1.6rem;
+  .global-filter {
+    box-shadow: 0 0 1px 0 rgba(43,61,81,.3), 0 2px 3px 0 rgba(43,61,81,.1);
+  }
+    &__tab-groups {
+        height : 100%;
+        flex: 1;
+        max-height:100%;
+        padding-top: 2rem;
+    }
+    &__tab-content {
+        height : 100%;
+        max-height:100%;
+        display: flex;
+        flex-direction: column;
+        .border-class {
+            height: 4.3rem;
+        }
+        &__grid {
+            &.margin-top {
+                margin-top: 1.6rem;
+            }
+            height: calc(100% - 4.5rem);
+        }
+        &__no-updateable {
+            height : 100%;
+            max-height:100%;
+            display: flex;
+            flex-direction: column;
+            font-weight: 800;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .border-class {
+        padding : 0.5rem 0 0.5rem 0.4rem;
+        border-bottom: 1px solid border-color(default);
+    }
+    .selected-label {
+        padding-right: 1rem;
+        border-right: 1px solid border-color(default);
+    }
+    .f-s-16 {
+      font-size : 16px;
+    }
+}
+
+// all custom css related to filters goes here
+::ng-deep {
+    .gs-global-filter-chip__item--value,.gs-filt-qury-rul {
+      gs-filter-control {
+        .gs-filt-qury-rul-rhs__value {
+          &-field {
+            ng-select.ng-select-single {
+              .ng-select-container.ng-has-value {
+                .ng-value-container {
+                  .ng-input {
+                    caret-color: rgba(0,0,0,0);
+                  }
+                }
+              }
+            }
+            &--select-field {
+              .ng-select {
+                top: -0.3rem;
+                width: 20rem; // TODO, need to make all styles consistent with dashboard
+              }
+              .ng-clear-wrapper {
+                border-radius: 50%;
+                height: 1.6rem;
+                width: 1.6rem;
+                right: 0;
+                line-height: 0.85;
+              }
+            }
+          }
+        }
+      }
+    }
+    .gs-global-filter-chip__edit__footer {
+      justify-content: flex-end !important;
+      margin-right: 1rem !important;
+    }
+}
+
+::ng-deep {
+  .gs-filt-qury-rul {
+    .gs-filt-qury-rul__attr.gs-cstm-form-field {
+      max-width: 300px;
+    }
+  }
+}

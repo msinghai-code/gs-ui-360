@@ -1,0 +1,130 @@
+<div *ngIf="!showFindLayout else findLayout" class="gs-layouts-listing-manage-assignment" fxLayout="column">
+  <div *ngIf="objectName === 'relationship'" fxFlex="5rem" fxLayoutAlign="start center" fxLayout="row" style="margin-bottom: 2.4rem;">
+    <div  fxFlex="40%" class="relationship-type" fxLayout="column" >
+      <!--{360.admin.manage_assignment.rel_type}=Select Relationship Type-->
+      <label class="gs-keygen" nz-text nzType="small">{{'360.admin.manage_assignment.rel_type' | transloco}}</label>
+      <nz-select
+       nzSize="small" 
+       nzShowSearch 
+       [(ngModel)]="selectedRelationshipType"
+        (ngModelChange)="onRelationshipTypeChange(true)">
+        <nz-option 
+        *ngFor="let option of relationshipTypes" 
+        nzCustomContent 
+        [nzValue]="option" 
+        [nzLabel]="option.label">
+          <div class="gs-tbl-row" >
+            <span class="gs-tbl-col">{{option.label || "&mdash;"}}</span>
+          </div>
+        </nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <div fxFlex="calc(100% - 5rem)" gsSpinner [nzSize]="'xl'"
+  [loaderType]="loaderOptions?.loaderType" [loaderParams]="loaderOptions?.loaderParams" [show]="loader">
+    <gs-grid *ngIf="!loader"
+    [gridOptions]="config?.options"
+      [cacheBlockSize]="config?.options?.cacheBlockSize" 
+      [data]="filteredData"
+       [pagination]="false"
+      [mode]="config?.mode"
+       [icons]="icons"
+      [rowModelType]="'clientSide'" 
+      [columnDefs]="config?.options?.columnDefs" 
+      [showCustomPagination]="false"
+      [gridAdditionalOptions]="config?.additionalOptions">
+    </gs-grid>
+  </div>
+</div>
+
+<ng-template #findLayout>
+  <div class="gs-layouts-listing-manage-assignment" fxLayout="column">
+    <!--{360.admin.manage_assignment.identify_layout}=Identify the layout assigned to the selected {{objectName | titlecase}} and User combination :-->
+    <ng-container *transloco="let t; read: '360'">
+      <span class="find-layout__info" nz-text> {{t('admin.manage_assignment.identify_layout',{objectName : objectNameForText | transloco | titlecase })}}</span>
+    </ng-container>
+
+    <div *ngIf="objectName === 'relationship'" class="relationship-type in-form" fxLayout="column">
+      <label class="gs-keygen" nz-text nzType="small">{{'360.admin.manage_assignment.rel_type' | transloco}}</label>
+      <nz-select
+      nzSize="small"
+       nzShowSearch 
+       [(ngModel)]="selectedRelationshipType"
+        (ngModelChange)="onRelationshipTypeChange(true)">
+        <nz-option 
+        *ngFor="let option of relationshipTypes"
+         nzCustomContent 
+         [nzValue]="option" 
+         [nzLabel]="option.label">
+          <div class="gs-tbl-row" >
+            <span class="gs-tbl-col">{{option.label || "&mdash;"}}</span>
+          </div>
+        </nz-option>
+      </nz-select>
+    </div>
+    <form fxLayout="row" fxLayoutGap="2rem" fxLayoutAlign="start center" nz-form *ngIf="detailsForm" [formGroup]="detailsForm" class="details-form" nzLayout="vertical">
+      <nz-form-item>
+
+        <!--{360.admin.manage_assignment.enter_name}=Enter {{objectName | titlecase}} Name-->
+        <ng-container *transloco="let t; read: '360'">
+          <nz-form-label [nzFor]="objectName"> {{t('admin.manage_assignment.enter_name',{objectName : objectNameForText  | transloco | titlecase})}}</nz-form-label>
+        </ng-container>
+
+        <nz-form-control>
+          <!--{360.admin.manage_assignment.search_placeholder}=Search-->
+          <nz-select 
+           class="gs-lkup__select" 
+           nzShowSearch
+           nzServerSearch
+           nzPlaceHolder="{{'360.admin.manage_assignment.search_placeholder'| transloco}}"
+           [formControlName]="objectName" 
+           [nzLoading]="searching[objectName]"
+            (nzOnSearch)="searchInputSubject.next({searchTerm: $event, objectName: objectName})">
+            <nz-option
+            *ngFor="let option of resultedItems[objectName]"
+            nzCustomContent
+            [nzValue]="option.value"
+            [nzLabel]="option.displayLabel">
+              <div class="gs-tbl-row" >
+                <span class="gs-tbl-col">{{option.displayLabel || "&mdash;"}}</span>
+              </div>
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <!--{360.admin.manage_assignment.and}=AND-->
+      <h6 class="find-layout__and" nz-title>{{'360.admin.manage_assignment.and'| transloco}}</h6>
+      <nz-form-item>
+        <!--{360.admin.manage_assignment.enter_user}=Enter User Name-->
+        <nz-form-label class="gs-keygen">{{'360.admin.manage_assignment.enter_user'| transloco}}</nz-form-label>
+        <nz-form-control>
+          <nz-select 
+          class="gs-lkup__select" 
+          nzShowSearch 
+          nzServerSearch 
+          [nzLoading]="searching?.gsuser"
+          nzPlaceHolder="{{'360.admin.manage_assignment.search_placeholder'| transloco}}" 
+          formControlName="gsuser"
+            (nzOnSearch)="searchInputSubject.next({searchTerm: $event, objectName: 'gsuser'})">
+            <nz-option
+            *ngFor="let option of resultedItems?.gsuser"
+            nzCustomContent
+            [nzValue]="option.value"
+            [nzLabel]="option.displayLabel">
+              <div class="gs-tbl-row" >
+                <span class="gs-tbl-col">{{option.displayLabel || "&mdash;"}}</span>
+              </div>
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div *ngIf="layout" gsSpinner [nzSize]="'xl'" [show]="layout && !layout.name" class="find-layout__selected-layout">
+      <!--{360.admin.manage_assignment.layout_used}=Layout used-->
+      <label class="gs-keygen" nz-text nzType="small">{{'360.admin.manage_assignment.layout_used'| transloco}}</label>
+      <h6 nz-title>
+        <a (click)="navigateToConfigure(layout)">{{layout?.name}}</a>
+      </h6>
+    </div>
+  </div>
+</ng-template>

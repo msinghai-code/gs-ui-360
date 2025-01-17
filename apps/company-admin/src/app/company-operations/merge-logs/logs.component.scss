@@ -1,0 +1,394 @@
+@import '~@angular/material/theming';
+
+/* Gainsight custom variables and mixins */
+
+@import "~@gs/core/assets/scss/core/variables";
+@import "~@gs/core/assets/scss/core/placeholders";
+@import  "../../../../../icon-button.scss";
+
+:host {
+  display: flex;
+  flex: 1;
+  width: 70vw;
+}
+
+::ng-deep {
+  .cdk-overlay-container > .cdk-overlay-pane > .ant-modal{
+    background: rgba(0,0,0,.32) !important;
+  }
+}
+
+.survey-detail-ctn__left {
+  max-width: 18rem;
+}
+
+.gs-survey-analyze {
+  &__body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  &--stats {
+    .gs-survey-analyze {
+      &__header {
+        align-items: center;
+        border-bottom: 1px solid $gs-border-color;
+        display: flex;
+        font-size: 1.6rem;
+        justify-content: space-between;
+        margin: 0 2rem;
+        padding: 0.8rem 0;
+      }
+
+      &__body {
+        padding: 2rem;
+      }
+    }
+  }
+
+  &--report {
+    display: flex;
+    flex-direction: column;
+
+    .gs-survey-analyze {
+      &__header {
+        align-items: center;
+        background: $gs-white-color;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0.2rem 0.2rem 1.2rem 0.2rem;
+        padding: 0.8rem 2rem;
+      }
+    }
+  }
+
+  &--text_analytics {
+    .gs-survey-analyze {
+      &__body {
+        height: 100%;
+      }
+    }
+
+    .text-analytics {
+      &__ctn {
+        height: 100%;
+        overflow: auto;
+      }
+    }
+  }
+}
+
+nz-list-item {
+  cursor: pointer;
+
+  &.active {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.gs-icons-survey-export {
+  font-size: 1.8rem;
+}
+
+.survey-detail-ctn {
+  max-width: calc(100vw - 2rem);
+}
+
+.gs-filter-btn {
+  border-radius: 50px;
+  min-width: 4rem;
+
+  &__count {
+    margin-left: 0.5rem;
+    @include mat-typography-level-to-styles($gs-typography-config, body-2);
+  }
+}
+
+.gs-analytics {
+  flex-grow: 1;
+  height: 80%;
+
+  .gs-no-results {
+    background: $gs-white-color;
+    border-radius: 3px;
+    height: 100%;
+  }
+}
+
+//execution log styling
+.gs-exc-log {
+  display: flex;
+  flex: 1;
+  height: 100%;
+
+  &__left-ctn {
+    border-right: 1px solid $gs-border-color;
+    display: flex;
+    flex-direction: column;
+    max-width: 35rem;
+    width: 100%;
+    height: 318px;
+    overflow-y: auto;
+
+    .gs-exc-log__title {
+      border-bottom: 1px solid $gs-border-color;
+    }
+  }
+
+  &__right-ctn {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 30rem;
+    width: 60rem;
+    height: 318px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    height: 3.8rem;
+    justify-content: space-between;
+    padding: 0 1rem 0 1.5rem;
+    .mat-line {
+      width: 76rem;
+    }
+    //@include mat-typography-level-to-styles($gs-typography-config, body-2);
+
+    .mat-line {
+      @extend %truncate;
+    }
+
+    .mat-chip-list {
+      margin-left: 1.2rem;
+    }
+  }
+
+  &__list-ctn {
+    flex: 1;
+
+    nz-list {
+
+      ::ng-deep {
+        nz-list-item {
+          border-bottom: 1px solid $gs-border-color;
+          height: 5.7rem;
+
+          &.is-selected {
+            background: #f5f5f5;
+          }
+        }
+
+        .ant-list-item {
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+
+  &__detail-ctn {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 2rem 0 2rem 1.6rem;
+  }
+
+  &__detail-items {
+    margin-bottom: 2rem;
+
+    div {
+      flex: 1;
+      padding-right: 1rem;
+
+      > span:first-child {
+        display: block;
+        padding: 0 0 .5rem 0;
+        //@include mat-typography-level-to-styles($gs-typography-config, body-2);
+      }
+    }
+  }
+
+  &__detail-title, &__detail-name {
+    display: block;
+    max-width: 25rem;
+    @extend %truncate;
+  }
+
+  &__detail-content {
+    display: flex;
+    align-items: center;
+  }
+
+  &__detail-icon {
+    font-size: 14px;
+    color: grey;
+    padding: 0 0 0.6rem 1rem;
+  }
+
+  &__detail-info {
+    margin-bottom: 1rem;
+    &-wrapper {
+      flex: 1;
+      overflow: auto;
+      min-width: 600px;
+    }
+    .log-message {
+      font-weight: bold;
+    }
+    .gs-success, .gs-failure, .gs-warning {
+      &::before {
+        border-radius: 50%;
+        color: $gs-white-color;
+        font-family: "Material Icons";
+        margin-right: 1rem;
+      }
+    }
+
+    .gs-success {
+      &:before {
+        background: $gs-success-color;
+        content: "\e876";
+        font-size: 1.4rem;
+        height: 1.8rem;
+        padding: 0.2rem;
+        vertical-align: middle;
+        width: 1.8rem;
+      }
+    }
+
+    .gs-failure {
+      &::before {
+        color: red;
+        content: "\e5c9";
+        font-size: 2.1rem;
+        height: 1.8rem;
+        margin-left: -0.2rem;
+        padding: 0;
+        vertical-align: middle;
+        width: 1.8rem;
+      }
+    }
+
+    .gs-warning {
+      &::before {
+        color: $gs-warning-color;
+        content: "\e002";
+        font-size: 1.7rem;
+        height: 1.8rem;
+        padding: 0.2rem;
+        vertical-align: middle;
+        width: 1.8rem;
+      }
+    }
+  }
+
+  &__retrigger {
+    color: $gs-primary-color;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 2rem;
+
+    &:hover {
+      color: $gs-primary-blue-hover-color;
+    }
+  }
+
+  &__chip {
+    font-size: 1.3rem;
+    min-width: 7rem;
+    min-height: 2.4rem;
+    padding: 0.5rem 0.9rem;
+    text-transform: capitalize;
+    border-radius: 20px
+  }
+
+  &__chip-success.mat-chip.mat-standard-chip {
+    background-color: $gs-success-color;
+  }
+
+  &__chip-processing.mat-chip.mat-standard-chip {
+    background-color: $gs-warning-color;
+  }
+
+  &__chip-failed.mat-chip.mat-standard-chip {
+    background-color: $gs-error-color;
+    color: $gs-white-color;
+  }
+
+  &__chip-received.mat-chip.mat-standard-chip {
+    background-color: #c1c1c1;
+  }
+
+  &__chip-queued.mat-chip.mat-standard-chip {
+    background-color: $gs-alert-color;
+  }
+
+  &__chip-partial_success.mat-chip.mat-standard-chip {
+    background-color: $gs-alert-color;
+    color: $gs-white-color;
+  }
+
+  &__text-wrap {
+    h4 {
+      margin: 0;
+      font-weight: normal;
+      width: 30rem;
+      text-overflow: ellipsis !important;
+      overflow: hidden !important;
+      white-space: nowrap !important;
+    }
+  }
+
+  &__icon-wrap { 
+    background: url("../../../assets/images/icons/merge-history-icons.svg") no-repeat;
+    background-size: 2.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: block;
+    &.success{
+      background-position: 0px 3px;
+    }
+    &.failed{
+      background-position: 0px -21px;
+    }
+    &.processing{
+      background-position: 0px -52px;
+    }
+    &.received{
+      background-position: 0px -104px
+    }
+    &.queued{
+      background-position: 0 -128px;
+    }
+    &.partial_success{
+      background-position: 0 -253px;
+    }
+  }
+}
+
+::ng-deep {
+  .gs-dialog {
+    .mat-card-content {
+      display: flex;
+      overflow: hidden;
+    }
+
+    .gs-log__wrapper {
+      width: 100%;
+    }
+  }
+}
+
+::ng-deep{
+  .ant-alert-btn 
+  {
+    border-radius: 25px;
+  }
+}

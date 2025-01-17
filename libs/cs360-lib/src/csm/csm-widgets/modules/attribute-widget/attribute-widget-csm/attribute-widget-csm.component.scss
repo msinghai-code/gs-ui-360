@@ -1,0 +1,33 @@
+@import "~@gs/design-tokens/scss/spacings";
+
+:host {
+  max-height: 100%;
+}
+
+.csm-summary-widget-wrapper {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: $space-large; //adding it here since we need it for both main and mini
+  }
+  &__header--with-margin {
+  }
+  ::ng-deep {
+  
+    gs-csm-attribute-group {
+      height: 100%;
+   
+      .gridster-wrapper {
+        height: 100%;
+        overflow: auto;
+      }
+
+      gridster-item{
+        //height: auto !important;
+        padding: 0;
+      }
+    }
+
+  }
+}

@@ -1,0 +1,56 @@
+<ng-container *ngIf="state$ | async as _state">
+  <ng-container *ngIf="!_state.error">
+    <gs-layouts [hastabs]="true">
+      <gs-layouts-header>
+
+        <gs-layouts-module-title>
+          <a *ngIf="_state.redirectLink; else routerBackNavigate" [href]="_state.redirectLink" mat-button
+            mat-icon-button>
+            <mat-icon>keyboard_backspace</mat-icon>
+          </a>
+          <ng-template #routerBackNavigate>
+            <a (click)="onBackClick()" mat-button mat-icon-button>
+              <mat-icon>keyboard_backspace</mat-icon>
+            </a>
+          </ng-template>
+          {{'360.merge_comp.companyMerge'| transloco}}
+        </gs-layouts-module-title>
+        <gs-layouts-tabs>
+          <gs-objects-list-side-nav [navItems]="navItems" *ngIf="hostname==='SALESFORCE' && !_state.loading ">
+          </gs-objects-list-side-nav>
+        </gs-layouts-tabs>
+      </gs-layouts-header>
+      <div class="gs-template__inner-content" gsSpinner [nzSize]="'xl'" [show]="_state.loading">
+        <!-- <div class="gs-template__stepper-content">
+              <p-steps [model]="navLinks" [(activeIndex)]="_state.route" [readonly]="!_state.selectedCompanyList.length" class="gs-vertical-stepper"></p-steps>
+          </div> -->
+        <div class="gs-template__content-wrapper">
+          <div class="gs-template__router">
+            <router-outlet></router-outlet>
+          </div>
+          <div class="gs-module-footer" *ngIf="_state.data && _state.data.length">
+
+            <!-- commented this as we are showing only one screen (company) for merge. Only till the time we show only one screen of company for company merge -->
+            <!-- <button [disabled] = "!_state.prevModule" mat-stroked-button color="primary" (click)="navigateNext(_state.prevModule)">Back</button>
+                <button mat-flat-button color="primary" class="mat-button" (click)="navigateNext(_state.nextModule, _state.activeModule)">
+                  {{ !_state.nextModule ? 'Merge' : 'Next'}}
+                </button> -->
+
+            <!-- Only till the time we show only one screen of company for company merge -->
+            <div></div>
+            <button nz-button
+              class="gs-px-company-merge" nzType="primary"
+              (click)="mergeCompany()">
+              {{'360.merge_comp.merge'| transloco}}
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </gs-layouts>
+  </ng-container>
+
+  <p *ngIf="_state.error">{{'360.merge_comp.error'| transloco}}</p>
+
+</ng-container>

@@ -1,0 +1,283 @@
+/* This file is used to avoid deprecating ng-deep classes in components */
+@import '~@angular/material/theming';
+@import "~@gs/core/assets/scss/horizon2.1/core/variables";
+
+.list-grid{
+  .ag-tooltip{
+    background-color: #161F27 !important;
+    color: white !important;
+  }
+}
+
+.cdk-overlay-dark-backdrop  {
+  background: none !important;
+}
+
+//.gs-page-size {
+//  display: none;
+//}
+
+.ant-notification{
+  .ant-notification-notice{
+    .ant-notification-notice-close{
+      display: none;
+    }
+  }
+}
+
+.ant-notification{
+  .ant-notification-notice{
+    .ant-notification-notice-close{
+      display: none;
+    }
+  }
+}
+
+
+body {
+  .ui-overlaypanel .ui-overlaypanel-content  {
+    padding: 0 !important;
+  }
+}
+
+
+.mat-menu-panel{
+  position: relative;
+}
+.grid-action-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.grid-container {
+  &__no-records{
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+  }
+  .material-icons {
+    color: text-color(default);
+  }
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px background-color(white) inset;
+}
+
+.gs-popover-menu {
+  &__list.mat-nav-list {
+    padding: 0;
+    .mat-list-item {
+      font-size: 1.4rem;
+      height: 3.5rem;
+      line-height: 3.5rem;
+      min-width: 15rem;
+      .context-menu-action {
+        font-size: 1.8rem;
+        color: text-color(secondary-light);
+      }
+      .mat-list-item-content {
+        padding: 0 1rem;
+      }
+    }
+  }
+}
+
+.nz-pop-container{
+  .pop-panel{
+    background-color: background-color(white);
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+  }
+}
+
+.gs-stepper-footer{
+  box-shadow: inset 0 1px 0 0 border-color(row-seperator);
+
+  &__content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.date-field-picker {
+  .disabled-time-picker {
+    .ant-time-picker-input {
+      background-color: background-color(disabled) !important;
+      color: text-color(disabled) !important;
+      &:hover {
+        border-color: border-color(default) !important;
+        box-shadow: none !important;
+      }
+      &:focus {
+        border-color: border-color(default) !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+}
+
+.ag-cell a{
+  color: primary-color(primary-blue) !important;
+}
+
+.ag-cell-focus,.ag-cell-no-focus,
+.ag-theme-material .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-last-left-pinned,
+.ag-theme-material .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-first-right-pinned,
+.ag-theme-material .ag-pinned-left-header,
+.ag-theme-material .ag-header-cell:not(.ag-header-group-cell-no-group),
+.ag-header-container,
+.ag-header .ag-pivot-off,
+.ag-theme-material .ag-pinned-right-header{
+  border:none !important;
+  .gs-icon-hover {
+    color: border-color(input-hover);
+    &:hover {
+      color: border-color(wizard-label);
+    }
+  }
+}
+
+.gs-grid-wrapper .ag-header .ag-header-container .ag-header-row {
+  height: 45px !important;
+  .ag-header-cell{
+    .gs-grid-filter{
+      nz-date-picker .ant-input {
+        border:  0.8px solid #D5DEE8 !important;
+        border-left: none !important;
+        border-right: none !important;
+      }
+   }
+    .ag-cell-label-container {
+      .ag-header-cell-label {
+        .ag-header-cell-text {
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+          white-space: nowrap !important;
+        }
+      }
+    }
+  }
+}
+
+.gs-grid-filter {
+  height:28px !important;
+  border: 1px solid background-color(chip) !important;
+  border-radius: 3px !important;
+  background-color: background-color(white) !important;
+}
+
+.gs-grid-wrapper .ag-icon {
+  color: text-color(placeholder);
+  &:hover {
+    //color: text-color(secondary-light);
+  }
+  &.ag-icon-checkbox-checked {
+    color: primary-color(primary-blue);
+  }
+}
+
+.gs-grid-wrapper .ag-row {
+  height: 48px !important;
+  background-color: transparent !important;
+}
+
+.ag-pinned-left-header {
+  .ag-header-cell {
+    padding-left: 70px;
+  }
+}
+
+.gs-grid-wrapper .ag-header .ag-header-container .ag-header-row .ag-header-cell:hover, .ag-theme-material .ag-cell-range-selected:not(.ag-cell-focus), .ag-theme-material .ag-cell-range-selected-1:not(.ag-cell-focus), .ag-theme-material .ag-header-cell:first-of-type:hover {
+  background: none;
+}
+
+.gs-rte-field {
+  padding-right: 1.6rem;
+  .gs-editor {
+    &.gs-rte-disabled {
+      background-color:  background-color(disabled);
+      cursor: not-allowed !important;
+      display: block;
+      .ui-widget{
+        .ui-editor-content {
+          .ql-editor{
+            height: 115px;
+            background-color: background-color(disabled);
+            p {
+              cursor: not-allowed !important;
+            }
+          }
+        }
+      }
+    }
+    .ql-editor {
+      height: 115px;
+    }
+    .ql-snow .ql-tooltip {
+      left: 0 !important;
+    }
+  }
+}
+
+
+
+.gs-delete-dailog, .gs-merge-dailog {
+	&__body {
+		margin-right: 2.4rem;
+		font-size: 12px;
+		line-height: 14px;
+		&-content {
+			ul li {
+				padding-bottom: 0.8rem;
+			}
+		}
+	}
+}
+
+.gs-ng-container {
+  height: calc(100% - 2rem) !important;
+}
+
+.logs-banner {
+  padding-bottom: 2rem;
+  .gs-info-banner {
+    background-color: #fff3e9;
+    margin-bottom: 1rem;
+    position: unset;
+    &__title {
+      padding: 0 1rem;
+    }
+    &__icon {
+      padding-top: 0.5rem;
+      color: #ff8b26;
+    }
+  }
+}
+
+.gs-custom-paginator {
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  &__custom-page-number {
+    border: none !important;
+  }
+  .gs-page-info {
+    font-size: 1.2rem;
+  }
+  .gs-pages {
+    order: 1;
+    padding: 0 0 0 1rem;
+  }
+  .gs-page-size {
+    font-size: 1.2rem;
+    padding-left: 1rem;
+  }
+}
+
+.gs-fc-field-row {
+  &.ant-dropdown-link {
+    color: inherit;
+  }
+}

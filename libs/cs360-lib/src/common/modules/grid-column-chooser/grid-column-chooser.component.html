@@ -1,0 +1,47 @@
+ <!--{360.admin.column_chooser.add_or_remove}='Add or Remove Columns'-->
+<button nz-button
+    nzShape="circle"
+    nzType="default"
+    nz-popover
+    nzOverlayClassName="gs-add-column__popover"
+    [nzPopoverTitle]="'360.admin.column_chooser.add_or_remove'| transloco" 
+    [nzPopoverContent]="contentTemplate"
+    nzPopoverPlacement="bottomRight"
+    nzPopoverTrigger="click"
+    [(nzVisible)]="columnChooserVisible"
+    (click)="onVisibleChange()"
+    class="gs-add-column">
+    <i nz-icon
+        nzType="add"
+        nzTheme="outline"></i>
+</button>
+<ng-template #contentTemplate>
+  <nz-input-group class="search" [nzSuffix]="suffixIconSearch">
+      <!--{360.admin.column_chooser.searchPlaceholder}=Search-->
+    <input type="text" nz-input [placeholder]="'360.admin.column_chooser.searchPlaceholder'| transloco" [formControl]="searchInput" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+    <!--{360.admin.column_chooser.selectAll}=SELECT ALL-->
+  <label
+    nz-checkbox
+    [(ngModel)]="allChecked"
+    (ngModelChange)="updateAllChecked()"
+    [nzIndeterminate]="indeterminate"
+    class="select-all"
+  >
+      {{'360.admin.column_chooser.selectAll' | transloco}}
+  </label>
+  <div class="checkbox-group">
+    <ng-container *ngFor="let col of checkBoxColumns  | filterListBySearchTerm :'headerName': searchTerm">
+      <label nz-checkbox [nzDisabled]="col.disabled" [(ngModel)]="col.show" (ngModelChange)="updateSingleChecked()" >{{col?.headerName}}</label>
+    </ng-container>
+  </div>
+  <div class="gs-add-column__footer">
+      <!--{360.admin.column_chooser.cancelBtn}=Cancel-->
+      <!--{360.admin.column_chooser.applyBtn}=Apply-->
+      <button nzSize="small" nz-button nzType="default" nzShape="round" (click)="onClose()">{{'360.admin.column_chooser.cancelBtn' | transloco}}</button>
+      <button nzSize="small" nz-button nzType="primary" nzShape="round" (click)="onSave()">{{'360.admin.column_chooser.applyBtn' | transloco}}</button>
+  </div>
+ </ng-template>

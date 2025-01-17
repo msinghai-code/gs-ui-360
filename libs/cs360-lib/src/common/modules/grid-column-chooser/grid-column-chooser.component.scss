@@ -1,0 +1,39 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.gs-add-column {
+    border: none;
+    box-shadow: none;
+    i {
+        color: $rich-gray-60;
+    }
+    &__footer {
+        display: flex;
+        padding-top: 1.5rem;
+        place-content: flex-end;
+        margin-bottom: -.5rem;
+        column-gap: 1rem;
+        border-top: 1px solid $rich-gray-40;
+    }
+}
+
+.search {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.ant-checkbox-wrapper {
+    margin: 0.5rem 0rem;
+}
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    max-height: 35rem;
+    overflow: auto;
+    max-width: 35rem;
+}
+
+.select-all {
+    font-size: 13px;
+    font-weight: bold;
+}

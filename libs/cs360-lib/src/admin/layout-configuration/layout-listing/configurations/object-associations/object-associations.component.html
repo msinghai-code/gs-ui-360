@@ -1,0 +1,17 @@
+<section class="gs-object-associations">
+  <div class="help-text" *ngIf="isShow">
+   <i nz-icon nzType="alert-info"  nzTheme="outline"></i>
+   <!--{360.admin.object_assocaition.subtitle}= Associate any Object with Relationship Object on this page to use it’s data in context of Relationships-->
+   {{'360.admin.object_assocaition.subtitle'| transloco }}
+   <i nz-icon class="cancel" nzType="close" nzTheme="outline" (click)="hideElement()"></i>
+  </div>
+  <div *ngIf="config" class="gs-object-associations__list">
+    <gs-layouts-listing #gsObjectAssociationslisting
+                      [config]="config"
+                      [data]="filteredData"
+                      (action)="onAction($event)"></gs-layouts-listing>
+  </div>
+</section>
+
+
+<gs-add-association [associationConfigInfo]="selectedAssocInfo" (onSaveOrCancel)="onAddAssocAction($event)" *ngIf="showAddAssoc"></gs-add-association>

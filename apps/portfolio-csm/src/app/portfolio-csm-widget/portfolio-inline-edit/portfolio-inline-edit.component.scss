@@ -1,0 +1,101 @@
+.gs-portfolio-widget {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 0.8rem 1.6rem;
+  &__header {
+    flex-shrink: 0;
+    position: absolute;
+    right: 2rem;
+    top: .6rem;
+    justify-content: space-between;
+    align-items: center;
+    &__actions {
+      i {
+        color: #3e5872;
+        font-size: 2.4rem;
+      }
+    }
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 0.4rem);
+    .border-class{
+      margin-right: 26px !important;
+      margin-top: -34px;
+      justify-content: flex-end;
+    }:hover {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    &__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 2.1rem;
+      h3 {
+        cursor: default;
+        pointer-events: none;
+        text-decoration: none;
+        height: 1.9rem;
+        color: text-color(default);
+        font-size: 1.6rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.9rem;
+      }
+    }
+    &__grid {
+      flex: 1;
+      height: calc(100% - 1.8rem);
+      padding-top: 1.2rem;
+      &.single-grid {
+        padding-top: 2rem;
+      }
+      gs-portfolio-column-chooser {
+        top: 5rem;
+      }
+    }
+  }
+}
+
+.gs-add-column {
+  float:right
+}
+
+.h-100 {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+}
+
+gs-portfolio-column-chooser {
+  position : absolute;
+  right : 1rem;
+  z-index: 99;
+}
+
+::ng-deep {
+  .ant-modal-wrap {
+    .ant-modal {
+      .ant-modal-content {
+        .ant-modal-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+.column-chooser-button {
+  position: absolute;
+  right: 1rem;
+  top: 6.5rem;
+  z-index: 99;
+}

@@ -1,0 +1,14 @@
+.gs-sc-health-widget-header{
+  display: flex;
+  justify-content: space-between;
+}
+.gs-sc-health-widget-refresh{
+  cursor: pointer;
+  &-icon{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-image: url("./../../../../../assets/images/refresh-icon.svg");
+  }
+}
+

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.gs-inline-text-editor {
+  &--label {
+    display: flex;
+  }
+  &--label * {
+    padding: 0.5rem;
+    cursor: pointer;
+    word-break: break-all;
+    &:hover {
+      border-radius: 4px;
+      background-color: rgba(117,150,183, 0.1);
+    }
+  }
+  &--label-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    font-weight: 600 !important;
+  }
+}

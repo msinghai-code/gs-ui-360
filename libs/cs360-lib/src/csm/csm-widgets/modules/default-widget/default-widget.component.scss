@@ -1,0 +1,245 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.csm-summary-widget-wrapper{
+  height: 100%;
+
+  &.no-drop-cursor {
+    cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+    padding-top: $space-medium;
+  }
+
+  ::ng-deep {
+
+    .csm-summary-widget-wrapper__content{
+      padding-top: 0 !important;
+      .chart-visualizer-wrapper{
+        height: 100%;
+        width: 100%;
+        &__header {
+          display: flex;
+          align-items: center;
+          position: relative;
+          margin-bottom: 2rem;
+        }
+        &__title-left{
+          width: 125px;
+          height: $space-xlarge;
+          letter-spacing: normal;
+          text-align: left;
+        }
+        &__title-right{
+          display: flex;
+          margin-left: auto;
+          width: 23rem;
+        }
+        &__date-picker-literals{
+          width: 48rem;
+        }
+        &__date-picker-groupby {
+          width: 25rem;
+        }
+        &__date-picker-literals , &__date-picker-groupby {
+          display: flex;
+          position: relative;
+          align-self: flex-start;
+          flex-grow: 1;
+          align-items: center;
+          .ant-calendar-picker-input{
+            width: 100%;
+            text-overflow: ellipsis;
+            text-align: right;
+            padding: 0px 0px 0px 0px;
+            border: none;
+            font-size: 1.2rem;
+            color: $rich-gray-60;
+            background: 0 0;
+          }
+          .ant-calendar-picker-icon{
+            display: none;
+          }
+          .ant-calendar-picker-input:hover {
+            background-color: #FFFFFF !important;
+          }
+        }
+        &__icon{
+          font-size: 1.8rem;
+          color: $rich-gray-60;
+        }
+        &__body, &__body-mini360{
+          width: 100%;
+          height: calc(100% - 50px);
+
+          ::ng-deep {
+            .highcharts-container {
+              transform: none !important;
+            }
+            .highcharts-xaxis-labels {
+              top: 0px !important;
+            }
+          }
+
+          .loader-container-arr {
+            display: flex;
+            justify-content: space-between;
+            height: calc(100% - 24px);
+
+            .piano-loader {
+              display: contents;
+              ::ng-deep {
+                i {
+                  display: contents;
+                  svg {
+                    height: 200px;
+                    width: 200px;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+      .ant-avatar.ant-avatar-icon {
+        font-size: 18px;
+        border: 1px solid #7596b7;
+      }
+      .ant-avatar{
+        //margin: 0 8px 20px 0;
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+        min-width: 40px;
+      }
+    
+      .gs-form__field--view{
+        &:hover{
+          cursor: pointer ;
+          background-color: rgba(184, 200, 216, 0.2);
+          //height: auto !important;
+          //width: auto !important;
+         }
+        height: fit-content;
+        align-items: center;
+      }
+      .gs-form__field--view.gs-px-read-lookup .clear{
+        max-height: 40px;
+        margin: auto !important;
+      }
+     
+      .gs-form__lookup-title{
+      
+       width: auto !important;
+       margin-left: -1px;
+           
+      }
+    }
+  } 
+}
+.widget-info{
+  background: url("../../../../../assets/images/info.svg") no-repeat center;
+  background-size: 14px 26px;
+  height: 1rem;
+  display: inline-flex;
+  width: 1.6rem;
+ 
+ }
+
+.csm-summary-widget{
+  width: 100% ;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  min-width: 0;
+}
+
+.user-name{
+  margin-top: $space-xsmall;
+  font-size: 1.8rem !important;
+  font-weight: 400;
+  display: flex;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  align-items: center;
+  .csm_name {
+      word-wrap: break-word;
+      //margin-bottom: 1em;
+  }
+  h4 {
+    margin-bottom: 0 !important;
+  }
+
+}
+
+.lock-icon{
+  padding: 8px;
+  color: $pumpkin-orange-90;
+  background: $pumpkin-orange-30;
+  border-radius: 50%;
+  height: auto;
+}
+
+.header_lock{
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.subtitle_lock{
+  color: $rich-gray-50;
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.masked_widget{
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop !important;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.non-editable-flp {
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+
+  &__block{
+    pointer-events: none;
+  }
+}
+
+.gs-chart-error {
+  color: $rich-gray-70;
+  font-size: $space-medium;
+}
+
+.chart-visualizer-wrapper__body-mini360 {
+  ::ng-deep {
+    .box { 
+      box-shadow: 0 0.6rem 1.2rem 0 rgba(43, 61, 81, 0.1), 0 0 0.1rem 0 rgba(43, 61, 81, 0.3);
+      background: $plain-gray-0;
+      padding: $space-medium $space-medium $space-large $space-medium;
+    }
+    .point-name {
+      font-size: $space-medium;
+      font-weight: bold;
+      word-break: break-all;
+    }
+    .series-name {
+      padding-top: $space-xsmall;
+      display: grid;
+      .label {
+        padding-top: $space-base;
+        display: inline-block;
+        padding-right: $space-base;
+        word-break: break-all;
+      }
+      .value {
+        display: inline-block;
+        word-break: break-all;
+      }
+    }
+    g.highcharts-tooltip {
+      display: none;
+    }
+  .gs-chart-null-label {
+      font-style: italic;
+    }
+  }
+}

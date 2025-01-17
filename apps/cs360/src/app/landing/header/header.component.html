@@ -1,0 +1,75 @@
+<section fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="ctx?.pageContext?.toLowerCase()" [class.gs-cs360-header-mini]="isMini360" [class.gs-cs360-header]="!isMini360">
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0.4rem" class="gs-cs360-header__item gs-cs360-header__item__1">
+    <div class="company-name" *ngIf="!isNativeWidget || !relationshipsByType.length || !relationshipEnabled else relationshipDropdown">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.8rem">
+        <h4 *ngIf="!isMini360" nz-title>{{headerLabel | escapeHTML}}</h4>
+        <!-- making company name as link for mini 360-->
+          <div *ngIf="isMini360 && headerLabel" class="mini360-title">
+              <h3 nz-title (click)="openInNewTab()" class="company-name-link" nzEllipsis="true" nz-tooltip [nzTooltipTitle]="headerLabel | escapeHTML" nzTooltipPlacement="bottom">{{headerLabel | escapeHTML}}</h3>
+              <i nz-icon nzType="new-window" nzTheme="general" class="new-window" nzSize="16" (click)="openInNewTab()"></i>
+          </div>
+
+        <div *ngIf="hierarchySectionId && !isMini360" nz-tooltip nzTooltipContent="{{'360.csm.header.company_hierarchy'| transloco}}" (click)="onHierarchyIconClick()" class="hierarchy-icon">
+          <i nz-icon nzType="hierarchy"></i>
+        </div>
+      <div *ngIf="compStatus && !isMini360" fxLayout="row" fxLayoutAlign="center center" class="status-tag {{compStatusClassName?.toLowerCase()}}"><span>{{compStatus}}</span></div>
+      <div *ngIf="relStatus && !isMini360" fxLayout="row" fxLayoutAlign="center center" class="status-tag {{relStatusClassName?.toLowerCase()}}"><span>{{relStatus}}</span></div>
+      </div>
+      <a target="_blank" class="sub-label" [href]="c360Link" *ngIf="subLabel" nz-text>{{subLabel}}</a>
+    </div>
+
+    <ng-template #relationshipDropdown>
+      <div class="relationship-selector">
+        <nz-select [nzPlaceHolder]="'360.csm.header.typePlaceholder'| transloco" [nzCustomTemplate]="selectTemplate" [ngModel]="ctx.entityId" (ngModelChange)="navigateToCR360($event)" [nzDropdownClassName]="'relationship-selector-dropdown'">
+          <nz-option nzCustomContent [nzValue]="ctx.cId" [nzLabel]="ctx.companyName">
+            <ng-container *ngTemplateOutlet="labelWithStatus; context: { label: ctx.companyName, status: compStatus, statusClassName:compStatusClassName }"></ng-container>
+          </nz-option>
+          <nz-option-group [nzLabel]="group.type" *ngFor="let group of relationshipsByType">
+            <nz-option nzCustomContent *ngFor="let item of group.relationships" [nzValue]="item.gsid" [nzLabel]="item.name">
+              <ng-container *ngTemplateOutlet="labelWithStatus; context: { label: item.name, status: item.status_PicklistLabel, statusClassName:item.status_PicklistLabel_SystemName}"></ng-container>
+            </nz-option>
+          </nz-option-group>
+        </nz-select>
+
+        <ng-template #selectTemplate>
+          <ng-container *ngTemplateOutlet="labelWithStatus; context: { label: selectedField.label, status: selectedField.status, statusClassName: selectedField.statusClassName}"></ng-container>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="!isPreview" class="gs-cs360-header__item gs-cs360-header__item__2" fxLayout="row" fxLayoutAlign="flex-end center">
+    <gs-notification-subscriber *ngIf="showFollowButton && !isNativeWidget && !isMini360" [entityId]="entityId" [entityName]="entityName"></gs-notification-subscriber>
+    <!-- Go to Space Button -->
+    <button *ngIf="!isNativeWidget && isSpaceAdminEnabled" nz-button nzType="default" nzSize="small" (click)="onGoToSpace()" class="go-to-space-btn">
+      {{'360.csm.header.goToSpaceBtn'| transloco}}
+    </button>
+    <div *ngIf="isNativeWidget" fxLayoutGap="1rem" fxLayout="row" class="widgets-dropdown-logo-ctn">
+      <div class="sallyContainer"></div>
+      <a target="_blank" [href]="logoLink" class="gs-logo"></a>
+    </div>
+    <button *ngIf="quickActions.length"  class="create-btn" gsWithpermission nz-button  nzType="primary" nzSize="small" nz-dropdown [nzDropdownMenu]="menuCreateMenu" [nzPlacement]="'bottomRight'">
+        {{'360.csm.header.createBtn'| transloco}}
+      <i nz-icon nzType="down"></i>
+    </button>
+    <div *ngIf="isMini360" class="back-arrow">
+      <i nz-icon nzType="cancel" (click)="close()"></i>
+    </div>
+    <gs-share-ss-dropdown [snapshots]="snapshots" [isSsHaEnabled]="isSsHaEnabled" [options]="options" (action)="onShareAction($event)" class="gs-cs360-header__share-menu" *ngIf="!isNativeWidget && !isMini360"> </gs-share-ss-dropdown>
+  </div>
+  <nz-dropdown-menu #menuCreateMenu="nzDropdownMenu">
+    <ul  class="create-menu-dropdown" nz-menu >
+      <li *ngFor="let action of quickActions" nz-menu-item (click)="onAction(action.sectionType)" [ngClass]="action | addPX">{{action.label}}</li>
+    </ul>
+  </nz-dropdown-menu>
+</section>
+
+<ng-container *ngIf="context?.show">
+  <gs-quick-actions [context]="context" [ctx]="ctx"></gs-quick-actions>
+</ng-container>
+
+<ng-template #labelWithStatus let-label="label" let-status="status" let-statusClassName="statusClassName">
+  <div class="relationship-selector__group-options">
+    <label class="relationship-selector__group-options--label" nz-text [nzEllipsis]="true" [nzEllipsisRows]="1" nz-tooltip [nzTooltipTitle]="label">{{label}}</label>
+    <div *ngIf="statusClassName" fxLayout="row" fxLayoutAlign="center center" class="status-tag {{statusClassName?.toLowerCase()}}"><span>{{status}}</span></div>
+  </div>
+</ng-template>

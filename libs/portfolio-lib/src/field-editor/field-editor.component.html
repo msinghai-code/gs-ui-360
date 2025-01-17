@@ -1,0 +1,341 @@
+<div nz-form *ngIf="formGroup" [formGroup]="formGroup" class="gs-form" >
+  <ng-container *ngFor="let field of fields;">
+    <ng-container [ngSwitch]="field?.dataType?.toUpperCase()">
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'text',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'STRING'">
+        <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'text',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'GSID'">
+          <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'text',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+        </ng-container>
+      <ng-container *ngSwitchCase="'PERCENTAGE'">
+          <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'number',suffix:' %',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'NUMBER'">
+          <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'number',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'CURRENCY'">
+          <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'number',addBefore:(field.value && field.value.p ? field.value.p + ' ' : ''),readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'EMAIL'">
+        <ng-container *ngTemplateOutlet="inputTemplate;context:{field:field,formGroup:formGroup,inputType:'text',readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'URL'">
+        <div nz-col class="gs-form__item">
+            <nz-form-label *ngIf="showLabel"
+              nz-tooltip [nzTooltipContent]="field.label"
+              class="gs-form__caption-label"
+              [nzRequired]="field.meta?.required" nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+            <nz-form-control>
+              <div class="gs-form__field">
+                  <div [className]="field.editable && gridInlineEditEnabled ? 'gs-form__field--view gs-px-read-url' : 'gs-form__field--view gs-form__field--readonly gs-px-read-url'"
+                      tabindex="1"
+                      *ngIf="!editable else editableURL">
+                        <span class="gs-form__field-label" nz-text nzEllipsis *ngIf="value === '---'" [innerHTML]="value"></span>
+                        <a *ngIf="value !== '---'" [href]="value"
+                            class="gs-form__field-label gs-form__field-label--url" nz-text nzEllipsis
+                            target="_blank"
+                            rel="noopener"
+                            [innerHTML]="value">
+                        </a>
+                </div>
+                <ng-template #editableURL>
+                  <div class="gs-form__field--edit gs-px-edit-string">
+                        <input #editableInputElem nz-input [name]="field.fieldName" [type]="'string'"
+                          [id]="field.fieldName"
+                          class="gs-form__field--edit gs-px-edit-string"
+                          [ngClass]="'gs-form__string-input'"
+                          formControlName="{{field.fieldName}}">
+                    </div>
+                  </ng-template>
+                </div>
+            </nz-form-control>
+          </div>
+    </ng-container>
+
+      <ng-container *ngSwitchCase="'LOOKUP'">
+        <div nz-col class="gs-form__item gs-form__lookup gs-fb-lookup">
+          <nz-form-label *ngIf="showLabel"
+            nz-tooltip [nzTooltipContent]="field.label"
+            class="gs-form__caption-label"
+            [nzRequired]="field.meta?.required" nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+          <ng-template #emptyIcon>
+            <i></i>
+          </ng-template>
+          <nz-form-control>
+            <div [className]="field.editable && gridInlineEditEnabled ? 'gs-form__field--view gs-px-read-lookup' : 'gs-form__field--view gs-form__field--readonly gs-px-read-lookup'"
+                      tabindex="1"
+                      *ngIf="!editable else editableLookup">
+                      <img class="gs-form__lookup-img" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogc2tldGNodG9vbCA2My4xICgxMDEwMTApIC0gaHR0cHM6Ly9za2V0Y2guY29tIC0tPgogICAgPHRpdGxlPkRFMkVFNjUxLTU4MUYtNEU5OC05Rjc4LTBBOUY0MEI1MDE2RTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggc2tldGNodG9vbC48L2Rlc2M+CiAgICA8ZyBpZD0iRGVzaWduIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iVXNlci1pbi1saXN0LXZpZXciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjAwLjAwMDAwMCwgLTMwMC4wMDAwMDApIj4KICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTE0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAwLjAwMDAwMCwgMzAwLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbC00IiBmaWxsPSIjQ0REOEUzIiBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiPjwvY2lyY2xlPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTEyLDI0IEMxNS42ODY2NDIxLDI0IDE4Ljk4NDk5MTEsMjIuMzM3NTE5NyAyMS4xODYyNTMzLDE5LjcyMTM1MyBDMjEuODQyMzA2NCwxOC45NDE2NDM5IDE4LjI2MDA0NTcsMTMuNzE0Mjg1NyAxMiwxMy43MTQyODU3IEM1LjczOTk1NDMxLDEzLjcxNDI4NTcgMi4xNTYzNjE1OCwxOC45Mzk1OTQ4IDIuODExNDYxOTYsMTkuNzE4NjM2OCBDNS4wMTI3MjYyMiwyMi4zMzYzNjkgOC4zMTIwODIxOSwyNCAxMiwyNCBaIiBpZD0iT3ZhbC04LUNvcHkiIGZpbGwtb3BhY2l0eT0iMC41IiBmaWxsPSIjRkZGRkZGIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsLTkiIGZpbGwtb3BhY2l0eT0iMC41IiBmaWxsPSIjRkZGRkZGIiBjeD0iMTIiIGN5PSI3LjcxNDI4NTcxIiByPSI0LjI4NTcxNDI5Ij48L2NpcmNsZT4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" *ngIf="field.fieldName === 'OwnerId'"/>
+                      <span class="gs-form__lookup-title" nzEllipsis nz-text [innerHTML]="value"></span>
+            </div>
+            <ng-template #editableLookup>
+            <nz-select *ngIf="field.fieldName !== 'ManagedBy'; else managedBy"
+              style="width: 100%;"
+              class="gs-lkup__select gs-form__field--edit"
+              #lookupSearch
+              nzShowSearch
+              [nzOpen]="openPopup"
+              (nzOpenChange)="onPopupClosed()"
+              [nzServerSearch]=true
+              [nzPlaceHolder]="field.label"
+              [nzSuffixIcon]="suffixIconSearch"
+              [nzLoading]="searching"
+              (nzOnSearch)="searchInputSubject.next({searchTerm: $event, field: field})"
+              [nzNotFoundContent]="'360.csm.no_option_found' | transloco"
+              [nzDropdownMatchSelectWidth]="false"
+              [nzMenuItemSelectedIcon]="emptyIcon"
+              [nzAllowClear]="true"
+              [formControlName]="field.fieldName"
+              (ngModelChange)="onOptionSelected($event)"
+              [nzDisabled]="false"
+              [nzAutoClearSearchValue]=true
+              >
+              <nz-option
+                  *ngFor="let option of resultedItems"
+                  nzCustomContent
+                  [nzValue]="option.value"
+                  [nzLabel]="option.displayLabel"
+                >
+                  <div class="gs-tbl-row" >
+                    <span class="gs-tbl-col">{{option.displayLabel || "&mdash;"}}</span>
+                  </div>
+                </nz-option>
+              </nz-select>
+              <ng-template #managedBy>
+                <div class="gs-lookup-search-ex">
+                  <gs-lookup-search 
+                    [options]="managedByOptions"
+                    (optionSelected)="onOptionSelected(null, $event)"
+                    (ngModelChange)="onOptionSelected(null, $event)"
+                    (dropdownChange)="onPopupClosed(null, $event)">
+                  </gs-lookup-search>
+                </div>
+              </ng-template>
+          </ng-template>
+        </nz-form-control>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'PICKLIST'">
+        <div nz-col class="gs-form__item gs-form__select" >
+          <nz-form-label *ngIf="showLabel"
+            nz-tooltip [nzTooltipContent]="field.label"
+            class="gs-form__caption-label"
+            [nzRequired]="field.meta?.required" nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+          <ng-template #selectedTmpl let-selected>
+            <span class="gs-fb-select__label">{{ selected.nzLabel }} </span>
+          </ng-template>
+          <nz-form-control>
+            <div [className]="field.editable && gridInlineEditEnabled ? 'gs-form__field--view gs-px-read-select' :'gs-form__field--view gs-form__field--readonly gs-px-read-select'"
+                  *ngIf="!editable else editablePicklist">
+                  <span class="gs-form__select-label" [gsPicklistHighlight]="true" [fieldInfo]="field" [value]="value">
+                      <span nz-text [innerHTML]="value"></span>
+                      <i *ngIf="field.editable && gridInlineEditEnabled" class="gs-form__select-icon" nz-icon nzType="down"></i>
+                  </span>
+            </div>
+            <ng-template #editablePicklist>
+              <div class="gs-form__field--edit gs-form__field--edit-dropdown">
+                <gs-select
+                [formControlName]="field.fieldName"
+                [openDropdown]="defaultOpenPopups"
+                [isSingle]="true"
+                [options]="dropdownOptions"
+                [showColor]="true"
+                (valueSelected)="onPopupClosed()"
+                >
+                </gs-select>
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'MULTISELECTDROPDOWNLIST'">
+        <div nz-col class="gs-form__item gs-form__select">
+          <nz-form-label *ngIf="showLabel"
+            nz-tooltip [nzTooltipContent]="field.label"
+            class="gs-form__caption-label"
+            [nzRequired]="field.meta?.required" nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+          <ng-template #selectedTmpl let-selected>
+            <span class="gs-fb-select__label">{{ selected.nzLabel }} </span>
+          </ng-template>
+          <nz-form-control>
+            <div [className]="field.editable && gridInlineEditEnabled ? 'gs-form__field--view gs-px-read-select gs-form__field--multiselect' : 'gs-form__field--view gs-px-read-select gs-form__field--readonly gs-form__field--multiselect'"
+                  *ngIf="!editable else editableMultiSelect">
+                  <span class="gs-form__select-label">
+                      <span nz-text [innerHTML]="value"></span>
+                  </span>
+            </div>
+            <ng-template #editableMultiSelect>
+              <div class="gs-form__field--edit gs-form__field--edit-dropdown">
+                <gs-select
+                [formControlName]="field.fieldName"
+                [openDropdown]="defaultOpenPopups"
+                [isSingle]="false"
+                [options]="dropdownOptions"
+                [showColor]="true"
+                (valueSelected)="onPopupClosed()"
+                >
+                </gs-select>
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'BOOLEAN'">
+        <div nz-col class="gs-form__item gs-form__select">
+          <ng-template #selectedTmpl let-selected>
+            <span class="gs-fb-select__label">{{ selected.nzLabel }} </span>
+          </ng-template>
+          <nz-form-control>
+            <div [className]="field.editable && gridInlineEditEnabled ? 'gs-form__field--view gs-px-read-select' : 'gs-form__field--view gs-px-read-select gs-form__field--readonly'"
+                  *ngIf="!editable else editableBoolean">
+                  <span class="gs-form__select-label">
+                      <span nz-text [innerHTML]="value"></span>
+                      <i *ngIf="field.editable && gridInlineEditEnabled" class="gs-form__select-icon" nz-icon nzType="down"></i>
+                  </span>
+            </div>
+            <ng-template #editableBoolean>
+              <div class="gs-form__field--edit gs-form__field--edit-dropdown">
+                <gs-select
+                [formControlName]="field.fieldName"
+                [openDropdown]="defaultOpenPopups"
+                [isSingle]="true"
+                [options]="dropdownOptions"
+                [showColor]="true"
+                (valueSelected)="onPopupClosed()"
+                >
+                </gs-select>
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase="'DATE'">
+        <ng-container *ngTemplateOutlet="dateTimeTemplate;context:{field:field,showTime:false,format:dateFormat,formGroup:formGroup,readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'DATETIME'">
+        <ng-container *ngTemplateOutlet="dateTimeTemplate;context:{field:field,showTime:{nzFormat: 'hh:mm a', nzUse12Hours: true},format:dateTimeFormat,formGroup:formGroup,readOnlyClass:field.editable && gridInlineEditEnabled ? '' : 'gs-form__field--readonly'}"></ng-container>
+      </ng-container>
+
+    </ng-container>
+  </ng-container>
+</div>
+
+
+<ng-template #dateTimeTemplate let-field="field" let-showTime="showTime" let-format="format" let-formGroup="formGroup"
+let-readOnlyClass="readOnlyClass">
+  <div nz-form [formGroup]="formGroup" class="gs-form" >
+    <div nz-col class="gs-form__item">
+      <nz-form-label *ngIf="showLabel"
+        nz-tooltip [nzTooltipContent]="field.label"
+        class="gs-form__caption-label"
+        [nzRequired]="field.meta?.required" nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+      <nz-form-control>
+        <div class="gs-form__field" tabindex="1">
+          <div [className]="readOnlyClass + ' gs-form__field--view gs-px-read-date'"
+            *ngIf="!editable else editableDateTime">
+              <span class="gs-form__field-label" nz-text nzEllipsis [innerHTML]="value"></span>
+          </div>
+          <ng-template #editableDateTime>
+            <ng-container *ngIf="defaultOpenPopups">
+              <ng-container *ngTemplateOutlet="openEditableDateTimePicker;context:{field:field, showTime:showTime, format:format}"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="!defaultOpenPopups">
+              <ng-container *ngTemplateOutlet="defaultEditableDateTimePicker;context:{field: field, showTime: showTime, format:format}"></ng-container>
+            </ng-container>
+          </ng-template>
+        </div>
+      </nz-form-control>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #openEditableDateTimePicker let-format="format" let-showTime="showTime" let-field="field">
+  <div [formGroup]="formGroup" class="gs-form" >
+    <div class="gs-form__field--edit gs-px-edit-date">
+      <nz-date-picker
+      [nzOpen]="true"
+      (nzOnOpenChange)="onPopupClosed()"
+      [nzFormat]="format"
+      [formControlName]="field.fieldName"
+      [nzShowTime]="showTime"
+      [nzClassName]="'gs-date-picker'"
+      class="gs-fb-date"
+      ></nz-date-picker>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #defaultEditableDateTimePicker let-format="format" let-showTime="showTime" let-field="field">
+  <div [formGroup]="formGroup" class="gs-form" >
+    <div class="gs-form__field--edit gs-px-edit-date">
+      <nz-date-picker
+      (nzOnOpenChange)="onPopupClosed()"
+      [nzFormat]="format"
+      [formControlName]="field.fieldName"
+      [nzShowTime]="showTime"
+      [nzClassName]="'gs-date-picker'"
+      class="gs-fb-date"
+      ></nz-date-picker>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #inputTemplate let-field="field" let-formGroup="formGroup" let-readOnlyClass="readOnlyClass"
+let-dataType="field.dataType.toLowerCase()" let-inputType="inputType" let-suffix="suffix" let-addBefore="addBefore">
+  <div [formGroup]="formGroup" class="gs-form" >
+    <div nz-col [ngClass]="'gs-form__item gs-form__string'">
+      <nz-form-label *ngIf="showLabel"
+        nz-tooltip [nzTooltipContent]="field.label"
+        class="gs-form__caption-label"
+        [nzRequired]="field.meta?.required"
+        nzFor="{{field.fieldName}}">{{field.label}}</nz-form-label>
+      <nz-form-control>
+        <div class="gs-form__field">
+          <div [className]="readOnlyClass + ' gs-form__field--view gs-px-read-string'"
+                tabindex="1"
+                *ngIf="!editable else editableInput">
+                <span class="gs-form__field-label" nz-text nzEllipsis [innerHTML]="value"></span>
+            </div>
+          <ng-template #editableInput>
+            <div [ngClass]="'gs-form__field--edit gs-px-edit-string'">
+              <nz-input-group [nzAddOnBefore]="addBefore" [nzSuffix]="suffix" *ngIf="suffix || addBefore">
+                <input #editableInputElem nz-input [name]="field.fieldName"
+                [type]="inputType"
+                [id]="field.fieldName"
+                [ngClass]="'gs-form__string-input'"
+                [formControlName]="field.fieldName">
+              </nz-input-group>
+              <input #editableInputElem [ngClass]="'gs-form__field--edit gs-px-edit-string'"
+                  *ngIf="!suffix && !addBefore"
+                  [type]="inputType"
+                  [id]="field.fieldName"
+                  [class]="'gs-form__string-input'"
+                  nz-input
+                  [formControlName]="field.fieldName">
+            </div>
+          </ng-template>
+          <ng-container *ngIf="_errors[field.fieldName] && showErrors">
+              <label class="gs-error-message" nz-text nzColor="danger">{{_errors[field.fieldName] | gsError: field}}</label>
+          </ng-container>
+        </div>
+      </nz-form-control>
+    </div>
+  </div>
+</ng-template>

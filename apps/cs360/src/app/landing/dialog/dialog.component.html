@@ -1,0 +1,23 @@
+<div>
+  <div class="header">
+    <!-- {360.csm.dialog.connectedAccount}=Connected Google Account-->
+    <span class="export-header">
+      {{'360.csm.dialog.connectedAccount' | transloco}}
+    </span>
+  </div>
+
+  <div class="account">
+    <span class="account-image-sec">
+      <div class="default-image def-img" *ngIf="!userDetails.photoLink"></div>
+      <img class="account-image acc-img" *ngIf="userDetails.photoLink" src="{{userDetails.photoLink}}">
+    </span>
+    <span class="account-details">
+      <div class="account-name">{{userDetails.displayName}}</div>
+      <div class="account-email">{{userDetails.emailAddress}}</div>
+    </span>
+  </div>
+  <!-- {360.csm.dialog.revokeMsg}=Gainsight has access to Google drive of the connected account and other info-->
+  <div class="revoke-msg">{{'360.csm.dialog.revokeMsg' | transloco}}</div>
+  <!-- {360.csm.dialog.revokeBtn}=Revoke Access-->
+  <div class="revoke-button" (click)="revokeAccess()">{{'360.csm.dialog.revokeBtn' | transloco}}</div>
+</div>

@@ -1,0 +1,64 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.gs-card-view {
+    ::ng-deep {
+        nz-card {
+            height: 45rem;
+            border: 1px solid #e3eaf1;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            color: #19232f;
+            font-size: 14px;
+            font-variant: tabular-nums;
+            line-height: 1.5;
+            list-style: none;
+            font-feature-settings: 'tnum';
+            position: relative;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 1px 0 rgba(25,35,47,.24), 0 1px 3px 0 rgba(25,35,47,.12);
+            transition: all .3s;
+            .ant-card-head {
+                border-bottom: 0;
+            }
+            .ant-card-body {
+                padding: 5px 15px;
+            }
+        }
+    }
+}
+
+.gs-card-view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    &__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        ::ng-deep {
+            gs-mapping-renderer > a {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: $rich-gray-90;
+            }
+        }
+    }
+}
+
+.gs-card-view-item {
+    display: flex;
+    flex-direction: column;
+    &__more {
+        font-size: 2.4rem;
+        color: $rich-gray-60;
+    }
+}

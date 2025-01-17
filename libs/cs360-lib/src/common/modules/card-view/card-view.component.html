@@ -1,0 +1,65 @@
+<section class="gs-card-view">
+  <nz-card [nzHoverable]="true">
+    <gridster style="background: #ffffff" #cardgridster [options]="options" *ngIf="items.length">
+      <gridster-item class="card-list-item"
+              *ngFor="let item of items"
+              [item]="item">
+        <ng-container *ngIf="(item.fieldName === 'Name' && item.objectName === 'relationship'); then header; else fieldvalue"></ng-container>
+        <ng-template #header>
+          <div class="gs-card-view-header">
+            <div class="gs-card-view-header__title">
+              <gs-mapping-renderer *ngIf="!isWidget else nonLinkName" [params]="{ valueFormatted: item?.value, value: item?.complexValue, disableHyperlinkRedirection: false }"
+                                   [mapping]="'GS_RELATIONSHIP_NAME'">
+              </gs-mapping-renderer>
+              <ng-template #nonLinkName>
+                <h4 (click)="onRelNameClick(item)" nz-title>{{item?.value}}</h4>
+              </ng-template>
+            </div>
+            <div class="gs-card-view-header__actions">
+              <button nz-button *ngIf="config.showMore" [nzSize]="'default'" nzType="link" nzShape="circle" (click)="onMoreOptionClick($event)">
+                <i class="gs-card-view-item__more" nz-icon nzType="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #fieldvalue>
+          <div appExternalLink>
+            <ng-container *ngTemplateOutlet="fieldCard; context:{field: item}"></ng-container>
+          </div>
+        </ng-template>
+      </gridster-item>
+    </gridster>
+  </nz-card>
+</section>
+<ng-template #fieldCard let-item="field">
+  <div class="gs-card-view-item" *ngIf="(item.fieldName === 'CurrentScore' || item.fieldName === 'PreviousScore' && item.objectName === 'relationship') else fieldItem">
+    <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.label" nzColor="secondary">{{item?.label}}</span>
+    <gs-cs360-health-score [data]="{value: item.complexValue}"></gs-cs360-health-score>
+  </div>
+  <ng-template #fieldItem>
+    <ng-container [ngSwitch]="item.dataType">
+      <ng-container *ngSwitchCase="'URL'">
+        <div class="gs-card-view-item">
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.label" nzColor="secondary">{{item?.label}}</span>
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.value" [innerHTML]="item.value | url"></span>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'STRING'">
+        <div *ngIf="item.meta && item.meta.mappings || item.meta && !item.meta.validTag || config.title === 'Gainsight'" class="gs-card-view-item">
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.label" nzColor="secondary">{{item?.label}}</span>
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.value" [innerText]="item?.value || '-'"></span>
+        </div>
+        <div *ngIf="item.meta && !item.meta.mappings && item.meta.validTag" class="gs-card-view-item">
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.label" nzColor="secondary">{{item?.label}}</span>
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.value" [innerHTML]="item?.value || '-'"></span>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div class="gs-card-view-item">
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.label" nzColor="secondary">{{item?.label}}</span>
+          <span nz-text nzType="medium" [nzEllipsis]="true" nz-tooltip [nzTooltipTitle]="item.value || '-'">{{item?.value || '-'}}</span>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</ng-template>

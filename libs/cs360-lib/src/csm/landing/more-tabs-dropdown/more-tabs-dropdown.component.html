@@ -1,0 +1,48 @@
+<div class="gs-tabs-more-wrapper">
+  <span class="all-sections">{{'360.csm.more_tabs.allSections' | transloco}}</span>
+  <!-- <label>{{'360.csm.more_tabs.allSections' | transloco}}</label> -->
+  <nz-input-group class="search-box" [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="Search" [formControl]="searchInput" />
+  </nz-input-group>
+  
+  <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    <div class="content"> 
+      <!-- <h6 nz-text nzType="small" class="section-title">UNPINNED</h6> -->
+      <ul nz-menu *ngIf="(unPinnedSections | filterListBySearchTerm : 'label': searchTerm).length else unpinnedEmpty">
+        <li nz-menu-group nzTitle="Unpinned">
+          <ng-template ngFor let-item [ngForOf]="unPinnedSections | filterListBySearchTerm : 'label': searchTerm">
+            <li nz-menu-item nz-text (click)="navigateToSection(item, sections)">
+              {{ item.label }}
+            </li>
+          </ng-template> 
+        </li>
+      </ul>
+      <!-- <h6 nz-text nzType="small" class="section-title">NOT AVAILABLE</h6> -->
+      <ul nz-menu *ngIf="isMini360 && (notAvailableInMini360 | filterListBySearchTerm : 'label': searchTerm).length">
+        <li nz-menu-group nzTitle="Not available in Mini360">
+          <ng-template ngFor let-item [ngForOf]="notAvailableInMini360 | filterListBySearchTerm : 'label': searchTerm">
+            <li class="unsupported-sections" nz-menu-item nz-text (click)="navigateToSection(item, sections)">
+              {{ item.label }}
+            <i *ngIf="!item.enabledForMini" [nzSize]="16" [nzType]="'new-window'" nz-icon class="links"></i>
+            </li>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div class="personalized-btn">
+     <button nz-button nzType="link" (click)="manageSections()" [ngClass]="pxClasses">{{'360.csm.more_tabs.personalizeSec' | transloco}}</button>
+    </div>
+</div>
+
+<ng-template #unpinnedEmpty>
+  <ul nz-menu>
+    <li nz-menu-group nzTitle="Unpinned">
+      <ng-container *transloco="let t; read: '360'">
+        <!-- {360.csm.more_tabs.sectionNotFound}=The {{searchInputValue}} section was not found-->
+        <div class="empty">{{t('csm.more_tabs.sectionNotFound',{searchInputValue: searchInput.value})}}</div>
+    </ng-container>
+    </li>
+  </ul>
+</ng-template>

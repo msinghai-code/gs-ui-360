@@ -1,0 +1,20 @@
+.icon-button {
+    margin-left: 12px;
+    border: 0;
+    border-radius: 16px !important;  
+    color: #5f6c7a; // TODO: replace with icon buttons once they are available. Currently overriding styles of default btn
+  &:hover 
+  {
+    background-color:#e6f0fd;
+    color: #181f26;
+    border-radius: 16px ;
+
+  }
+
+    &:disabled {
+
+      opacity: 0.5;
+
+    }
+
+}

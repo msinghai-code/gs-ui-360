@@ -1,0 +1,20 @@
+<section class="gs-rollout-c360-cntr">
+  <div class="gs-rollout-c360 explore">
+    <div class="gs-rollout-c360__explore__body">
+      <h4 nz-title>{{'360.admin.rollout_explorer.welcomeText'| transloco}}</h4>
+      <span nz-text nzType="secondary">{{'360.admin.rollout_explorer.learnMore'| transloco}}</span>
+      <h5 nz-title>{{'360.admin.rollout_explorer.whatsNew'| transloco}}</h5>
+      <div class="gs-rollout-c360__body--feature-explore">
+        <gs-feature-explorer></gs-feature-explorer>
+      </div>
+      <div class="gs-rollout-c360__body--footer" style="margin-top: 0.5rem;" *ngIf="showFooter">
+        <i nz-icon nzType="warning" nzTheme="fill" style="color: #FFBB00; margin-right: 0.5rem;"></i>
+        <label nz-text nzColor="secondary" nzType="small">{{'360.admin.rollout_explorer.clicking'| transloco}} <strong>{{'360.admin.rollout_explorer.proceed'| transloco}}</strong> {{'360.admin.rollout_explorer.manuallyActivate'| transloco}}</label>
+      </div>
+    </div>
+    <div class="gs-rollout-c360__explore__footer" *ngIf="showFooter">
+      <button nz-button nzType="primary" [nzLoading]="migrationLoader" (click)="proceed()">{{'360.admin.rollout_explorer.proceedBtn'| transloco}}</button>
+      <button nz-button nzType="default" (click)="learnMore()">{{'360.admin.rollout_explorer.learnMoreBtn'| transloco}}</button>
+    </div>
+  </div>
+</section>

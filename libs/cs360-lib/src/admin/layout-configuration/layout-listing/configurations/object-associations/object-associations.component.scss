@@ -1,0 +1,34 @@
+
+:host {
+    display: block;
+    height: 100%;
+}
+  
+.gs-object-associations {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &__list {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.help-text {
+    background-color: #fafafa;
+    color: #3e5872;
+    font-size: 12px;
+    padding: .7rem 1.2rem;
+    display: flex;
+    align-items: center;
+
+    i {
+        font-size: 16px;
+        margin-right: .4rem;
+        position: relative;
+        top: -2px;
+    }
+    .cancel{
+      margin-left: auto;
+    }
+}

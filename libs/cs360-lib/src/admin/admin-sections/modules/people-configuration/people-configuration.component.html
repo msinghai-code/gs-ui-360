@@ -1,0 +1,40 @@
+<ng-template #headerRef>
+    <div fxLayout="row" fxLayoutAlign="space-between flex-end" class="gs-section-config-drawer__header">
+        <div fxFlex="45" class="gs-section-config-drawer__header__title">
+            <i (click)="handleHeaderEvents()" nz-icon class="gs-section-config-drawer__header__title__arrow" nzType="arrow-left"></i>
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+                <div fxLayout="column" fxLayoutAlign="start start">
+                    <span (click)="handleHeaderEvents()" class="gs-section-config-drawer__header__layout-name" nz-text>{{section.layoutName}}</span>
+                    <!--{360.admin.people_config.configuration}=Configuration-->
+                    <div class="gs-keygen" fxLayout="row" fxLayoutAlign="start center">
+                        {{section?.label}} {{'360.admin.people_config.configuration'   | transloco}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nz-tabset fxFlex="55" [(nzSelectedIndex)]="selectedIndex" [nzAnimated]="{inkBar:true, tabPane:false}">
+            <nz-tab *ngFor="let view of adminViews; let i = index" nzTitle="{{view.title | transloco}}" (nzClick)="onTabClick(i)" nzTabClass="px-{{view.title}}-tab">
+            </nz-tab>
+        </nz-tabset>
+    </div>
+</ng-template>
+
+
+
+<ng-template #tabForGlobalSection>
+    <div class="gs-section-config-drawer__subPanel" fxFill fxLayoutAlign="top center" fxLayout="column" *ngIf="url">
+        <nz-tabset *ngIf="!section?.isDetachSectionPreview" [(nzSelectedIndex)]="selectedIndex" [nzAnimated]="{inkBar:true, tabPane:false}">
+            <nz-tab *ngFor="let view of adminViews; let i = index" nzTitle="{{view.title | transloco}}" (nzClick)="onTabClick(i)" nzTabClass="px-{{view.title}}-tab">
+            </nz-tab>
+        </nz-tabset>
+        <ax-lazy-element
+         *axLazyElementDynamic="elementTag,url:url" [section]="section" [context]="ctx" (change)="handleChange($event)" [currentIndex]="selectedIndex">
+        </ax-lazy-element> 
+    </div>
+ </ng-template>
+  
+  <ng-container *ngIf="section?.scope === 'LOCAL' else tabForGlobalSection" >
+    <ax-lazy-element
+        *axLazyElementDynamic="elementTag,url:url" [section]="section" [context]="ctx" (change)="handleChange($event)" [currentIndex]="selectedIndex">
+    </ax-lazy-element>  
+</ng-container> 

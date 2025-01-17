@@ -1,0 +1,216 @@
+<div fxLayout="row" fxFill gsSpinner [nzSize]="'xl'" [show]="loading" class="attribute-configuration">
+  <div fxFill *ngIf="!section?.isDetachSectionPreview else detachPreview">
+    <div class="attribute-configuration__left" fxLayout="row">
+      <div fxLayout="column" fxFill>
+        <!--{360.admin.attribute_config.available_fields}= Available Fields-->
+        <div class="label" nz-text nzType="sub-section">{{'360.admin.attribute_config.available_fields' | transloco}}
+        </div>
+
+        <!--{360.admin.attribute_config.drag_drop_message}=Drag-and-drop attributes to the Canvas-->
+        <div class="description" nz-text nzType="small" nzColor="secondary">
+          {{'360.admin.attribute_config.drag_drop_message' | transloco}}</div>
+
+        <gs-field-tree-view-wrapper [treeOptions]="treeOptions" [fnCheckForDisable]="fnCheckForDisable"
+          fxLayout="column" fxFlex="calc(100% - 30px)"></gs-field-tree-view-wrapper>
+      </div>
+    </div>
+    <div fxLayout="column" fxFlex class="attribute-configuration__right">
+      <div class="attribute-configuration__right__header" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="column">
+          <!--{360.admin.attribute_config.layout}=Layout-->
+          <!--{360.admin.attribute_config.arrange_fields}=Arrange added fields and organise by creating groups-->
+          <span class="attribute-configuration__right__header__label" nz-text
+            nzType="sub-section">{{'360.admin.attribute_config.layout' | transloco}}</span>
+          <label nz-text nzType="small" nzColor="secondary">{{'360.admin.attribute_config.arrange_fields' |
+            transloco}}</label>
+
+        </div>
+        <div class="actions">
+          <!--{360.admin.attribute_config.tooltip}=Drag-and-drop the groups to rearrange their order.-->
+          <i *ngIf="groups.length > 1" nz-icon nzType="sort" class="sort-icon" nz-tooltip
+            nzTooltipContent="{{'360.admin.attribute_config.tooltip' | transloco}}"
+            (click)="rearrangeGroupModal.open()"></i>
+          <!--{360.admin.attribute_config.field_editablility}=Field Editability-->
+          <!--{360.admin.attribute_config.add_group}=Add Group-->
+          <button nz-button nzType="link" *ngIf="groups | areFieldsPresentInGroup" (click)="onShowEditablePopup()"
+            nzSize="small">{{'360.admin.attribute_config.field_editablility' | transloco}}</button>
+          <button nz-button (click)="addGroup()" nzSize="small" nzType="secondary"
+            [disabled]="groups.length >= groupsLimit">{{'360.admin.attribute_config.add_group' | transloco}}</button>
+
+        </div>
+      </div>
+      <div #groupLayout class="attribute-configuration__right__layout">
+        <div class="attribute-group-layout gridster-defaults" fxLayout="column" fxFill cdkDropList
+          (cdkDropListDropped)="onGroupDrop($event)">
+          <gridster cdkDropListGroup [class.single]="groups.length === 1" [options]="groupOptions" *ngIf="showGridster">
+            <gridster-item class="attribute-group" [item]="group" *ngFor="let group of groups; let in = index">
+
+              <!-- <i class="gs-icons gs-icons-draggable-indicator display-none" *ngIf="groups.length === 1" cdkDragHandle></i> -->
+
+              <div id={{group.groupId}} cdkDropList (cdkDropListDropped)="onFieldDropOnGroup($event, group)">
+
+                <!-- <div *cdkDragPreview fxLayout="row" fxLayoutAlign="start center">
+                  <div>
+                    <i class="gs-icons gs-icons-draggable-indicator"></i>
+                    <span class="drag-preview__header__name">{{group.label}}</span>
+                  </div>
+                </div> -->
+                <div *ngIf="!(in === 0 && groups.length === 1)" class="attribute-group__header" fxLayout="row"
+                  fxLayoutAlign="space-between center">
+                  <div class="attribute-group__header__label" fxLayout="row" fxLayoutAlign="flex-start center">
+                      <i nz-icon nzType="drag" nzTheme="outline" class="gs-icons gs-icons-draggable-indicator"></i>
+<!--                    <i class="gs-icons gs-icons-draggable-indicator"></i>-->
+                    <h6 class="gridster-item-content" (click)="handleGroupLabel(group)"
+                      *ngIf="!group.showLabelInput else showLabelInput" nz-title>{{group.label || '---'}}</h6>
+                  </div>
+                  <i class="attribute-group__header__delete icon-size cursor-pointer gridster-item-content" nz-icon
+                    nzType="delete" (click)="onGroupDelete(group)"></i>
+                  <ng-template #showLabelInput>
+                    <input class="attribute-group__header__input gridster-item-content" autofocus
+                      (keydown.enter)="saveInput(group)" (blur)="saveInput(group)" (keydown.esc)="resetInput(group)"
+                      nz-input [(ngModel)]="group.tempLabel">
+                  </ng-template>
+                </div>
+                <div class="gridster-item-content" [class.attribute-group__body]="groups.length > 1"
+                  [class.attribute-group__no-group-body]="groups.length === 1">
+                  <ng-container *ngTemplateOutlet="groupView;context:{group: group, fields:group.columns}">
+                  </ng-container>
+                </div>
+
+              </div>
+
+            </gridster-item>
+          </gridster>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #detachPreview>
+    <div fxFill #groupLayout class="attribute-configuration__right__layout">
+      <div class="attribute-group-layout" fxLayout="column" fxFill>
+        <div class="attribute-group" *ngFor="let group of groups; let in = index">
+          <div *ngIf="!(in === 0 && groups.length === 1)" class="attribute-group__header" fxLayout="row"
+            fxLayoutAlign="space-between center">
+            <div class="attribute-group__header__label" fxLayout="row" fxLayoutAlign="flex-start center">
+              <h6 nz-title>{{group.label || '---'}}</h6>
+            </div>
+          </div>
+          <div [class.attribute-group__body]="groups.length > 1"
+            [class.attribute-group__no-group-body]="groups.length === 1">
+            <ng-container
+              *ngTemplateOutlet="groupView;context:{group: group, fields:group.columns, hideConfigIcons: true}">
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #groupView let-group="group" let-fields="fields" let-hideConfigIcons="hideConfigIcons">
+  <div class="gridster-defaults">
+    <gridster #gridster cdkDropList *ngIf="fields.length; else emptyGroup" [options]="options" class="fields-gridster">
+      <gridster-item class="z-depth-1" *ngFor="let field of fields" [item]="field" nz-tooltip
+        [nzTooltipTitle]="field.properties?.originalLabel || field.label">
+        <div class="field-item">
+          <!-- LABEL -->
+          <div class="field-item__label-wrapper">
+              <i *ngIf="!hideConfigIcons" nz-icon nzType="drag" nzTheme="outline" class="gs-icons gs-icons-draggable-indicator"></i>
+<!--            <i *ngIf="!hideConfigIcons" class="gs-icons gs-icons-draggable-indicator"></i>-->
+            <span nz-tooltip *ngIf="!field.showLabelInput else showLabelInput" class="field-item__label"
+              (click)="!hideConfigIcons && handleLabelInput(field)" (mousedown)="$event.stopPropagation()">
+              <span nz-text>{{field.label}}</span>
+            </span>
+            <ng-template #showLabelInput>
+              <input autofocus class="gridster-item-content" nz-input nzSize="small" (blur)="saveInput(field)"
+                (keydown.enter)="saveInput(field)" (keydown.esc)="resetInput(field)" [(ngModel)]="field.tempLabel"
+                maxlength="90" />
+            </ng-template>
+          </div>
+  
+          <!-- SETTINGS -->
+          <div *ngIf="!hideConfigIcons" class="field-item__settings gridster-item-content">
+            <i class="cursor-pointer" nz-icon nzType="settings" (click)="onFieldSettingsClick(field, group)"></i>
+            <i class="cursor-pointer" (click)="onFieldDelete(field, group)" nz-icon nzType="close"></i>
+          </div>
+        </div>
+      </gridster-item>
+    </gridster>
+  </div>
+</ng-template>
+
+<ng-template #emptyGroup>
+  <div class="fields-gridster__empty">
+    <nz-empty [nzNotFoundImage]="imageTpl" [nzNotFoundContent]="contentTpl">
+      <ng-template #imageTpl>
+        <i class="fields-gridster__empty--img"></i>
+      </ng-template>
+      <ng-template #contentTpl>
+       <span class="fields-gridster__empty--description">
+          {{
+          section?.isDetachSectionPreview ? noFieldsconfig  : dragDropattributes
+          }}
+        </span>
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>
+<!--{360.admin.attribute_config.field_editability_modal}=Field Editability-->
+<!--{360.admin.attribute_config.done}=Done-->
+<!--{360.admin.attribute_config.cancel}=Cancel-->
+<nz-modal nzWrapClassName="vertical-center-modal attributes-field-edit" [(nzVisible)]="showEditablePopup"
+  nzTitle="{{'360.admin.attribute_config.field_editablility' | transloco}}" (nzOnCancel)="showEditablePopup = false"
+  (nzOnOk)="onEditableModalOkClick()" [nzOkText]="'360.admin.attribute_config.done'|transloco" [nzCancelText]="'360.admin.attribute_config.cancel'|transloco">
+  <!--{360.admin.attribute_config.search_placeholder}=Search-->
+  <nz-input-group [nzSuffix]="inputClearTpl" class="section-listing-wrapper__search" [nzPrefix]="searchIcon">
+    <input type="text" nz-input placeholder="{{'360.admin.attribute_config.search_placeholder' | transloco}}"
+      [formControl]="searchInput" />
+  </nz-input-group>
+
+  <div *ngIf="setEditableGroups.length else noFieldsTemplate" fxFlex fxLayout="column" class="editable-popup-content">
+    <label nz-checkbox [(ngModel)]="allEditable" (ngModelChange)="updateAllChecked()" [ngClass]="labelClass"
+      [nzDisabled]="disableSelectAll"><span nz-text [nzDisabled]="disableSelectAll">{{allCheckedText}}</span></label>
+    <ng-container *ngFor="let group of setEditableGroups">
+      <div *ngIf="(group?.columns | filterListBySearchTerm : 'label': searchTerm).length" [ngClass]="groups.length > 1 ? 'editable-popup-content__field-container':''">
+        <h6 class='editable-popup-content__group-label' *ngIf="groups.length > 1" nz-title nzType="small">{{group.label}}</h6>
+        <div class="editable-popup-content__field" *ngFor="let field of group.columns  | filterListBySearchTerm : 'label': searchTerm">
+          <label nz-checkbox [nzDisabled]="field | isFieldEditDisabled" [(ngModel)]="field.properties.editable" (ngModelChange)="checkIfAllSelected()"><span nz-text [nzDisabled]="field | isFieldEditDisabled">{{field.label}}</span></label>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #noFieldsTemplate>
+    <!-- {360.admin.attribute_config.no_fields}=No fields to show.-->
+    <div fxFlex fxLayoutAlign="center center">{{'360.admin.attribute_config.no_fields' | transloco}}</div>
+  </ng-template>
+</nz-modal>
+
+<ng-template #searchIcon>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+<ng-template #inputClearTpl>
+  <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="searchInput?.value"
+    (click)="searchInput?.reset()"></i>
+</ng-template>
+<!-- {360.admin.attribute_config.configuration_attributes}=Attributes Configuration-->
+<nz-drawer [nzClosable]="true" [nzVisible]="openFieldSettingsDrawer" nzPlacement="right" [nzMask]="true"
+  [nzBodyStyle]="{height: 'calc(100% - 4.4rem)', 'padding-bottom': '0', 'padding-top': '0'}" [nzWidth]="588"
+  [nzTitle]="'360.admin.attribute_config.configuration_attributes' | transloco" (nzOnClose)="closeFieldSettingsDrawer()">
+  <gs-field-configuration *ngIf="openFieldSettingsDrawer"
+    [fieldConfigOptions]="selectedFieldInfoForConfig?.fieldConfigOptions" [field]="selectedFieldInfoForConfig?.field"
+    (fieldConfigAction)="onFieldConfigured($event)"
+    [rootNode]="selectedFieldInfoForConfig?.rootNode">
+  </gs-field-configuration>
+</nz-drawer>
+
+<!-- {360.admin.attribute_config.modalTitle}=Rearrange Groups-->
+<!-- {360.admin.attribute_config.modalTitle_okText}=ok-->
+<nz-modal [(nzVisible)]="rearrangeGroupModal.isVisible" [nzTitle]="'360.admin.attribute_config.modalTitle'| transloco"
+  (nzOnCancel)="rearrangeGroupModal.handleCancel()" (nzOnOk)="rearrangeGroupModal.handleOk()"
+  [nzOkLoading]="rearrangeGroupModal.isOkLoading" [nzOkText]="'360.admin.attribute_config.modalTitle_okText' | transloco" [nzCancelText]="'360.admin.attribute_config.cancel'|transloco">
+  <!-- {360.admin.attribute_config.drag_rearrange}=Drag groups to rearrange their display order.-->
+  <label nz-text nzType="small" nzColor="secondary">{{'360.admin.attribute_config.drag_rearrange' | transloco}}</label>
+
+  <gs-list-item-sort #listitemsort *ngIf="groups.length" [items]="sortedGroup"></gs-list-item-sort>
+</nz-modal>

@@ -1,0 +1,15 @@
+::ng-deep {
+.name-row  {
+  padding: 1px !important;
+  .ui-treenode-content{
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+  }
+
+  .ui-state-default.ui-chkbox-box .ui-chkbox-icon.pi-check {
+    background-color: #afc3d7 !important;
+    border-color: #afc3d7 !important;
+  }
+  }
+}
+

@@ -1,0 +1,10 @@
+<div class="gs-list-item">
+  <div class="gs-list-item__left">
+    <i nz-icon nzType="drag" nzTheme="general" nzSize="22" *ngIf="config.showDragHandler"></i>
+    <gs-inline-input-editor #inlineInputEditor [text]="item.label" [class.edit-mode]="inlineInputEditor.editable" [item]="item" (action)="onAction($event)"></gs-inline-input-editor>
+  </div>
+  <div class="gs-list-item__right" *ngIf="config.showActionButton && !inlineInputEditor.editable">
+    <i nz-icon nzType="settings" *ngIf="item.customizable" (click)="customizeItem($event, item)" class="anticon anticon-settings gs-list-item__atc-btn"></i>
+    <i nz-icon nzType="delete" (mousedown)="deleteItem($event, item)" (touchstart)="deleteItem($event, item)" class="gs-list-item__atc-btn"></i>
+  </div>
+</div>

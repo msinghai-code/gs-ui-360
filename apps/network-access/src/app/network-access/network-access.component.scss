@@ -1,0 +1,72 @@
+@import '~@angular/material/theming';
+@import '~@gs/core/assets/scss/horizon2.1/core/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+::ng-deep.k-grid {
+  padding-bottom: 0px !important;
+}
+
+::ng-deep .mat-tool-tip {
+  font-size: 14px !important;
+}
+
+::ng-deep .gs-grid-wrapper{
+  height: 100%;
+}
+
+.material-icons.info {
+  font-size: 100%;
+  cursor: help;
+}
+.gs-list {
+  &__container {
+    flex: 1;
+    margin: 2rem;
+    overflow: auto;
+    padding-left: 12px;
+  }
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
+.toggle{
+  padding-right: 2em;
+}
+
+
+//.gs-popover-menu{
+//  background-color: #fff;
+//  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+//  border-radius: 3px;
+//  .gs-popover-menu{
+//    &__list.mat-nav-list{
+//      padding: 0;
+//      .mat-list-item{
+//        font-size: 1.4rem;
+//        height: 3.5rem;
+//        line-height: 3.5rem;
+//        min-width: 15rem;
+//        .mat-list-item-content{
+//          padding: 0 1rem;
+//        }
+//      }
+//    }
+//    &__item-icon{
+//      margin-right: 0.5rem;
+//      font-size: 1.8rem;
+//    }
+//  }
+//}
+
+::ng-deep {
+  .gs-template__row--TitleActions {
+    padding-left: 12px;
+  }
+}

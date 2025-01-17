@@ -1,0 +1,23 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.not_available_Section {
+  padding: $space-large 128px $space-2xlarge $space-2xlarge;
+}
+
+.links_label {
+  color: $royal-blue-70;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.links_cntr {
+  margin-bottom: $space-large !important;
+  cursor: pointer;
+}
+
+.subtitle {
+  color: $rich-gray-60;
+}

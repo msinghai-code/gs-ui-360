@@ -1,0 +1,66 @@
+<div class="gs-image-upload-wrapper" fxLayout="column" fxLayoutAlign="space-around stretch" fxFill fxFlex="100%">
+  <div fxFlex class="p-20">
+    <div
+      [ngStyle]="{ 'height': imgContainerHeight}"  
+
+      gsSpinner
+      [show]="uploading"
+      class="gs-image-widget__add-image" 
+      
+      gsUploader 
+      [uploadURL]="uploadUrl"
+      [additionalRequestInfo]="additionalRequestInfo"
+      [maxSize]="maxImageSizeLimitInMb"
+      [formats]="allowedFormats"
+      [context]=""
+      [allowImageReplace]="true"
+      [uploadAfterFileSelect]="false"
+      (updates)="onUpdate($event)"
+      #imagePreviewPlaceholder>
+      <ng-container *ngIf="(previewImageUrl || widgetImgUrl); else uploader">
+        <!-- <button mat-icon-button [ngStyle]="{'visibility': uploading ? 'hidden': 'visible'}"
+        class="gs-image-widget__replace" mat-raised-button="" type="button" color="primary">Replace Image</button> -->
+        <div class="gs-image-widget__overlay"></div>
+        <img class="img-upload-img__loaded-img"  
+          [alt]="'loading...'"
+          [src]="previewImageUrl || widgetImgUrl"
+          [ngStyle]="{'visibility': uploading ? 'hidden': 'visible'}"
+          (load)="hidePreviewLoader()"
+          (error)="onError()"
+          (dragstart)="$event.preventDefault()">
+      </ng-container>
+    </div>
+    <div class="gs-image-widget__fitToBox">
+      <!-- <mat-checkbox [checked]="fitToBox" (change)="fitToBoxFn($event)" color="primary">Fit to the box</mat-checkbox> -->
+    </div>
+  </div>
+
+  <div class="gs-image-upload-wrapper__helpText p-20" fxFlex="10rem">
+    <div class="gs-image-upload-wrapper__instruction">
+      <!--{360.csm.image_widget.supported_formats}=Supported Formats:-->
+      <!--{360.csm.image_widget.supported_formats_note}=You can upload images with following formats-->
+      <b>{{'360.csm.image_widget.supported_formats'| transloco}}</b>
+      {{'360.csm.image_widget.supported_formats_note' | transloco}} {{allowedFormats.join(", ")}}
+    </div>
+    <div class="gs-image-upload-wrapper__instruction">
+       <!--{360.csm.image_widget.max_size}=Max-size:-->
+        <!--{'360.csm.image_widget.max_size_note}= The max-size of an image can be -->
+         <!--{360.csm.image_widget.max_size_number}=5MB-->
+      <b>{{'360.csm.image_widget.max_size'| transloco}}</b>
+      {{'360.csm.image_widget.max_size_note'| transloco}} <b>{{'360.csm.image_widget.max_size_number'| transloco}}</b>.
+    </div>
+  </div>
+
+  <div class="ant-drawer-footer" fxFlex="5.6rem">
+    <!--{360.csm.image_widget.cancel}=Cancel-->
+    <!--{360.csm.image_widget.save}=Save-->
+    <button nz-button nzType="default" (click)="cancel()">{{'360.csm.image_widget.cancel'| transloco}}</button>
+    <button nz-button nzType="primary" (click)="save()" [disabled]="loading" [nzLoading]="loading" class="save_button">
+        {{'360.csm.image_widget.save'| transloco}}
+    </button>
+  </div>
+</div>
+
+<ng-template #uploader>
+  <div class="img-upload-img" type="image/svg+xml" color="primary"></div>
+</ng-template>

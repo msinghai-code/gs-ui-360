@@ -1,0 +1,64 @@
+
+const API_VERSION_NUMBER = `v1.0`, NETWORK_ACCESS_ROUTE = `${API_VERSION_NUMBER}/api/whitelist`;
+export const NETWORK_ACCESS_CONSTS = {
+  IP_FETCH_URL: `${NETWORK_ACCESS_ROUTE}`,
+  IP_UPSERT_URL: `${NETWORK_ACCESS_ROUTE}`,
+  DELETE_CONFIGURATION: (value: string)=> `${NETWORK_ACCESS_ROUTE}/${value}`,
+  PAGE_INFO: '360.NETWORK_ACCESS_CONSTS.PAGE_INFO',
+  PAGE_TITLE: '360.NETWORK_ACCESS_CONSTS.PAGE_TITLE',
+  DIALOG_ADD_TITLE: '360.NETWORK_ACCESS_CONSTS.DIALOG_ADD_TITLE',
+  DIALOG_EDIT_TITLE: '360.NETWORK_ACCESS_CONSTS.DIALOG_EDIT_TITLE',
+  DELETE_CONFIRMATION_TITLE: '360.NETWORK_ACCESS_CONSTS.DELETE_CONFIRMATION_TITLE',
+  DELETE_CONFIRMATION_MESSAGE: '360.NETWORK_ACCESS_CONSTS.DELETE_CONFIRMATION_MESSAGE',
+  FETCH_ERROR_MESSAGE: '360.NETWORK_ACCESS_CONSTS.FETCH_ERROR_MESSAGE',
+  ADD_SUCCESS_MESSAGE: '360.NETWORK_ACCESS_CONSTS.ADD_SUCCESS_MESSAGE',
+  ADD_ERROR_MESSAGE: '360.NETWORK_ACCESS_CONSTS.ADD_ERROR_MESSAGE',
+  UPDATE_SUCCESS_MESSAGE: '360.NETWORK_ACCESS_CONSTS.UPDATE_SUCCESS_MESSAGE',
+  BYPASS_MOBILE_SUCCESS_MESSAGE : '360.NETWORK_ACCESS_CONSTS.BYPASS_MOBILE_SUCCESS_MESSAGE',
+  NOT_BYPASS_MOBILE_SUCCESS_MESSAGE : '360.NETWORK_ACCESS_CONSTS.NOT_BYPASS_MOBILE_SUCCESS_MESSAGE',
+  UPDATE_ERROR_MESSAGE: '360.NETWORK_ACCESS_CONSTS.UPDATE_ERROR_MESSAGE',
+  DELETE_SUCCESS_MESSAGE: '360.NETWORK_ACCESS_CONSTS.DELETE_SUCCESS_MESSAGE',
+  DELETE_ERROR_MESSAGE: '360.NETWORK_ACCESS_CONSTS.DELETE_ERROR_MESSAGE',
+  WHITELIST_ALL_SUCCESS_MESSAGE: '360.NETWORK_ACCESS_CONSTS.WHITELIST_ALL_SUCCESS_MESSAGE',
+  WHITELIST_ALL_ERROR_MESSAGE: '360.NETWORK_ACCESS_CONSTS.WHITELIST_ALL_ERROR_MESSAGE',
+  IP_PATTERN: `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$`,
+  VERSION: 'ipv4',
+  NOTATION: 'cidr',
+  GRID_OPTIONS: (i18nService)=>  {
+      return{ columns: [
+      {
+        field: 'address',
+        title: 'IP Address',
+        label: i18nService.translate('360.grid_options.ipAddress'),
+        width: '300',
+        meta: {
+          sortable: true
+        }
+      },
+      {
+        field: 'description',
+        title: 'Description',
+        label: i18nService.translate('360.grid_options.desc'),
+        meta: {
+          sortable: true
+        }
+      }
+    ],
+    actionColumnName: 'action',
+    pageable: false,
+    sortable: {
+      allowUnsort: true,
+      mode: 'single'
+    },
+    resizable: true,
+    noDataMessage: i18nService.translate('360.grid_options.noData'),
+    state: {
+      sort: [
+        {
+          field: 'address',
+          dir: 'asc'
+        }
+      ]}
+    }
+  }
+};

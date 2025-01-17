@@ -1,0 +1,9 @@
+<div class="embed-page" *ngIf="!error else errorTemplate" gsSpinner [nzSize]="'xl'" [show]="loading">
+  <iframe *ngIf="pageURL" [src]="pageURL" allow="clipboard-read; clipboard-write" [height]="height" style="width:100%;" frameborder="0"> </iframe>
+</div>
+
+<ng-template #errorTemplate>
+  <div fxFill fxLayout="row" fxLayoutAlign="center center">
+    <gs-empty [section]="section"></gs-empty>
+  </div>
+</ng-template>

@@ -1,0 +1,87 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "array-type": false,
+    "arrow-parens": false,
+    "deprecation": {
+      "severity": "error"
+    },
+    "component-class-suffix": true,
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
+    "directive-selector": [
+      true,
+      "attribute",
+      "gs",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "gs",
+      "kebab-case"
+    ],
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "member-access": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "no-console": {
+      "severity": "warning",
+      "options": [
+        "debug",
+        "info",
+        "time",
+        "timeEnd",
+        "trace"
+      ]
+    },
+    "no-empty": false,
+    "no-empty-interface": false,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "no-non-null-assertion": true,
+    "no-redundant-jsdoc": true,
+    "no-switch-case-fall-through": true,
+    "no-var-requires": true,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "no-conflicting-lifecycle": true,
+    "no-host-metadata-property": false,
+    "no-input-rename": false,
+    "no-inputs-metadata-property": true,
+    "no-output-native": false,
+    "no-output-on-prefix": false,
+    "no-output-rename": false,
+    "no-outputs-metadata-property": true,
+    "template-banana-in-box": true,
+    "template-no-negated-async": true,
+    "use-lifecycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "no-angle-bracket-type-assertion": false,
+    "forin": false,
+    "jsdoc-format": false
+  },
+  "rulesDirectory": [
+    "codelyzer"
+  ]
+}

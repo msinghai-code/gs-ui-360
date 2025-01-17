@@ -1,0 +1,26 @@
+<!-- *ngIf="hostName === 'SALESFORCE'" -->
+<div class="gs-module-nav mat-elevation-z3" [ngClass]="moduleNavClass">
+    <div class="gs-module-nav__toggle-arrow" (click)="toggleModuleNav($event)"></div>
+    <div class="gs-module-nav__search">
+        <i class="gs-search-black-icon material-icons md-18">{{'360.side_nav.search'| transloco}}</i>
+        <input type="text" class="gs-module-nav__search-input" [placeholder]="'360.side_nav.search'| transloco"
+            (keyup)="search($event.target.value)">
+    </div>
+    <!-- <gs-search-nav-list [navItems]="navItems" (updatedList)="getNavList($event)"></gs-search-nav-list> -->
+
+    <ul class="gs-module-nav__list">
+        <li class="gs-module-nav__list-item__parent" *ngFor="let navItem of updatedNavItems ">
+            <a [href]="navItem.href" class="gs-module-nav__item__parent">
+                {{navItem.name}}
+            </a>
+            <ul class="gs-module-nav__list__child">
+                <li class="gs-module-nav__list-item__child" *ngFor="let child of navItem.children"
+                    [ngClass]="{'gs-module-nav__list-item__child--selected': child.current}">
+                    <a [href]="child.href" class="gs-module-nav__item__child" (click)="handleOptionSelect(child)">
+                        {{child.name}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

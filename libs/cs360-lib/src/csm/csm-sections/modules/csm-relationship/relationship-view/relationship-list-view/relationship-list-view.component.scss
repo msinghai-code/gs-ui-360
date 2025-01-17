@@ -1,0 +1,149 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-csm-relationship-list-view {
+  height: 100%;
+  position: relative;
+  ::ng-deep {
+    .mini_grid{
+      .ag-center-cols-viewport {
+        overflow-x: hidden;
+      }
+    }
+    .gs-grid-filter {
+      button {
+        border: none;
+        background: none;
+        margin-top: 3px;
+        margin-right: 3px;
+      }
+    }
+    .rel_name {
+      color: $royal-blue-70;
+      cursor: pointer;
+    }
+    nz-date-picker{
+      .ant-calendar-picker{
+        input{
+          border: none !important;
+        }
+      }
+    }
+}
+  gs-grid{
+    padding-bottom: 0!important;
+  }
+  gs-grid-column-chooser {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    z-index: 99;
+  }
+  &__empty {
+    i {
+        display: flex;
+        height: 13rem;
+        width: 22rem;
+    }
+    .empty-state-img {
+        background: url("../../../../../../../assets/images/empty-state.svg") no-repeat center;
+    }
+    h5 {
+        margin-top: 1.6rem;
+        margin-bottom: 0 !important;
+    }
+    span {
+        margin-top: 0.2rem;
+        color: $rich-gray-60;
+    }
+  }
+  ::ng-deep{
+  .gs-rte-cells__content *{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+    gs-custom-paginator {
+      bottom: 0;
+      box-shadow: 0 -4px 6px 0 rgba(0,0,0,.06);
+      color: #557391;
+      height: 4.8rem;
+      left: 0;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+    }
+}
+}
+
+::ng-deep {
+  .gs-popover-menu__item {
+    height: 45px;
+    line-height: 45px;
+    padding: $space-xsmall $space-large !important;
+    border-bottom: none !important;
+    min-width: 175px;
+  }
+  .ant-pagination-item {
+    display: none;
+  }
+  .gs-column-chooser{
+    max-height: 400px !important;
+  }
+}
+
+.gs-csm-relationship-list-view {
+  ::ng-deep {
+    .gs-grid-wrapper {
+      .ag-pinned-right-cols-container .ag-cell-first-right-pinned {
+        padding-left: $space-xsmall; 
+        width: unset !important;
+      }
+      .ag-header .ag-header-row .ag-header-cell:first-child {
+        padding-left: $space-large;
+      }
+      .ag-row-hover {
+        background-color: $rich-gray-20 !important;
+            .gs-more-horizontal-icon {
+              display: inline-flex;
+            }
+            .gs-more-horizontal-icon:hover {
+              background-color: inherit;
+            }
+      }
+    }
+    .ag-cell-wrapper:last-child {
+      width: unset;
+    }
+  }
+}
+
+// this is added because grid in relationship doesnt have this class due to which the popup made is not visible and styled
+::ng-deep {
+  .ag-theme-material.ag-dnd-ghost {
+    background: #fff;
+    background: var(--ag-background-color, #fff);
+    border-radius: 2px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    padding: 0 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
+    height: 56px !important;
+    line-height: 56px;
+    margin: 0;
+    transform: translateY(16px);
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    cursor: move;
+    white-space: nowrap;
+    z-index: 9999;
+  }
+}

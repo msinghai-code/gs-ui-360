@@ -1,0 +1,35 @@
+<section class="gs-section-details" gsSpinner [nzSize]="'xl'" [show]="loading">
+  <div class="gs-section-details__body">
+    <div class="gs-section-details-form" nz-form [formGroup]="detailForm">
+      <h3 class="page-title" nz-title>{{'360.admin.section_details.basicDetails'| transloco}}</h3>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="null" nzRequired nzFor="label">{{'360.admin.section_details.name'| transloco}}</nz-form-label>
+        <nz-form-control [nzSpan]="null" [nzErrorTip]="errorTpl">
+          <input nz-input formControlName="label" [placeholder]="'360.admin.section_details.namePlaceholder'| transloco" type="text" id="label">
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">{{'360.admin.section_details.sectionName'| transloco}}</ng-container>
+            <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.section_details.maxCharAllowed'| transloco}} {{control.errors.maxlength.requiredLength}}</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item >
+      <nz-form-item class="description">
+        <nz-form-label [nzSpan]="null" nzFor="description">{{'360.admin.section_details.description'| transloco}}</nz-form-label>
+        <nz-form-control [nzSpan]="null" [nzErrorTip]="descErrorTpl">
+          <textarea
+                  nz-input
+                  formControlName="description"
+                  [placeholder]="'360.admin.section_details.descPlaceholder'| transloco"
+                  [nzAutosize]="{ minRows: 3, maxRows: 8 }"
+          ></textarea>
+          <ng-template #descErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.section_details.maxCharAllowed'| transloco}} {{control.errors.maxlength.requiredLength}}</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item >
+    </div>
+  </div>
+  <div class="gs-section-details__footer">
+    <button nz-button (click)="onSaveClick()" nzType="primary">{{'360.admin.section_details.nextBtn'| transloco}}</button>
+    <button nz-button (click)="onCancelClick()" nzType="default">{{'360.admin.section_details.cancelBtn'| transloco}}</button>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-cs360-summary-ribbon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  &__item {
+    &:not(:last-child) {
+      border-right: solid 1px #e3eaf1;
+    }
+  }
+}
+
+.gs-cs360-summary-ribbon-item {
+  &__label {
+
+  }
+  &__content {
+
+  }
+}

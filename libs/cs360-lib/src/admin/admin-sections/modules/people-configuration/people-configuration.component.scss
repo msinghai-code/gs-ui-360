@@ -1,0 +1,41 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+    height: 100%;
+}
+
+::ng-deep {
+    .gs-section-config-drawer {     
+        &.people {
+            .gs-section-config-drawer__header__title {
+                padding-bottom: 1.3rem;
+            }
+            .ant-drawer-header {
+                padding-bottom: 0 !important;
+            }
+            .ant-tabs-bar {
+                margin: 0;
+                border-bottom: none;
+            }
+           
+        }
+        &__subPanel{
+            display: flex;
+            flex-direction: column;
+            .ant-tabs-bar{
+                margin: 0px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+    .gs-section-config-wrapper {
+        &__content {
+            height: 100% !important;
+        }
+    }
+}
+
+

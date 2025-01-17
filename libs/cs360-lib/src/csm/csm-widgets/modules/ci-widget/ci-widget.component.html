@@ -1,0 +1,33 @@
+<section class="csm-summary-widget-wrapper csm-ci-summary-widget__wrapper" fxLayout="column" fxLayoutAlign="start start" fxFill fxFlex="100%">
+  <!-- <div class="csm-ci-summary-widget__header_container">
+    <div class="csm-summary-widget-wrapper__label csm-ci-summary-widget__label">{{widgetItem.label}}</div>
+    <a href="" class="csm-ci-summary-widget__navLink">View all</a>
+  </div> -->
+  <div class="csm-summary-widget-wrapper__content csm-ci-summary-widget__wrapper_content" fxLayout="row" fxFill fxFlex="100%">
+    <!-- <ng-container *ngIf="!isLoading else empty">
+      
+    </ng-container> -->
+    <!-- <div class="csm-ci-spinner" [ngStyle]="{'display': (isCILoaded) ? 'none' : 'block' }">
+      <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    </div> -->
+
+    <!-- <div [ngStyle]="{'display': (isCILoaded) ? '' : 'none' }">
+      
+    </div> -->
+
+    <ax-lazy-element *axLazyElementDynamic="'gs-company-intelligence-web',url:ciUrl" (changes)="navigateToCI($event)"
+      [options]="options" [props]="ctx">
+    </ax-lazy-element>
+    
+  </div>
+
+  
+  
+</section>
+
+<ng-template #empty>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFill fxFlex="100%">
+    <div class="gs-loader-vertical-bar-skeleton" style="height:100%" fxLayout="row" fxLayoutAlign="center center">
+    </div>
+  </div>
+</ng-template>

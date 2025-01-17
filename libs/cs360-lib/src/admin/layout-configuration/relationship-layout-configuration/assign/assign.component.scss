@@ -1,0 +1,97 @@
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-relationship-configuration-assign {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__body {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    flex-grow: 1;
+  }
+  &__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-top: 1px solid #e3eaf1;
+    padding: 12px 20px;
+    background-color: #fff;
+    button {
+      margin: 0 1rem;
+    }
+  }
+}
+
+.gs-relationship-configuration-assign-form {
+  width: 100%;
+  max-width: 48rem;
+  height: 100%;
+  padding: 2rem;
+  &__name {
+    margin-bottom: 2rem;
+    h6 {
+      padding-bottom: .5rem;
+    }
+  }
+}
+
+.gs-relationship-configuration-assign-types {
+  margin-top: 1.2rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  border: solid 1px #e2e9f0;
+  height: 50rem;
+  overflow: auto;
+
+  &.invalid {
+    border-color: $tart-red-60;
+  }
+
+  &__selectall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    font-weight: bold;
+    label {
+      font-size: 1.2rem !important;
+    }
+  }
+  &__list {
+    height: 100%;
+    &--empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    ::ng-deep {
+      .ant-checkbox-disabled + span {
+        color: $rich-gray-50;
+      }
+    }
+  }
+  ::ng-deep {
+    nz-checkbox-group {
+      flex-direction: column;
+      label {
+        padding: 0.3rem 0;
+      }
+    }
+  }
+}
+
+.error-msg {
+  font-size: 12px;
+  color: $tart-red-60;
+  margin-top: 2px;
+}

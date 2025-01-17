@@ -1,0 +1,20 @@
+<div nz-tooltip [nzTooltipTitle]="fieldPathLabel" class="gs-summary-report-widget-settings-field__dd">
+  <button nz-dropdown nz-button nzBlock nzType="default" nzTrigger="click" [nzBackdrop]="false" [nzDropdownMenu]="menu"
+    [(nzVisible)]="visible" nzSize="small" [nzPlacement]="'bottomLeft'" [nzDisabled]="false"
+    [nzOverlayClassName]="nzOverlayClassName" (nzVisibleChange)="onDrodownMenuVisible($event)">
+    <span>{{(field && field?.label) ? field?.label: 'Select Field'}}</span>
+    <i nz-icon nzType="down" nzTheme="outline"></i>
+  </button>
+</div>
+<!-- dropdown menu -->
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ng-container *ngIf="visible">
+    <gs-field-tree #treeview [root]="treeOptions.root" [dragOptions]="treeOptions.drag" [host]="treeOptions.host"
+      [allowedDataTypes]="treeOptions?.allowedDataTypes" [fieldInfo]="!!field ? field: null" [nestOnDemand]="true"
+      [skipFilter]="false" [enablePartialTree]="false" [pageSize]="treeOptions.pageSize"
+      [maxNestLevels]="treeOptions?.maxNestLevels" [showLookupInfo]="true"
+      [fieldSearchSetting]="fieldSearchSetting" [baseObject]="treeOptions?.baseObject"
+      (changes)="onFieldSelected($event)">
+    </gs-field-tree>
+  </ng-container>
+</nz-dropdown-menu>

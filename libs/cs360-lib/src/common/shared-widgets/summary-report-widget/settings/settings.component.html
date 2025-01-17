@@ -1,0 +1,125 @@
+<section class="gs-summary-report-widget-settings">
+
+  <form nz-form [formGroup]="settingsFormGroup" nzLayout="vertical">
+    <!-- Do not allow label updation in case of report widget in summary -->
+    <nz-form-item class="gs-summary-report-widget-settings__widget">
+      <!--{360.settings.component.widget_name}= Widget Name-->
+       <!--{360.settings.component.widget_name_errortip}= Enter Widget Name here-->
+        <!--{360.settings.component.widget_name_placeholder}= Enter Widget Name-->
+        <!--{360.settings.component.company_reference}=Company Reference-->
+      <nz-form-label nzRequired nzFor="label">{{'360.settings.component.widget_name'| transloco}}</nz-form-label>
+      <nz-form-control nzErrorTip="{{'360.settings.component.widget_name_errortip'| transloco}}">
+        <input nz-input placeholder="{{'360.settings.component.widget_name_placeholder'| transloco}}" formControlName="label" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="gs-summary-report-widget-settings__field">
+<!--      company reference-->
+      <!-- field list -->
+        <label class="gs-summary-report-widget-settings-widget__label required-field">{{'360.settings.component.company_reference'| transloco}}</label>
+        <div class="gs-summary-report-widget-settings-field__dd">
+          <button nz-dropdown
+                  nz-button
+                  nzBlock
+                  nzType="default"
+                  nzTrigger="click"
+                  [nzBackdrop]="false"
+                  [nzDropdownMenu]="menu"
+                  [(nzVisible)]="visible"
+                  [nzPlacement]="'bottomLeft'"
+                  [nzDisabled]="false"
+                  (nzVisibleChange)="onDrodownMenuVisible($event)">
+            <span>{{(settingsFormGroup.get('field')?.value && settingsFormGroup.get('field')?.value?.label) ? (settingsFormGroup.get('field')?.value?.label | transloco) : select_field}}</span>
+            <i nz-icon nzType="down"></i>
+          </button>
+        </div>
+      <!-- dropdown menu -->
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ng-container *ngIf="visible">
+          <gs-field-tree #treeview class="summary-report-field-tree" [root]="treeOptions.root"
+            [dragOptions]="treeOptions.drag"
+            [allowedDataTypes]="treeOptions?.allowedDataTypes"
+            [fieldInfo]="!!settingsFormGroup.get('field').value ? settingsFormGroup.get('field').value: null"
+             [skipFilter]="false" [enablePartialTree]="true" [pageSize]="treeOptions.pageSize"
+            [maxNestLevels]="treeOptions?.maxNestLevels" [showLookupInfo]="true" [resolveMultipleLookups]="{}"
+            [fieldSearchSetting]="fieldSearchSetting"
+            (changes)="onFieldSelected($event)">
+          </gs-field-tree>
+        </ng-container>
+      </nz-dropdown-menu>
+    </div>
+
+  <div class="gs-summary-report-widget-settings__field"
+        *ngIf="!isC360">
+<!--      person reference-->
+      <!-- field list -->
+      <label class="gs-summary-report-widget-settings-widget__label required-field">{{'reports.reports_configuration.person_reference'| transloco}}</label>
+      <div class="gs-summary-report-widget-settings-field__dd">
+        <button nz-dropdown
+                nz-button
+                nzBlock
+                nzType="default"
+                nzTrigger="click"
+                [nzBackdrop]="false"
+                [nzDropdownMenu]="menu1"
+                [(nzVisible)]="personVisible"
+                [nzPlacement]="'bottomLeft'"
+                [nzDisabled]="false"
+                (nzVisibleChange)="onPersonDrodownMenuVisible($event)">
+          <span>{{(settingsFormGroup.get('personField')?.value && settingsFormGroup.get('personField')?.value?.label) ? (settingsFormGroup.get('personField')?.value?.label | transloco) : select_field}}</span>
+          <i nz-icon nzType="down"></i>
+        </button>
+      </div>
+      <!-- dropdown menu -->
+      <nz-dropdown-menu #menu1="nzDropdownMenu">
+        <ng-container *ngIf="personVisible">
+          <gs-field-tree #treeview class="summary-report-field-tree" [root]="treeOptions.root"
+                         [dragOptions]="treeOptions.drag"
+                         [allowedDataTypes]="treeOptions?.allowedDataTypes"
+                         [fieldInfo]="!!settingsFormGroup.get('personField').value ? settingsFormGroup.get('personField').value: null"
+                         [skipFilter]="false" [enablePartialTree]="true" [pageSize]="treeOptions.pageSize"
+                         [maxNestLevels]="treeOptions?.maxNestLevels" [showLookupInfo]="true" [resolveMultipleLookups]="{}"
+                         [fieldSearchSetting]="fieldSearchSetting"
+                         (changes)="onPersonFieldSelected($event)">
+          </gs-field-tree>
+        </ng-container>
+      </nz-dropdown-menu>
+  </div>
+  <div class="gs-summary-report-widget-settings__field"
+    *ngIf="!isC360">
+<!--      relationship reference-->
+      <!-- field list -->
+      <label class="gs-summary-report-widget-settings-widget__label required-field">{{'reports.reports_configuration.relationship_reference'| transloco}}</label>
+      <div class="gs-summary-report-widget-settings-field__dd">
+        <button nz-dropdown
+                nz-button
+                nzBlock
+                nzType="default"
+                nzTrigger="click"
+                [nzBackdrop]="false"
+                [nzDropdownMenu]="menu2"
+                [(nzVisible)]="relationshipVisible"
+                [nzPlacement]="'bottomLeft'"
+                [nzDisabled]="false"
+                (nzVisibleChange)="onRelationshipVisible($event)">
+          <span>{{(settingsFormGroup.get('relationShipField')?.value && settingsFormGroup.get('relationShipField')?.value?.label) ? (settingsFormGroup.get('relationShipField')?.value?.label | transloco) : select_field}}</span>
+          <i nz-icon nzType="down"></i>
+        </button>
+      </div>
+      <!-- dropdown menu -->
+      <nz-dropdown-menu #menu2="nzDropdownMenu">
+        <ng-container *ngIf="relationshipVisible">
+          <gs-field-tree #treeview class="summary-report-field-tree" [root]="treeOptions.root"
+                         [dragOptions]="treeOptions.drag"
+                         [allowedDataTypes]="treeOptions?.allowedDataTypes"
+                         [fieldInfo]="!!settingsFormGroup.get('relationShipField').value ? settingsFormGroup.get('relationShipField').value: null"
+                         [skipFilter]="false" [enablePartialTree]="true" [pageSize]="treeOptions.pageSize"
+                         [maxNestLevels]="treeOptions?.maxNestLevels" [showLookupInfo]="true" [resolveMultipleLookups]="{}"
+                         [fieldSearchSetting]="fieldSearchSetting"
+                         (changes)="onRelationShipFieldSelected($event)">
+          </gs-field-tree>
+        </ng-container>
+      </nz-dropdown-menu>
+  </div>
+  </form>
+</section>

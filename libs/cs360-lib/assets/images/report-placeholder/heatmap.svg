@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="174" height="112" viewBox="0 0 174 112">
+    <g fill="none" fill-rule="evenodd">
+        <g fill="#E3EAF1">
+            <g>
+                <g>
+                    <path d="M3 0h39v36H0V3c0-1.657 1.343-3 3-3z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path fill-opacity=".5" d="M0 38H42V74H0z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path d="M44 38H86V74H44z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path fill-opacity=".5" d="M88 38H130V74H88z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path d="M132 38H174V74H132z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path fill-opacity=".5" d="M44 0H86V36H44z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path d="M88 0H130V36H88z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path fill-opacity=".5" d="M132 0h39c1.657 0 3 1.343 3 3v33h-42V0z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path d="M0 76h42v36H3c-1.657 0-3-1.343-3-3V76z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path fill-opacity=".5" d="M44 76H86V112H44zM88 76H130V112H88z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                    <path d="M132 76h42v33c0 1.657-1.343 3-3 3h-39V76z" transform="translate(-1616 -780) translate(1423 700) translate(193 80)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

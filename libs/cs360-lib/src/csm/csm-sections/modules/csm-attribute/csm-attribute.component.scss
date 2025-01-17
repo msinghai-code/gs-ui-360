@@ -1,0 +1,42 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/border";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+.attribute_ctn {
+    background: white;
+}
+
+.compact {
+    .attribute_ctn {
+        padding: 1rem;
+    }
+}
+
+.attribute_ctn__title {
+  margin-bottom: $space-medium;
+    h4 {
+        margin-bottom: 0 !important;
+    }
+    .refresh {
+        margin-left: 0.8rem;
+        font-size: 2.4rem;
+        color: $rich-gray-60;
+        .anticon svg {
+            top: 0 !important;
+        }
+    }
+}
+
+.attribute_render_grid {
+  padding: $space-large;
+  border: 1px solid $rich-gray-30;
+  border-radius: $border-radius-base;
+  margin-bottom: $space-large;
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}

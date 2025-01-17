@@ -1,0 +1,67 @@
+<section class="gs-card-view-config">
+  <div class="gs-card-view-config__body gs-card-view-config-body" cdkDropListGroup>
+    <div class="gs-card-view-config-body__left">
+      <h6 nz-title nzType="medium">{{'360.admin.card_view_config.available_fields' | transloco }}</h6>
+      <div class="gs-card-view-config-body__left__hdr-help-text">
+        {{'360.admin.card_view_config.drag_drop' | transloco }}
+      </div>
+      <gs-field-tree class="gs-list-view-field-tree" #treeview *ngIf="treeOptions.show else contentloader"
+        [root]="treeOptions.root" [host]="treeOptions.host" [dragOptions]="treeOptions.drag" [nestOnDemand]="true"
+        [skipFilter]="true" [enablePartialTree]="false" [pageSize]="treeOptions.pageSize"
+        [maxNestLevels]="treeOptions.maxNestLevels" [showLookupInfo]="true" [resolveMultipleLookups]="false"
+        [fieldSearchSetting]="fieldSearchSetting" [filterFunction]="treeOptions.filterFunction"
+        [baseObject]="treeOptions?.baseObject" [fnCheckForDisable]="fnCheckForDisable" [allowSelectEvent] = "false"
+        (action)="onAction($event)">
+      </gs-field-tree>
+    </div>
+    <div class="gs-card-view-config-body__center"
+         cdkDropList
+         id="gs-item-drop-list-cdk-drop-list-area"
+         [cdkDropListData]="items"
+         (cdkDropListDropped)="onItemDrop($event)">
+      <div class="gs-card-view-config-body__center--config-area">
+        <div class="gs-card-view-config-body__center--header">
+          <label nz-text nzType="medium" nzColor="secondary">
+              {{'360.admin.card_view_config.drag_drop_upto' | transloco }}  {{configStepLimits.CARD_VIEW_FIELD_LIMIT}} {{'360.admin.card_view_config.display_card' | transloco }}({{items.length}}/{{configStepLimits.CARD_VIEW_FIELD_LIMIT}})
+          </label>
+          <button nz-button nzType="default" nzShape="round" nzSize="small" (click)="onClear()">  {{'360.admin.card_view_config.clear' | transloco }}</button>
+        </div>
+        <gs-item-drop-list [items]="items"
+                           [options]="options"
+                           [extras]="extras"
+                           [showEmptyDropList]="true"
+                           [allowCustomPlaceholderGrid]="true"
+                           (action)="onAction($event)"></gs-item-drop-list>
+      </div>
+    </div>
+    <div class="gs-card-view-config-body__right">
+      <div class="gs-card-view-config-body__right--cntr">
+        <h6   class="gs-keygen" nz-title nzType="medium"> {{'360.admin.card_view_config.preview' | transloco }}</h6>
+        <div class="gs-card-view-config-body__right--preview">
+          <gs-360-card-view [items]="previewItems" [config]="{title: 'Gainsight'}"></gs-360-card-view>
+        </div>
+        <label nz-text nzType="small" nzColor="secondary">
+          {{'360.admin.card_view_config.note' | transloco }}
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #contentloader>
+  <div class="gs-reports-configuration-cntr__contentloader">
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+  </div>
+</ng-template>
+<nz-drawer [nzClosable]="true"
+           [nzVisible]="customizeFieldConfigDrawer.open"
+           nzPlacement="right"
+           [nzBodyStyle]="{height: 'calc(100% - 4.4rem)', 'padding-bottom': '0', 'padding-top': '0'}"
+           [nzWidth]="588"
+           [nzTitle]="'360.admin.card_view_config.field_configuration' | transloco"
+           (nzOnClose)="closeFieldSettingsDrawer()" [nzMask]="true">
+  <gs-summary-ribbon-field-configuration *ngIf="customizeFieldConfigDrawer.open && customizeFieldConfigDrawer.field"
+                                         [fieldConfigOptions]="customizeFieldConfigDrawer.fieldConfigOptions"
+                                         [field]="customizeFieldConfigDrawer.field"
+                                         [rootNode]="customizeFieldConfigDrawer.rootNode"
+                                         (fieldConfigAction)="onFieldConfigured($event)"></gs-summary-ribbon-field-configuration>
+</nz-drawer>

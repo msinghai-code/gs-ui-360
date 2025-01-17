@@ -1,0 +1,65 @@
+<div gsSpinner [nzSize]="'xl'" [show]="loading" [loaderType]="loaderOptions?.loaderType"
+  [loaderParams]="loaderOptions?.loaderParams" class="portfolio-bulk-edit">
+  <gs-global-filter-strip *ngIf="isHome" class="portfolio-global-filter" [globalFilters]="filters"
+    [globalFilterFields]="globalFilterFields" [disableAddFilter]="false" [queryBuilderOptions]="queryBuilderOptions"
+    [sourceDetailsByObject]="sourceDetailsByObject" [filterFunction]="fieldFilterFunction"
+    (action)="onFilterAction($event)">
+  </gs-global-filter-strip>
+  <nz-tabset *ngIf="configuredObjectNames.length > 1 else singleTemplate" class="portfolio-bulk-edit__tab-groups" #tabs
+    (nzSelectChange)="onTabChange($event)">
+    <nz-tab [nzTitle]="'360.csm.bulk_edit_modal.company'| transloco">
+      <div class="portfolio-bulk-edit__tab-content">
+        <ng-container *ngIf="selectedGridRows['company'].length">
+          <ng-container
+            *ngTemplateOutlet="editActionTemplate;context:{count: selectedGridRows['company'].length,objectName:'company', label: companyLabel}">
+          </ng-container>
+        </ng-container>
+        <gs-portfolio-widget-grid #companyGrid [class.margin-top]="!selectedGridRows['company'].length"
+          class="portfolio-bulk-edit__tab-content__grid" [requestSource]="requestSource" [gridInfo]="companyGridInfo"
+          (action)="onGridAction($event, 'company')" [objectName]="'company'">
+        </gs-portfolio-widget-grid>
+      </div>
+    </nz-tab>
+    <nz-tab *ngIf="isRelationshipEnabled" [nzTitle]="'360.csm.bulk_edit_modal.relationship'| transloco">
+      <div class="portfolio-bulk-edit__tab-content">
+        <ng-container *ngIf="selectedGridRows['relationship'].length">
+          <ng-container
+            *ngTemplateOutlet="editActionTemplate;context:{count:selectedGridRows['relationship'].length,objectName:'relationship',label: relationshipLabel}">
+          </ng-container>
+        </ng-container>
+        <gs-portfolio-widget-grid #relationshipGrid [class.margin-top]="!selectedGridRows['relationship'].length"
+          class="portfolio-bulk-edit__tab-content__grid" [requestSource]="requestSource"
+          [gridInfo]="relationshipGridInfo" (action)="onGridAction($event, 'relationship')"
+          [objectName]="'relationship'">
+        </gs-portfolio-widget-grid>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+  <ng-template #singleTemplate>
+    <div class="portfolio-bulk-edit__tab-content">
+      <ng-container *ngIf="selectedGridRows[objectName].length">
+        <ng-container
+          *ngTemplateOutlet="editActionTemplate;context:{count:selectedGridRows[objectName].length,objectName:objectName,label: companyLabel}">
+        </ng-container>
+      </ng-container>
+      <gs-portfolio-widget-grid [class.margin-top]="!selectedGridRows[objectName].length"
+        class="portfolio-bulk-edit__tab-content__grid" [requestSource]="requestSource" [gridInfo]="selectedGridInfo"
+        (action)="onGridAction($event, objectName)" [objectName]="objectName">
+      </gs-portfolio-widget-grid>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #editActionTemplate let-objectName="objectName" let-count="count" let-label="label">
+  <div nz-row nzGutter="8" nzType="flex" nzAlign="middle" class="border-class">
+    <div nz-col class="selected-label">
+      <label><strong>{{count}} {{label}} {{'360.csm.bulk_edit_modal.selected'| transloco}} &nbsp;</strong></label>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="link" (click)="editFields()">
+        <i class="f-s-16" nz-icon nzType="edit" nzTheme="outline"></i>
+        <span nz-text>{{'360.csm.bulk_edit_modal.editFields'| transloco}}</span>
+      </button>
+    </div>
+  </div>
+</ng-template>

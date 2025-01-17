@@ -1,0 +1,36 @@
+<gs-container [appTitle]="appTitle" *ngIf="showSideNav && !ctx?.isp">
+  <ng-template gsModuleContent>
+    <ng-template [ngTemplateOutlet]="mainContent"></ng-template>
+  </ng-template>
+</gs-container>
+
+<gs-chromeless-container [appTitle]="appTitle" *ngIf="!showSideNav || ctx?.isp">
+  <ng-template gsModuleContent>
+    <ng-template [ngTemplateOutlet]="mainContent"></ng-template>
+</ng-template>
+</gs-chromeless-container>
+
+<ng-template #mainContent>
+  <router-outlet></router-outlet>
+  <div *ngIf="ctx.error" style = "height : 100%;"  fxLayout="column" fxLayoutAlign="center center" >
+    <ng-container [ngSwitch]="ctx.errorType">
+      <ng-container *ngSwitchDefault>
+        <nz-empty [nzNotFoundContent] = "''"></nz-empty>
+        <p nz-paragraph nzType="large" nzDisabled> {{ctx.error}}</p>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'COMPANY_NOT_FOUND'">
+        <gs-404-not-found [title]="'360.csm.COMPANY_NOT_FOUND.title'| transloco" [description]="'360.csm.COMPANY_NOT_FOUND.desc'| transloco">
+        </gs-404-not-found>
+      </ng-container>
+      <ng-container *ngSwitchCase="'RELATIONSHIP_NOT_FOUND'">
+        <gs-404-not-found [title]="'360.csm.RELATIONSHIP_NOT_FOUND.title'| transloco" [description]="'360.csm.RELATIONSHIP_NOT_FOUND.desc'| transloco">
+        </gs-404-not-found>
+      </ng-container>
+      <ng-container *ngSwitchCase="'COMPANY_OR_RELATIONSHIP_NOT_FOUND'">
+        <gs-404-not-found [title]="'360.csm.COMPANY_OR_RELATIONSHIP_NOT_FOUND.title'| transloco" [description]="'360.csm.COMPANY_OR_RELATIONSHIP_NOT_FOUND.desc'| transloco">
+        </gs-404-not-found>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>

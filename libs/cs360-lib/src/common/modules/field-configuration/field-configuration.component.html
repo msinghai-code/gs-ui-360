@@ -1,0 +1,205 @@
+<div fxFlex="100%" fxLayout="column" class="field-configuration">
+  <!--{360.admin.field_config.field_path}= Path:-->
+  <div class="field-configuration--path"  *ngIf="pathFieldVisiblity">
+    {{'360.admin.field_config.field_path'| transloco}}
+    <ng-container *ngFor="let item of fieldPaths; let i=index;">
+      <span>
+        {{item}}
+        <span><i *ngIf="i < fieldPaths.length-1" nz-icon nzType="arrow-right" class="path-arrow"></i></span>
+      </span>
+    </ng-container>
+  </div>
+  <form fxFlex="{{showFooter?'calc(100%-13.4rem)':'100%'}}" fxFill nz-form [formGroup]="fieldConfigForm"
+    nzLayout="vertical" class="field-configuration--form">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="label">{{'360.admin.field_config.field_label' | transloco}}</nz-form-label>
+      <nz-form-control [nzSpan]="null" [nzErrorTip]="errorTpl">
+        <input autocomplete="off" autofocus nz-input formControlName=label name="label">
+        <ng-template #errorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">{{'360.admin.field_config.field_left_blank' | transloco}}
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.field_config.field_maximum_characters' |
+            transloco}}</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldConfigControlOptions.showDescription">
+      <nz-form-label class="gs-keygen">{{'360.admin.field_config.field_description' | transloco}}</nz-form-label>
+      <nz-form-control>
+        <textarea nz-input formControlName="description" rows="2" maxlength="255"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldConfigControlOptions.showType">
+      <nz-form-label class="gs-keygen">{{'360.admin.field_config.field_formattype'| transloco}}</nz-form-label>
+      <nz-form-control>
+        <nz-select formControlName="type">
+          <nz-option *ngFor="let opt of constants.FieldFormatOptions(field.dataType)" [nzValue]="opt.value"
+            [nzLabel]="opt.label| transloco"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <nz-form-item fxFlex="48" *ngIf="fieldConfigControlOptions.showDecimals">
+        <nz-form-label class="gs-keygen">{{'360.admin.field_config.field_decimals' | transloco}}</nz-form-label>
+        <nz-form-control fxFill>
+          <nz-input-number formControlName="scale" [nzMin]="0" [nzMax]="field?.meta?.decimalPlaces" [nzStep]="1"
+            [nzDisabled]="!field?.meta?.decimalPlaces"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item fxFlex="48" *ngIf="fieldConfigControlOptions.showNumericSummarization">
+        <nz-form-label>{{'360.admin.field_config.field_summarization' | transloco}}</nz-form-label>
+        <nz-form-control fxFill>
+          <nz-select formControlName="numericalSummarization">
+            <nz-option nzCustomContent [nzValue]="'None'| transloco" [nzLabel]="'360.admin.field_config.field_none'| transloco">
+              <div nz-tooltip [nzMouseEnterDelay]="0.6"
+                [nzTooltipTitle]="'360.admin.field_config.field_tooltip' | transloco">
+                {{'360.admin.field_config.field_none' | transloco}}</div>
+            </nz-option>
+            <nz-option *ngFor="let opt of constants.NumericSummarizationOptions" nzCustomContent [nzValue]="opt.value"
+              [nzLabel]="opt.label | transloco">
+              <div nz-tooltip [nzMouseEnterDelay]="0.6" [nzTooltipTitle]="opt.description | transloco">{{opt.label | transloco}}</div>
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <nz-form-item *ngIf="fieldConfigControlOptions.showEditable">
+      <nz-form-label>{{'360.admin.field_config.field_editability'| transloco}}</nz-form-label>
+      <nz-form-control>
+        <nz-radio-group [nzDisabled]="editDisabled" formControlName="editable" name="editable" id="editable">
+          <label nz-radio [nzValue]="false">{{'360.admin.field_config.field_non_editable'| transloco}}</label>
+          <label nz-radio [nzValue]="true">{{'360.admin.field_config.field_editable' | transloco}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="fieldConfigControlOptions.showRequired">
+      <nz-form-label>{{'360.admin.field_config.field_required' | transloco}}</nz-form-label>
+      <nz-switch [nzDisabled]="field?.meta?.required || field?.properties?.requiredDisabled" formControlName="required">
+      </nz-switch>
+    </nz-form-item>
+
+     <!-- FIELD -->
+     <nz-form-item *ngIf = "ShowUserLookUpField">
+       <!--{360.admin.field_config.select_user_field}=Select a user field-->
+      <nz-form-label nzRequired nzFor="config">{{'360.admin.field_config.select_user_field'| transloco}}</nz-form-label>
+      <nz-form-control fxFill>
+          <nz-select nzErrorTip="'360.admin.original_contract_date_settings.select_date_field_error' |  transloco" [nzDisabled]="loading" formControlName="lookupDisplayFieldName" [nzLoading]="loading">
+              <nz-option *ngFor="let field of options" [nzValue]="field.fieldName" [nzLabel]="field.label"></nz-option>
+          </nz-select>
+      </nz-form-control>
+  </nz-form-item>
+
+    <nz-form-item *ngIf="fieldConfigControlOptions.showRollup">
+      <nz-form-label class="gs-keygen">{{'360.admin.field_config.field_roll_up' | transloco}}</nz-form-label>
+      <nz-form-control>
+        <label formControlName="rollup" nz-checkbox>{{'360.admin.field_config.field_enable'| transloco}}</label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fieldConfigControlOptions.showAggregationType">
+      <nz-form-label class="gs-keygen">{{'360.admin.field_config.field_aggregation_type'| transloco}}</nz-form-label>
+      <nz-form-control>
+        <nz-select nz-tooltip nzPlaceHolder="{{ '360.admin.field_config.select'| transloco}}"
+          nzTooltipContent="{{'360.admin.field_config.field_aggregation_type_tooltip' | transloco}}"
+          [nzDisabled]="!fieldConfigForm.get('rollup').value" formControlName="aggregateFunction">
+          <nz-option *ngFor="let opt of aggregationOptions" [nzValue]="opt.value" [nzLabel]="opt.label| transloco"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item
+      *ngIf="field.sectionScope !== 'GLOBAL' && navigateOptions?.length && field.showNavigationOption && !fieldConfigForm.controls.editable?.value && showAssignSection">
+        <div style="display: flex">
+            <span class="section-label"><nz-form-label>{{'360.admin.field_config.field_assign_section'| transloco}}</nz-form-label></span>
+            <span class="section-icon"><i class="info" nz-icon [nzType]="'images:info'" nz-tooltip nzTooltipTitle="{{'360.admin.field_config.field_assign_section_tooltip'| transloco}}" nzTooltipPlacement="top"></i></span>
+        </div>
+
+      <nz-form-control>
+        <nz-select formControlName="navigationConfig">
+          <nz-option [nzLabel]="'360.admin.field_config.field_none'| transloco" nzValue="NONE"></nz-option>
+          <nz-option *ngFor="let opt of navigateOptions" [nzValue]="opt.sectionId" [nzLabel]="opt.label"></nz-option>
+        </nz-select>
+      </nz-form-control>
+      <!--{360.admin.field_config.field_search_hint}= Only 'Non Editable' fields can be assigned to a section-->
+      <div class="search-hint search-hint-font">
+        {{'360.admin.field_config.field_search_hint'| transloco}}
+      </div>
+    </nz-form-item>
+
+    <nz-form-item
+      *ngIf="fieldConfigControlOptions.showLookupDisplayField && (field?.meta?.updateable || field.fieldPath)">
+        <div style="display: flex">
+            <span class="section-label"><nz-form-label>{{'360.admin.field_config.display_field'| transloco}}</nz-form-label></span>
+            <span class="section-icon"><i class="info" nz-icon [nzType]="'images:info'" nz-tooltip nzTooltipTitle="{{'360.admin.field_config.field_select_gsid'| transloco}}" nzTooltipPlacement="top"></i></span>
+        </div>
+
+      <nz-form-control>
+          <nz-input-group [nzOverlayClassName]="'lookupDisplayFieldMenu'"
+                          [nzSuffix]="suffixIconSearch"
+                          [(nzVisible)]="showDisplayFieldOptions"
+                          nz-dropdown nzTrigger="click"
+                          [nzDropdownMenu]="displayFieldMenu"
+                          [nzPlacement]="'bottomLeft'"
+                          (nzVisibleChange)="onDisplayFieldDropdownToggle($event)">
+              <input nz-input formControlName="lookupDisplayField">
+          </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i class="dropdown-icon" [class.open]="showDisplayFieldOptions" nz-icon nzType="down"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="fieldConfigControlOptions.showSearchConfig && (field?.meta?.updateable || field.fieldPath)">
+        <div style="display: flex">
+            <span class="section-label"><nz-form-label>{{'360.admin.field_config.search_field'| transloco}}</nz-form-label></span>
+            <span class="section-icon"><i class="info" nz-icon [nzType]="'images:info'" nz-tooltip nzTooltipTitle="{{'360.admin.field_config.tooltip'| transloco}}" nzTooltipPlacement="top"></i></span>
+        </div>
+      <nz-form-control>
+          <nz-input-group [nzOverlayClassName]="'searchableFieldsMenu'" 
+                          [nzSuffix]="suffixIconSearch"
+                          [(nzVisible)]="showSearchableFieldOptions"
+                          nz-dropdown
+                          nzTrigger="click"
+                          [nzDropdownMenu]="searchableFieldsMenu" 
+                          [nzPlacement]="'bottomLeft'"
+                          (nzVisibleChange)="onSearchableFieldDropdownToggle($event)">
+            <nz-input-tag formControlName="searchableFields" ></nz-input-tag>
+          </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i class="dropdown-icon" [class.open]="showSearchableFieldOptions" nz-icon nzType="down"></i>
+        </ng-template>
+      </nz-form-control>
+      <label nz-text nzType="small" class="search-hint">{{'360.admin.field_config.no_fields_selected'|
+        transloco}}</label>
+    </nz-form-item>
+  </form>
+  <div fxFlex="5.4rem" fxLayout="row" fxLayoutAlign="flex-end center" class="field-configuration__footer"
+    *ngIf="showFooter">
+    <!--{360.admin.field_config.cancel}=Cancel-->
+    <!--{360.admin.field_config.search_field}=Save-->
+    <button nz-button (click)="handleFooterActions('CANCEL')" nzType="default">{{'360.admin.field_config.cancel'|
+      transloco}}</button>
+    <button nz-button (click)="handleFooterActions('SAVE')" nzType="primary">{{'360.admin.field_config.save'|
+      transloco}}</button>
+  </div>
+</div>
+<nz-dropdown-menu #displayFieldMenu="nzDropdownMenu">
+    <gs-field-tree-view-wrapper *ngIf="displayFieldTreeOptions"
+                                #displayFieldTree
+                                (actions)="onDisplayFieldSelect($event)"
+                                class="field-configuration-searchable-tree"
+                                [treeOptions]="displayFieldTreeOptions">
+    </gs-field-tree-view-wrapper>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #searchableFieldsMenu="nzDropdownMenu">
+      <gs-field-tree-view-wrapper
+              *ngIf="searchableFieldsTreeOptions"
+              #searchableFieldTree
+              (actions)="onSearchableFieldSelect($event)"
+              [treeOptions]="searchableFieldsTreeOptions"
+              class="field-configuration-searchable-tree">
+      </gs-field-tree-view-wrapper>
+</nz-dropdown-menu>
+
+

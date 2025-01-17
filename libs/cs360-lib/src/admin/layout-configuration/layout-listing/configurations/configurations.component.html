@@ -1,0 +1,12 @@
+<nz-tabset class="gs-cs360-configuration__body-tabset"
+           [nzSize]="'medium'"
+           [nzAnimated]="false"
+           [nzSelectedIndex]="selectedIndex"
+           (nzSelectChange)="onTabSelected($event)"
+           [nzTabPosition]="'left'">
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.label">
+  </nz-tab>
+</nz-tabset>
+<div class="gs-cs360-configuration__body-content">
+  <router-outlet></router-outlet>
+</div>

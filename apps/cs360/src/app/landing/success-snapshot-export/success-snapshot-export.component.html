@@ -1,0 +1,111 @@
+<div class="gs-ss-export" nz-form [nzLayout]="'vertical'" [formGroup]="shareConfigForm" (ngSubmit)="onAction('SHARE')">
+  <nz-form-item>
+    <!-- {360.csm.ss_export.successSnapshot}= Success Snapshot-->
+    <nz-form-label class="gs-ss-export__ss-label" [nzSm]="6" [nzXs]="24">{{'360.csm.ss_export.successSnapshot' |
+      transloco}}</nz-form-label>
+       <!-- {360.csm.ss_export.errortip}= Please select success snapshot-->
+    <nz-form-control nzErrorTip="{{'360.csm.ss_export.errortip' | transloco}}">
+      <nz-select nzShowSearch nzAllowClear (ngModelChange)="onFieldSelected($event)" nzPlaceHolder="Select"
+        formControlName="successSnapshots" [nzCustomTemplate]="custom" [(ngModel)]="selectedSS">
+        <ng-template ngFor let-item [ngForOf]="snapshots" let-i="index">
+          <nz-option nzCustomContent *ngIf="isSsHaEnabled || (!item.inactive && item.entity && item.entity.toUpperCase() === showEntity)"
+            [nzLabel]=item.name [nzValue]=item>
+            <i nz-icon [nzType]="'images:ppt-icon'" [nzSize]="16" *ngIf="item.storageType === 'S3'"></i>
+            <i nz-icon [nzType]="'images:google-drive-icon'" [nzSize]="16" *ngIf="item.storageType === 'GOOGLE_DRIVE'"
+              ></i>
+            <span class="gs-ss-export__ss-name">{{ item.name }}</span>
+          </nz-option>
+        </ng-template>
+      </nz-select>
+      <ng-template #custom let-selected>
+        <i nz-icon [nzType]="'images:ppt-icon'" [nzSize]="16" *ngIf="selected.nzValue.storageType === 'S3'"
+          ></i>
+        <i nz-icon [nzType]="'images:google-drive-icon'" [nzSize]="16"
+          *ngIf="selected.nzValue.storageType === 'GOOGLE_DRIVE'"></i>
+        <span class="gs-ss-export__selected-ss-label">{{ selected.nzLabel }}</span>
+      </ng-template>
+      <!-- {360.csm.ss_export.customerImport}= Customer data will be imported in this snapshot-->
+      <div class="gs-ss-export__ss-banner"> {{'360.csm.ss_export.customerImport' | transloco}}</div>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="selectedSS && selectedSS.successplanPresent">
+    <!-- {360.csm.ss_export.successPlan}= Success Plan-->
+    <nz-form-label class="gs-ss-export__sp-label" [nzSm]="6" [nzXs]="24" nzRequired>{{'360.csm.ss_export.successPlan' |
+      transloco}}</nz-form-label>
+    <!-- {360.csm.ss_export.successPlanErr}= Select the required Success Plan to export.-->
+    <nz-form-control nzErrorTip="{{'360.csm.ss_export.successPlanErr' | transloco}}">
+      <!-- {360.csm.ss_export.select}= Select-->
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{'360.csm.ss_export.select' | transloco}}" formControlName="successPlans"
+        (ngModelChange)="onSPSelected($event)" [(ngModel)]="selectedSP">
+        <ng-template ngFor let-item [ngForOf]="successPlans" let-i="index">
+          <nz-option [nzLabel]=item.name [nzValue]=item></nz-option>
+        </ng-template>
+      </nz-select>
+    </nz-form-control>
+    <!-- {360.csm.ss_export.createSuccessPlan}= This Success Snapshot has configured with Success Plan. Create a Success Plan for this customer to export the Success Snapshot.-->
+    <div *ngIf="isSpCall && selectedSS && successPlans && successPlans.length === 0"
+      class="gs-ss-export__validation-error-text">{{'360.csm.ss_export.createSuccessPlan' | transloco}}</div>
+  </nz-form-item>
+
+  <nz-form-item class="gs-ss-export__share-div">
+    <!-- {360.csm.ss_export.shareWith}= Share With-->
+    <nz-form-label class="gs-ss-export__share-label" [nzSm]="6" [nzXs]="24" nzRequired>{{'360.csm.ss_export.shareWith' |
+      transloco}}</nz-form-label>
+    <!-- {360.csm.ss_export.selectCustomer}= Please select customer-->
+    <nz-form-control nzErrorTip="{{'360.csm.ss_export.selectCustomer' | transloco}}">
+       <!-- {360.csm.ss_export.selectusers}= Select users-->
+      <nz-select nzMode="multiple" nzPlaceHolder="{{'360.csm.ss_export.selectusers' | transloco}}" nzAllowClear nzShowSearch nzServerSearch
+        [(ngModel)]="selectedUser" (nzOnSearch)="onSearch($event)" formControlName="recipientsList">
+        <ng-container *ngFor="let o of recipients">
+          <nz-option *ngIf="!isLoading" [nzValue]="o" [nzHide]="!isNotSelected(o)" [nzLabel]="o.name" nzCustomContent>
+            <span class="gs-ss-export__name">{{o.name}}</span>
+            <span class="gs-ss-export__email">({{o.email}})</span>
+          </nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+          <!-- <i nz-icon nzType="loader" class="gs-ss-export__loading-icon"></i> -->
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <!-- {360.csm.ss_export.subject}= Subject-->
+    <nz-form-label class="gs-ss-export__subject-label" [nzSm]="6" [nzXs]="24" nzRequired>{{'360.csm.ss_export.subject' |
+      transloco}}</nz-form-label>
+    <!-- {360.csm.ss_export.enterSubject}= Please enter Subject-->
+    <nz-form-control nzErrorTip="{{'360.csm.ss_export.enterSubject' | transloco}}" class="gs-ss-export__subject-input">
+      <input formControlName="subject" [value]="selectedSSName" [(ngModel)]="selectedSSName" type="text" nz-input
+        required />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- {360.csm.ss_export.uploadMsg}= Choose a Google Drive folder to upload* -->
+  <div class="Choose-a-Google-Drive" *ngIf="selectedSS && selectedSS.storageType === 'GOOGLE_DRIVE'">
+    {{'360.csm.ss_export.uploadMsg' | transloco}}</div>
+  <gs-slides-listing class="gs-ss-export__slides-listing"
+    *ngIf="isAuthenticated && selectedSS && selectedSS.storageType === 'GOOGLE_DRIVE'" [title]="slideDeckTitle"
+    [isAuthenticated]="isAuthenticated" (action)="onSSAction($event)">
+  </gs-slides-listing>
+
+  <nz-form-item>
+    <!-- {360.csm.ss_export.note}= Note -->
+    <nz-form-label class="gs-ss-export__note-label" [nzSm]="6" [nzXs]="24">{{'360.csm.ss_export.note' | transloco}}</nz-form-label>
+    <nz-form-control>
+      <textarea nz-input formControlName="body" class="gs-ss-export__note-textarea" style="resize: unset;"
+        [nzAutosize]="{ minRows: 4, maxRows: 4 }" [(ngModel)]="inputValue"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</div>
+<div class="gs-ss-export__footer">
+  <!-- {360.csm.ss_export.cancelBtn}= Cancel-->
+  <button nz-button (click)="onAction('CANCEL')" class="gs-ss-export__cancel-btn">{{'360.csm.ss_export.cancelBtn' |
+    transloco}}</button>
+  <!-- {360.csm.ss_export.shareBtn}= Share-->
+  <button nz-button nzType="primary" class="hss-export-ppt-template" *ngIf="!selectedSS || selectedSS && selectedSS.storageType === 'S3'"
+    [disabled]="isShareDisabled" (click)="onAction('SHARE')">{{'360.csm.ss_export.shareBtn' | transloco}}</button>
+  <!-- {360.csm.ss_export.uploadBtn}= Upload-->
+  <button nz-button nzType="primary" class="hss-export-drive-template" *ngIf="selectedSS && selectedSS.storageType === 'GOOGLE_DRIVE'"
+    [disabled]="!foldersLoaded" (click)="onAction('SHARE')">{{'360.csm.ss_export.uploadBtn' | transloco}}</button>
+</div>

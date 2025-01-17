@@ -1,0 +1,202 @@
+<div class="field-selector" fxLayout="row" fxFill cdkDropListGroup>
+  <!--NOTE:-> constants needed to be integrated, for some translations integrated temproray solution for now.-->
+  <div *ngIf="!isDetachSectionPreview" fxFlex="25" class="tree">
+    <div fxLayout="column" fxLayoutAlign="start start" class="tree__header">
+      <!--{360.admin.company_hierarchy_config.field_selector.available_fields}= Available Fields-->
+      <h6 nz-title>{{'360.admin.company_hierarchy_config.field_selector.available_fields' |
+        transloco}}</h6>
+      <!--{360.admin.company_hierarchy_config.field_selector.drag_drop}= Drag-and-drop the available data points to configure the-->
+      <!--{360.admin.company_hierarchy_config.field_selector.view}= view-->
+      <label class="tree__header__info" nz-text
+        nzType="small">{{'360.admin.company_hierarchy_config.field_selector.drag_drop' | transloco}} {{viewInfo?.sectionlabel |
+         transloco}}
+         {{'360.admin.company_hierarchy_config.field_selector.view' | transloco}}</label>
+    </div>
+<!--      this is for left side panel in company hierarchy list view-->
+    <div class="tree-wrapper">
+      <gs-field-tree-view-wrapper [fnCheckForDisable]="fnCheckForDisable"
+        [treeOptions]="treeOptions"></gs-field-tree-view-wrapper>
+    </div>
+  </div>
+  <div [fxFlex]="isDetachSectionPreview ? 100 : viewInfo.label === views.LIST ? 75 : 50" class="fields">
+    <div fxFill cdkDropList (cdkDropListDropped)="onFieldDropped($event)">
+      <div fxLayoutAlign="center center" fxFill *ngIf="viewInfo?.label === views.LIST else chartView">
+        <div fxLayoutAlign="center center" fxFill fxLayout="column" class="fields__list">
+          <div fxLayout="row">
+            <!--{360.admin.company_hierarchy_config.drag_drop_list}=Drag-and-drop  fields to be displayed in the  list view-->
+            <label *ngIf="viewInfo?.fields?.length" class="fields__list__info"
+              nz-text>{{'360.admin.company_hierarchy_config.drag_drop_list'|
+              transloco}}({{viewInfo?.fields?.length}}/{{viewInfo?.fieldsLimit}})</label>
+            <!--{360.admin.company_hierarchy_config.field_selector.clear}=Clear -->
+            <button class="fields__list__clear" *ngIf="!isDetachSectionPreview" nz-button nzType="default"
+              nzShape="round" nzSize="small"
+              (click)="onClear()">{{'360.admin.company_hierarchy_config.field_selector.clear' | transloco}}</button>
+          </div>
+          <div cdkDropList (cdkDropListDropped)="onFieldDropped($event)" class="fields__list__list-view"
+            *ngIf="viewInfo?.fields?.length else empty">
+            <div class="field-card-wrapper">
+              <div *ngFor="let field of viewInfo?.fields"
+                [cdkDragDisabled]="isDetachSectionPreview  || field?.derivedColDatatype === 'NAME'" cdkDrag>
+                <ng-container
+                  *ngTemplateOutlet="fieldCard;context:{field: field, disabled: isDetachSectionPreview  || field?.derivedColDatatype === 'NAME'}">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #empty>
+      <div fxFill fxLayout="row" fxLayoutAlign="center center" class="field-selector__empty">
+        <nz-empty [nzNotFoundImage]="imageTpl" [nzNotFoundContent]="contentTpl">
+          <ng-template #imageTpl>
+            <i class="field-selector__empty--img"></i>
+          </ng-template>
+          <ng-template #contentTpl>
+            <!--{360.admin.company_hierarchy_config.field_selector.drag_dropleft}=Drag and Drop fields from left side panel to add them to the-->
+            <span class="field-selector__empty--description">
+              {{'360.admin.company_hierarchy_config.field_selector.drag_dropleft'| transloco}} {{viewInfo?.label}} View.
+            </span>
+          </ng-template>
+        </nz-empty>
+      </div>
+    </ng-template>
+  </div>
+  <div fxFlex="25" class="card-preview" fxLayout="column" fxLayoutGap="2rem" *ngIf="viewInfo.label === views.CHART">
+    <!--{360.admin.company_hierarchy_config.field_selector.preview}= Preview-->
+    <h6 class="card-preview__header" nz-title>{{'360.admin.company_hierarchy_config.field_selector.preview'| transloco}}
+    </h6>
+    <div class="card-preview__card">
+      <div *ngFor="let field of chartFields; let i= index">
+        <ng-container [ngSwitch]="field.derivedColDatatype">
+          <ng-container *ngSwitchCase="'NAME'">
+            <h6 nz-title>{{field.sampleData | transloco}}</h6>
+          </ng-container>
+          <ng-container *ngSwitchCase="'CURRENTSCORE'">
+            <div *ngIf="i > 2 else defaultDataPreview" class="card-preview__card__currentscore">
+              <i class="card-preview__card__currentscore__icon"></i>
+              <span nz-text nzType="small">8</span>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'CURRENCY'">
+            <span *ngIf="i > 2 else defaultDataPreview" class="card-preview__card__currency" fxLayout="row">
+              <span nz-text nzType="small"  nzEllipsis class="card-preview__card__currency__label">{{field.label}}</span>
+              <span nz-text nzType="small">{{field.sampleData}}</span>
+            </span>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+              <ng-container *ngTemplateOutlet="defaultDataPreview"></ng-container>
+          </ng-container>
+          <ng-template #defaultDataPreview>
+            <label *ngIf="field?.fieldName" nz-text nzType="small" nzDisabled>{{field.label}} :
+              {{field.sampleData}}</label>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+    <!--{360.admin.company_hierarchy_config.field_selector.preview_note}=Note: The data displayed here is only for representation. It is not actual data.-->
+    <label nz-text nzType="small"
+      class="card-preview__info">{{'360.admin.company_hierarchy_config.field_selector.preview_note'| transloco}}</label>
+  </div>
+</div>
+
+<nz-drawer [nzClosable]="true" [nzVisible]="openFieldSettingsDrawer" nzPlacement="right" [nzMask]="true"
+  [nzBodyStyle]="{height: 'calc(100% - 4.4rem)', 'padding-bottom': '0'}" [nzWidth]="588" [nzTitle]="fieldConfigTitle"
+  (nzOnClose)="closeFieldSettingsDrawer()">
+  <gs-field-configuration *ngIf="openFieldSettingsDrawer" [fieldConfigOptions]="fieldConfigOptions" [field]="selectedFieldInfoForConfig"
+    (fieldConfigAction)="onFieldConfigured($event)" [rootNode]="selectedFieldInfoForConfig?.rootNode"></gs-field-configuration>
+</nz-drawer>
+
+<ng-template #fieldConfigTitle>
+  <span [innerText]="selectedFieldInfoForConfig?.label"></span>
+</ng-template>
+
+<ng-template #chartView>
+  <div fxLayoutAlign="center center" fxFill>
+    <div fxFlex="70" fxLayoutAlign="flex-start center" fxLayout="column" class="fields__list">
+      <div fxLayout="row">
+        <!--{360.admin.company_hierarchy_config.drag_drop_chart}=Drag-and-drop fields to be displayed in the chart view-->
+        <label class="fields__list__info" nz-text>{{'360.admin.company_hierarchy_config.drag_drop_chart' | transloco}}
+          ({{viewInfo?.fields?.length}}/{{viewInfo?.fieldsLimit}})</label>
+        <button class="fields__list__clear" *ngIf="!isDetachSectionPreview" nz-button nzType="default" nzShape="round"
+          nzSize="small" (click)="onClear()">{{'360.admin.company_hierarchy_config.field_selector.clear' |
+          transloco}}</button>
+      </div>
+      <div cdkDropList (cdkDropListDropped)="onFieldDropped($event)" class="fields__list__chart-view">
+        <ng-container *ngFor="let field of chartFields">
+          <div *ngIf="!field?.fieldName" class="fields__body__card fields__body__card__empty">
+            <div fxFill fxLayout="row" fxFlex="80" fxLayoutAlign="start center">
+              <label nz-text nzType="small" nzDisabled>{{field?.info | transloco}}</label>
+            </div>
+          </div>
+          <div *ngIf="field?.fieldName"
+            [cdkDragDisabled]="isDetachSectionPreview  || field?.derivedColDatatype === 'NAME'" cdkDrag>
+            <ng-container
+              *ngTemplateOutlet="fieldCard;context:{field: field, disableDrag: true, disabled: isDetachSectionPreview  || field?.derivedColDatatype === 'NAME'}">
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #fieldCard let-disableDrag="disableDrag" let-field="field" let-disabled="disabled">
+  <ng-container *ngIf="disabled">
+    <ng-container *ngTemplateOutlet="disabledFieldCard;context:{field: field}"></ng-container>
+  </ng-container>
+  <div *ngIf="!disabled" class="fields__body__card fields__body__card__solid" id="test">
+    <div fxFill fxLayout="row" fxFlex="70" fxLayoutAlign="start center">
+      <i *ngIf="!disableDrag" nz-icon nzType="drag" nzTheme="outline" class="gs-icons gs-icons-draggable-indicator"></i>
+      <div fxFill (click)="handleLabelInput(field)" (mousedown)="$event.stopPropagation()">
+        <span fxLayoutAlign="start center" nz-tooltip [nzTooltipPlacement]="'bottom'"
+          [nzTooltipContent]="tooltipTemplate" *ngIf="!field.showLabelInput else showLabelInput"
+          class="fields__body__card__label configurable" fxFill="80">
+          <span nz-text nzType="sub-section">{{field.label}}</span>
+        </span>
+        <ng-template #showLabelInput>
+          <input autofocus class="gridster-item-content" nz-input [(ngModel)]="field.tempLabel"
+            (blur)="saveInput(field)" (keydown.enter)="saveInput(field)" (keydown.esc)="resetInput(field)"
+            maxlength="90" />
+        </ng-template>
+        <ng-template #tooltipTemplate>
+          <div fxLayout="column">
+            <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.field_name'|
+              transloco}}{{field.hoverLabel}}</span>
+            <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.display_name'|
+              transloco}}{{field.label}}</span>
+            <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.path'|
+              transloco}}{{field.path|titlecase}}</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div fxFlex="10" fxLayoutAlign="end center" class="fields__body__card__settings gridster-item-content">
+      <i *ngIf="field.customizable" nz-icon nzType="settings" (click)="onFieldSettingsClick(field)"></i>
+      <i (click)="onFieldDelete(field)" nz-icon nzType="delete"></i>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #disabledFieldCard let-field="field">
+  <div class="fields__body__card fields__body__card__solid">
+    <div fxFill fxLayout="row" fxFlex="80" fxLayoutAlign="start center">
+      <span fxLayoutAlign="start center" nz-tooltip [nzTooltipPlacement]="'bottom'" [nzTooltipContent]="tooltipTemplate"
+        class="fields__body__card__label" fxFill="80">
+        <span nz-text nzType="sub-section">{{field.label | transloco}}</span>
+      </span>
+      <ng-template #tooltipTemplate>
+        <div fxLayout="column">
+          <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.display_name'|
+            transloco}} {{field.label | transloco}}</span>
+          <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.field_name'|
+            transloco}} {{field.hoverLabel || field.label}}</span>
+          <span nz-text nzColor="secondary" nzType="small">{{'360.admin.company_hierarchy_config.path'| transloco}}
+            {{field.path |titlecase}}</span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>

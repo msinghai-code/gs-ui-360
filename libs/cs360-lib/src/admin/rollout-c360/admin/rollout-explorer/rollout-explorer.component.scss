@@ -1,0 +1,46 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-rollout-c360-cntr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.gs-rollout-c360 {
+  display: flex;
+  flex-direction: column;
+  background-color: $rich-gray-0;
+  width: 102rem;
+  border-radius: 0.4rem;
+  border: 1px solid $rich-gray-40;
+  &__explore__body {
+    flex: 1;
+    padding: 2rem;
+  }
+  &__explore__footer {
+    height: 5.6rem;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-top: 1px solid $rich-gray-40;
+    padding: 0 2rem;
+    button {
+      margin-left: 1rem;
+    }
+  }
+  &__migrate__body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}

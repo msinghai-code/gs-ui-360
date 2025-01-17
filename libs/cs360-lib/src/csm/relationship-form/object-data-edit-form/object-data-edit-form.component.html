@@ -1,0 +1,156 @@
+<section class="gs-object-data-edit-form" [formGroup]="formGroup" *ngIf="fields.length else nofieldspresent">
+  <ng-container *ngFor="let field of fields;">
+    <ng-container [ngSwitch]="field?.dataType.toUpperCase()">
+      <ng-container *ngSwitchCase="'STRING'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <input nz-input type="text" [formControlName]="field.fieldName" placeholder="Enter Value..."/>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'DATE'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-date-picker [formControlName]="field.fieldName"></nz-date-picker>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'DATETIME'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-date-picker nzShowTime [formControlName]="field.fieldName"></nz-date-picker>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'NUMBER'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <input nz-input type="number" [formControlName]="field.fieldName" placeholder="Enter Value..."/>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'CURRENCY'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <input nz-input type="number" [formControlName]="field.fieldName" placeholder="Enter Value..."/>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'PICKLIST'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-select nzShowSearch
+                       nzAllowClear
+                       nzPlaceHolder="Select {{field?.label}}"
+                       [formControlName]="field.fieldName">
+              <nz-option *ngFor="let option of field.options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'MULTISELECTDROPDOWNLIST'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-select
+                    [nzMaxTagCount]="3"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder"
+                    nzMode="multiple"
+                    nzPlaceHolder="Please select {{field?.label}}"
+                    [formControlName]="field.fieldName">
+              <nz-option *ngFor="let option of field.options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+            <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'BOOLEAN'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-switch [formControlName]="field.fieldName"></nz-switch>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'LOOKUP'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input
+                  placeholder="Enter 2 characters to search..."
+                  nz-input
+                  [formControlName]="field.fieldName"
+                  (input)="searchControl.onSearch($event.target?.value, field)"
+                  (focus)="searchControl.onFocus($event)"
+                  [nzAutocomplete]="auto"/>
+              <nz-autocomplete #auto>
+                <nz-auto-optgroup *ngIf="searchControl.options.length === 0" [nzLabel]="groupTitle">
+                  <ng-template #groupTitle>
+                    No Results Found.
+                  </ng-template>
+                  <nz-auto-option style="display: none;"></nz-auto-option>
+                </nz-auto-optgroup>
+                <ng-container *ngIf="searchControl.options.length !== 0">
+                  <nz-auto-option *ngFor="let option of searchControl.options" [nzValue]="option.name">
+                    {{ option?.name }}
+                  </nz-auto-option>
+                </ng-container>
+              </nz-autocomplete>
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'URL'">
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <input nz-input [formControlName]="field.fieldName" placeholder="Enter Value..."/>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div class="gs-object-data-edit-form-field gs-object-data-edit-form-field__{{field?.dataType.toLowerCase()}}">
+          <div class="gs-object-data-edit-form-field__label">
+            <label nz-text nzType="small">{{field?.label}}</label>
+          </div>
+          <div class="gs-object-data-edit-form-field__control">
+            <input nz-input [formControlName]="field.fieldName" placeholder="Enter Value..."/>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</section>
+<ng-template #nofieldspresent>
+  <nz-empty></nz-empty>
+</ng-template>

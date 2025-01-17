@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="203" height="73" viewBox="0 0 203 73">
+    <defs>
+        <rect id="dqfkahq91a" width="104" height="48" x="99" y="0" rx="8"/>
+        <mask id="fl5mpk10yb" width="104" height="48" x="0" y="0" fill="#fff" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox">
+            <use xlink:href="#dqfkahq91a"/>
+        </mask>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g transform="translate(-775 -314) translate(344 135) translate(393 179) translate(38)">
+                        <use fill="#E3EAF1" fill-opacity=".503" stroke="#AFC3D7" stroke-dasharray="4" stroke-width="2" mask="url(#fl5mpk10yb)" xlink:href="#dqfkahq91a"/>
+                        <rect width="115" height="47" x=".5" y="16.5" fill="#FFF" stroke="#E3EAF1" rx="8"/>
+                        <path fill="#AFC3D7" d="M98.323 62.932l-4.256 5.85c-.5.871-1.752.623-1.877-.373l-5.381-24.77c-.126-.996.876-1.743 1.627-1.245l21.776 13.07c.876.498.751 1.742-.25 1.991l-7.134 2.116 6.508 8.713c.375.498.25 1.12-.125 1.494l-3.129 2.24c-.5.374-1.126.25-1.502-.248l-6.257-8.838z"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,42 @@
+<section class="gs-relationship-reports-configuration">
+  <div class="gs-relationship-reports-configuration__header">
+    <div class="gs-relationship-reports-configuration-header__item">
+      <label nz-text nzType="small">{{'360.admin.report_relationship_config.source' | transloco}}</label>
+      <div class="gs-relationship-reports-configuration-header-object">
+        <!--{360.admin.report_relationship_config.relationship}=Relationship-->
+        <input nz-input [ngModel]="'360.admin.report_relationship_config.relationship' | transloco" [placeholder]="'360.admin.report_relationship_config.relPlaceholder'| transloco" [disabled]="true" />
+      </div>
+    </div>
+    <div class="gs-relationship-reports-configuration-header__item">
+      <label nz-text nzType="small">{{'360.admin.report_relationship_config.filter_reportby'| transloco}}</label>
+      <div class="gs-relationship-reports-configuration-header-object__select">
+        <gs-field-selector-dropdown
+          nzOverlayClassName="gs-relationship-reports-configuration-header-object__select--overlay"
+          [host]="fieldSelectorOptions?.host" [objectName]="fieldSelectorOptions?.objectName" [field]="config?.filter"
+          (action)="onAction($event)">
+        </gs-field-selector-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="gs-relationship-reports-configuration__body">
+    <span nz-text nzType="small">{{'360.admin.report_relationship_config.available_reports'| transloco}} ({{
+      (availableReports | filterItems: searchValue : 'title').length }})</span>
+    <nz-input-group [nzPrefix]="searchIcon" [nzSuffix]="inputClearTpl">
+      <input type="text" nz-input [placeholder]="'360.admin.report_relationship_config.searchPlaceholder'| transloco" [formControl]="searchControl" />
+    </nz-input-group>
+    <nz-tree *ngIf="reportloading; else reportloader" nzCheckable [nzData]="filteredReports"
+      [nzCheckedKeys]="checkedReports" (nzClick)="nzEvent($event)" (nzCheckBoxChange)="nzEvent($event)"
+      (nzSearchValueChange)="nzEvent($event)">
+    </nz-tree>
+    <ng-template #searchIcon>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    <ng-template #inputClearTpl>
+      <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="searchControl?.value"
+        (click)="searchControl?.setValue('')"></i>
+    </ng-template>
+  </div>
+</section>
+<ng-template #reportloader>
+  <nz-skeleton [nzActive]="true"></nz-skeleton>
+</ng-template>

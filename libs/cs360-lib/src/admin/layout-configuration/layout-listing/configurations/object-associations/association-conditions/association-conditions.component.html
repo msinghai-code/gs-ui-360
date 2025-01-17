@@ -1,0 +1,24 @@
+<div class="association" fxFlex="row">
+  <div class="association-conditions" *ngFor="let cond of conditions; let i = index;">
+      <div *ngIf="i <2 else count" class="filter-chip__filter">
+        <nz-tag class="filter-chip__filter__alias" nz-tooltip [nzTooltipContent]="cond?.leftOperandTooltip">
+          {{cond?.leftOperandTooltip}}
+        </nz-tag>
+        <span class="filter-chip__filter__operator">
+          <span class="filter-chip__filter__operator-icon gs-icons-operator gs-icons-operator-{{cond?.comparisonOperator?.toLowerCase()}}"></span>
+        </span>
+        <nz-tag class="filter-chip__filter__alias" nz-tooltip [nzTooltipContent]="cond?.filterFieldTooltip">
+          {{cond?.filterFieldTooltip}}
+        </nz-tag>
+        <span *ngIf="conditions?.length > 1 && i == 0" class="filter-chip__filter__label"> &#44; </span>
+      </div>
+      <ng-template #count>
+            <nz-tag *ngIf="i===2" class="filter-chip__filter__alias count">+ {{conditions?.length - 2}} </nz-tag>
+      </ng-template>
+  </div>
+</div>
+
+
+<ng-template #labelLetter let-label="label">
+  <span *ngIf="label" nz-text nzColor="secondary" nzType="sub-section">{{label[0]?.toUpperCase()}}</span>
+</ng-template>

@@ -1,0 +1,54 @@
+<div fxLayout="column" fxFill>
+    <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+      <nz-form-item>
+        <!--{360.admin.attribute_widget_setting.widget_name}=Widget Name-->
+        <nz-form-label nzRequired nzFor="label"> {{'360.admin.attribute_widget_setting.widget_name' | transloco}}
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="errorTpl">
+          <input autocomplete="off" autofocus nz-input formControlName="label">
+          <ng-template #errorTpl let-control>
+            <!--{360.admin.attribute_widget_setting.field_blank}=This field cannot be left blank.-->
+            <!--{360.admin.attribute_widget_setting.maxchar_limit}=Maximum characters allowed are 90-->
+            <ng-container *ngIf="control.hasError('required')">{{'360.admin.attribute_widget_setting.field_blank' |
+              transloco}}</ng-container>
+            <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.attribute_widget_setting.maxchar_limit' |
+              transloco}}</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <!--{360.admin.attribute_widget_setting.select_attributes}=Select Attributes-->
+    <h5 nz-title class="gs-keygen">{{'360.admin.attribute_widget_setting.select_attributes' | transloco}}</h5>
+    <div fxLayout="column" fxFlex="calc(100% - 10rem)" style="overflow:auto" *ngIf="treeOptions">
+      <ng-container *ngIf="this.widgetItem.subType === 'ATTRIBUTES' else multiObject">
+          <gs-field-chooser [fieldTreeOptions]="treeOptions" [host]="treeOptions.host" [showCount]="false"
+                          [maxLimit]="treeOptions.maximumSelectedNodes"
+          [baseObject]="treeOptions.baseObject" (nodeToggle)="onNodeSelect($event)">
+        </gs-field-chooser>
+      </ng-container>
+
+      <!-- It use when we have multipl e object configuration for widget-->
+      <ng-template #multiObject>
+        <nz-collapse nzAccordion>
+          <nz-collapse-panel *ngFor="let objectName of objectList; let i = index" [nzHeader]="'360.csm.objectLabels_'+objectName | transloco">
+  
+            <gs-field-chooser #attributeFieldChooser [fieldTreeOptions]="coreObjectInfo[objectName].treeOptions" 
+                [host]="coreObjectInfo[objectName].treeOptions.host" 
+                [treeData]="coreObjectInfo[objectName].treeOptions.treeData"
+                [filterFunction]="coreObjectInfo[objectName].treeOptions.filterFunction"
+                [allowedDataTypes]="coreObjectInfo[objectName].treeOptions.allowedDataTypes"
+                [showCount]="false"
+                [maxLimit]=this.maxAllowedFieldsCount
+                [baseObject]="coreObjectInfo[objectName].treeOptions.baseObject"
+                (nodeToggle)="onNodeSelect($event)">
+            </gs-field-chooser>
+  
+  
+          </nz-collapse-panel>
+          </nz-collapse>
+      </ng-template>
+     
+     
+    </div>
+  </div>
+  

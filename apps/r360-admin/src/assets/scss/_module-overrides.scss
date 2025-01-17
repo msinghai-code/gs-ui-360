@@ -1,0 +1,539 @@
+@import "~@gs/design-tokens/scss/colors";
+
+.ag-tooltip{
+  background-color: #161F27 !important;
+  color: white !important;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: hidden;
+}
+
+.gs-cs360-admin-wrapper__body-tabset {
+  height: 5rem;
+  width: 100%;
+  background-color: background-color(white);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  > .ant-tabs-content {
+    flex: 1 1 100px;
+    background-color: background-color("light-widget-chip-color");
+    .ant-tabs-tabpane-active {
+      padding: 1.6rem;
+      height: 100%;
+    }
+  }
+  .ant-tabs-nav-scroll {
+    display: flex;
+    .ant-tabs-nav {
+      margin: 0 auto;
+    }
+  }
+}
+
+.gs-cs360-admin-wrapper__body-content {
+  height: 100%;
+}
+
+.gs-cs360-configuration__body-content {
+  height: 100%;
+  width: 100%;
+}
+
+.ant-notification{
+  width: 38rem;
+}
+
+/*-- Popover styles --*/
+.pop-container {
+  .pop-panel {
+    background-color: background-color(white);
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+  }
+}
+
+.layout-upsert {
+  .ant-drawer-header {
+    position: relative;
+    padding: 1rem 1.8rem 0.3rem 1.8rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: block !important;
+    .ant-steps {
+      padding-bottom: 1.8rem;
+      .ant-steps-item {
+        margin-right: 12px;
+      }
+    }
+    .ant-drawer-title {
+      padding: 0 !important;
+    }
+  }
+  &__create {
+    .ant-drawer-body {
+      height: calc(100% - 6.1rem) !important;
+    }
+  }
+  &__edit {
+    .ant-drawer-body {
+      height: calc(100% - 6.1rem) !important;
+    }
+  }
+  &__tabs {
+    .ant-tabs-bar {
+      margin: 0;
+      border-bottom: none;
+    }
+  }
+}
+
+.section-upsert {
+  .ant-drawer-header {
+    position: relative;
+    padding: 1.6rem 1.8rem 0 3.2rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: block !important;
+    .ant-steps {
+      padding-bottom: 1.8rem;
+    }
+  }
+  &__create, &__edit {
+    .ant-drawer-body {
+      height: calc(100% - 6.1rem) !important;
+    }
+    .ant-drawer-header {
+      display: block !important;
+    }
+  }
+  &__tabs {
+    .ant-tabs-bar {
+      margin: 0;
+      border-bottom: none;
+    }
+  }
+
+  .ant-drawer-body {
+    padding: 0 !important;
+  }
+}
+
+.ant-drawer-header {
+  .ant-drawer-close {
+    right: 15px;
+  }
+}
+
+.section-listing-wrapper {
+  .gs-icons {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: "gsIcons" !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 1.6rem;
+    vertical-align: middle;
+    display: inline-block;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .ant-collapse {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .ant-collapse-item {
+    border-radius: 0px;
+    border: none;
+    margin: 0;
+  }
+  .ant-collapse-item-active {
+    border-bottom: 1px solid #e2e9f0;
+    flex: 1 1 100px;
+  }
+  .ant-collapse-content-active {
+    flex: 1 1 100px;
+    overflow-y: auto;
+  }
+  .ant-collapse-content-box {
+    padding: 0 !important;
+    height: 100%;
+  }
+  .ant-collapse-header {
+    border-bottom: 1px solid #e2e9f0;
+  }
+  &__item {
+    height: 4rem;
+    line-height: 4rem;
+    padding: 0 1rem;
+    cursor: move;
+    background-color: background-color(white);
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    [class^="gs-icons-datatype-"] {
+      margin: 0 0.8rem 0.3rem 0;
+    }
+    .gs-icons-draggable-indicator {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
+    &:hover {
+      .gs-icons-draggable-indicator {
+        opacity: 1;
+      }
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  &__item-disable-drag {
+    color: #afc3d7;
+    cursor: not-allowed;
+    .gs-icons-draggable-indicator,
+    &:hover .gs-icons-draggable-indicator {
+      opacity: 0.3;
+    }
+  }
+  .ant-collapse-content-box
+    div:not(:last-child)
+    .section-listing-wrapper__item {
+    border-bottom: 1px solid #e2e9f0;
+  }
+}
+
+.gridster-defaults {
+  height: 100%;
+  width: 100%;
+  gridster {
+    background: transparent;
+    gridster-preview {
+      background: none;
+      display: none;
+    }
+    gridster-item {
+      cursor: move;
+      border-radius: 4px;
+      .header {
+        margin: 1.25rem 1rem 1rem 1rem;
+        font-size: 1.4rem;
+      }
+      button[data-icon="delete"],
+      [data-icon="move"],
+      [data-icon="edit"] {
+        display: none;
+      }
+    }
+    .gridster-item-moving {
+      border: 1px solid #0e87ec;
+      margin: 1px;
+    }
+    .gridster-column {
+      border-left: 1px dashed #d5dee8;
+      border-right: 1px dashed #d5dee8;
+    }
+    .gridster-row {
+      border-top: 1px dashed #d5dee8;
+      border-bottom: 1px dashed #d5dee8;
+    }
+  }
+}
+
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ant-modal {
+    top: 0;
+  }
+  &.attributes-field-edit {
+    .ant-modal {
+      height: 45rem;
+      width: 35rem !important;
+    }
+  }
+}
+
+.attribute-configuration {
+  &__left {
+    .ui-treenode-content {
+      .gs-icons-draggable-indicator {
+        color: #7596b7;
+      }
+    }
+  }
+  gridster {
+    background: transparent;
+    gridster-item {
+      border-radius: 4px;
+    }
+    gridster-preview {
+      background: none;
+    }
+    .gridster-item-moving {
+      border: 1px solid #0e87ec;
+      margin: 1px;
+    }
+  }
+}
+
+.widget-builder-element {
+  height: calc(100% - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.gridster-defaults-csm {
+  height: 100%;
+  width: 100%;
+  gridster {
+    background: transparent;
+    padding: 0.2rem !important;
+    gridster-preview {
+      background: none;
+    }
+    gridster-item {
+      //in admin the border radius is rounded like in csm but this makes it very sharp
+      //border-radius: 0.3rem;
+    }
+  }
+  gridster.scrollVertical {
+    overflow-x: inherit !important;
+    overflow-y: initial !important;
+  }
+}
+
+.gs-section-config-drawer {
+  .ant-drawer-header {
+    padding: 1.3rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: block !important;
+  }
+  &__header {
+    &__layout-name {
+      color: $royal-blue-70;
+      cursor: pointer;
+      line-height: 1.4rem !important;
+      margin-bottom: 0 !important;
+    }
+    &__layout_subheader{
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+    &__name {
+      margin: 0 !important;
+    }
+    &__tag {
+      margin-left: 0.8rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    i {
+      font-size: 2.4rem;
+      color: $rich-gray-60;
+      padding-right: 1.6rem;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.light-grey-bg-full {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($background-color-light, .1);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+.gs-dragabble {
+  &.cdk-drag-animating {
+    display: none !important;
+  }
+
+  &.cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  &.cdk-drag-preview {
+    padding-left: 1rem;
+
+    > i {
+      display: none !important;
+    }
+  }
+}
+
+.cdk-overlay-container {
+  .cdk-drop-list-dragging {
+    .gs-dragabble {
+      transition: all .2s;
+    }
+  }
+}
+
+
+.cell-span {
+  background-color: #ffffff;
+  color: #0369e9;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.add-association-drawer {
+  .ant-drawer-content {
+    overflow: hidden;
+  }
+  .ant-drawer-body {
+    padding-top: 0 !important;
+    padding-bottom: 1.2rem !important;
+    height: calc(100% - 6.4rem) !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+//.ui-tree .ui-treenode .ui-treenode-content {
+//  border-bottom: 1px solid #E3EAF1;
+//}
+
+.ant-collapse-item {
+  &-active {
+    .ant-collapse-header {
+      color: $primary-color;
+    }
+  }
+}
+
+.object-multiple-associations {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  margin: 1.6rem 0rem;
+  line-height: 1.4rem;
+  .multiple-info {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: $rich-gray-50;
+  }
+}
+
+.rtLabels-more {
+  width: 6.1rem;
+  height: 2.4rem;
+  margin: 0 0 0 0.6rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 1.2rem;
+  color: $rich-gray-70;
+  font-weight: 500;
+  font-size: 1.2rem;
+  background-color: rgba(227, 234, 241, 0.5);
+}
+
+.gs-add-column__popover {
+  .ant-popover-title {
+    font-size: 1.4rem;
+  }
+}
+
+.manage-assignment-modal {
+  .ant-modal-header {
+    padding-top: 1.6rem !important;
+  }
+  .default-title {
+    margin-right: 3rem;
+    .header {
+      &__title {
+        margin-bottom: 0 !important;
+      }
+      &__sub {
+        font-weight: 400 !important;
+        color: $rich-gray-60;
+      }
+    }
+    .find-layout {
+      border: 1px solid $rich-gray-40;
+    }
+  }
+  .find-layout-title {
+    margin-top: 1rem;
+    display: flex;
+    i {
+      color: $rich-gray-60;
+    }
+    span {
+      margin-bottom: 0 !important;
+    }
+  }
+  .ant-modal-close {
+    top: 1rem;
+  }
+}
+
+.gs-object-associations {
+  .gs-grid-wrapper .ag-row.disable-click {
+    .cell-span {
+      color: $rich-gray-60;
+    }
+  }
+}
+
+.cdk-overlay-dark-backdrop  {
+  background: none !important;
+}
+
+.gridster-item-resizable-handler.handle-se {
+  background-image: url('~@gs/cs360-lib/assets/images/resize-icon.svg');
+  background-position: 100% 0;
+  border: none !important;
+  width: 13px !important;
+  height: 16px !important;
+}
+
+gridster-item{
+  .gridster-item-resizable-handler.handle-se {
+    &:hover {
+      background-image: url('~@gs/cs360-lib/assets/images/resize-icon-blue.svg');
+    }
+  }
+
+  &.gridster-item-resizing {
+    border: 1px solid #0369e9;
+
+    .gridster-item-resizable-handler.handle-se {
+      background-image: url('~@gs/cs360-lib/assets/images/resize-icon-blue.svg');
+    }
+  }
+}
+
+.gs-fc-field-row {
+  &.ant-dropdown-link {
+    color: inherit;
+  }
+}
+@import '@gs/cs360-lib/assets/scss/tree-common';
+
+// this fix is applicable when description field has more spacing between letters, without this fix the extra spaces are removed
+.dt-text {
+  .ag-cell-wrapper {
+    .ag-cell-value {
+      white-space: pre !important;
+    }
+  }
+}
+
+
+@import '@gs/cs360-lib/assets/scss/tree-common';

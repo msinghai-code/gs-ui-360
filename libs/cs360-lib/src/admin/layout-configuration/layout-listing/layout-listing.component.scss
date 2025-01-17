@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-cs360-admin-wrapper-listing {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__content {
+    display: flex;
+  }
+
+  ::ng-deep {
+    .ant-tabs-left-content {
+      border-left: 1px solid #e3eaf1;
+    }
+  }
+}
+
+.preview_user_toggle {
+  background: #fff;
+  padding: 4px 16px 4px 4px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+  ::ng-deep{
+    .ant-tabs-nav-container{
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .ant-tabs-extra-content{
+      padding-right: 16px;
+    }
+
+  .enduser_popup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      .ant-modal{
+        width: 520px !important;
+        top:0;
+      }
+    }
+  }

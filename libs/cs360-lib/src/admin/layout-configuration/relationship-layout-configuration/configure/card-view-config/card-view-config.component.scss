@@ -1,0 +1,134 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-card-view-config {
+  height: 100%;
+  background-color: #ffffff;
+  &__body {
+    height: 100%;
+    border-radius: 4px;
+    border-top: none;
+  }
+}
+
+.gs-card-view-config-body {
+  display: flex;
+  flex-direction: row;
+  &__left {
+    width: 32rem;
+    min-width: 32rem;
+    padding: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e3eaf1;
+    h6 {
+      padding: 0 1rem;
+    }
+    .gs-list-view-field-tree {
+      flex-grow: 1;
+      ::ng-deep {
+        .gs-field-tree {
+          .gs-tree-node__body {
+            flex-grow: 1;
+            overflow: auto;
+            min-width: initial;
+            max-width: 100%;
+            height: 25rem !important;
+          }
+        }
+      }
+    }
+    gs-field-tree {
+      ::ng-deep {
+        .ui-treenode-label {
+          display: inline-block !important;
+        }
+      }
+    }
+    &__hdr-help-text{
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #7596b7;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+    gs-field-tree {
+      ::ng-deep {
+        .ui-treenode-label {
+          //margin-top: 3px !important;
+        }
+      }
+    }
+  }
+  &__center {
+    flex-grow: 1;
+    background-color: #f8f9fa;
+    border-bottom: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    &--header {
+      padding: 0 0 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      button {
+        margin-right: 1rem;
+      }
+    }
+    &--config-area {
+      height: 100%;
+      // width: 75rem;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+    border: 1px solid #f8f9fa;
+    &.cdk-drop-list-dragging {
+      border: 1px solid #0369e9;
+      position: relative;
+      .gs-item-drop-list__empty {
+        display: none;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(3, 105, 233, 0.08);
+      }
+    }
+    ::ng-deep {
+      .gs-item-drop-list__gridster .gridster-row {
+        display: none;
+      }
+    }
+  }
+  &__right {
+    width: 45rem;
+    padding: 5rem 3rem 1rem 2rem;
+    background-color: #ffffff;
+    border-left: solid 1px #e3eaf1;
+    overflow: auto;
+    &--cntr {
+      padding: 0 1rem;
+    }
+    &--preview {
+      margin: 1.5rem 0;
+    }
+  }
+}
+
+.gs-card-view-name-field {
+  height: 4.8rem;
+  background: #ffffff;
+  width: 63rem;
+  margin: 2rem auto 0.5rem;
+  border-radius: 4px;
+}

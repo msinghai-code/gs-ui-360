@@ -1,0 +1,40 @@
+<p-sidebar styleClass="gainsight-app gs-p-sidebar gs-p-sidebar--full" (visibleChange)="onCancelClick()"
+  [visible]="showSidebar" [fullScreen]="true" appendTo="body" [autoZIndex]="false">
+  <div class="edit-recipe-sidebar-header">
+    <!--{360.admin.upsert.add_company}=Add Company-->
+    <h4 class="text-ellipsis gs-p-sidebar__title">{{upsertInfo.data["Name"] || '360.admin.upsert.add_company' | transloco}}</h4>
+    <div class="recipe-steps">
+      <mat-horizontal-stepper (selectionChange)="selectionChanged()" [selectedIndex]="selectedStep" linear #stepper>
+        <ng-container *ngFor="let step of stepLabels; let i = index">
+          <mat-step [stepControl]="formsInfo[i].formGroup" [label]="step">
+            <form [formGroup]="formsInfo[i].formGroup" gsSpinner [nzSize]="'xl'" [show]="loading"
+              class="mat-horizontal-stepper-content-ctnr gs-record-editor">
+              <ng-container *ngFor="let control of formsInfo[i].fields">
+                <gs-field-editor *ngIf="!['IMAGE'].includes(control.dataType)"
+                  [class.editor__full-width]="control.label === 'Name' || control.dataType === 'RICHTEXTAREA'"
+                  class="editor" (updateCurrencyIsoCode)="onCurrencyCodeUpdated($event)"
+                  (picklistUpdated)="onPicklistUpdated($event)" [currencyIsoCode]="currencyCode"
+                  [schema]="upsertInfo.schema" [parentFormGroup]="formsInfo[i].formGroup" [errors]="formsInfo[i].errors"
+                  [field]="control" isInlineEdit="false"></gs-field-editor>
+              </ng-container>
+            </form>
+            <div class="mat-horizontal-stepper-footer gs-stepper-footer">
+              <div class="gs-stepper-footer__content">
+                <div class="gs-stepper-footer__left">
+                  <button *ngIf="i!==0" matStepperPrevious mat-stroked-button
+                    color="primary">{{'360.upsert_comp.backBtn'| transloco}}</button>
+                </div>
+                <div class="gs-stepper-footer__right">
+                  <button mat-stroked-button (click)="onCancelClick()" color="primary">{{'360.upsert_comp.cancelBtn'|
+                    transloco}}</button>
+                  <button matStepperNext mat-raised-button color="primary"
+                    (click)="onNextClick($event, i)">{{currentNextLabel}}</button>
+                </div>
+              </div>
+            </div>
+          </mat-step>
+        </ng-container>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</p-sidebar>

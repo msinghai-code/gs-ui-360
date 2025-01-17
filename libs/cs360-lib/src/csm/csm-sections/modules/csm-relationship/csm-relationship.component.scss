@@ -1,0 +1,94 @@
+/**
+ created by rpal
+ */
+@import "~@gs/design-tokens/scss/border";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+//hack for operators icon fix till reporting people find a way to fix it
+::ng-deep{
+  .gs-grid-filter-select__opt-icon {
+    height: 16px;
+    width: 25px;
+    background: url("../../../../../assets/images/operators.svg") no-repeat 0 0 !important;
+    vertical-align: middle;
+    $optionsMap: (
+            (
+                    "EQ": (
+                            position: -3px -45px
+                    ),
+                    "NE": (
+                            position: -3px -70px
+                    ),
+                    "IS_NULL":(
+                            position: -3px -166px
+                    ),
+                    "IS_NOT_NULL": (
+                            position: -3px -142px
+                    ),
+                    "CONTAINS": (
+                            position: -4px -286px
+                    ),
+                    "DOES_NOT_CONTAINS": (
+                            position: -2px -310px
+                    ),
+                    "STARTS_WITH": (
+                            position: -3px -238px
+                    ),
+                    "ENDS_WITH": (
+                            position: -3px -261px
+                    ),
+                    "GTE": (
+                            position: -3px -21px
+                    ),
+                    "LTE": (
+                            position: -3px 0
+                    ),
+                    "LT": (
+                            position: -3px -117px
+                    ),
+                    "GT": (
+                            position: -3px -94px
+                    ),
+                    "IN": (
+                            position: -1px -189px
+                    ),
+                    "NOT_IN": (
+                            position: 0 -214px
+                    ),
+            )
+    );
+    @each $value, $map in $optionsMap {
+      &.#{$value} {
+        background-position: map-get($map, position) !important;
+      }
+    }
+  }
+}
+
+.gs-csm-relationship-main360 {
+        box-shadow: 0 1px 3px 0 rgba(25, 35, 47, 0.12), 0 0 1px 0 rgba(25, 35, 47, 0.24);
+}
+
+.gs-csm-relationship {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+//   box-shadow: 0 1px 3px 0 rgba(25, 35, 47, 0.12), 0 0 1px 0 rgba(25, 35, 47, 0.24);
+  background-color: #ffffff;
+  &__left {
+    min-width: 28rem;
+    width: 28rem;
+    border-right: 1px solid #d5dee8;
+  }
+  &__right {
+    //flex-grow: 1; It is not working.
+    width: calc(100% - 28rem);
+  }
+  &__right-mini360 {
+        width: 100%;
+  }
+}

@@ -1,0 +1,7 @@
+<ng-container *ngIf="isR360Enabled; then r360rollout else c360rollout"></ng-container>
+<ng-template #c360rollout>
+    <gs-rollout-notification></gs-rollout-notification>
+</ng-template>
+<ng-template #r360rollout>
+    <gs-rollout-notification-r360></gs-rollout-notification-r360>
+</ng-template>

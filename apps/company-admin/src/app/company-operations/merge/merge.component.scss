@@ -1,0 +1,148 @@
+@import '~@angular/material/theming';
+@import '~@gs/core/assets/scss/core/variables';
+@import "~@gs/core/assets/scss/components/material/formelements-h2";
+
+:host {
+    height: 100%;
+}
+
+.gs-company-merge-module{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.gs-template{
+  &__inner-content{
+    display: flex;
+    height: 100%;
+  }
+
+  &__stepper-content{
+    width: 15%;
+
+    ::ng-deep {
+      .gs-vertical-stepper {
+        .ui-steps {
+          font-family: mat-font-family($gs-typography-config);
+          font-size: 14px;
+
+          ul {
+            display: flex;
+            flex-direction: column;
+            margin-top: 3.2rem;
+          }
+
+          &:before {
+            border-top: none
+          }
+
+          .ui-state-highlight, .ui-state-default {
+            border: none
+          }
+
+          .ui-menuitem-link {
+            padding: 0 0 2.8rem 0;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+
+            .ui-steps-title {
+              padding-left: 0.8rem;
+              margin-top: 0;
+              display: block;
+              width: 12rem;
+              text-align: left;
+            }
+
+            .ui-steps-number {
+              top: 0;
+              margin-bottom: 0;
+              font-size: 1.4rem;
+              line-height: 2.8rem;
+              border-color: $gs-row-separator;
+
+              &:before {
+                content: "";
+                width: 0.2rem;
+                height: 2rem;
+                border: 1px solid $gs-row-separator;
+                position: absolute;
+                top: 27px;
+                left: 12px;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+              }
+            }
+          }
+
+          .ui-state-highlight .ui-steps-number {
+            border: none;
+
+            &:before {
+              border: 1px solid $gs-primary-color;
+              top: 28px;
+              left: 13px;
+            }
+          }
+
+          .ui-state-complete .ui-steps-number {
+            border: none;
+            background-color: $gs-success-color;
+            color: $gs-white-color;
+
+            &:before {
+              border: 1px solid $gs-success-color;
+              top: 28px;
+              left: 13px;
+            }
+
+            &:after {
+              content: "\e5ca";
+              font-family: 'Material Icons';
+              width: 2.8rem;
+              height: 2.8rem;
+              background: $gs-success-color;
+              border-radius: 50%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              font-size: 1.4rem;
+              line-height: 2.8rem;
+              color: $gs-white-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__content-wrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width : 85%;
+  }
+
+  &__router{
+    height: calc(100% - 5.6rem);
+  }
+
+  &__body{
+    border-radius: 0;
+    margin: 2rem 0 2rem 0;
+  }
+}
+
+.gs-module-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2.4rem;
+    height: 5.6rem;
+    align-items: center;
+}
+
+
+

@@ -1,0 +1,39 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.relationship-configuration {
+  &__title {
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.8rem;
+    font-size: 1.6rem;
+    text-overflow: ellipsis;
+    padding-top: 0.5rem;
+    // taken from prod
+    padding-left: 1.8rem;
+  }
+ 
+  &__steps {
+    ::ng-deep {
+      .ant-steps {
+        width: 28rem;
+      }
+    }
+  }
+  &__step-content {
+    height: 100%;
+  }
+}
+
+::ng-deep {
+  .relationship-configuration-modal {
+    .ant-modal-header {
+      padding: $space-base 0px $space-base 0px;
+      border-bottom: 1px solid $rich-gray-40;
+    }
+  }
+}
+
+
+
+

@@ -1,0 +1,6 @@
+<div cdkDropList class="gs-list-item-sort" (cdkDropListDropped)="drop($event)">
+  <div class="gs-list-item-sort__item" *ngFor="let item of items" cdkDrag>
+      <i nz-icon nzType="drag" nzTheme="general" nzSize="24"></i>
+    <span>{{item?.name}}</span>
+  </div>
+</div>

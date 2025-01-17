@@ -1,0 +1,20 @@
+<div class="{{isCsm?'report-widget-wrapper':''}}" #reportHostElem *ngIf="renderReport; else nonrenderplaceholder">
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="!isCsm">
+    <div fxLayout="column" fxLayoutAlign="center center" fxFill class="position-relative chart-skeleton chart-skeleton-{{ (widgetItem.visualizationType || widgetItem.config.visualizationType) | lowercase | charticon }}">
+        <div class="light-grey-bg-full" *ngIf="(!widgetItem.isLoading && !widgetItem?.config?.filterField) && allowConfigure">
+            <!--{360.report_config}=Configure-->
+            <button nz-button nzType="primary" nzSize="small" (click)="onConfigureClick($event)">
+                <i nz-icon nzType="settings" nzTheme="outline" [nzSize]="14"></i>
+                {{'360.report_config'| transloco}}
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Show no render placeholder -->
+<ng-template #nonrenderplaceholder>
+    <div class="{{isCsm?'report-widget-wrapper no-render':''}}">
+        <nz-result nzStatus="warning" [nzSubTitle]="error?.message"></nz-result>
+    </div>
+</ng-template>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="!isPreviewSection else empty">
+    <ng-container *ngIf="!isLoading">
+        <ax-lazy-element *axLazyElementDynamic="elementTag,url:url" [options]="moduleConfig"
+        [widgetItem]="widgetItem">
+        </ax-lazy-element>
+    </ng-container>
+</ng-container>
+
+<ng-template #empty>
+    <span class="heading">{{widgetItem?.label}}</span>
+    <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+        <div class="section-configuration-wrapper__empty cols-{{widgetItem.cols}} rows-{{widgetItem.rows}}">
+        </div>
+    </div>
+</ng-template>

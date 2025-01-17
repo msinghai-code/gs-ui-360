@@ -1,0 +1,156 @@
+@import "~@gs/ng-horizon/style/scss/_horizon_colors";
+@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+/* p-dropdown module append to body styles */
+.gs-ui-dropdown-panel-on-body {
+  //width: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  z-index: 9999 !important;
+  background-color: $rich-gray-0;
+
+  .ui-dropdown-list {
+    padding: 0;
+
+    li {
+      //color: $text-color;
+      margin: 0;
+      padding: 0 1.5rem;
+      line-height: 3.2rem;
+      border-radius: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.ui-state-highlight, &:hover:not(.ui-state-highlight) {
+        color: inherit;
+        background-color: $royal-blue-70-primary;
+      }
+    }
+  }
+
+  .ui-dropdown-filter-container {
+    .ui-dropdown-filter {
+      //color: $text-color;
+    }
+  }
+
+  .ui-dropdown-filter {
+    width: 100%;
+    height: 3.2rem;
+    border: 1px solid $border-color-base;
+    padding: 0 2.5rem 0 1rem;
+    font-size: 1.4rem;
+    border-radius: 3px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: $royal-blue-70-primary;
+    }
+  }
+  .ui-inputtext {
+    //color: $text-color;
+  }
+  .ui-inputtext{
+    &.ui-state-focus, &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.gs-section {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color-base;
+
+    &__label {
+      //color: $text-color;
+      font-size: 1.3rem;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+
+      button {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+
+:host {
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.gs-action-header-col {
+  margin-right: 2.4rem;
+}
+
+.gs-action-header-desc-col {
+  width: 54.4rem;
+
+  ::ng-deep {
+    .mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-infix {
+      padding: 0.35rem 0;
+    }
+  }
+}
+
+.gs-action-header__column {
+  display: inline-block;
+
+  .gs-input-label {
+    font-size: 1.2rem;
+    display: flex;
+    column-gap: 6px;
+    align-items: center;
+    .info-icon {
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+      color: transparent;
+    }
+  }
+  .ant-checkbox-wrapper {
+    line-height: 1.71;
+    margin-top: 4px;
+  }
+}
+
+.gs-low-volume-text {
+  font-size: 1.2rem;
+  color: #BC8029;
+  margin: -0.8rem 0 1.4rem 0;
+}
+
+.gs-action__description {
+  font-size: 1.3rem;
+}
+
+nz-form-item {
+  width: 100%;
+}
+
+nz-select {
+  width: 26rem;
+  margin-right: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.gs-action-header__currency-code-info {
+  margin-top: 0.25rem;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #7596b7;
+}

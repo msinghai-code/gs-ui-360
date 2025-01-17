@@ -1,0 +1,203 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+
+/* ============ Vendor files ====== */
+@import '~material-design-icons/iconfont/material-icons.css';
+// @import '~quill/dist/quill.core.css';
+// @import '~quill/dist/quill.snow.css';
+@import "~primeng/resources/primeng.min.css";
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
+
+/* core variables */
+$imagesAssetPath: "~@gs/core/assets/images";
+$fonts_dir : "~@gs/core/assets/fonts/";
+$font_icons_dir: "~@gs/core/assets/font-gs-icons/";
+$icomoon-font-path: "~@gs/core/assets/fonts/report-viewer";
+/* core fonts */
+// @import "~@gs/core/assets/fonts/Roboto/Roboto.scss";
+
+/* core assets */
+@import '~@gs/core/assets/gsTheme';
+//@import '~@gs/core/assets/scss/core/variables';
+// @import "~@gs/core/assets/scss/components/gainsight/in-app-sally";
+
+@import '~@gs/core/assets/gsTheme-h2';
+@import "~@gs/core/assets/scss/horizon2.1/core/default-imports";
+
+// @import "~@gs/core/assets/scss/components/gainsight/tree-field";
+
+@import "~@ag-grid-community/core/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-balham.css";
+@import "~@ag-grid-community/core/dist/styles/ag-theme-material.css";
+
+@import "~@gs/core/assets/font-gs-icons/gs-icons";
+@import "~@gs/core/assets/font-gs-icons/operators/gs-icons-operator";
+@import "~@gs/core/assets/fonts/report-viewer/gs-icons-rprt";
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.4rem;
+  margin: 0;
+  background: $gs-material-bg-color;
+  font-family: mat-font-family($gs-typography-config);
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.gainsight-app {
+    height: 100vh;
+  }
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.module-body {
+  overflow-y: auto;
+  height: 100%;
+  flex: 1;
+}
+@import "~@gs/core/assets/scss/horizon2.1/core/common";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/chips";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/checkbox";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/radiobutton";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/formelements";
+@import "~@gs/core/assets/scss/horizon2.1/components/primeng/sidebar";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/gs-wizard";
+@import "~@gs/gdk/core/style/index.scss";
+@import "~@gs/gdk/field-tree/style/index.scss";
+@import "~@gs/gdk/field-chooser/style/index.scss";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/dialog";
+@import "~@gs/core/assets/scss/horizon2.1/components/material/expansion-panel";
+@import "~@gs/core/src/shared/assets/scss/components/primeng/tab-sidebar";
+@import "~@gs/core/src/shared/assets/scss/components/common/popover-menu";
+// @import "../assets/scss/module-vendor-overrides";
+@import "~@gs/core/src/shared/assets/scss/components/placeholder-loading/placeholder-loading";
+
+
+.cdk-overlay-container {
+  z-index: 1400 !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  .mat-form-field-underline {
+    min-height: 3.2rem;
+  }
+}
+//.gs-dashboard-listing-addFolder-dialog {
+//  mat-card-actions.mat-card-actions {
+//    padding: 1.6rem !important;
+//    .mat-button {
+//      margin: 0 0 0 1.6rem;
+//    }
+//  }
+//  .mat-form-field-wrapper {
+//    padding-bottom: 1.35rem;
+//  }
+//}
+
+
+.ui-autocomplete-items {
+  background: white;
+  width: 40rem;
+}
+
+.ui-autocomplete-panel .ui-autocomplete-list-item {
+  padding : 1rem;
+}
+
+.ui-sidebar-close {
+  right : 20px !important;
+  top: 10px !important;
+}
+
+.mat-autocomplete-panel{
+  width : 38rem !important
+}
+
+.mat-stroked-button[data-icon]{
+  background-color: background-color(primary-tint-4);
+  border: 1px solid border-color(primary-tint-1);
+  display: inline-flex;
+  align-items: center;
+  height: 2.8rem;
+  line-height: 2rem;
+  padding-left: 0.6rem;
+  min-width: 0;
+
+  &:hover {
+    background-color: background-color(primary-tint-2);
+  }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  &[disabled] {
+    background-color: background-color(disabled);
+    border: none;
+    color: text-color(disabled);
+  }
+}
+
+.mat-tooltip {
+  //background-color: background-color(tooltip);
+  //color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  border-color: transparent;
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper {
+  position: fixed !important;
+  z-index: 1302 !important;
+  background: rgba(255,255,255,0.6) !important;
+}
+
+.gs-loader-vertical-bar-skeleton {
+  background-image: url("~@gs/core/src/shared/assets/images/loader-vertical-bar-skeleton.svg");
+}
+
+.gs-loader-vertical-bar-skeleton-wrapper-opacity {
+  background: rgba(255,255,255,0.6) !important;
+}
+
+.ant-tabs-nav {
+  margin-left: 1.4rem;
+}
+
+.ant-tabs-nav .ant-tabs-tab {
+  margin: 0 2rem 0.5rem 0;
+}
+
+.company-rules-actions-app,
+.cdk-overlay-container {
+  @import "../assets/common-overrides";
+  @import "~@gs/core/assets/scss/core/breakpoints"; // $desktop
+  @import "~@gs/gdk/core/style/index.scss";
+  @import "~@gs/gdk/field-tree/style/index.scss";
+  @import "~@gs/gdk/field-chooser/style/index.scss";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/formelements";
+  @import "~@gs/core/assets/scss/horizon2.1/components/material/buttons";
+  @import "~@gs/core/assets/scss/horizon2.1/components/common-vendor/ng-select";
+
+
+  .ant-select-dropdown {
+    top: 100%;
+    left: 0;
+    position: relative;
+    width: 100%;
+  }
+}

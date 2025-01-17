@@ -1,0 +1,234 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+.field-selector {
+    ::ng-deep{
+        .ant-modal-close{
+            right: $space-xlarge;
+        }
+    }
+
+    border-radius: 0.3rem;
+    border: 1px solid #e3eaf1;
+    border-top: none;
+    .tree {
+        background: $rich-gray-0;
+        padding: 1.2rem 0 0 1rem;
+        .tree-wrapper {
+            height: calc(100% - 5.5rem);
+          ::ng-deep {
+            .ant-input-clear-icon{
+              svg{
+                padding: 2px;
+                height: 20px;
+                width: 20px;
+                color: #3e5872;
+              }
+            }
+          }
+        }
+        &__header {
+            padding-left: 1rem;
+          h6 {
+            padding-bottom: .5rem;
+          }
+            &__info {
+                color: $rich-gray-60;
+            }
+        }
+    }
+    .fields {
+        background-color: #f8f9fa;
+        border-left: 1px solid #e3eaf1;
+        &__list {
+            height: 100%;
+            &__info {
+                margin: 6rem 3rem 1.4rem 0;
+                color: $rich-gray-60;
+            }
+            &__clear {
+                margin: 5.5rem 0rem 0.2rem 0;
+            }
+            &__chart-view {
+                border: 1px solid $rich-gray-50;
+                height: auto;
+                width: 85%;
+                padding: 4rem;
+            }
+            &__list-view {
+                overflow-x: hidden;
+                height: calc(100% - 5rem);
+                width: 100%;
+                display: flex;
+                margin-bottom: 1rem;
+                justify-content: center;
+                .field-card-wrapper {
+                    width: 40%;
+                    height: 100%;
+                }
+                .fields__body__card__solid {
+                    cursor: move;
+                }
+            }
+        }
+        &__body {
+            padding: 1rem;
+            border-top: 1px solid #e3eaf1;
+            background-color: #e3eaf1;
+            overflow-y: auto;
+            .empty-msg {
+                padding: 2rem;
+            }
+            &__card {
+                margin: 1.6rem 0.2rem 0 0.2rem;
+                height: 4.8rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 3px;
+                padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+                &__solid {
+                    background-color: #ffffff;
+                    box-shadow: 0 1px 10px 0 rgba(25, 35, 47, 0.12), 0 0 1px 0 rgba(25, 35, 47, 0.16);
+                }
+                &__empty {
+                    background-color: $rich-gray-20;
+                    border: 1.5px dashed $rich-gray-50;
+                }
+                &__label {
+                    border-radius: 0.3rem;
+                    span {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        width: calc(100% - 3rem) !important;
+                        padding-left: 0.5rem;
+                        margin-bottom: 0 !important;
+                    }
+                    &.configurable {
+                        &:hover {
+                            background-color: $rich-gray-30;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                i {
+                    color: #7596b7;
+                    font-size: 1.8rem;
+                    padding-right: 1rem; 
+                }
+                &__settings {
+                    &:hover {
+                        cursor: pointer;
+                    }   
+                }
+            }
+        }
+    }
+    &__empty {
+        &--img {
+          background: url('../../../../../../assets/images/zero-state.svg') no-repeat
+            center;
+          background-size: 20rem;
+          display: block;
+          min-height: 10rem;
+        }
+        &--description {
+          color: $rich-gray-60;
+          font-size: 16px;
+          text-align: center;
+        }
+      }
+}
+
+.cdk-drop-list-dragging {
+    border: 1px solid $royal-blue-70;
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(3, 105, 233, 0.08);
+    }
+}
+
+.cdk-drag-preview {
+    width: 30% !important;
+    height: 4rem !important;
+    padding: 1rem;
+    .fields__body__card {
+        width: 100%;
+    }
+    i {
+        display: none;
+    }
+}
+
+.card-preview {
+    background-color: $rich-gray-0;
+    padding: 2.4rem 4rem 2.4rem 4rem;
+    &__header {
+        margin: 3rem 0 1.4rem 0;
+    }
+    &__card {
+        border-radius: 0.4rem;
+        min-height: 16rem;
+        min-width: 16rem;
+        max-width: 20rem;
+        background-color: $rich-gray-0;
+        padding: 1.6rem;
+        border: 1px solid $rich-gray-40;
+        &__currency {
+            padding: 1rem 0rem;
+            &__label {
+                background-color: $rich-gray-10;
+            }
+            span {
+                border: 1px solid $rich-gray-40;
+                border-radius: 0.4rem;
+                padding: 0.4rem;
+            }
+        }
+        &__currentscore {
+            width: 5rem;
+            height: 2.4rem;
+            display: flex;
+            align-items: center;
+            place-content: center;
+            column-gap: 0.5rem;
+            border-radius: 1.2rem;
+            padding: 0rem 0.5rem;
+            background-color: $fresh-green-50;
+            span {
+                color: $rich-gray-0;
+            }
+            &__icon {
+                width: 2rem;
+                height: 2rem;
+                background: url('../../../../../../assets/images/chevron-filled-down.svg') no-repeat center;
+                content: none;
+            }
+        }
+    }
+    &__info {
+        min-width: 16rem;
+        max-width: 20rem;
+        color: $rich-gray-60;
+    }
+}
+//.field-selector {
+//  ::ng-deep {
+//    .ui-tree .ui-treenode.ui-treenode-childen>.ui-treenode-content>.ui-tree-toggler {
+//      visibility: hidden;
+//    }
+//  }
+//}
+

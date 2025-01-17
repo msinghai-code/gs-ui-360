@@ -1,0 +1,13 @@
+<div class="company-rules-actions-app" fxFill>
+    <ng-container *ngIf="isReady$ | async">
+        <gs-rule-action [actionDetails]="actionDetails"
+        [ruleDetails]="ruleDetails"
+        [actionSource]="actionSource"
+        [targetConfig]="targetConfig"
+        [sourceConfig]="sourceConfig"
+        [config]="config"
+        [source]="source"
+        [previewMode]="previewMode">
+        </gs-rule-action>
+    </ng-container>
+</div>

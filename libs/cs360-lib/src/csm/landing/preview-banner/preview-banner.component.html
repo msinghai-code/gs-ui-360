@@ -1,0 +1,23 @@
+<section class="gs-preview-banner">
+  <div class="gs-preview-banner__left">
+    <div class="back-arrow">
+      <i nz-icon nzType="arrow-left" (click)="close()"></i>
+    </div>
+    <div class="preview-title-name-wrapper">
+      <div class="preview-title-name-wrapper__sub-title" nz-text nzType="small" (click)="close()" nzColor="secondary">
+        {{isStandardPage || isPartnerPage ? sectionLabel  : '360.csm.preview_banner.configure_sections' | transloco}}</div>
+      <div class="preview-title-name-wrapper__title" nz-title>{{layoutData?.layout.name}}
+        {{'360.csm.preview_banner.preview' | transloco}}</div>
+    </div>
+  </div>
+  <div class="gs-preview-banner__right">
+    <span>{{'360.csm.preview_banner.previewing' | transloco}}:</span>
+    <nz-select nzShowSearch nzAllowClear class="select-company-dropdown" [(ngModel)]="recordDropdown.selectedRecord"
+      nzPlaceHolder="{{'360.admin.layout_preview.select_record'| transloco}}" nzServerSearch="true"
+      [nzLoading]="recordDropdown.loading" (nzOnSearch)="searchItemsForPreview($event)"
+      (nzOpenChange)="onItemDropdownOpen()" (ngModelChange)="onValueSelectedItemChange($event)">
+      <nz-option [nzValue]="item.Gsid" [nzLabel]="item.Name" *ngFor="let item of recordDropdown.options">
+      </nz-option>
+    </nz-select>
+  </div>
+</section>

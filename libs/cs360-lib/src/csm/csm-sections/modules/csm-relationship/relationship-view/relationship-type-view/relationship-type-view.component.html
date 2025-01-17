@@ -1,0 +1,34 @@
+<section class="gs-csm-relationship-type-view" *ngIf="viewsConfigured else empty">
+  <!-- Summary Ribbon View -->
+  <div [ngClass]="{'gs-csm-relationship-type-view__ribbon-mini360' : isMini360, 'gs-csm-relationship-type-view__ribbon': !isMini360}" *ngIf="options.ribbon">
+    <gs-relationship-summary-ribbon-view #summaryribbon [configs]="options.ribbon"></gs-relationship-summary-ribbon-view>
+  </div>
+  <!-- LIST or CARD View -->
+  <div class="gs-csm-relationship-type-view__view {{view?.toLowerCase()+'-view'}}" [ngSwitch]="view">
+    <ng-container *ngSwitchCase="'LIST'">
+      <gs-relationship-list-view #listview
+                                 *ngIf="options.list"
+                                 [configs]="options.list"
+                                 [options]="config"
+                                 (action)="onAction($event)">
+      </gs-relationship-list-view>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CARD'">
+      <gs-relationship-card #cardview
+                            *ngIf="options.card"
+                            [configs]="options.card"
+                            [options]="config"
+                            (action)="onAction($event)">
+      </gs-relationship-card>
+    </ng-container>
+  </div>
+</section>
+<ng-template #empty>
+  <div class="gs-csm-relationship-type-view__empty">
+    <nz-empty [nzNotFoundContent]="contentTpl">
+      <ng-template #contentTpl>
+        {{'360.csm.rel_type_view.noView'| transloco}}
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>

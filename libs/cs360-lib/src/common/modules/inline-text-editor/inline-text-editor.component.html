@@ -1,0 +1,20 @@
+<div class="gs-inline-text-editor">
+  <div class="gs-inline-text-editor--label" *ngIf="!editable else editableInput" (click)="onEdit($event)">
+    <label class="gs-inline-text-editor--label-text" nz-tooltip [nzTooltipTitle]="item?.tooltip || label?.value">{{label?.value}}</label>
+  </div>
+</div>
+<ng-template #editableInput>
+  <div class="gridster-item-content">
+    <nz-form-control [nzSpan]="null">
+      <input #input class="gs-inline-text-editor--input"
+             nz-input
+             [formControl]="label"
+             placeholder="{{'360.admin.inline_text_editor.placeholder' | transloco}}"
+             type="text"
+             maxLength="90"
+             (blur)="onBlur($event)"
+             (keydown.enter)="onBlur($event)"
+             (keydown.esc)="onEsc($event)">
+    </nz-form-control>
+  </div>
+</ng-template>

@@ -1,0 +1,141 @@
+export namespace FilterMap {
+    export const systemToPrimitiveDatatypeFilterableMap = {
+        "STRING" : true,
+        'INTEGER': true,
+        "NUMBER" : true,
+        "LONG": true,
+        "DOUBLE": true,
+        "CURRENCY" : true,
+        "TEXT"  : true,
+        "PICKLIST" : false,
+        "BOOLEAN" : false,
+        "RICHTEXTAREA" : false,
+        "GSID" : true,
+        "DATE" : true,
+        "DATETIME" : true,
+        "TIMESTAMP" : true,
+        "PERCENTAGE" : true,
+        "LOOKUP" : true,
+        "URL": true,
+        "SFDCID": true,
+        "MULTISELECTDROPDOWNLIST": false,
+        "EMAIL" : true,
+        "WHOID" : false,
+        "WHATID" : false,
+        "CONTEXT" : false,
+        "JSON": false
+    };
+
+    export const ENABLE_SUMMARIZE_BY_COLUMN_FILTER = ['DAY'];
+
+    export const OperatorMap = {
+        "EQUALS": "EQ",
+        "NOTEQUAL": "NE",
+        "ISNULL": "IS_NULL",
+        "ISNOTNULL": "IS_NOT_NULL",
+        "GREATERTHANOREQUAL": "GTE",
+        "GREATERTHAN": "GT",
+        "LESSTHANOREQUAL": "LTE",
+        "LESSTHAN": "LT",
+        "STARTSWITH": "STARTS_WITH",
+        "ENDSWITH": "ENDS_WITH",
+        "NOTCONTAIN": "DOES_NOT_CONTAINS",
+        "CONTAINS": "CONTAINS"
+    };
+
+    export const DEFAULT_SORT_ORDER_BY_DTS = {
+        "BOOLEAN": "ASC",
+        "NUMBER": "DESC",
+        "STRING": "ASC",
+        "INTEGER": "DESC",
+        "DATE": "DESC",
+        "DATETIME": "DESC",
+        "PICKLIST": "ASC",
+        "CURRENCY": "DESC",
+        "PERCENTAGE": "DESC",
+        "PERCENT": "DESC",
+        "EMAIL": "ASC",
+        "SFDCID": "ASC",
+        "URL":"ASC",
+        "GSID":"ASC",
+        "MULTISELECTDROPDOWNLIST": "ASC",
+        "LOOKUP": "ASC",
+        "JSON": "ASC"
+    };
+
+    export const systemToPrimitiveDatatypeSortableMap = {
+        "STRING" : true,
+        "NUMBER" : true,
+        "INTEGER" : true,
+        "LONG": true,
+        "DOUBLE": true,
+        "CURRENCY" : true,
+        "TEXT"  : true,
+        "PICKLIST" : true,
+        "BOOLEAN" : true,
+        "TEXTAREA" : false,
+        "RICHTEXTAREA" : false,
+        "GSID" : true,
+        "DATE" : true,
+        "DATETIME" : true,
+        "TIMESTAMP" : true,
+        "PERCENTAGE" : true,
+        "LOOKUP" : true,
+        "URL": true,
+        "SFDCID": true,
+        "MULTISELECTDROPDOWNLIST": false,
+        "EMAIL" : true,
+        "WHOID" : false,
+        "WHATID" : false,
+        "CONTEXT" : false,
+        "JSON": false
+    };
+
+    export const systemToPrimitiveDatatypeMap = {
+        "STRING" : "string",
+        "NUMBER" : "number",
+        "INTEGER": "number",
+        "LONG": "number",
+        "DOUBLE": "number",
+        "CURRENCY" : "currency",
+        "TEXT"  : "string",
+        "PICKLIST" : "string",
+        "BOOLEAN" : "boolean",
+        "RICHTEXTAREA" : "richtextarea",
+        "TEXTAREA": 'textarea',
+        "GSID" : "string",
+        "DATE" : "date",
+        "DATETIME" : "datetime",
+        "TIMESTAMP" : "datetime",
+        "PERCENTAGE" : "percentage",
+        "LOOKUP" : "string",
+        "URL":"url",
+        "SFDCID":"string",
+        "MULTISELECTDROPDOWNLIST":"string",
+        "EMAIL" : "string",
+        "WHOID" : "string",
+        "WHATID" : "string",
+        "CONTEXT" : "string",
+        "JSON": "string"
+    };
+
+    export const DEFAULT_SORTING_ORDER_BY_DTS = {
+        "BOOLEAN": ["asc", "desc"],
+        "NUMBER": ["desc", "asc"],
+        "STRING": ["asc", "desc"],
+        "INTEGER": ["desc", "asc"],
+        "DATE": ["desc", "asc"],
+        "DATETIME": ["desc", "asc"],
+        "PICKLIST": ["asc", "desc"],
+        "CURRENCY": ["desc", "asc"],
+        "PERCENTAGE": ["desc", "asc"],
+        "PERCENT": ["desc", "asc"],
+        "EMAIL": ["asc", "desc"],
+        "SFDCID": ["asc", "desc"],
+        "URL": ["asc", "desc"],
+        "GSID": ["asc", "desc"],
+        "MULTISELECTDROPDOWNLIST": ["asc", "desc"],
+        "LOOKUP": ["asc", "desc"],
+        "JSON": ["asc", "desc"]
+    }
+}

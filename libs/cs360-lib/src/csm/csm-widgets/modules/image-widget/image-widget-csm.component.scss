@@ -1,0 +1,97 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  max-height: 100%;
+}
+
+.image-upload-default {
+  .Add-Logo {
+    width: 138px;
+    height: 16px;
+    padding-top: 0.85rem;
+    margin: 0 0 4px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: var(--color-grey-800);
+  }
+  .Companys-logo-can-b {
+    width: 138px;
+    height: 32px;
+    padding-top: 0.75rem;
+    margin: 4px 0 6px 20px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #7596b7;
+  }
+
+  .upload-img {
+    background: url("../../../../../assets/images/widget-icons/save-to-cloud.svg")
+      no-repeat center;
+    height: 5rem;
+    width: 3.2rem;
+  }
+  ::ng-deep{
+    .ant-drawer-title{
+    line-height: 14px !important;
+  }
+}
+}
+
+::ng-deep {
+  .vertical-center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ant-modal{
+      top: 0;
+    }
+}
+}
+.image-dropdown{
+  list-style: none !important;
+}
+
+
+.lock-icon{
+  padding: 8px;
+  color: $pumpkin-orange-90;
+  background: $pumpkin-orange-30;
+  border-radius: 50%;
+  height: auto;
+}
+
+.subtitle_lock{
+  color: $rich-gray-50;
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.header_lock{
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+}
+
+.masked_widget{
+  cursor: url('../../../../../assets/images/not-allowed-cursor.svg'), no-drop;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-image-visible{
+  display: block !important;
+}
+
+.image-widget-default-new {
+  background: url("@gs/cs360-lib/assets/images/widget-icons/widget-image.png") no-repeat center;
+  align-self: stretch;
+  background-size: contain;
+  width: 50%;
+}
+

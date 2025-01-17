@@ -1,0 +1,30 @@
+<div fxLayout="column" fxFill>
+    <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+
+        <!-- LABEL -->
+        <nz-form-item>
+            <nz-form-label nzRequired nzFor="label">{{'360.admin.image_widget_settings.widget_name' | transloco}}</nz-form-label>
+            <nz-form-control [nzSpan]="null" [nzErrorTip]="errorTpl">
+                <input autocomplete="off" autofocus nz-input formControlName=label name="label">
+                <ng-template #errorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">{{'360.admin.field_config.field_left_blank' | transloco}}</ng-container>
+                    <ng-container *ngIf="control.hasError('maxlength')">{{'360.admin.field_config.field_maximum_characters' |  transloco}}</ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+
+
+        <!-- FIELD -->
+        <nz-form-item>
+            <!--{360.admin.original_contract_date_settings.select_date_field} = Select Date Field-->
+             <!--{360.admin.original_contract_date_settings.select_date_field_error} = Please select a field!-->
+            <nz-form-label nzRequired nzFor="config">{{'360.admin.original_contract_date_settings.select_date_field' |  transloco}}</nz-form-label>
+            <nz-form-control fxFill>
+                <nz-select nzErrorTip="'360.admin.original_contract_date_settings.select_date_field_error' |  transloco" [nzDisabled]="loading" formControlName="config" [nzLoading]="loading">
+                    <nz-option *ngFor="let field of options" [nzValue]="field.fieldName" [nzLabel]="field.label"></nz-option>
+                </nz-select>
+
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>

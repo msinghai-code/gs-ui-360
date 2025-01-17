@@ -1,0 +1,19 @@
+@import "~@gs/design-tokens/scss/colors";
+.gs-customer-highlight-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 12px;
+    &__left {
+      &-wrapper {
+        display: flex;
+        align-items: flex-start;
+      }
+      &__title {
+        color: #181f26;
+      }
+      &__icon {
+        margin-left: 5px;
+      }
+    }
+}

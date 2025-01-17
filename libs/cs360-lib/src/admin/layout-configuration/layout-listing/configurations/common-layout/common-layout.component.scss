@@ -1,0 +1,20 @@
+@import "~@gs/design-tokens/scss/colors";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-common-layout-list {
+  height: 100%;
+  width: 100%;
+
+  ::ng-deep {
+    .ag-row {
+      .section-link {
+        color: #0369e9;
+        cursor: pointer;
+      }
+    }
+  }
+}

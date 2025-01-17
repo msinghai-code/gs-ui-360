@@ -1,0 +1,15 @@
+<div class="empty-state" fxLayout="column" fxLayoutAlign="center center" fxFill>
+  <i class="empty-state-img" *ngIf="!showNoSectionsImage else noSections"></i>
+   <!--{360.admin.empty_component.section_configured}=The {{displayLabel}}  Section  is not configured-->
+   <ng-container *transloco="let t; read: '360'">
+  <h5  nz-title *ngIf="section else label">{{t('admin.empty_component.section_configured',{displayLabel: displayLabel})}} </h5>
+</ng-container>
+  <!--{360.admin.empty_component.section_config}=Sections are not configured-->
+  <ng-template #label><h3 class="gs-keygen">{{'360.admin.empty_component.section_config'| transloco}}</h3></ng-template>
+   <!--{360.admin.empty_component.gainsight_assistance}=Contact your Gainsight Admin for further assistance-->
+  <span class="gs-keygen">{{'360.admin.empty_component.gainsight_assistance'| transloco}}</span>
+</div>
+
+<ng-template #noSections>
+  <i class="no-sections-img"></i>
+</ng-template>

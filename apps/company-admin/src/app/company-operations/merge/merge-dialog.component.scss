@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+@import "~@gs/core/assets/scss/horizon2.1/core/variables";
+
+.gs-merge-dailog {
+
+	&__body {
+		&-content {
+            .ant-checkbox-wrapper {
+              display: flex !important;
+              align-items: center;
+            }
+			ul li {
+				padding-bottom: 1rem;
+			}
+			.mat-checkbox-label {
+				line-height: 15px;
+				color: state-color(icon-hover);
+				font-size: 13px;
+			}
+			.mat-checkbox-frame {
+				border-color: border-color(default);
+			}
+			.mat-checkbox-inner-container {
+				padding-right: 0.8rem;
+			}
+		}
+		.gs-merge-warn {
+			color: #F15748;
+      font-size: 1.3rem;
+		}
+	}
+}

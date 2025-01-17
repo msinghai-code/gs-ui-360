@@ -1,0 +1,166 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/spacings";
+
+:host {
+    height: 100%;
+    display: block;
+    overflow: auto;
+}
+.maxWidth {
+    max-width: 100%;
+}
+
+.field_label {
+    color : #3e5872;
+    font-size: 12px;
+    word-break: break-all;
+    font-weight: 600;
+}
+.field_value {
+    font-size: 14px;
+    color: #19232f;
+    
+    padding : 5px 5px;
+}
+.field_value.hover:hover {
+    background-color : #ebf3fe;
+}
+.field_value.cursor {
+    cursor: pointer;
+}
+
+.saving-item {
+    height : 30px; 
+    background-color : #ebf3fe;
+    width : 100%
+}
+
+gs-attribute-field-editor-wrapper {
+    ::ng-deep {
+        > section {
+            width: calc(100% - 20px);
+
+            &.section-wrapper {
+                position: relative;
+            }
+
+            .gs-rte-edit {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+
+.widget_container {
+    &.rte {
+        ::ng-deep {
+            .handle-se{
+                right: 22px;
+                bottom: 24px;
+                background-image: url(../../../../../../assets/images/resize-icon.svg);
+                background-size: cover;
+                background-position: right;
+                border: none;
+                width: 13px;
+                height: 15px;
+                visibility: hidden;
+            }
+
+            .section-wrapper.non-editable {
+                border: 1px solid transparent;
+                border-radius: 4px;
+                height: 100%;
+                transition: all .2s;
+                padding: 0 5px;
+            }
+
+            .gs-rte-edit {
+                transition: all .2s;
+                padding-bottom: 0 !important;
+                &:hover {
+                  margin-left: 0;
+                }
+            }
+        }
+        &.edit {
+            ::ng-deep {
+                .handle-se {
+                    right: 22px !important;
+                    bottom: 86px !important;
+                    background-image: url(../../../../../../assets/images/resize-icon-blue.svg);
+                    visibility: visible;
+                }
+            }
+        }
+        &.editable {
+            ::ng-deep {
+                .handle-se {
+                    right: 21px;
+                    bottom: 24px;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        ::ng-deep {
+            .handle-se{
+                visibility: visible;
+            }
+            .section-wrapper.non-editable {
+                border-color: $rich-gray-50;
+            }
+        }
+    }
+
+    &.edit {
+        ::ng-deep {
+            .rta-editor-wrapper {
+                height: calc(100% - 20px) !important;
+            }
+        }
+    }
+}
+.widget-info{
+   //background: url("../../../../../../assets/images/info.svg") no-repeat center;
+   /*background-size: 14px 26px;
+   height: 1rem;
+   display: inline-flex;
+   width: 1.6rem;*/
+   .anticon-size{
+       vertical-align: text-bottom;
+       margin-left: $space-2xsmall;
+    }
+  }
+
+.gridster-wrapper {
+    ::ng-deep {
+        .preloader-container {
+            background-color: #fff;
+            z-index: 1;
+        }
+    }
+    .attributes-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        >:nth-child(odd) {
+            margin-right: $space-2xlarge;
+        }
+        >:nth-child(even) {
+            margin-right: $space-xlarge;
+        }
+    }
+    .attributes-column {
+        width: 46%; // to match exact spec numbers
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $space-large;
+        &.rte-column {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<div [class.fullScreen]="isFullScreenMode" [class.miniFullScreen]="isFullScreenMode && isMini360" class="tree-wrapper">
+    <div fxLayout="row" class="chart-actions">
+        <span nz-text nzType="small" class="chart-warning" *ngIf="showHierarchyWarning"><div class="chart-warning__info-icon"></div>{{'360.csm.company_hierarchy.hierarchy'| transloco}}</span>
+        <span class="chart-operations">
+            <span (click)="zoomIn()"><i nz-icon nzType="zoom-in" nzSize="24"></i></span>
+            <span (click)="zoomOut()"><i nz-icon nzType="zoom-out" nzSize="24"></i></span>
+            <span class="fit" (click)="zoomFit()"><label nz-text nzType="small" nzColor="secondary">{{'360.csm.company_hierarchy.resetBtn'| transloco}}</label></span>
+            <span (click)="toggleFullScreen()"><i *ngIf="!isFullScreenMode else fullScreenExit" nz-icon nzType="fullscreen"></i></span>
+        </span>
+    </div>
+    <div id="tree" class="tree" #mapRoot>
+    </div>
+</div>
+
+<ng-template #fullScreenExit>
+    <i nz-icon nzType="fullscreen-exit" nzTheme="outline"></i>
+</ng-template>

@@ -1,0 +1,37 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/border";
+@import "~@gs/design-tokens/scss/spacings";
+
+.gs-numeric-score{
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  padding: 0 0.4rem 0 0;
+  align-items: center;
+  &-square {
+    line-height: 1.2rem;
+    min-height: $space-xlarge;
+    min-width: $space-xlarge;
+    background-color: $border-color-base;
+    margin-right: 1px;
+    align-items: center;
+    display: flex;
+    &:first-child{
+      border-radius: $space-small 0 0 $space-small;
+    }
+    &:last-child{
+      border-radius: 0 $space-small $space-small 0;
+    }
+    &:only-child{
+      border-radius: 1.2rem;
+    }
+    &:hover {
+      height: calc(#{$space-xlarge} + 4px);;
+    }
+  }
+
+}
+
+.gs-numeric-score-auto {
+  height: 28px !important;
+}

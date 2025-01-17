@@ -1,0 +1,29 @@
+<section class="gs-global-section-config">
+  <div class="gs-global-section-config__header global-configuration" *ngIf="section.sectionType === 'SUMMARY'">
+    <button nz-button nzType="link" nzShape="round" (click)="showPreview()" [nzLoading]="previewEnabled.loading" [disabled]="!sectionRenderer?.sectionInstance?.configuredWidgets?.length">
+        {{'360.admin.global_section_config.preview'| transloco}}
+    </button>
+  </div>
+  <div class="gs-global-section-config__content">
+    <gs-admin-section-renderer (changes)="sectionEventsHandler($event)" *ngIf="!previewEnabled.status" #sectionRenderer [section]="section">
+    </gs-admin-section-renderer>
+    <gs-summary-preview *ngIf="previewEnabled.status"
+      [section]="previewedSection"
+      [sectionName]="section.label"
+      (actions)="onSummaryActions($event)"
+    ></gs-summary-preview>
+  </div>
+  <div class="gs-global-section-config__footer" *ngIf="showFooter">
+    <ng-container #footerRef></ng-container>
+  </div>
+</section>
+
+<ng-template #defaultFooterRef>
+  <div class="gs-global-section-config-footer__action">
+    <button nz-button nzType="default" (click)="close()"> {{'360.admin.global_section_config.cancel'| transloco}}</button>
+    <button nz-button nzType="primary" (click)="!isSaveIsInProgress?save():''" [nzLoading]="isSaveIsInProgress">
+      {{'360.admin.global_section_config.save'| transloco}}
+    </button>
+  </div>
+</ng-template>
+

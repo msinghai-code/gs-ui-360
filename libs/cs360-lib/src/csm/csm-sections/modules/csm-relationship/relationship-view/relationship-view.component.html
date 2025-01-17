@@ -1,0 +1,139 @@
+<section class="gs-csm-relationship-view" [ngClass]="{'no-padding': !filterView.show, 'gs-csm-relationship-view-mini360': isMini360, 'gs-csm-relationship-view-main360': !isMini360}" gsSpinner [nzSize]="'xl'" [show]="loader">
+  <div class='gs-csm-relationship-view__header'>
+    <div class="gs-csm-relationship-view-header__left" *ngIf="filterView.show">
+
+      <div *ngIf="isMini360">
+        <a
+        nz-dropdown
+        nzTrigger="click"
+        [nzDropdownMenu]="menu"
+      >
+            <h5 nz-title>{{ selectedItemName }}</h5
+        ><i nz-icon nzType="chevron-down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <div class="relationship-ant-dropdown">
+        <div *ngFor="let panel of panels">
+          <ul *ngIf="panel.data.length > 0" nz-menu nzSelectable="true">
+            <li nz-menu-group [nzTitle]="panel.name">
+              <ng-template ngFor let-item [ngForOf]="panel.data" let-i="index">
+                <li nz-menu-item nz-text nzEllipsis [nzSelected]="item === selectedItem" (click)="onItemClick(panel, item, true)">
+                  {{item?.label || item?.name}}
+                </li>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+        </div>
+
+      </nz-dropdown-menu>
+    </div>
+
+      <span *ngIf="!isMini360" class="selected-grid-type" nzType="section" nz-tooltip [nzTooltipTitle]="filterView.config?.type?.name">{{ filterView.config?.type?.label || filterView.config?.type?.name}}</span><br [ngClass]="{'no-break-tag': isMini360}">
+      <span class="filtered" *ngIf="filterView.config.filters?.conditions?.length > 0">{{'360.csm.relationship_view.filteredResult'| transloco}}</span>
+    </div>
+    <div class="gs-csm-relationship-view-header__right" *ngIf="filterView.show">
+      <!--<div class="gs-csm-relationship-view-header__reset-state" nz-tooltip [nzTooltipTitle]="'Clear State'">
+        <button nz-button nzType="link" (click)="onAction('RESET_STATE', $event)">
+          Reset
+        </button>
+      </div> -->
+      <div *ngIf="sortInfo?.show" class="gs-csm-relationship-view-header__sort" nz-tooltip [nzTooltipTitle]="'360.csm.relationship_view.sort'| transloco">
+        <button nz-dropdown
+        nzTrigger="click"
+        [nzDropdownMenu]="sortMenu"
+        [nzOverlayStyle]="{ width: '200px', height: '253px' }" nz-button nzType="link" nzShape="circle">
+          <i nz-icon nzType="sort" nzTheme="outline"></i>
+        </button>
+      </div>
+      <div class="gs-csm-relationship-view-header__filter" nz-tooltip [nzTooltipTitle]="'360.csm.relationship_view.addFilters'| transloco">
+        <button nz-button nzType="link" nzShape="circle" (click)="onAction('OPEN_FILTER', $event)">
+          <nz-badge [nzDot]="filterView.config.filters.conditions?.length > 0">
+            <i nz-icon nzType="filter" nzTheme="outline" nzSize="24"></i>
+          </nz-badge>
+        </button>
+    </div>
+      <div class="gs-csm-relationship-view-header__refresh" nz-tooltip [nzTooltipTitle]="'360.csm.relationship_view.refresh'| transloco">
+        <button nz-button nzType="link" nzShape="circle" (click)="onAction('REFRESH_VIEW', $event)">
+          <i nz-icon nzType="refresh" nzTheme="outline" nzSize="24"></i>
+        </button>
+      </div>
+      <div *ngIf="!isMini360" class="gs-csm-relationship-view-header__view-switcher">
+        <nz-radio-group [ngModel]="filterView.config.selectedView"
+                        (ngModelChange)="onSwitchChange($event)"
+                        [nzButtonStyle]="'switch'"
+                        nzHasIcon="true">
+          <label nz-radio-button nzValue="LIST"><i nz-icon [nzType]="'list-view'" [nzTheme]="'outline'"></i>{{'360.csm.relationship_view.list'| transloco}}</label>
+          <label nz-radio-button nzValue="CARD" class="gs-csm-relationship_card-view"><i nz-icon [nzType]="'id-card'" [nzTheme]="'outline'"></i>{{'360.csm.relationship_view.card'| transloco}}</label>
+        </nz-radio-group>
+      </div>
+      <div class="gs-csm-relationship-view-header__add-rel" *ngIf="actionsPermissionSet.add">
+        <button nz-tooltip [nzTooltipTitle]="'Add Relationship'" nz-button nzType="secondary" (click)="onAction('ADD_REL', $event)">{{'360.csm.relationship_view.add'| transloco}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="gs-csm-relationship-view__body" [ngClass]="{'fullview': !filterView.show}">
+    <ng-template viewHost></ng-template>
+  </div>
+</section>
+
+<!-- Drawer -->
+
+<ng-template #relMiniTitle>
+  <ng-container>
+    <nz-breadcrumb [nzSeparator]=rightIcon class="relationship-breadcrumb">
+        <nz-breadcrumb-item>
+            <a (click)="onCompanyClick()">{{ctx.companyName}}</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a (click)="onDrawerClose()">Relationships</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <span>{{genericDrawer?.title}}</span>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <span class="drawerTitle">{{genericDrawer?.title}}</span>
+</ng-container>
+</ng-template>
+<ng-template #relMainTitle>
+  <ng-container>
+    <h4 nz-title>{{genericDrawer?.title}}</h4>
+  </ng-container>
+</ng-template>
+
+<ng-template #relFormDrawerTemp>
+<div class="gs-csm-relationship-drawer-view">
+  <div class="gs-csm-relationship-drawer-view__body">
+    <div class="gs-csm-relationship__drawer" #relationshipForm>
+    </div>
+  </div>
+  <nz-alert *ngIf="showError" nzType="error" [nzCloseable]="false" [nzMessage]="'360.admin.relationship_form.selectConf' | transloco">
+  </nz-alert>
+  <div class="gs-csm-relationship-drawer-view__footer">
+    <div class="gs-csm-relationship-drawer-view__footer--left">
+      <button class="gs-csm-relationship-drawer-view__footer-btn" nz-button nzType="default" *ngIf="genericDrawer.showReset" (click)="onDrawerAction('RESET')">{{'360.csm.relationship_view.reset'| transloco}}</button>
+    </div>
+    <div class="gs-csm-relationship-drawer-view__footer--right">
+      <button class="gs-csm-relationship-drawer-view__footer-btn" nz-button nzType="default" nzSize="large" (click)="onDrawerAction('CANCEL')">{{'360.csm.relationship_view.cancel'| transloco}}</button>
+      <button class="gs-csm-relationship-drawer-view__footer-btn" nz-button nzType="primary" nzSize="large" (click)="onDrawerAction('SAVE')" [disabled]="disableSave">{{'360.csm.relationship_view.save'| transloco}}</button>
+    </div>
+  </div>
+  </div>
+</ng-template>
+
+<nz-dropdown-menu #sortMenu="nzDropdownMenu">
+  <div fxLayout="column" class="sort-menu">
+    <nz-radio-group [(ngModel)]="sortInfo && sortInfo.sort" (ngModelChange)="onSortChange()" class="sort-menu__radio"  [nzButtonStyle]="'switch'">
+      <label nz-radio-button nzValue="ASC">{{'360.csm.relationship_view.asc'| transloco}}</label>
+      <label nz-radio-button nzValue="DESC">{{'360.csm.relationship_view.des'| transloco}}</label>
+    </nz-radio-group>
+    <nz-divider></nz-divider>
+    <ul class="sort-menu__columns" nz-menu>
+      <li [class.sort-menu__columns__selected]="getIsSorted(column)" (click)="onSortChange(column)" *ngFor="let column of sortInfo?.columns" nz-menu-item>{{column.label}}</li>
+    </ul>
+  </div>
+</nz-dropdown-menu>
+
+<ng-template #rightIcon>
+    <i nz-icon nzType="chevron-right" nzTheme="general" nzSize="24"></i>
+</ng-template>

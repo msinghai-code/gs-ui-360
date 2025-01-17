@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.gs-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  padding-left: 2rem;
+  border-radius: 4px;
+  justify-content: space-between;
+  &__left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    // flex: 1;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 1rem 0;
+    i {
+      font-size: 2rem;
+      margin-right: 1rem;
+      color: #849ab0;
+    }
+    label {
+      padding-left: 1rem;
+    }
+    ::ng-deep {
+      gs-inline-input-editor {
+        width: calc(100% - 2rem);
+        label {
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        &.edit-mode {
+          width: calc(100% - 4rem);
+        }
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    .configure-button {
+      i {
+        margin-right: 0.4rem;
+      }
+    }
+  }
+  
+  &__atc-btn {
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: initial;
+    color: #7596b7;
+    margin: 0.5rem;
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+  &:hover {
+    .gs-icons-draggable-indicator {
+      color: rgb(25, 35, 47);
+      cursor: move;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div gsSpinner [show] = loader [nzSize]="'xl'">
+    <ax-lazy-element #usage_configuration
+        [context]="ctx"
+        [section]="section"
+        (showLoaderIn360) = "showLoader($event.detail)"
+        *axLazyElementDynamic="elementTag, url:url"
+        style="display:block; height:100%; width:100%; overflow:auto;">
+</ax-lazy-element>
+</div>

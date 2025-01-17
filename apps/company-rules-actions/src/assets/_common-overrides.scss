@@ -1,0 +1,138 @@
+.gs-template {
+  &__body {
+    box-shadow: none;
+    margin: 16px;
+  }
+  &__content {
+    overflow: hidden;
+  }
+}
+/* Notification close icon issue */
+.ant-notification-notice-close {
+  position: absolute;
+}
+
+// Override ag-grid css
+
+
+.ag-row {
+  /*background: $color-white;*/
+  box-shadow: inset 0 -1px 0 0 #e2e9f0;
+  /*height:48px !important;*/
+  &.gsp-under-delete-row{
+    pointer-events: none;
+    background: #f6f8fa;
+    opacity: 0.36;
+  }
+}
+.ag-header-cell-label{
+  .ag-header-cell-text{
+    color:#657b9e;
+    font-weight: 500;
+  }
+}
+
+.ag-header-row{
+  height: 38px !important;
+}
+
+.gs-grid-wrapper {
+  .ag-row{
+    border: none;
+    &.ag-cell-focus
+    &.ag-cell-range-selected
+    &.ag-cell-range-single-cell{
+      /*border: 1px solid transparent;*/
+    }
+  }
+  .gsp-inline-edit-enabled{
+    cursor: pointer;
+    background-color: transparent !important;
+  }
+  .ag-row-hover, .ag-row-selected {
+    /*height: 48px !important;*/
+    // background-color: $color-elements-hover-100;
+  }
+  // TODO update to horizon tooltip
+  .ag-theme-material .ag-tooltip{
+    padding: 5px;
+    border-radius: 2px;
+    box-shadow: none;
+    background-color: #E7E2E5;
+    color: #464445;
+    border-color: #C4C4C4;
+  }
+}
+
+.ag-theme-material{
+  .ag-pinned-right-header,
+  .ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell){
+    border-left: none;
+  }
+}
+.gs-grid-container {
+  height: 100%;
+  .ag-cell{
+    color:#3d566f;
+    font-weight: normal;
+    border: none;
+  }
+}
+
+.gs-custom-paginator {
+  box-shadow: none;
+  border-top: 1px solid #d5dee8;
+}
+
+// Ag Grid fixed left & right column
+.ag-pinned-left-cols-container{
+  box-shadow: 2px 0 8px 0 #e2e9f0;
+  z-index: 2;
+}
+.ag-pinned-right-cols-container{
+  box-shadow: -2px 0 8px 0 #e2e9f0;
+  z-index: 2;
+  .ag-row.ag-cell-first-right-pinned{
+    border-left: 1px solid #e3eaf1; 
+  }
+}
+
+
+/* End Here*/
+
+// To remove material overlay ( @import '~@gs/core/assets/gsTheme-h2.scss'; )
+.cdk-overlay-dark-backdrop  {
+  background: none;
+}
+
+//Main tab
+.gsp-main-tab{
+  //Centre horizon tab
+  .ant-tabs-nav-scroll{
+    text-align: center;
+  }
+  & .ant-tabs-bar{
+    margin:0;
+    height:48px;
+    & .ant-tabs-tab{
+      padding: 14px 0;
+      line-height: 20px;
+      &:not(:last-child){
+        margin-right:24px;
+      }
+    }
+  }
+}
+
+.material-icons{
+  color: icon-color(default);
+}
+
+.gs-people-list-advance-filter__popover{
+  display: flex;
+  min-width: 85rem;
+  min-height: 30rem;
+  .ant-popover-inner-content {
+    margin-top: 1rem;
+  }
+}

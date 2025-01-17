@@ -1,0 +1,15 @@
+:host{
+  padding : 2rem;
+  height: calc(100% - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+label{
+  font-size: 1.4rem;
+}
+
+::ng-deep{
+.ant-drawer-title{
+  font-size: 1.8rem !important;
+}
+}

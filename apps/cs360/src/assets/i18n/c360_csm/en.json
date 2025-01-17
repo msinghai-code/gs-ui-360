@@ -1,0 +1,10 @@
+{
+  "c360_csm": {
+    "manage_section": {
+      "title": "ドラッグしてセクションを並べ替えます。最大10個のセクションを固定できます。",
+      "pinned": "Pinned",
+      "unpinned": "Unpinned"
+    }
+  },
+  "_v": "2022.7.12.2"
+}

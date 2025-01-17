@@ -1,0 +1,17 @@
+<div fxLayout="column" fxFill>
+  <form nz-form [formGroup]="widgetForm" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="label"> Widget Name</nz-form-label>
+      <nz-form-control nzErrorTip="Widget name is required">
+        <input autocomplete="off" autofocus nz-input formControlName="label" maxlength="50">
+      </nz-form-control>
+      <!--nz-form-label class="view-measure-label">Measures</nz-form-label>
+      <nz-form-control>
+          <nz-switch formControlName="isViewMeasure"></nz-switch>
+          <span class="swicth-btn-label">View Measures</span>
+      </nz-form-control>
+      <nz-form-label class="view-measure-hint">Turning this on will display upto 5 groups with the highest weight assigned to them</nz-form-label-->
+
+    </nz-form-item>
+  </form>
+</div>

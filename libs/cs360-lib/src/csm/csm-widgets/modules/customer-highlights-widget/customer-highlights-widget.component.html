@@ -1,0 +1,28 @@
+<ax-lazy-element *axLazyElementDynamic="elementTag, url:url; loadingTemplate:loading; errorTemplate: error"
+    [props]="ctx"></ax-lazy-element>
+
+<ng-template #loading>
+    <ng-template [ngTemplateOutlet]="customerHighlightsTitle"></ng-template>
+    <nz-skeleton nzActive='true'></nz-skeleton>
+    <nz-skeleton nzActive='true'></nz-skeleton>
+    <nz-skeleton nzActive='true'></nz-skeleton>
+</ng-template>
+
+<ng-template #error>
+    <ng-template [ngTemplateOutlet]="customerHighlightsTitle"></ng-template>
+    <div class="widget-not-available">
+        <div>There was a problem in loading this widget. Try again or reach out to Gainsight support if the problem
+            persists.</div>
+    </div>
+</ng-template>
+
+<ng-template #customerHighlightsTitle>
+    <div class="gs-customer-highlight-header">
+        <div class="gs-customer-highlight-header__left">
+            <div class="gs-customer-highlight-header__left-wrapper">
+                <h3 class="gs-customer-highlight-header__left__title" ant-typography>AI Cheat Sheet</h3>
+                <i class="gs-customer-highlight-header__left__icon" [nzSize]="20" nz-icon nzType="images:ai_star"></i>
+            </div>
+        </div>
+    </div>
+</ng-template>

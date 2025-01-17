@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="491" height="94" viewBox="0 0 491 94">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g transform="translate(-290.000000, -455.000000) translate(263.000000, 373.000000) translate(30.000000, 85.000000)">
+                        <g stroke-width="5">
+                            <circle cx="44" cy="44" r="44" fill="#FFF" stroke="#E3EAF1"/>
+                            <path stroke="#AFC3D7" stroke-linecap="round" d="M10.467 15.51C3.94 23.188 0 33.135 0 44c0 24.3 19.7 44 44 44s44-19.7 44-44S68.3 0 44 0"/>
+                        </g>
+                        <rect width="25" height="20" x="36" y="33" fill="#E3EAF1" rx="3"/>
+                        <rect width="11" height="8" x="21" y="39" fill="#E3EAF1" rx="3"/>
+                    </g>
+                    <g fill="#E3EAF1" transform="translate(-290.000000, -455.000000) translate(263.000000, 373.000000) translate(30.000000, 85.000000) translate(136.000000, 16.000000)">
+                        <rect width="12" height="56" x="340" rx="3"/>
+                        <rect width="12" height="56" x="320" rx="3"/>
+                        <rect width="12" height="49" x="300" y="7" rx="3"/>
+                        <rect width="12" height="56" x="280" rx="3"/>
+                        <rect width="12" height="56" x="260" rx="3"/>
+                        <rect width="12" height="49" x="240" y="7" rx="3"/>
+                        <rect width="12" height="56" x="220" rx="3"/>
+                        <rect width="12" height="49" x="200" y="7" rx="3"/>
+                        <rect width="12" height="56" x="180" rx="3"/>
+                        <rect width="12" height="49" x="160" y="7" rx="3"/>
+                        <rect width="12" height="56" x="140" rx="3"/>
+                        <rect width="12" height="56" x="120" rx="3"/>
+                        <rect width="12" height="49" x="100" y="7" rx="3"/>
+                        <rect width="12" height="41" x="80" y="15" rx="3"/>
+                        <rect width="12" height="49" x="60" y="7" rx="3"/>
+                        <rect width="12" height="56" x="40" rx="3"/>
+                        <rect width="12" height="49" x="20" y="7" rx="3"/>
+                        <rect width="12" height="56" rx="3"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

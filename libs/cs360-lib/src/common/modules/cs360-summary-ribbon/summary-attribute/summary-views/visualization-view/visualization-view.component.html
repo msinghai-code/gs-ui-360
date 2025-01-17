@@ -1,0 +1,24 @@
+<gs-numeric-score
+        class="gs-summary-attribute-visualization"
+        *ngIf="isHealthScore && attributeConfig.visualization.type === 'bar' || attributeConfig.visualization.type === 'numeric'"
+        [data]="attributeConfig.visualization.values"></gs-numeric-score>    
+
+
+<div *ngIf="attributeConfig.id === 'CX_NPS_SUMMARY' || attributeConfig.id === 'CX_CSAT_SUMMARY'" class="gs-summary-attribute-visualization">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="getChartOptions()">
+
+        </highcharts-chart>
+</div>
+      
+<gs-grade-score
+        class="gs-summary-attribute-visualization"
+        *ngIf="attributeConfig.visualization.type === 'grade'"
+        [data]="attributeConfig.visualization.values"></gs-grade-score>
+<gs-color-score
+        class="gs-summary-attribute-visualization"
+        *ngIf="attributeConfig.visualization.type === 'color'"
+        [data]="attributeConfig.visualization.values"></gs-color-score>
+
+<!-- <gs-number-view *ngIf="attributeConfig.visualization.sum" class="gs-visualization-suffix"
+                [attributeConfig]="attributeConfig.visualization.sum">
+</gs-number-view> -->

@@ -1,0 +1,181 @@
+<nz-spin [nzSpinning]="loading" [nzSize]="'xxl'">
+  <div fxLayout="column" class="add-association" fxFill >
+    <!--{360.admin.multiple_associations_addition.select_obj_association}=Select an Object to associate and map fields below-->
+    <label class="sub-header" nz-text
+      nzType="small">{{'360.admin.multiple_associations_addition.select_obj_association'| transloco}}</label>
+    <div fxFlex="calc(100% - 8.5rem)" class="add-association__body">
+      <div class="basic-info" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxLayoutGap="0.5rem">
+          <!--{360.admin.multiple_associations_addition.rel_types}=Applicable to Relationship Types-->
+          <label class="gs-keygen" nz-text
+            nzType="small">{{'360.admin.multiple_associations_addition.rel_types'| transloco}}</label>
+          <span>{{selectedRelationshipTypesLabels}}</span>
+        </div>
+      </div>
+      <div fxLayout="column" fxLayoutGap="1.8rem" class="association-configuration">
+        <div class="association-configuration__header">
+          <!--{360.admin.multiple_associations_addition.define_association}=Define Association-->
+          <h6 class="gs-keygen" nz-title>{{'360.admin.multiple_associations_addition.define_association'| transloco}}</h6>
+        </div>
+        <nz-collapse>
+          <nz-collapse-panel *ngFor="let objectConfig of objectConfigs" [nzHeader]="objectConfig.objectLabel"
+            [nzActive]="true">
+            <ng-container *ngTemplateOutlet="singleAssociation;context:{associationConfigInfo: objectConfig}">
+            </ng-container>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </div>
+    </div>
+    <div class="add-association__footer" fxLayoutAlign="end center" fxLayoutGap="1.2rem">
+      <!--{360.admin.multiple_associations_addition.cancel}=Cancel-->
+      <!--{360.admin.multiple_associations_addition.save}=Save-->
+      <button class="gs-keygen" nz-button (click)="onCancel()"
+        nzType="default">{{'360.admin.multiple_associations_addition.cancel'| transloco}}</button>
+      <button class="gs-keygen" nz-button (click)="onSave()"
+        nzType="primary">{{'360.admin.multiple_associations_addition.save'| transloco}}</button>
+    </div>
+  </div>
+</nz-spin> 
+
+
+<ng-template #singleAssociation let-associationConfigInfo="associationConfigInfo">
+  <div fxFill class="association-configuration__fields" fxLayout="column" fxLayoutGap="1.6rem">
+    <div class="association-configuration__fields-header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutGap="0.8rem" fxLayoutAlign="start center">
+        <nz-switch [(ngModel)]="associationConfigInfo.advanceAssociationEnabled"
+          (ngModelChange)="onAdvanceAssociationChange(associationConfigInfo)"></nz-switch>
+        <!--{360.admin.multiple_associations_addition.advanced_associations}=Advanced Association-->
+        <span class="gs-keygen">{{'360.admin.multiple_associations_addition.advanced_associations'| transloco}}</span>
+        <!--{360.admin.multiple_associations_addition.advanced_associations_tooltip}=Use advanced association option to associate using an intermediate object-->
+          <i nz-icon nzType="information-filled" nzTheme="general" nzSize="18" nz-tooltip
+             [nzTooltipTitle]="'360.admin.add_association.advanced_association_tooltip'| transloco"></i>
+      </div>
+      <!--{360.admin.multiple_associations_addition.reset_definition}=Reset Definition-->
+      <button nz-button nz-popover [(nzVisible)]="associationConfigInfo.isResetPopupVisible" nzPopoverTrigger="click"
+        (click)="associationConfigInfo.isResetPopupVisible = true;" nzPopoverPlacement="topLeft"
+        [disabled]="associationConfigInfo.allConfigs | disableResetDefinition" [nzPopoverContent]="resetTemplate"
+        nzType="default"
+        class="gs-keygen">{{'360.admin.multiple_associations_addition.reset_definition'| transloco}}</button>
+    </div>
+    <ng-template #resetTemplate>
+      <div fxLayout="column">
+        <!--{360.admin.multiple_associations_addition.sure_association}=Are you sure you want to reset all fields in define association ?-->
+        <label class="gs-keygen">{{'360.admin.multiple_associations_addition.sure_association'| transloco}}</label>
+        <!--{360.admin.multiple_associations_addition.reset}=Reset-->
+        <button class="gs-keygen" fxFlexAlign="center" style="width: 8rem;" nz-button
+          (click)="onReset(associationConfigInfo)"
+          nzType="primary">{{'360.admin.multiple_associations_addition.reset'| transloco}}</button>
+      </div>
+    </ng-template>
+    <ng-container *ngFor="let config of associationConfigInfo.allConfigs; let i=Index">
+      <ng-container
+        *ngTemplateOutlet="objectAndConditions;context:{config: config, associationConfigInfo: associationConfigInfo, selectedObjectInfo: associationConfigInfo.selectedObjectInfo, showTargetDropdown:associationConfigInfo.advanceAssociationEnabled}">
+      </ng-container>
+    </ng-container>
+    <div fxLayout="column" fxLayoutGap="1.5rem" *ngIf="associationConfigInfo.advanceAssociationEnabled">
+      <!--{360.admin.multiple_associations_addition.add_another}=Add another-->
+      <a *ngIf="associationConfigInfo.allConfigs.length < 2" (click)="onAdd(associationConfigInfo)" class="link-info"
+        nz-title nzType="small">
+        <h6 nz-title nzType="small">{{'360.admin.multiple_associations_addition.add_another'| transloco}}</h6>
+      </a>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #objectAndConditions let-config="config" let-associationConfigInfo="associationConfigInfo"
+  let-selectedObjectInfo="selectedObjectInfo" let-showTargetDropdown="showTargetDropdown">
+  <div class="object-row" fxLayoutGap="1.2rem" fxLayout="row">
+    <ng-container *ngTemplateOutlet="disabledInput;context:{value:selectedObjectInfo?.label}"></ng-container>
+    <div class="arrow"><i nz-icon nzType="arrow-right" nzTheme="outline"></i></div>
+    <div *ngIf="showTargetDropdown else relationshipObject" fxFlex fxLayout="column">
+      <!--{360.admin.multiple_associations_addition.select_target_obj}=Select Target Object to Associate-->
+      <label class="gs-keygen" nz-text
+        nzType="small">{{'360.admin.multiple_associations_addition.select_target_obj'| transloco}}</label>
+      <!--{360.admin.multiple_associations_addition.select_target_obj_placeholder}=Select an Object-->
+      <nz-select [nzDropdownMatchSelectWidth]="false"
+        (ngModelChange)="onTargetObjectChange($event, config, associationConfigInfo)" [nzShowSearch]="true"
+        [(ngModel)]="config.targetObjectName"
+        [nzPlaceHolder]="'360.admin.multiple_associations_addition.select_target_obj_placeholder' | transloco">
+        <nz-option
+          *ngFor="let obj of relObjectNames | filterObjectsForMultipleAssoc: associationConfigInfo.allConfigs : config.targetObjectName"
+          [nzValue]="obj.objectName" [nzLabel]="obj.label"></nz-option>
+      </nz-select>
+    </div>
+    <i *ngIf="configs.length > 1" class="config-close" nz-icon nzType="close"
+      (click)="removeConfig(config, associationConfigInfo)" nzTheme="outline"></i>
+    <ng-template #relationshipObject>
+      <ng-container
+        *ngTemplateOutlet="disabledInput;context:{value:'360.admin.associations_addition.relationship_obj'}">
+      </ng-container>
+    </ng-template>
+  </div>
+  <div class="conditions" *ngIf="associationConfigInfo.selectedObjectInfo" fxLayout="column" fxLayoutGap="1.5rem">
+    <div *ngFor="let condition of config.conditions; let i=index">
+      <ng-container
+        *ngTemplateOutlet="conditionRow;context:{associationConfigInfo: associationConfigInfo, condition:condition,leftObjectInfo:selectedObjectInfo,rightObjectInfo:config.targetObjInfo, index: i}">
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #disabledInput let-value="value">
+  <input class="disabled-input" [placeholder]="'360.admin.add_association.objPlaceholder'| transloco" fxFlex
+    [value]="value | transloco" nz-input disabled="true">
+</ng-template>
+
+<ng-template #conditionRow let-condition="condition" let-leftObjectInfo="leftObjectInfo"
+  let-associationConfigInfo="associationConfigInfo" let-rightObjectInfo="rightObjectInfo" let-index="index">
+  <div class="condition-row" fxLayoutGap="0.5rem" fxFill fxLayout="row">
+    <div fxLayout="column">
+      <!--{360.admin.multiple_associations_addition.select_base_obj}=Select Base Object’s Field-->
+      <label class="gs-keygen" *ngIf="index === 0" nz-text
+        nzType="small">{{'360.admin.multiple_associations_addition.select_base_obj' | transloco}}</label>
+      <nz-input-group [(nzVisible)]="condition.showLeftDropdown"
+        (nzClick)="rightObjectInfo && condition.showLeftDropdown = true" [nzSuffix]="suffixIconSearch" nz-dropdown
+        nzTrigger="click" [nzDropdownMenu]="leftMenu" [nzPlacement]="'bottomLeft'">
+        <!--{360.admin.multiple_associations_addition.select_base_obj_placeholder}=Select Value-->
+        <input [placeholder]="'360.admin.multiple_associations_addition.select_base_obj_placeholder' | transloco"
+          focusRemover [value]="condition?.leftOperand?.label || ''" nz-input
+          [disabled]="!rightObjectInfo || !leftObjectInfo">
+      </nz-input-group>
+    </div>
+    <div class="equal">=</div>
+    <div fxLayout="column">
+      <label *ngIf="index === 0" nz-text
+        nzType="small">{{associationConfigInfo.advanceAssociationEnabled ?  targetObj  : relationshipObj }}</label>
+      <nz-input-group [(nzVisible)]="condition.showRightDropdown"
+        (nzClick)="rightObjectInfo && condition.showRightDropdown = true" [nzDisabled]="!condition.leftOperand"
+        [nzSuffix]="suffixIconSearch" nz-dropdown nzTrigger="click" [nzDropdownMenu]="rightMenu"
+        [nzPlacement]="'bottomLeft'">
+        <input [placeholder]="'360.admin.multiple_associations_addition.select_base_obj_placeholder' | transloco"
+          focusRemover nz-input [value]="condition?.filterField?.label || ''"
+          [disabled]="!rightObjectInfo || !leftObjectInfo">
+      </nz-input-group>
+    </div>
+    <div class="condition-row__actions" fxLayout="row">
+      <i nz-icon nzType="add" (click)="addCondition(rightObjectInfo.objectName, associationConfigInfo)"
+        nzTheme="outline"></i>
+      <i nz-icon nzType="close" (click)="removeCondition(rightObjectInfo.objectName, index, associationConfigInfo)"
+        nzTheme="outline"></i>
+    </div>
+  </div>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="down"></i>
+  </ng-template>
+  <nz-dropdown-menu #leftMenu="nzDropdownMenu">
+    <gs-field-tree #treeview class="add-association-field-tree" [root]="treeOptions.root" [host]="leftObjectInfo?.host"
+      [fieldInfo]="condition?.leftOperand" [optimiseFieldPath]="true" [skipFilter]="false"
+      [dragOptions]="treeOptions?.dragOptions" [maxNestLevels]="treeOptions?.maxNestLevels"
+      [fieldSearchSetting]="treeOptions?.fieldSearchSetting" [baseObject]="leftObjectInfo?.objectName"
+      [autoExpandNesting]="true" (changes)="onTreeAction($event, condition, 'leftOperand')">
+    </gs-field-tree>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #rightMenu="nzDropdownMenu">
+    <gs-field-tree #treeview class="add-association-field-tree" [root]="treeOptions.root" [host]="rightObjectInfo?.host"
+      [optimiseFieldPath]="true" [autoExpandNesting]="true" [dragOptions]="treeOptions?.dragOptions"
+      [fieldInfo]="condition?.filterField" [skipFilter]="false" [maxNestLevels]="treeOptions?.maxNestLevels"
+      [fieldSearchSetting]="treeOptions?.fieldSearchSetting" [baseObject]="rightObjectInfo?.objectName"
+      (changes)="onTreeAction($event, condition, 'filterField')">
+    </gs-field-tree>
+  </nz-dropdown-menu>
+</ng-template>

@@ -1,0 +1,52 @@
+/**
+ created by rpal on jun 15 2020
+ */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.gs-relationship-configuration-cntr {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  overflow: auto;
+  background-color: #FFFFFF;
+}
+
+.gs-relationship-configuration-form {
+  width: 80rem;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  &__top {
+    h5 {
+      margin: 1rem 0;
+    }
+    height: 10rem;
+    ::ng-deep {
+      nz-checkbox-group {
+        label {
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+  &__middle {
+    height: 10rem;
+    &--link {
+      margin-top: 1rem;
+    }
+  }
+  &__bottom {
+    flex-grow: 1;
+
+    h5 {
+      margin: 0;
+    }
+    gs-relationship-reports-configuration {
+      margin-top: 1rem;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+
+.section-upsert {
+  height: 100%;
+
+  &__cntr{
+    ::ng-deep{
+      .ant-modal-close{
+        right: $space-xlarge;
+      }
+      .ant-modal-title{
+        padding: $space-large $space-xlarge 0px $space-xlarge;
+      }
+      .ant-modal-header{
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid $rich-gray-40;
+      }
+    }
+  }
+  &__title {
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.9rem;
+    font-size: 1.6rem;
+    text-overflow: ellipsis;
+    width: 30%;
+    font-size: 18px;
+  }
+  &__steps {
+    &-wrapper {
+      margin-left: 20%;
+      transform: translateX(-50%);
+    }
+    ::ng-deep {
+      .ant-steps {
+        //width: 40rem;
+      }
+    }
+  }
+  &__step-content {
+    height: 100%;
+  }
+}

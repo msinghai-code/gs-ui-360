@@ -1,0 +1,154 @@
+@import "~@gs/design-tokens/scss/colors";
+@import "~@gs/design-tokens/scss/spacings";
+@import "~@gs/design-tokens/scss/icon-colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.back-arrow {
+  color: #7596b7;
+  font-size: 24px;
+  cursor: pointer;
+  padding-left: $space-xlarge;
+  padding-right: $space-xlarge;
+}
+
+.gs-cs360-header-mini {
+  padding-left: 20px; // value is 32px but 12px is already present somewhere above
+  padding-top: $space-xlarge;
+  padding-bottom: $space-large;
+  .company-name {
+    cursor: pointer;
+  }
+  .new-window {
+    color: $icon-color-normal;
+    &:hover {
+      color: $royal-blue-70;
+    }
+  }
+}
+
+.gs-cs360-header {
+  padding: 0.9rem 1.5rem 0.2rem 2.2rem;
+  &.r360 {
+    align-items: flex-start !important;
+    .gs-cs360-header__item__1 {
+      align-items: flex-start !important;
+    }
+  }
+  &__item {
+    gap: $space-base;
+    &__1 {
+      h4 {
+        margin-bottom: 0 !important;
+      }
+      .hierarchy-icon {
+        i {
+          color: $rich-gray-60;
+          cursor: pointer;
+        }
+      }
+      .sub-label {
+        color: $rich-gray-90 !important;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    &__2 {
+      .gs-logo {
+        background: url("../../../assets/images/logo.png") no-repeat center;
+        background-size: contain;
+        height: 3rem;
+        width: 10.2rem;
+      }
+    }
+  }
+  &__share-menu {
+    margin-left: 0.7rem;
+  }
+}
+
+.status-tag {
+  height: 1.8rem;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem 0.4rem;
+  border-radius: 0.9rem;
+  &.active {
+    background-color: $fresh-green-20;
+    color: $fresh-green-80;
+  }
+  &.inactive {
+    background-color: $rich-gray-50;
+    color: $rich-gray-70;
+  }
+  &.churn {
+    background-color: $tart-red-20;
+    color: $tart-red-60;
+  }
+}
+
+.relationship-selector {
+  nz-select {
+    min-width: 32rem;
+
+    .relationship-selector__group-options--label {
+      margin-right: 1rem;
+    }
+  }
+  &__group-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+  }
+}
+
+.create-menu-dropdown{
+  list-style-type: none !important ;
+  width: 220px;
+  padding-bottom: 10px;
+}
+
+.create-btn{
+  padding: 0.8rem 0.6rem 0.8rem 1.4rem !important;
+  display: flex ;
+  align-items:center ;
+}
+
+::ng-deep {
+  .relationship-selector-dropdown {
+    .ant-select-dropdown-menu-item-selected {
+      .relationship-selector__group-options--label {
+        color: $royal-blue-70;
+      }
+    }
+  }
+}
+
+.new-window {
+  // vertical-align: middle !important;
+  //padding-top: 10px;
+}
+.company-name-link {
+  display: inline;
+  color: $royal-blue-70;
+}
+
+.mini360-title {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  max-width: 480px; // since drawer size is fixed to 840px
+  overflow: hidden;
+  &:hover {
+    > .new-window {
+      color: $royal-blue-70;
+    }
+  }
+}

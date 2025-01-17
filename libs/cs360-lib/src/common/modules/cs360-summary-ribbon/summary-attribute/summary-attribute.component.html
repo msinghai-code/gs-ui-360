@@ -1,0 +1,43 @@
+<div [ngClass]="{'pie-chart-content': (pieChart && !isCtxEmpty), 'bar-chart-content': !pieChart}" class="gs-summary-attribute">
+  <span *ngIf="attributeConfig.data.id === 'Distribution by Health'" class= "title" [nzTooltipTitle]="toolTip" nz-tooltip nzTooltipPlacement="topLeft"
+       [innerText]= "(attributeConfig.data?.label || attributeConfig.name || attributeConfig.displayName)">
+</span>
+  <div [ngClass]="{'left-content': pieChart}">
+    <!--{360.admin.summary_attribute.tooltip}=The health distribution is currently not supported if Scorecards have multiple schemes for the selected companies.-->
+     <!--{360.admin.summary_attribute.multiple_schemes_found}=  Multiple Schemes found-->
+    <div class="attribute-warning" *ngIf="attributeConfig.data?.properties?.multipleScheme" nz-tooltip nzTooltipPlacement="bottom"
+         [nzTooltipTitle]="'360.admin.summary_attribute.tooltip' | transloco">
+         {{'360.admin.summary_attribute.multiple_schemes_found' | transloco}}
+      <i nz-icon nzType="warning" nzTheme="fill" class="content__warning-icon"></i>
+    </div>
+    <span *ngIf="attributeConfig.data.id !== 'Distribution by Health' && !pieChart" class= "title" [nzTooltipTitle]="toolTip" nz-tooltip nzTooltipPlacement="topLeft"
+    [innerText]= "(attributeConfig.data?.label || attributeConfig.name || attributeConfig.displayName)">
+</span>
+    <div class="attribute-message" nzTooltipTitle="{{attributeConfig.data?.message || attributeConfig.data?.errorDesc}}" *ngIf="!!attributeConfig.data?.message || !!attributeConfig.data?.errorDesc"
+         nz-tooltip nzTooltipPlacement="topLeft">
+      {{attributeConfig.data?.message || attributeConfig.data?.errorDesc}}
+    </div>
+      <gs-visualization-attribute-view *ngIf="attributeConfig.data && attributeConfig.data.visualization"
+                                       [attributeConfig]="attributeConfig.data"
+                                       (changes)="changes.emit($event)">
+      </gs-visualization-attribute-view>
+  </div>
+
+  <div [ngClass]="{'right-content': (pieChart && !isCtxEmpty && ctx?.appVariant!=='MINI_360')}">
+    <span *ngIf="attributeConfig.data.id !== 'Distribution by Health' && pieChart" class= "title" [nzTooltipTitle]="toolTip" nz-tooltip nzTooltipPlacement="topLeft"
+       [innerText]= "(attributeConfig.data?.label || attributeConfig.name || attributeConfig.displayName)">
+  </span>
+  <div *ngIf="!attributeConfig.data?.message || !attributeConfig.data?.errorDesc">
+    <gs-number-view *ngIf="attributeConfig.data && (attributeConfig.data.value !=undefined || attributeConfig.data.finalValue !=undefined)"
+                      [attributeConfig]="attributeConfig.data"
+                      (changes)="changes.emit($event)">
+      </gs-number-view>
+    </div>
+  </div>
+
+  <ng-template #toolTip>
+    <span
+      [innerText]= "(attributeConfig.data?.label || attributeConfig.name || attributeConfig.displayName)">
+    </span>
+  </ng-template>
+</div>

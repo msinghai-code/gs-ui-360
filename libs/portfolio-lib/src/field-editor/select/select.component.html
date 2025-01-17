@@ -1,0 +1,29 @@
+<nz-select nzShowSearch [(ngModel)]="selectedValue" [nzOpen]="expandSelect" [nzDisabled]="dropdownDisabled"
+  [nzAllowClear]="allowClear" [nzPlaceHolder]="placeHolder" [nzDropdownClassName]="'gs-fb-select__dropdown'"
+  *ngIf="isSingle" [nzShowArrow]="showArrow" (nzOpenChange)="onOpenChange($event)" (ngModelChange)="onChange($event)"
+  class="gs-fb-select">
+  <nz-option [nzLabel]="option.label" nzCustomContent [nzValue]="option.value" [nzDisabled]="!option.active"
+    *ngFor="let option of options">
+    <div class="gs-option">
+      <div class="gs-option__color-circle" *ngIf="showColor" [ngStyle]="{'background-color':option.color}"></div>
+      <span class="gs-option__text" nz-tooltip [nzTooltipTitle]="option.label" nzTooltipPlacement="bottomLeft">{{ option.label | transloco  }}</span>
+    </div>
+  </nz-option>
+</nz-select>
+<nz-select nzShowSearch [(ngModel)]="selectedValue" [nzDropdownClassName]="'gs-fb-select__dropdown'" *ngIf="!isSingle"
+  nzMode="multiple" [nzShowArrow]="showArrow" [nzOpen]="expandSelect" [nzDisabled]="dropdownDisabled"
+  (nzOpenChange)="onOpenChange($event)" [nzMaxTagCount]="1" [nzMaxTagPlaceholder]="tagPlaceHolder"
+  (ngModelChange)="onChange($event)" class="gs-fb-select">
+  <nz-option nz-tooltip [nzTooltipTitle]="option.label" nzTooltipPlacement="bottomLeft" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="!option.active"
+    *ngFor="let option of options">
+  </nz-option>
+</nz-select>
+<ng-template #selectedTmpl let-selected>
+</ng-template>
+<ng-template #tagPlaceHolder let-selectedList> {{'360.admin.select.and'| transloco}} {{ selectedList.length }}
+  {{'360.admin.select.moreSelected'| transloco}} </ng-template>
+
+<!--
+  TODO : Need to add NzOpen. It's failing with 8.5.2
+  CHECK : https://github.com/NG-ZORRO/ng-zorro-antd/issues/5000
+-->

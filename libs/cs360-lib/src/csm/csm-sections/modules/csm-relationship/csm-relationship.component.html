@@ -1,0 +1,8 @@
+<section class="gs-csm-relationship"  [ngClass]="{'gs-csm-relationship-main360': !isMini360}">
+  <div *ngIf="!isMini360 && allRelTypes" class="gs-csm-relationship__left">
+    <gs-relationship-filters *ngIf="allRelTypes?.length > 0" [section]="section" [relTypes]="allRelTypes" (action)="onAction($event)"></gs-relationship-filters>
+  </div>
+  <div *ngIf="allRelTypes" [ngClass]="{'gs-csm-relationship__right-mini360': isMini360, 'gs-csm-relationship__right': !isMini360}">
+    <gs-relationship-view  *ngIf="allRelTypes?.length > 0" [section]="section" [config]="config" [relTypes]="allRelTypes" (action)="onAction($event)"></gs-relationship-view>
+  </div>
+</section>

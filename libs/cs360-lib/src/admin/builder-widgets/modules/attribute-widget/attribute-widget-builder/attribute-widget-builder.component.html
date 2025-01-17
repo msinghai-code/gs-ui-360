@@ -1,0 +1,59 @@
+<div class="gridster-defaults-builder" fxFill>
+  <gridster [options]="options" #gridster>
+    <ng-container *ngIf="widgetItem?.config?.length; else empty">
+   
+      <gridster-item *ngFor="let field of flattenConfig(widgetItem?.config); trackBy: trackField" [item]="field" [class.detach-preview]="isDetachPreview">
+        <div class="field-item" fxLayout="row">
+          <div *ngIf="!isDetachPreview else detachSection" class="widget-header" fxLayoutGap=".5rem" fxLayoutAlign="left center">
+            <i nz-icon nzType="drag" nzSize="20" nzTheme="outline"></i>
+            <div (click)="onLabelClick(field)" (mousedown)="$event.stopPropagation()" class="widget-header-title-wrapper">
+              <div *ngIf="!field.showLabelInput else showLabelInput" class="widget-header-title" nz-tooltip [nzTooltipTitle]="tooltipTitleContent">
+                {{field.label}}
+              </div>
+              <ng-template #tooltipTitleContent>
+                <span *ngIf="ctx.associatedObjects">{{ '360.csm.objectLabels_' + field.baseObjectName | transloco }} - </span>
+                {{ field | fieldPathPipe }}
+              </ng-template>
+              <ng-template #showLabelInput>
+                <input autofocus nz-input [maxlength]="fieldNameLimit" (blur)="saveInput(field)" (keydown.enter)="saveInput(field)" (keydown.esc)="resetInput(field)" [(ngModel)]="field.tempLabel">
+              </ng-template>
+            </div>
+          </div>
+
+          <ng-template #detachSection>
+            <div class="widget-header" fxLayoutGap=".5rem" fxLayoutAlign="left center">
+              <div class="widget-header-title-wrapper">
+                {{field.label}}
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="field-item__settings gridster-item-content" fxLayout="row"
+            fxLayoutAlign="end center" *ngIf="!isDetachPreview">
+            <i nz-icon nzType="settings" (click)="onFieldSettingsClick(field)" *ngIf="widgetCategories && (field.configurable !== false || field.configurable === undefined)"></i>
+            <i *ngIf="field.removable !== false || field.removable === undefined" (click)="onFieldDelete(field)" nz-icon nzType="close"></i>
+          </div>
+        </div>
+      </gridster-item>
+    </ng-container>
+  </gridster>
+</div>
+<ng-template #empty>
+  <div class="section-configuration-wrapper__empty cols-{{widgetItem.cols}} rows-{{widgetItem.rows}}">
+    <div class="light-grey-bg-full">
+      <!--{360.admin.attribute_widget_builder.Configure}= Configure-->
+      <button nz-button nzType="primary" nzSize="small" (click)="onConfigureClick()" *ngIf="widgetCategories">
+        <i nz-icon nzType="settings" [nzSize]="14"></i>
+        {{'360.admin.attribute_widget_builder.Configure' | transloco}}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<nz-drawer nzWrapClassName="field-config-wrapper" [nzClosable]="true" [nzVisible]="openFieldSettingsDrawer" nzPlacement="right"
+  [nzBodyStyle]="{height: 'calc(100% - 4.4rem)', 'padding-bottom': '0'}" [nzWidth]="588"
+  [nzTitle]="widgetName" (nzOnClose)="closeFieldSettingsDrawer()" [nzMask]="true">
+  <gs-field-configuration *ngIf="openFieldSettingsDrawer" [field]="selectedField"
+    [fieldConfigOptions]="fieldConfigOptions" (fieldConfigAction)="onFieldConfigured($event)" [rootNode]="rootNode">
+  </gs-field-configuration>
+</nz-drawer>

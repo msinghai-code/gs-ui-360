@@ -1,0 +1,17 @@
+<button nz-button nzShape="circle" nzType="default" nz-popover nzOverlayClassName="gs-add-column__popover"
+    [nzPopoverTitle]="'360.csm.column_chooser.popoverTitle'| transloco" [nzPopoverContent]="contentTemplate"
+    nzPopoverPlacement="bottomRight" nzPopoverTrigger="click" [(nzVisible)]="columnChooserVisible"
+    class="gs-add-column">
+    <i nz-icon nzType="add" nzTheme="outline"></i>
+</button>
+<ng-template #contentTemplate>
+    <gs-column-picker #columnPicker [fieldFilterFunction]="fieldFilterFunction.bind(this)"
+        [cockpitColumnPickerOptions]="config">
+    </gs-column-picker>
+    <div class="gs-add-column__footer">
+        <button nz-button nzType="default" nzShape="round" (click)="onClose()">{{'360.csm.bulk_edit_modal.cancelBtn'|
+            transloco}}</button>
+        <button nz-button nzType="primary" nzShape="round" (click)="onSave()">{{'360.csm.bulk_edit_modal.applyBtn'|
+            transloco}}</button>
+    </div>
+</ng-template>

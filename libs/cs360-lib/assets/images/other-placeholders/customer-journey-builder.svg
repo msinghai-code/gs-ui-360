@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1136" height="104" viewBox="0 0 1136 104">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g transform="translate(-103.000000, -368.000000) translate(103.000000, 296.000000) translate(0.000000, 72.000000)">
+                    <path fill="#E3EAF1" d="M0 72h381c4.418 0 8 3.582 8 8s-3.582 8-8 8H0V72zM401 72h735v16H401c-4.418 0-8-3.582-8-8s3.582-8 8-8z"/>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V72H0z" transform="translate(64.000000, 0.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(64.000000, 0.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(64.000000, 0.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V72H0z" transform="translate(413.000000, 0.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(413.000000, 0.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(413.000000, 0.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V72H0z" transform="translate(602.000000, 0.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(602.000000, 0.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(602.000000, 0.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V40H0z" transform="translate(147.000000, 32.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(147.000000, 32.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(147.000000, 32.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V40H0z" transform="translate(413.000000, 36.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(413.000000, 36.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(413.000000, 36.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V40H0z" transform="translate(652.000000, 32.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(652.000000, 32.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(652.000000, 32.000000)"/>
+                    </g>
+                    <g>
+                        <path fill="#E3EAF1" d="M0 0H1V40H0z" transform="translate(901.000000, 32.000000)"/>
+                        <path fill="#E3EAF1" fill-opacity=".5" d="M0 0h117c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H0V0z" transform="translate(901.000000, 32.000000)"/>
+                        <path fill="#AFC3D7" d="M0 0H4V24H0z" transform="translate(901.000000, 32.000000)"/>
+                    </g>
+                    <rect width="32" height="8" x="1065" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="1001" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="937" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="873" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="809" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="745" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="681" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="617" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="553" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="489" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="425" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="361" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="297" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="233" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="169" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="105" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                    <rect width="32" height="8" x="41" y="96" fill="#E3EAF1" fill-opacity=".3" rx="1"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,32 @@
+<section class="gs-relationship-configuration-cntr" gsSpinner [nzSize]="'xl'" [show]="loader">
+  <div class="gs-relationship-configuration-form">
+    <div class="gs-relationship-configuration-form__top">
+      <h5 nz-title class="gs-keygen">{{'360.admin.relationship_config.user_permissions' | transloco}}</h5>
+      <nz-checkbox-group *ngIf="!loader else settingsLoader" [(ngModel)]="relationshipConfig.settings"
+        (ngModelChange)="configChanged()"></nz-checkbox-group>
+    </div>
+    <nz-divider></nz-divider>
+    <div class="gs-relationship-configuration-form__middle">
+      <h5 nz-title>{{'360.admin.relationship_config.types_of_config' | transloco}}</h5>
+      <span nz-text innerHtml="{{'360.admin.relationship_config.customization_message' | transloco}}"></span>
+      <div class="gs-relationship-configuration-form__middle--link">
+        <a href="javascript:void(0);"
+          (click)="navigateToConfiguration($event)">{{'360.admin.relationship_config.goto_rel_section_views' |
+          transloco}}<b class="gs-keygen">{{'360.admin.relationship_config.rel_section_views' | transloco}}</b></a>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <div class="gs-relationship-configuration-form__bottom">
+      <h5 nz-title class="gs-keygen">{{'360.admin.relationship_config.rel_reports' | transloco}}</h5>
+      <span nz-text nzType="small" nzColor="secondary">
+        {{'360.admin.relationship_config.rel_optional_message' | transloco}}
+      </span>
+      <gs-relationship-reports-configuration *ngIf="!loader" [config]="relationshipConfig?.reportConfig"
+        (action)="configChanged()">
+      </gs-relationship-reports-configuration>
+    </div>
+  </div>
+</section>
+<ng-template #settingsLoader>
+  <nz-skeleton [nzActive]="true" [nzParagraph]="{rows: 2}"></nz-skeleton>
+</ng-template>

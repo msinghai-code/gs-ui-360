@@ -1,0 +1,41 @@
+<section class="gs-csm-relationship-form">
+    <nz-alert *ngIf="showBanner"  nzType="warning" [nzCloseable]="false" [nzMessage]=" 'Permission Needed'" nzDescription="You do not have the required permission to edit the mandatory field {{mandatoryFields.join(',')}}. Please reach out to your Gainsight Administrator to request access.">
+    </nz-alert>
+  <div class="gs-csm-relationship-form__relationship-types-dd">
+    	<label class="gs-rel-type-label" nz-text nzType="small">Relationship Type</label>
+    <nz-select nzShowSearch
+               nzAllowClear
+               [nzPlaceHolder]="'360.admin.relationship_form.selectRelType'| transloco"
+               [(ngModel)]="relationshipTypeSelect.selectedValue"
+               [nzDisabled]="relationshipTypeSelect.disabled"
+               (ngModelChange)="onTypeChange($event)">
+      <<nz-option *ngFor="let option of relationshipTypeSelect.options" nzLabel="{{option?.Name}}" nzValue="{{option?.Gsid}}"></nz-option>
+    </nz-select>
+  </div>
+  <div class="gs-csm-relationship-form__relationship-types-fields">
+    <ng-container *ngIf="!formLoader else loader">
+      <ng-container *ngIf="iFields.length else empty">
+        <gs-relationship-field-editor
+                *ngIf="iFields.length"
+                [fields]="iFields"
+                [data]="data"
+                [editable]="true"
+                [showLabel]="true"
+                [defaultOpenPopups]="false"
+        ></gs-relationship-field-editor>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>
+<ng-template #loader>
+  <nz-skeleton [nzActive]="true"></nz-skeleton>
+</ng-template>
+<ng-template #empty>
+  <div class="gs-csm-relationship-form__empty">
+    <nz-empty [nzNotFoundContent]="contentTpl">
+      <ng-template #contentTpl>
+        {{formMessage}}
+      </ng-template>
+    </nz-empty>
+  </div>
+</ng-template>

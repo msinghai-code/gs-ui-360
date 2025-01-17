@@ -1,0 +1,69 @@
+@import "~@gs/design-tokens/scss/colors";
+//@import "~@gs/ng-horizon/style/scss/_horizon_variables";
+
+:host {
+    height: 100%;
+    ::ng-deep {
+        .gs-tree-node__body.gs-tree-node__body {
+            width: auto !important;
+        }
+    }
+}
+
+::ng-deep {
+    .gs-tree-node { 
+        &__body {
+            min-width: unset !important;
+            max-width: unset !important;
+        }
+        &__field-path {
+            min-width: unset !important;
+            max-width: unset !important;
+        }
+    }
+    .gs-source-icon-enabled{
+        height: 100%;
+    }
+    .gs-tree-node__search-wrapper{
+        padding: 1rem;
+        border-bottom: 1px solid #E3EAF1;
+    }
+    .gs-section-config-drawer {
+        &.company-hierarchy {
+            .gs-section-config-drawer__header__title {
+                padding-bottom: 1.3rem;
+            }
+            .ant-drawer-header {
+              padding-bottom: 0 !important;
+            }
+            .ant-tabs-bar {
+                margin: 0;
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.global-view {
+    ::ng-deep {
+        .ant-tabs-nav-scroll {
+            display: flex;
+        }
+        .ant-tabs-nav {
+            margin: 0 auto;
+        }
+        .ant-tabs-bar {
+            margin: 1rem 0 0 0;
+            padding-left: 1.6rem;
+        }
+        .ant-tabs-content {
+            height: calc(100% - 45px);
+        }
+    }
+}
+
+::ng-deep{
+    .ant-modal-title{
+        padding-bottom: 0 !important;
+    }
+}
